@@ -1,0 +1,92 @@
+{{ define "main" }}
+
+    <!-- <h1>{{ .Title }}</h1> -->
+     
+     <section class="article-list" style="gap: 10px">
+     {{ range $section := where .Site.Sections "Type" "not in" ("pages") }}
+<!--         <h3>
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+        </h3>
+ -->
+        <!-- <div class="section-card"> -->
+            <!-- <div class="section-details"> -->
+                <!-- <h3 class="section-count">{{ T "list.page" (len .Pages) }}</h3> -->
+                <h2 class="section-term">
+                    <a href="{{ .Permalink }}">{{ .Title }}</a>
+                </h2>
+                {{ with .Params.description }}
+                    <h2 class="section-description">{{ . }}</h2>
+                {{ end }}
+
+            <!-- </div> -->
+        <!-- </div> -->
+
+        <!-- <ul style="margin: 0; "> -->
+
+        {{ range $i, $p := $section.Pages }}
+
+
+            {{ if eq $i 0}}
+            {{ partial "article-list/default" . }}
+            {{end}}
+
+        {{ end }}
+
+        {{if (gt ($section.Pages) 1)}}
+
+
+            <!-- </ul> -->
+            <div class="section-card">
+                <div class="section-details">
+                <h3 style="margin: 0;">More posts in <a href="{{ $section.Permalink }}">{{$section.Title}}</a></h3>
+
+
+
+            {{ range $i, $p := $section.Pages }}
+
+                    {{if (and (gt $i 0) (lt $i 4))}}
+
+                    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+                    <!-- {{ .Summary }} -->
+
+                    {{end}}
+
+            {{ end }}
+
+            {{if (ge ($section.Pages) 3)}}
+                <a href="{{ .Permalink }}">See all</a>
+            {{end}}
+
+            </div>
+        </div>
+
+        {{end}}
+
+
+
+
+
+     {{ end }}
+     </section>
+
+
+
+<!--     {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+    {{ $notHidden := where .Site.RegularPages "Params.hidden" "!=" true }}
+    {{ $filtered := ($pages | intersect $notHidden) }}
+    {{ $pag := .Paginate ($filtered) }}
+
+    <section class="article-list">
+        {{ range $index, $element := $pag.Pages }}
+            {{ partial "article-list/default" . }}
+        {{ end }}
+    </section>
+    {{- partial "pagination.html" . -}}
+ -->
+
+    {{- partial "footer/footer" . -}}
+{{ end }}
+
+{{ define "right-sidebar" }}
+    {{ partial "sidebar/right.html" (dict "Context" . "Scope" "homepage") }}
+{{ end }}
