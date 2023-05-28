@@ -1,0 +1,19 @@
+/* Default article style */
+.article-list {
+    article {
+        .article-image {
+            float: right;
+            width: 200px;
+            height: 150px;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+    }
+}
+
+
+
