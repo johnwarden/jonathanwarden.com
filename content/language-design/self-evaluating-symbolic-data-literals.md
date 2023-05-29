@@ -4,7 +4,6 @@ slug: self-evaluating-data-in-lisp
 image: /assets/images/2013-09-27-bcfd3b8.png
 alias: http://jonathanwarden.com/2016/03/31/self-evaluating-symbolic-data-literals/
 date: TODO
-tags: ["language-design"]
 ---
 
 
