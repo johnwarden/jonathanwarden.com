@@ -1,4 +1,4 @@
-baseurl: https://jonathanwarden.com
+baseurl: https://jonathanwarden.com/
 languageCode: en-us
 theme: hugo-theme-stack
 # theme: luizdepra/hugo-coder
@@ -63,8 +63,6 @@ params:
         # logo:
         #     enabled: true
         #     local: true
-            # src: /deliberatiassets/images/deliberati-logo-long-120.png
-            # src: img/deliberati-logo-long-120.png
 
     article:
         math: true
