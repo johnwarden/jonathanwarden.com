@@ -6,6 +6,8 @@ alias: http://jonathanwarden.com/2015/06/11/effects-without-side-effects/
 date: "2015-06-11T20:32:00-05:00"
 series: ["Procedures in a Pure Language"]
 weight: 30
+aliases:
+- /2015/06/11/effects-without-side-effects/
 ---
 
 In my post on <a href="http://jonathanwarden.com/2015/05/28/procedures-in-a-pure-language/">Procedures in a Pure Language - Part 1</a>, I discuss how even pure functional languages can be used to create procedures that have effects, and how that is how things should be.

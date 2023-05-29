@@ -6,7 +6,8 @@ alias: http://jonathanwarden.com/2017/10/17/programming-the-hive-mind/
 date: 2017-10-17T00:29:00-07:00
 image: assets/images/hivemind.png
 tags: ["Social Epistemology"]
-
+aliases:
+- /2017/10/17/programming-the-hive-mind/
 ---
 
 <h1>Components of Belief</h1>

@@ -33,12 +33,14 @@ taxonomies:
   series: series
 
 permalinks:
-    post: /:slug/
+    philosophy: /:slug/
+    travel: /:slug/
+    language-design: /:slug/
+    social-protocols: /:slug/
     # page: /:slug/
 
 params:
     mainSections:
-        - travel
         - philosophy
         - social-protocols
         - travel

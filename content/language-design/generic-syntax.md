@@ -4,6 +4,8 @@ slug: "generic-syntax"
 image: assets/images/generic-syntax5.png
 alias: http://jonathanwarden.com/2013/06/28/generic-syntax/
 date: "2013-06-28T21:50:00-05:00"
+aliases:
+- /2013/06/28/generic-syntax/
 ---
 Is it really necessary to invent a new syntax, complete with a new grammar and parser, for every new programming language?  Is there a generic syntax that can conveniently express the semantics of many languages?  Since all languages, whatever the syntax, are eventually parsed into an abstract syntax tree, couldn't we just use a general language for expressing abstract syntax trees?
 <h1>XML and LISP</h1>

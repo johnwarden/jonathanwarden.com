@@ -7,6 +7,9 @@ alias: http://jonathanwarden.com/2015/05/31/procedures-in-a-pure-language-part-2
 series: ["Procedures in a Pure Language"]
 date: 2015-05-31T01:22:00-05:00
 weight: 33
+aliases:
+- /2015/05/31/procedures-in-a-pure-language-part-2/
+
 ---
 
 In my last post on <a href="http://jonathanwarden.com/2015/05/28/procedures-in-a-pure-language/">Procedures in a Pure Language</a>, I discussed how even a "purely functional" programming language such as Haskell actually allows you to create procedures that have side effects, and how that is the way things should be.

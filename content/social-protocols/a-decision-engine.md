@@ -4,6 +4,8 @@ slug: "a-decision-engine"
 image: assets/images/delphi.png
 alias: http://jonathanwarden.com/2013/06/20/a-decision-engine/
 date: "2013-06-20T22:05:00-05:00"
+aliases:
+- /2013/06/20/a-decision-engine/
 # draft: true
 ---
 

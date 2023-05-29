@@ -5,7 +5,8 @@ alias: http://jonathanwarden.com/2017/10/21/nuance-in-political-debate/
 image: assets/images/lat_redblue082116_17785443_8col.jpg
 date: "2017-10-21T23:27:00-05:00"
 tags: [Social Epistemology"]
-
+aliases:
+- /2017/10/21/nuance-in-political-debate/
 ---
 
 In public political debate today, there seems to be little capacity for nuance.

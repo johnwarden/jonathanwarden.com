@@ -5,6 +5,8 @@ image: assets/images/photo-1584461800203-e8b0a2fd55ca.jpeg
 alias: http://jonathanwarden.com/2020/03/20/truth-in-the-time-of-coronavirus/
 date: "2020-03-20T18:43:00-07:00"
 tags: ["Social Epistemology"]
+aliases:
+- /2020/03/20/truth-in-the-time-of-coronavirus/
 ---
 
 Many of us struggle to <strong>separate the information from the misinformation on social media</strong>, especially in the past weeks and months as we seek <strong>facts regarding COVID-19</strong>. The platforms themselves do not help much. It seems increasingly clear that the algorithms used to determine which posts and tweets show up at the top of your feed, having been optimized for engagement, <strong>are inadvertently optimized for misinformation.</strong>

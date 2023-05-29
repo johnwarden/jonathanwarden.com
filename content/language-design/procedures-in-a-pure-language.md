@@ -7,7 +7,8 @@ alias: http://jonathanwarden.com/2015/05/28/procedures-in-a-pure-language/
 date: "2015-05-28T00:15:00-05:00"
 series: ["Procedures in a Pure Language"]
 weight: 32
-
+aliases:
+- /2015/05/28/procedures-in-a-pure-language/
 ---
 The fact that you can write procedures, which produce side-effects, in Haskell, which is supposed to be a pure language, can be confusing.
 

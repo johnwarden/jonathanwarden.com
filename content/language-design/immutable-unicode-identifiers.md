@@ -5,6 +5,9 @@ image: assets/images/immutability_ancient_aliens.jpg
 alias: http://jonathanwarden.com/2016/08/18/immutable-unicode-identifiers/
 date: "2016-08-18T12:05:00-05:00"
 series: ["Unicode Identifiers"]
+aliases:
+- /2016/08/18/immutable-unicode-identifiers/
+draft: true
 ---
 
 In a previous post I introduced the Unicode Consortium's Identifier Spec (<a href="http://unicode.org/reports/tr31">TR 31</a>) and Security Spec (<a href="http://unicode.org/reports/tr39">TR 39</a>), and explain my own recommendations for implementing <strong>Unicode Identifiers</strong> in conformance with the Unicode recommendations, which is to use a fixed whitelist of allowed identifier characters.

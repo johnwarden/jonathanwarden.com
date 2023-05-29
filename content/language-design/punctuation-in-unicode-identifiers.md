@@ -5,6 +5,9 @@ image: assets/images/preview.png
 alias: http://jonathanwarden.com/2016/08/12/802/
 date: "2016-08-12T13:25:00-05:00"
 series: ["Unicode Identifiers"]
+aliases:
+- /2016/08/12/802/
+draft: true
 
 ---
 

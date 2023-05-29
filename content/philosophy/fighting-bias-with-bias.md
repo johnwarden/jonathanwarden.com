@@ -5,6 +5,9 @@ image: assets/images/marc-sendra-martorell-2BrdNFxW0UY-unsplash-e1589303879348.j
 alias: http://jonathanwarden.com/2020/05/12/fighting-bias-with-bias/
 date:  2020-05-12
 tags: ["Social Epistemology"]
+aliases:
+- /2020/05/12/fighting-bias-with-bias/
+
 ---
 
 The other day a friend of mine watched an online documentary about the wet markets in Wuhan, and decided not to share it with others. She thought it might contribute to racism against Chinese people, because it suggested that their cultural practices were to blame for COVID-19. Although the documentary seemed objective, she said, why share something that can do no good but might cause harm?

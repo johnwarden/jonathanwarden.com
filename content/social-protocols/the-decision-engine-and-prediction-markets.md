@@ -4,7 +4,8 @@ slug: "the-decision-engine-and-prediction-markets"
 image: assets/images/Pres12_WTA.png
 alias: http://jonathanwarden.com/2013/08/16/the-decision-engine-and-prediction-markets/
 date: "2013-08-16T21:41:00-07:00"
-draft: true
+aliases:
+- /2013/08/16/the-decision-engine-and-prediction-markets/
 ---
 
 Today I have been thinking about Prediction Markets, and thought I would share some thoughts on how the Decision Engine could be designed to behave very much like a Prediction Market.

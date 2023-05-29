@@ -6,6 +6,8 @@ image: assets/images/pro-vs-anti-biotics1.jpg
 date: "2016-10-23T20:00:00-05:00"
 tags: [Social Epistemology"]
 weight: 1
+aliases:
+- /2016/10/23/pro-vs-anti/
 ---
 
 

@@ -5,6 +5,9 @@ image: assets/images/return-value-code-graphic.jpg
 alias: http://jonathanwarden.com/2014/06/19/pass-through-lists/
 date: "2014-06-19T18:40:00-05:00"
 weight: 20
+aliases:
+- /2014/06/19/pass-through-lists/
+
 ---
 
 The *pass-through list* is a programming-language feature intended to makes it easier for programmers to modify functions to return additional values without breaking backwards compatibility, in the same way it is easy to modify functions to take additional parameters without breaking backwards compatibility.  This is done by, in a sense, unifying the semantics of passing parameters to functions and returning values from functions.
