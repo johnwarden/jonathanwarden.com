@@ -63,7 +63,7 @@ params:
         # logo:
         #     enabled: true
         #     local: true
-            # src: /deliberati/assets/images/deliberati-logo-long-120.png
+            # src: /deliberatiassets/images/deliberati-logo-long-120.png
             # src: img/deliberati-logo-long-120.png
 
     article:

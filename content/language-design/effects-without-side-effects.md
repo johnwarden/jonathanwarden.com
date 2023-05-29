@@ -1,7 +1,7 @@
 ---
 title: "Effects without Side-Effects"
 slug: effects-without-side-effects
-image: /assets/images/9d80511470b05582fdb13329de734bda_400x400.png
+image: assets/images/9d80511470b05582fdb13329de734bda_400x400.png
 alias: http://jonathanwarden.com/2015/06/11/effects-without-side-effects/
 date: "2015-06-11T20:32:00-05:00"
 series: ["Procedures in a Pure Language"]

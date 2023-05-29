@@ -1,7 +1,7 @@
 ---
 title: "The Decision Engine and Prediction Markets"
 slug: "the-decision-engine-and-prediction-markets"
-image: /assets/images/Pres12_WTA.png
+image: assets/images/Pres12_WTA.png
 alias: http://jonathanwarden.com/2013/08/16/the-decision-engine-and-prediction-markets/
 date: "2013-08-16T21:41:00-07:00"
 draft: true

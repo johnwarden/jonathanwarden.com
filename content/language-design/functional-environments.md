@@ -1,7 +1,7 @@
 ---
 title: "Functional Environment Variables"
 slug: functional-environments
-image: /assets/images/bea6047db6.jpg
+image: assets/images/bea6047db6.jpg
 alias: http://jonathanwarden.com/2015/06/11/functional-environments/
 date: "2015-06-11T15:19:00-05:00"
 weight: 40

@@ -2,7 +2,7 @@
 title: "Procedures in a Pure Language"
 slug: "procedures-in-a-pure-language"
 series: ["Procedures in a Pure Language"]
-image: /assets/images/Pure.jpg
+image: assets/images/Pure.jpg
 alias: http://jonathanwarden.com/2015/05/28/procedures-in-a-pure-language/
 date: "2015-05-28T00:15:00-05:00"
 series: ["Procedures in a Pure Language"]

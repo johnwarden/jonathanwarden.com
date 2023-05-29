@@ -1,7 +1,7 @@
 ---
 title: "Functional Equality: Everything is the Same, Everything is Different"
 slug: "everything-is-the-same-everything-is-different"
-image: /assets/images/Aristotle-1.jpg
+image: assets/images/Aristotle-1.jpg
 alias: http://jonathanwarden.com/2015/05/16/everything-is-the-same-everything-is-different/
 date: "2015-05-16T22:22:00-05:00"
 weight: 10

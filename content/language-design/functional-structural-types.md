@@ -1,7 +1,7 @@
 ---
 title: "Functional Structural Types"
 slug: "functional-structural-types"
-image: /assets/images/Pres12_WTA.png
+image: assets/images/Pres12_WTA.png
 alias: http://jonathanwarden.com/2013/07/07/functional-structural-types/
 draft: true
 

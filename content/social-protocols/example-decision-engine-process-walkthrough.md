@@ -1,7 +1,7 @@
 ---
 title: "Example Decision Engine Process Walkthrough"
 slug: "example-decision-engine-process-walkthrough"
-image: /assets/images/globe-and-wires.png
+image: assets/images/globe-and-wires.png
 alias: http://jonathanwarden.com/2013/06/21/example-decision-engine-process-walkthrough/
 date: "2013-06-21T16:29:00-05:00"
 draft: true

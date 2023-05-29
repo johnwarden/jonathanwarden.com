@@ -1,7 +1,7 @@
 ---
 title: "Implicit Currying and Folded Application"
 slug: "implicit-currying-and-folded-application"
-image: /assets/images/currypufffold003.jpg
+image: assets/images/currypufffold003.jpg
 alias: http://jonathanwarden.com/2015/05/25/implicit-currying-and-folded-application/
 date: "2015-05-25T21:05:00-05:00"
 weight: 50

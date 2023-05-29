@@ -6,7 +6,7 @@ menu:
         weight: 20
         params: 
             icon: user
-# image: /assets/images/jonathan-profile-photo-2.png
+# image: assets/images/jonathan-profile-photo-2.png
 
 ---
 
@@ -22,7 +22,7 @@ menu:
 </style>
 
 
-<img src="/assets/images/jonathan-profile-photo-2.png" title="Jonathan Warden" class="photo site-avatar"/>
+<img src="assets/images/jonathan-profile-photo-2.png" title="Jonathan Warden" class="photo site-avatar"/>
 
 <p>
     <br/>Jonathan Warden a philosophical software engineer working on building technologies to make conversations on the Internet more intelligent and less polarizing.

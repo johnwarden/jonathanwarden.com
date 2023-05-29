@@ -1,7 +1,7 @@
 ---
 slug: "fighting-bias-with-bias"
 title: "Fighting Bias with Bias"
-image: /assets/images/marc-sendra-martorell-2BrdNFxW0UY-unsplash-e1589303879348.jpg
+image: assets/images/marc-sendra-martorell-2BrdNFxW0UY-unsplash-e1589303879348.jpg
 alias: http://jonathanwarden.com/2020/05/12/fighting-bias-with-bias/
 date:  2020-05-12
 tags: ["Social Epistemology"]

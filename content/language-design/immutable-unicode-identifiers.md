@@ -1,7 +1,7 @@
 ---
 title: "Immutable Unicode Identifiers"
 slug: "immutable-unicode-identifiers"
-image: /assets/images/immutability_ancient_aliens.jpg
+image: assets/images/immutability_ancient_aliens.jpg
 alias: http://jonathanwarden.com/2016/08/18/immutable-unicode-identifiers/
 date: "2016-08-18T12:05:00-05:00"
 series: ["Unicode Identifiers"]

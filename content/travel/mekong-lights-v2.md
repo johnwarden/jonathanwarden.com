@@ -1,7 +1,7 @@
 ---
 title: 'Mekong Lights v2'
 slug: "mekong-lights-v2"
-image: /assets/images/Naga_Fireballs_Mekong_Sunset_26.jpeg
+image: assets/images/Naga_Fireballs_Mekong_Sunset_26.jpeg
 date: "2013-06-20T22:05:00-05:00"
 draft: true
 ---

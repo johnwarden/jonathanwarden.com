@@ -1,7 +1,7 @@
 ---
 title: "Unicode Identifiers in Your Language"
 slug: unicode-identifiers-in-your-language
-image: /assets/images/andysinger_scrabbletiles-672x372.png
+image: assets/images/andysinger_scrabbletiles-672x372.png
 alias: http://jonathanwarden.com/2016/07/24/unicode-identifiers-in-your-language/
 date: "2016-07-24T22:25:00-05:00"
 series: ["Unicode Identifiers"]

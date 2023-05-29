@@ -1,7 +1,7 @@
 ---
 title: 'The "Box Dilemma" and Implicit Unboxing'
 slug: "the-box-dilemma-and-implicit-unboxing"
-image: /assets/images/images.jpeg
+image: assets/images/images.jpeg
 alias: http://jonathanwarden.com/2013/06/28/the-box-dilemma-and-implicit-unboxing/
 date: "2013-06-28T18:12:00-05:00"
 ---
