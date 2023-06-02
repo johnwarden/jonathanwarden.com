@@ -10,11 +10,9 @@ aliases:
 - /2015/06/11/effects-without-side-effects/
 ---
 
-In my post on <a href="http://jonathanwarden.com/2015/05/28/procedures-in-a-pure-language/">Procedures in a Pure Language - Part 1</a>, I discuss how even pure functional languages can be used to create procedures that have effects, and how that is how things should be.
+In my post on [Procedures in a Pure Language](/procedures-in-a-pure-language), I discuss how even pure functional languages can be used to create procedures that have effects, and how that is how things should be. I propose a little language where these impure procedures can coexist with pure functions in a way that makes the line between pure and impure very clear.
 
-In <a href="http://jonathanwarden.com/?p=548">Procedures in a Pure Language Part 2</a>, I propose a little language where these impure procedures can coexist with pure functions in a way that makes the line between pure and impure very clear.
-
-In this post, I propose adding a stricture to this language that ensures that, while procedures can have effects, they cannot have <em>side-effects</em>.
+In this post, I propose adding a stricture to this language that ensures that, while procedures can have effects, they cannot have *side-effects*.
 
 Here's a quick review of a simple program in this language.
 
@@ -27,27 +25,23 @@ main = (console) -> procedure
 {{< /highlight >}}
 
 
-`println` and `main` are functions which, given a `console` argument, return procedures, which can be executed with the `!` operator.  Let's call such procedures, which are bound to the object on which they operate, <em>methods</em>.
+`println` and `main` are functions which, given a `console` argument, return procedures, which can be executed with the `!` operator.  Let's call such procedures, which are bound to the object on which they operate, **methods**.
 
 ## Containing Effects
 
-Now let's say add this rule to our language: procedures cannot execute other procedures other than methods on objects passed to them as arguments.
+Now let's say add this rule to our language: procedures can only execute methods on objects passed to them as arguments.
 
-So procedures have no ability to <em>directly</em> reference or execute any other procedure: there are no built-in procedures like `println`, no global objects like Javascript's `window`, and no ability to directly import services or objects like Java's `System.out`.
+So procedures have no ability to *directly* reference or execute any other procedure: there are no built-in procedures like `println`, no global objects like Javascript's `window`, and no ability to directly import services or objects like Java's `System.out`.
 
-Whoever runs the `main` procedure above can be certain it will have no effects outside of those that can be achieved by invoking methods on `console`. Since the caller has complete control over these methods, any effects of `main` are completely <em>contained</em>.
+Whoever runs the `main` procedure above can be certain it will have no effects outside of those that can be achieved by invoking methods on `console`. Since the caller has complete control over these methods, any effects of `main` are completely *contained*.
 
-So these procedures can have <em>effects</em>, but since those affects are contained, they cannot have <em>side-effects</em>.
-
-## Contained Inconsistency
-
-Along with not having effects, pure functions must be <a href="http://en.wikipedia.org/wiki/Referential_transparency_(computer_science)">referentially transparent</a>. In other words, they can't be <em>inconsistent</em>.  Let's say procedures in our language can only be inconsistent as a result of invoking inconsistent operations on the objects that were passed to them as arguments.  Their inconsistency is also <em>contained</em>.
+So these procedures can have *effects*, but since those affects are contained, they cannot have *side-effects*.
 
 ## "Impure" Inversion of Control
 
-So a program can't actually <em>do</em> anything unless it is provided with an object on which it can invoke methods.  To OO programmers this sounds like dependency injection or inversion of control.
+So a program can't actually *do* anything unless it is provided with an object on which it can invoke methods.  To OO programmers this sounds like dependency injection or inversion of control.
 
-We can use <a href="http://jonathanwarden.com/wp-admin/post.php?post=609&amp;action=edit">`given/inject` preprocessing</a> to achieve inversion of control in this language without the syntactic overhead of manual dependency injection.
+We can use [functional dependency-injection](/functional-dependency-injection) to achieve inversion of control in this language without the syntactic overhead of manual dependency injection.
 
 {{< highlight java "linenos=false" >}}
 
@@ -58,7 +52,7 @@ main = procedure
 
 ## Procedures Inside Functions
 
-There is no reason that a function cannot be pure, and still use procedural code in its implementation.  For example:
+Since effects are contained, a function can be pure and still use impure functions in its implementation! For example:
 
 {{< highlight java "linenos=false" >}}
 
