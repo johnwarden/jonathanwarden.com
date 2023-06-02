@@ -1,7 +1,6 @@
 ---
 title: "Pro vs. Anti"
 slug: pro-vs-anti
-alias: http://jonathanwarden.com/2016/10/23/pro-vs-anti/
 image: assets/images/pro-vs-anti-biotics1.jpg
 date: "2016-10-23T20:00:00-05:00"
 tags: [Social Epistemology"]

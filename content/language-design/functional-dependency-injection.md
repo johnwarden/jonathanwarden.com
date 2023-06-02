@@ -2,7 +2,6 @@
 title: "Functional Dependency Injection and Inversion of Control"
 slug: functional-dependency-injection
 image: assets/images/Syringe_052712.jpg
-alias: http://jonathanwarden.com/2015/06/09/functional-dependency-injection/
 date: "2015-06-09T19:18:00-05:00"
 weight: 40
 aliases:

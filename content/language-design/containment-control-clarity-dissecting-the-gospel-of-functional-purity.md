@@ -2,7 +2,6 @@
 title: "Containment, Control, Clarity: Dissecting the Gospel of Functional Purity"
 slug: "containment-control-clarity-dissecting-the-gospel-of-functional-purity"
 image: assets/images/functional-purity.png
-alias: http://jonathanwarden.com/2013/07/03/containment-control-clarity-dissecting-the-gospel-of-functional-purity/
 date: "2013-07-03T17:54:00-05:00"
 draft: true
 aliases:

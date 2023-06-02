@@ -2,7 +2,6 @@
 title: "Pass-Through Lists"
 slug: "pass-through-lists"
 image: assets/images/return-value-code-graphic.jpg
-alias: http://jonathanwarden.com/2014/06/19/pass-through-lists/
 date: "2014-06-19T18:40:00-05:00"
 weight: 20
 aliases:

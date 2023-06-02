@@ -2,12 +2,11 @@
 title: "Unicode Identifiers in Your Language"
 slug: unicode-identifiers-in-your-language
 image: assets/images/andysinger_scrabbletiles-672x372.png
-alias: http://jonathanwarden.com/2016/07/24/unicode-identifiers-in-your-language/
 date: "2016-07-24T22:25:00-05:00"
 series: ["Unicode Identifiers"]
 aliases:
 - /2016/07/24/unicode-identifiers-in-your-language/
-dratf: true
+draft: true
 ---
 
 <strong>Abstract</strong>: In this post I summarize the Unicode Consortium's Recommendations for Identifier Syntax and Security (<a href="http://www.unicode.org/reports/tr31">TR31</a> and <a href="http://www.unicode.org/reports/tr39">TR39</a>), and introduce some of the decisions that a language designer needs to make when implementing these.

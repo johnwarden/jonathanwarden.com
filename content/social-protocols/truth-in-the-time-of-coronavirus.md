@@ -2,7 +2,6 @@
 title: Truth in the Time of Coronavirus
 slug: truth-in-the-time-of-coronavirus
 image: assets/images/photo-1584461800203-e8b0a2fd55ca.jpeg
-alias: http://jonathanwarden.com/2020/03/20/truth-in-the-time-of-coronavirus/
 date: "2020-03-20T18:43:00-07:00"
 tags: ["Social Epistemology"]
 aliases:

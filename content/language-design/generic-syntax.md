@@ -2,7 +2,6 @@
 title: "Generic Syntax"
 slug: "generic-syntax"
 image: assets/images/generic-syntax5.png
-alias: http://jonathanwarden.com/2013/06/28/generic-syntax/
 date: "2013-06-28T21:50:00-05:00"
 aliases:
 - /2013/06/28/generic-syntax/

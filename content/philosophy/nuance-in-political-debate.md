@@ -1,7 +1,6 @@
 ---
 title: Nuance in Political Debate 
 slug: nuance-in-political-debate
-alias: http://jonathanwarden.com/2017/10/21/nuance-in-political-debate/
 image: assets/images/lat_redblue082116_17785443_8col.jpg
 date: "2017-10-21T23:27:00-05:00"
 tags: [Social Epistemology"]
