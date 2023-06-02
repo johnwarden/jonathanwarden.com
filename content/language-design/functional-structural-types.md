@@ -5,7 +5,7 @@ image: assets/images/Pres12_WTA.png
 alias: http://jonathanwarden.com/2013/07/07/functional-structural-types/
 aliases:
 - /2013/07/19/retroactive-extension-in-scala-adaptors-views-type-classes-and-structural-types/
-
+draft: true
 ---
 
 <span style="font-size: 13px; line-height: 19px;">In this post I'll introduce the idea of a **Functional Structural Type**, which max properties of Type Classes and Structural Types.</span>
