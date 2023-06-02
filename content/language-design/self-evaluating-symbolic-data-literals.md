@@ -1,5 +1,5 @@
 ---
-title: "Self-Evaluating Data in LISP"
+title: "Self-Evaluating Data"
 slug: self-evaluating-data-in-lisp
 image: assets/images/2013-09-27-bcfd3b8.png
 alias: http://jonathanwarden.com/2016/03/31/self-evaluating-symbolic-data-literals/
@@ -13,9 +13,9 @@ aliases:
 
 Why were keywords and vectors added to LISP, a language that was already based on symbols and lists?
 
-The answer: because keywords and vectors are self-evaluating. Like string and number literals, they are what they are. Unlike symbols and lists, they are never treated as code that is replaced with some other value when evaluated.
+The answer: because keywords and vectors are self-evaluating. The expression `:foo` evaluates to `:foo`. The expression `[1,2]` evaluate to `[1,2]`. Like string and number literals, they are what they are. Unlike symbols and lists, they are never treated as code that is replaced with some other value when evaluated.
 
-You might argue that if you don't want to symbol or a list to be treated as code, just don't evaluate it!  But this gets complicated if you are evaluating code that has non-code symbolic data embedded in it.
+You might argue that if you don't want to symbol or a list to be treated as code, just don't evaluate it!  But this gets complicated if you are evaluating code that has non-code data embedded in it.
 
 For example, it's clear that the code below outputs "2".
 
@@ -53,7 +53,7 @@ It can be hard to keep track of exactly when symbols and lists might be evaluate
 
 {{< /highlight >}}
 
-There is more good discussion about <a href="http://arcanesentiment.blogspot.com/2011/08/why-use-keywords-as-symbols.html">why we use keywords as symbols</a> in the Arcane Sentiment blog.
+There is more good discussion about [why we use keywords as symbols](http://arcanesentiment.blogspot.com/2011/08/why-use-keywords-as-symbols.html) in the Arcane Sentiment blog.
 
 ## An Alternative for Self-Evaluating Data
 
@@ -85,7 +85,7 @@ It's common for the head of a list in LISP to be a symbol that defines the seman
 ...or self-evaluating symbolic data where the head is a symbol indicating the data type (this is called "<em>tagged data</em>" in SICP). 
 
 {{< highlight clojure "linenos=false" >}}
-:(rect 2 2)
+`(rect 2 2)
 {{< /highlight >}}
 
 Lists used in this way function more like <em>trees</em>, with the first element acting as the <em>root</em> that indicates the type or behavior of that node, followed by zero or more <em>subtrees</em>.
@@ -93,33 +93,59 @@ Lists used in this way function more like <em>trees</em>, with the first element
 Contrast this to a list where the first item doesn't have any special significance: it just happens to be first.
 
 {{< highlight clojure "linenos=false" >}}
-:(red blue)
+`(1 2)
 {{< /highlight >}}
 
 LISP programmers are more likely to use vectors in this latter case, partly because LISP will never try to eval a vector as a function-application, and partly because of the syntactic similarity of vectors to lists in other languages.
 
 {{< highlight clojure "linenos=false" >}}
+[1 2]
+{{< /highlight >}}
+
+However, LISP will try to evaluate the contents of the list. For example:
+
+{{< highlight clojure "linenos=false" >}}
+[red blue]
+{{< /highlight >}}
+
+Will evaluate to a list containing the values of the variables red and blue. 
+
+If we want a list of symbols instead, we would write
+
+{{< highlight clojure "linenos=false" >}}
 [:red :blue]
 {{< /highlight >}}
 
-But with the self-evaluating data quote operator, we no longer need to "quote" each symbol.
+Or we could produce the exact same value using our new `:`-quote operator, which specifies that the entire quoted data structure is self-evaluating.
 
 {{< highlight clojure "linenos=false" >}}
 :[red blue]
 {{< /highlight >}}
 
-TODO: these are the same!!!
-
+### Summary: Trees, Sequences, Code and Data
 
 
 
 I'd argue that in LISP, lists have proved themselves most appropriate for representing tree-structured data, either code or tagged data, where the head of the list is a symbol or expression acting as the root of the tree. Vectors on the other hand have proved themselves most useful for representing ordered collections.
 
-The following code snippet illustrates these contrasts. It uses a list for a function call, self-evaluating lists to represent rectangles as "tagged data", and vectors to represent an collection of rectangles.
+
+
+The following table summarizes the use of lists for function call, self-evaluating lists to represent rectangles as "tagged data", and vectors to represent an collection of rectangles.
 
 {{< highlight clojure "linenos=false" >}}
 (render [:(rect 3 2) :(rect 8 10)])
 {{< /highlight >}}
+
+
+|                         |  tree          | sequence      
+| ------                  |----------------|---------------
+| code                    |    `(sqrt 2)   | `[x y]        
+| self-evaluating data    |  :(rect 2 2)   | :[red blue]   
+
+
+
+
+
 
 
 ## Nesting `:`- and `'`-quotes
@@ -127,9 +153,9 @@ The following code snippet illustrates these contrasts. It uses a list for a fun
 Naturally, you can nest self-evaluating data literals (`:`-quotes) inside of `'`-quoted code:
 
 {{< highlight clojure "linenos=false" >}}
-(defvar x '[ (square 2), (:square 2) ])
+(defvar x '[ (:square 2), (:square 2) ])
 (eval x)
-; [4, (square 2)]
+; :[4, (square 2)]
 {{< /highlight >}}
 
 But there's no reason you shouldn't also be able to nest code inside of self-evaluating data literals:
@@ -137,7 +163,7 @@ But there's no reason you shouldn't also be able to nest code inside of self-eva
 {{< highlight clojure "linenos=false" >}}
 (defvar x :[ ('square 2), (square 2) ])
 (eval x)
-; [4, (square 2)]
+; :[4, (square 2)]
 {{< /highlight >}}
 
 The two expressions above produce identical results, but in the first case, `x` is code, and we :-quote the part that we <em>don't</em> want to be evaluated as code. In the second case, `x` is self-evaluating data, and we '-quote the part that we <em>do</em> want to be treated as code.
