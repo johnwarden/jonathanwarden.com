@@ -97,10 +97,9 @@ Haskell, however, still allows types to be defined that violate functional equal
 
 Programmers are often tempted to think of two **different** values as being equal when they are different **representations** of the same underlying value.
 
-- Two timestamps corresponding to the same UTC time but with different timestamps
+- Two timestamps corresponding to the same moment in time but with different time zones
 - Two measurements representing the same length but using different units
 - Two unicode strings with the same NFC normalization but different codepoints
-- Two numeric values of different types representing the same value point on the number line
 
 But it is best to think of each of these as **different** values that can be used to **represent** the **same underlying value**.
 
@@ -128,7 +127,7 @@ Similarly I would propose, a unitless Distance type, a NFC Unicode string type, 
 
 ## Representationless Number Type
 
-A **representationless** `Number` type would be tricky, but possible. In practice, the result of numerical operations needs to have a finite precision, otherwise numerical values would tend to grow indefinitely as mathematical operations are applied to the output of other mathematical operations -- especially division operations. And different ways of representing numeric values imply different operations: division using floating point, decimal floating point, rational, and integer precision all produce different results.
+A **representationless** `Number` type would be tricky, but possible. In practice, the result of numerical operations needs to have a finite precision, otherwise numerical values would tend to grow indefinitely as mathematical operations are applied to the output of other mathematical operations -- especially division operations. And different ways of representing numeric values imply different logic for mathematical operations: division using floating point, decimal floating point, rational, and integer precision all produce different results.
 
 So you would not be able to do a simple division on a representationless numeric value unless you explicitly specified the division function to use.
 
