@@ -100,7 +100,7 @@ Programmers are often tempted to think of two **different** values as being equa
 - Two timestamps corresponding to the same UTC time but with different timestamps
 - Two measurements representing the same length but using different units
 - Two unicode strings with the same NFC normalization but different codepoints
-- Two different numeric types with the same numeric value
+- Two numeric values of different types representing the same value point on the number line
 
 But it is best to think of each of these as **different** values that can be used to **represent** the **same underlying value**.
 
@@ -128,11 +128,11 @@ Similarly I would propose, a unitless Distance type, a NFC Unicode string type, 
 
 ## Representationless Number Type
 
-A **representationless** `Number` type would be tricky, but possible. In practice, the result of numerical operations needs to have a finite precision, otherwise numerical values would tend to grow indefinitely as mathematical operations are applied to the output of other mathematical operations -- especially division operations. And different ways of representing numeric values imply different operations floating point, decimal floating point, rational, and integer division all produce different results.
+A **representationless** `Number` type would be tricky, but possible. In practice, the result of numerical operations needs to have a finite precision, otherwise numerical values would tend to grow indefinitely as mathematical operations are applied to the output of other mathematical operations -- especially division operations. And different ways of representing numeric values imply different operations: division using floating point, decimal floating point, rational, and integer precision all produce different results.
 
 So you would not be able to do a simple division on a representationless numeric value unless you explicitly specified the division function to use.
 
-For example, suppose a language had a representationless `Number` type, which would act as a kind of interface type that hides the specifics of its internal representation. A value of a specific numeric type could be assigned to a variable of `Number` type, and two different `Number` values could be compared for equality even if they used a different internal representation. But operations on Numeric values would need to specify a type/precision.
+For example, suppose a language had a representationless `Number` type which acted as a kind of interface type that hides the specifics of its internal representation. A value of a specific numeric type could be assigned to a variable of `Number` type, and two different `Number` values could be compared for equality even if they used a different internal representations. But operations on Numeric values would need to specify a type/precision.
 
 
 
@@ -157,9 +157,7 @@ For example, suppose a language had a representationless `Number` type, which wo
 {{< /highlight >}}
 
 
-Instead of specifying prevision for every mathematical operation, the language could allow precision to be set for a specific scope.
-
-For example in the following code, the function `betaMean` is defined in terms of the representationless `Number` type, and does not specify the precision of mathematical operations it performs. Instead, the caller specifies the precision.
+Alternatively, instead of specifying prevision for every mathematical operation, the language could allow precision to be set for a specific scope. For example in the following code, the function `betaMean` is defined in terms of the representationless `Number` type, and does not specify the precision of mathematical operations it performs. Instead, the caller specifies the precision.
 
 
 {{< highlight java "linenos=false" >}}
