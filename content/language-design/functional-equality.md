@@ -29,7 +29,7 @@ $$
 $$
 
 
-Many functional programming languages violate this principle, which can cause problems for programmers. I propose that values of two different types should not even be comparable, and suggest **representationaless types** for situations where there are different representations of the same underlying value (e.g. timestamps representing the same time in different time zones). A **representationless numeric type** is possible if the precision of the output of numeric operations is explicitly specified.
+Many functional programming languages violate this principle, which can cause problems for programmers. I propose that variables of two different types should not even be comparable, and suggest **representationaless types** for situations where there are different representations of the same underlying value (e.g. timestamps representing the same time in different time zones). A **representationless numeric type** is possible if the precision of the output of numeric operations is explicitly specified.
 
 
 ## It's Easy to Violate Functional Equality
