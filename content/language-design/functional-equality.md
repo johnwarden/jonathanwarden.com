@@ -14,14 +14,7 @@ aliases:
 
 ## Abstract
 
-In this post, I'll argue that functional programming languages should respect the principle of **functional equality**, which states that if two values are equal, then all functions of those values should also be equal. 
-
-More precisely, if `a == b`, then there should exist no function `f` for which `f(a) != f(b)`. So this statement should never be true.
-
-{{< highlight scala "linenos=false" >}}
-(a == b) && (f(a) != f(b))
-{{< /highlight >}}
-
+In this post, I'll argue that functional programming languages should respect the principle of **functional equality**. This statement states that if `a == b`, then there should exist no function `f` for which `f(a) != f(b)`.
 
 Many functional programming languages violate this principle, which can cause problems for programmers. I propose that variables of two different types should not even be comparable, and suggest **representationaless types** for situations where there are different representations of the same underlying value (e.g. timestamps representing the same time in different time zones). A **representationless numeric type** is possible if the precision of the output of numeric operations is explicitly specified.
 
@@ -40,7 +33,7 @@ var b = 4.0
 print(a == b && a.toString() != b.toString())
 {{< /highlight >}}
 
-So Scala violates the principle of functional equality. `2+2 == 4.0`, even though the two values are not functionally equal.
+So Scala violates the principle of functional equality. `a == b`, even though the two values are not functionally equal.
 
 ## Violating Functional Equality Creates Problems
 
@@ -76,9 +69,11 @@ main = do
 
 To compare an `Int` to a `Float` in Haskell, you need to first convert them to the same type. This in a sense forces the programmer to acknowledge that the values are different, even if they represent the same numerical value. (Note Haskell still allows the programmer to violate functional equality by overloading the `==` operator using the `Eq` typeclass).
 
+Go is a language that arguably respects functional equality. Two values are equal only if they are the exact same value -- represented by the exact same bytes in memory. (Though in the case of data structures with pointers, one might argue that Go will sometimes treat two functionally equal values as not equal).
+
 ## Everything is the Same, Everything is Different
 
-The problem is that the concept of equality is fuzzy. `2+2` is obviously numerically equal to `4.0`. They represent the same point on the number line. But in other ways, `2+2` obviously is not the same as `4.0`. They are two different expressions. They may have different types (i.e. `float` and `int`). In most programming languages, *the type is part of the value*, and values of different types behave differently (e.g. the `/` may perform integer division for `int`s, and float-point division for `float`s). So two equal numerical values of different types may be functionally different.
+The problem is that the concept of equality is fuzzy. `2+2` is obviously numerically equal to `4.0`. They represent the same point on the number line. But in other ways, `2+2` obviously is not the same as `4.0`. They are two different expressions. They may have different types (i.e. `float` and `int`). In most typed programming languages, *the type is part of the value*, and values of different types behave differently (e.g. the `/` may perform integer division for `int`s, and float-point division for `float`s). So two equal numerical values of different types may be functionally different.
 
 And if you think about it, any two values are the same in some ways, but different in other ways. So if you want to know whether two values are equal, you must first ask yourself *what do you mean by equal*?
 
@@ -101,15 +96,15 @@ I suggest that language and library designers might define **representationless 
 A `UniversalTime` value could not be compared to a `LocalTime` value, even if the timezone of the `LocalTime` value happened to be GMT. But `LocalTime` would have a method that returns the corresponding `UniversalTime`. So to see if two different `LocalTime` values in two different timezones represented the same actual moment in time, just compare their `UniversalTime` values:
 
 {{< highlight java "linenos=false" >}}
-	localtime1.UniversalTime() == localtime2.UniversalTime()
+localtime1.UniversalTime() == localtime2.UniversalTime()
 {{< /highlight >}}
 
 
 To represent a `UniversalTime` as a string, you would need to first convert it to a localtime by specifying a timezone:
 
 {{< highlight java "linenos=false" >}}
-	localtime = universaltime.LocalTime("America/Los_Angeles")
-	println(localtime.Format(ISO8601))
+localtime = universaltime.LocalTime("America/Los_Angeles")
+println(localtime.Format(ISO8601))
 {{< /highlight >}}
 
 Similarly I would propose, a unitless Distance type, a NFC Unicode string type, etc.
@@ -118,7 +113,7 @@ Now for most languages, every type needs to have a string representation (e.g. `
 
 ## Representationless Number Type
 
-A **representationless** `Number` type would be tricky, but possible. In practice, the result of numerical operations needs to have a finite precision. Otherwise numerical values would tend to grow in size indefinitely as mathematical operations are applied to the output of other mathematical operations. And a precise representation of some number, such as `1/3`, would require an infinite amount of memory using either binary or decimal floating point (`0.3333333...` and so on forever).
+A **representationless** `Number` type would be tricky, but possible. In practice, the result of numerical operations needs to have a finite precision; otherwise numerical values would tend to grow in size indefinitely. In fact, a precise representation of numbers such as `1/3` as a float would require an infinite amount of memory (`0.3333333...` and so on forever). At some point you have to round.
 
 So you would not be able to do a simple division on a representationless numeric value unless you explicitly specified the precision of the division function to use.
 
@@ -127,21 +122,21 @@ For example, suppose a language had a representationless `Number` type which act
 
 
 {{< highlight java "linenos=false" >}}
-	Number a = (int64) 2+2 // a is internally represented by an int64
-	Number b = (float64) 4.0 // b is internally represented by a float64
+Number a = (int64) 2+2 // a is internally represented by an int64
+Number b = (float64) 4.0 // b is internally represented by a float64
 
-	// true, because they represent the same point on the number line
-	a == b 
+// true, because they represent the same point on the number line
+a == b 
 
-	// Divide by three using three different precisions
-	Number result1 = 1 /(float64) 3
-	Number result2 = 1 /(float32) 3
-	Number result3 = 1 /(int64) 3
+// Divide by three using three different precisions
+Number result1 = 1 /(float64) 3
+Number result2 = 1 /(float32) 3
+Number result3 = 1 /(int64) 3
 
-	// The result is three different values
-	println(result1) // Prints 0.3333333333333333
-	println(result2) // Prints 0.33333334
-	println(result2) // Prints 0
+// The result is three different values
+println(result1) // Prints 0.3333333333333333
+println(result2) // Prints 0.33333334
+println(result2) // Prints 0
 
 
 {{< /highlight >}}
@@ -170,6 +165,8 @@ function main() {
 }
 
 {{< /highlight >}}
+
+One example of a kind of representationless Numeric type are Go numeric constants. Though they only exist at the compiler level -- once assigned to a variable they must be represented some finite-precision numeric type.
 
 ## Summary
 

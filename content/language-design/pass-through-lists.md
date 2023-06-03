@@ -29,18 +29,17 @@ I cannot change this function to return a second value, without breaking existin
 
 {{< highlight java "linenos=false" >}}
 
-// return a list with a number and a string
 func inverse(x) 
 	return (1/x, "the inverse of " ++ x)
 
-// Doesn't work any more!  
+// This doesn't compile!  
 // inverse(4) returns a list, not a number.
 println(2 * inverse(4))
 
 {{< /highlight >}}
 
 
-On the other hand, I can easily modify the function to take an optional second parameter:
+On the other hand, I can easily modify the function to *take* an optional second parameter:
 
 {{< highlight java "linenos=false" >}}
 
@@ -50,7 +49,7 @@ func inverse(x, verbose=false) // 'verbose' is optional
 {{< /highlight >}}
 
 
-And code that depended on the old version of the function still works with the new:
+And code that depended on the old version of the function would not need to be modified:
 
 {{< highlight java "linenos=false" >}}
 
@@ -58,10 +57,13 @@ println(2 * inverse(4)) // Still works!
 
 {{< /highlight >}}
 
-It's nice that I can modify `inverse` to *take* additional parameters without breaking existing code. And it would be nice if I could also modify it to *return* additional parameters without breaking existing code.
+It's nice that I can modify `inverse` to *take* additional parameters without breaking existing code. And it would be nice if I could also modify it to *return* additional parameters without breaking existing code. This would promote backwards compatibility: the ability for old code to work with newer versions of libraries -- ignoring additional return values that it doesn't use.
 
-## Solution
 
+
+## Proposed Solution
+
+Here's a proposal for a language feature that makes additional return values backwards compatible. This proposal avoids adding additional syntactic complexity to the language using something I call implicit construction/deconstruction.
 
 ### 1. Functions Always Return Lists
 
@@ -110,7 +112,7 @@ println(2 * result)
 
 But this can be solved with an **implicit deconstruction** rule: if a list returned by a function is not explicitly deconstructed with a deconstructing assignment, then it is *implicitly deconstructed*, with all but the first value being ignored.
 
-So `inverse` we can now call `inverse` as if it returned a single value, and not a list:
+So we can now call `inverse` as if it returned a single value, and not a list:
 
 {{< highlight java "linenos=false" >}}
 
@@ -148,7 +150,7 @@ func inverse(x)
 {{< /highlight >}}
 
 
-In other words, the parentheses around return lists are implicit.  You only need to explicitly include them when returning more than one value.
+In other words, the parentheses around return lists are implicit.
 
 ### 4. Implicit Construction in Function Calls
 
@@ -164,7 +166,7 @@ But the implicit construction rule says a list is implicitly constructed where i
 
 {{< highlight java "linenos=false" >}}
 
-inverse 4
+inverse 4 // same as inverse(4)
 
 {{< /highlight >}}
 
@@ -195,10 +197,15 @@ func inverse(args)
 
 Implicit construction/deconstruction means if we try to assign a list to a variable, we will only end up assigning the first value to the variable:
 
-	let myList = (1,2,3)
-	myList // evaluates to 1
+{{< highlight java "linenos=false" >}}
 
-But rather than creating syntax for taking a reference to a list, we will instead define **pass-through lists** as a kind of ephemeral type, whose lifespan is mainly limited to "passing" values to or returning values from functions. The name **pass-through list** reflects their use for "passing values through" to/from functions, and the idea that values "pass through" the parentheses as if the parentheses weren't there.
+let myList = (1,2,3)
+myList // evaluates to 1
+
+{{< /highlight >}}
+
+
+But rather than creating syntax for taking a reference to a list, we will instead define **pass-through lists** as a kind of ephemeral type that only exists in the compiler. It is a syntactic construct use for "passing" values to or returning values from functions. The name **pass-through list** also reflects the idea that values "pass through" the parentheses as if the parentheses weren't there.
 
 
 Nesting pass-through lists would also be pointless, given consistent application of the implicit deconstruction rule:
@@ -231,7 +238,7 @@ let(firstName, lastName) = ("Albert", "Einstein");
 
 ## Pass-Through Lists and Regular Lists
 
-Since pass-through lists can't be referenced, our language probably needs an additional list type, perhaps constructed using the [] operator.
+Since pass-through lists can't be referenced, a language that uses them probably needs an actual list type, perhaps constructed using square brackets instead of parentheses.
 
 {{< highlight java "linenos=false" >}}
 
@@ -242,7 +249,7 @@ x // evaluates to ["applies","oranges","cherries"]
 
 ### Further Possibilities
 
-Using the same semantics for passing/returning values to/from functions could further allow a language designer to implement some useful new language features consistently on both sides of the interface to a function: named parameters (named return values), optional and default values (optional and default return values), type constraints, variable-length argument (and return value) lists, pattern matching, and nested deconstructing assignments.  I hope to explore some of these features in future posts.
+Using the same semantics for passing/returning values to/from functions could further enable some useful new language features consistently on both sides of the interface to a function: named parameters (named return values), optional and default values (optional and default return values), type constraints, variable-length argument (and return value) lists, pattern matching, and nested deconstructing assignments.  I hope to explore some of these features in future posts.
 
 
 ## Synopsis of Pass-Through List Rules

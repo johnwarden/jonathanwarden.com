@@ -1,7 +1,7 @@
 ---
 title: "Implicit Currying and Folded Application"
 slug: "implicit-currying-and-folded-application"
-image: assets/images/currypufffold003.jpg
+image: assets/images/alphaomega_Some_typically_orange-colored_vegetarian_Indian_curr_09214d8c-a9f6-4253-965e-6b7f7c996b16.png
 date: "2015-05-25T21:05:00-05:00"
 weight: 50
 aliases:
