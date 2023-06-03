@@ -14,10 +14,11 @@ aliases:
 
 ## Abstract
 
-In this post, I'll argue that functional programming languages should respect the principle of **functional equality**. This statement states that if `a == b`, then there should exist no function `f` for which `f(a) != f(b)`.
+In this post, I'll argue that functional programming languages should respect the principle of **functional equality**. This principle states that if `a == b`, then there should exist no function `f` for which `f(a) != f(b)`.
 
-Many functional programming languages violate this principle, which can cause problems for programmers. I propose that variables of two different types should not even be comparable, and suggest **representationaless types** for situations where there are different representations of the same underlying value (e.g. timestamps representing the same time in different time zones). A **representationless numeric type** is possible if the precision of the output of numeric operations is explicitly specified.
+Many functional programming languages violate this principle, which can cause problems for programmers. Often two different values are different **representations** of the same **underlying value** (the same point on the number line, the same moment in time); they are equal in some ways but different in other ways. Languages should allow programmers to specify what they mean by "equal" when comparing values for equality: equal representations, or equal underlying values.
 
+This can be done by providing different equality operators (e.g. `==` vs `===` in Javascript), requiring values of different types to be converted to the same type before being compared (as enforced by languages such as Go and Haskell), and the use of **representationless types**. A **representationless numeric type** is possible if the precision of the output of numeric operations is explicitly specified.
 
 ## It's Easy to Violate Functional Equality
 
