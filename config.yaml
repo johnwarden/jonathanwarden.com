@@ -41,8 +41,8 @@ permalinks:
 
 params:
     mainSections:
-        - philosophy
         - social-protocols
+        - philosophy
         - travel
         - language-design
     featuredImageField: image
