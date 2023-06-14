@@ -1,3 +1,6 @@
 [submodule "themes/hugo-theme-stack"]
 	path = themes/hugo-theme-stack
 	url = https://github.com/johnwarden/hugo-theme-stack
+[submodule "syndication-sources/social-protocols"]
+	path = syndication-sources/social-protocols
+	url = https://github.com/social-protocols/social-protocols.github.io
