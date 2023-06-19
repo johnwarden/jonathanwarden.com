@@ -8,18 +8,13 @@ weight: 110
 series: ['Distributed Bayesian Reasoning']
 # categories: ["social-protocols"]
 
-sidebar:
-  - title: "In This Series"
-    nav: "distributed-bayesian-reasoning"
-  - nav: "distributed-bayesian-reasoning-related"
-    title: "Related Articles"
-  - title: ""
-    text: "
-    <h5>Sample Argument Used in this Article</h5>
-            <img src='/assets/images/distributed-bayesian-reasoning/sample-argument-reference.svg'
-                 alt='Simplified Argument'
-                 style='display: block; margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; max-width: 350px' />
-     "
+  # - title: ""
+  #   text: "
+  #   <h5>Sample Argument Used in this Article</h5>
+  #           <img src='sample-argument-reference.svg'
+  #                alt='Simplified Argument'
+  #                style='display: block; margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; max-width: 350px' />
+  #    "
 
 # image: assets/images/distributed-bayesian-reasoning/jeffrey-conditioning-formula.png
 
@@ -50,12 +45,12 @@ You also need familiar with basic syntax and concepts from probability theory, s
 
 ## Sample Argument
 
-<!-- {{< figure src="/assets/images/distributed-bayesian-reasoning/sample-argument-reference.svg" title="Sample Argument" >}} -->
+<!-- {{< figure src="sample-argument-reference.svg" title="Sample Argument" >}} -->
 
 
 
 
-<img src='/assets/images/distributed-bayesian-reasoning/sample-argument-reference.svg'
+<img src='sample-argument-reference.svg'
                  alt='Simplified Argument'
                  style='display: block; margin-left: auto; margin-right: auto; max-height: 400px' />
 
@@ -351,7 +346,7 @@ The reason we can make the conditional independence assumption about 𝐺 and no
 Below is a graph of our argument using the terminology and notation from the [argument model](/argument-model). The sub-graph in blue comprises a single [argument thread](/argument-model#argument-threads). 
 
 
-<img src="/assets/images/distributed-bayesian-reasoning/sample-argument-reference-with-notation.svg"
+<img src="sample-argument-reference-with-notation.svg"
      alt="Graph of Sample Argument Used in This Article"
      style="display: block; margin-left: auto; margin-right: auto; max-height: 450px" />
 
@@ -435,7 +430,7 @@ This gives us us the posterior belief of the meta-reasoner $ P_h(A) $ as a funct
 
 Using the shorthand $ F[P, P_h(B=b), P_h(C=c)] $ to refer to the formula in $\eqref{5}$, we illustrated this calculation in the chart below:
 
-<img src="/assets/images/distributed-bayesian-reasoning/argument-thread-with-formulas.svg"
+<img src="argument-thread-with-formulas.svg"
      alt="Argument Thread"
      style="display: block; margin-left: auto; margin-right: auto; width: 700px" />
 

@@ -6,18 +6,11 @@ weight: 50
 series: ['Distributed Bayesian Reasoning']
 # tags: distributed-bayesian-reasoning
 toc: true
-toc_sticky: true
-math: true
 summary: "**Distributed Bayesian Reasoning** is a kind of **hypothetical opinion poll**. It tells us not what people actually believe, but what they **would believe** if they knew more."
 
-sidebar:
-  - nav: "distributed-bayesian-reasoning"
-    title: "In This Series"
-  - nav: "distributed-bayesian-reasoning-related"
-    title: "Related Articles"
-# image: assets/images/distributed-bayesian-reasoning/distributed-brain-without-caption.svg
+image: distributed-brain-without-labels.svg
 # header:
-#     teaser: /assets/images/distributed-bayesian-reasoning/distributed-brain-without-caption.svg
+#     teaser: distributed-brain-without-caption.svg
 
 ---
 
@@ -45,7 +38,7 @@ Image by <a href="https://pixabay.com/users/artsybeekids-392631/?utm_source=link
 -->
 
 
-<img src="/assets/images/distributed-bayesian-reasoning/jury-trial-cartoon.jpg"
+<img src="jury-trial-cartoon.jpg"
      alt="A Jury Trial"
      style="display: block; margin-left: auto; margin-right: auto; max-height: 300px" />
 
@@ -58,7 +51,7 @@ Suppose a group of 12 jurors is deliberating the verdict in a murder trial, and 
 
 Now suppose that a separate sub-jury of 12 different jurors is convened to decide whether or not the DNA evidence is actually valid. This jury is shown evidence that the DNA lab tech was drunk, and as a result votes unanimously that the DNA evidence is *not* valid. 
 
-<img src="/assets/images/distributed-bayesian-reasoning/sample-jury-trial-counts.svg"
+<img src="sample-jury-trial-counts.svg"
      alt="Sample Jury Trial Data"
      style="display: block; margin-left: auto; margin-right: auto; max-height: 300px" />
 
@@ -92,7 +85,7 @@ Now suppose the hypothetical juror also participates in the second jury trial, a
 
 As a Bayesian reasoner they can no longer rationally can believe that the defendant is guilty. This is because they believed, *a priori*, that there was zero probability of a scenario where both the DNA evidence is **invalid** AND the defendant is **guilty**. Thus if the evidence is invalid, there is zero probability that the defendant is guilty.
 
-<img src="/assets/images/distributed-bayesian-reasoning/bayesian-juror-posterior.svg"
+<img src="bayesian-juror-posterior.svg"
      alt="A Bayesian Juror's Posterior Beliefs"
      style="display: block; margin-left: auto; margin-right: auto; height: 450" /> 
 
@@ -106,7 +99,7 @@ So by converting the average beliefs of the jurors in both juries into the belie
 
 This means we can take very complex questions, where no individual can come close to being able to grasp all the complex issues involved, and essentially **simulate** a fully-informed individual by breaking the problem down into parts. We can hold a separate trial of ideas for each bit of evidence and each bit of evidence supporting this evidence, and so on for arbitrarily large argument graphs. Verdicts of sub-sub-juries deep in the argument graph are used to revise the verdict of higher-level juries, and the results propagate through the argument graph to determine the main verdict.
 
-<img src="/assets/images/distributed-bayesian-reasoning/distributed-brain.svg"
+<img src="distributed-brain.svg"
      alt="A Distributed Brain"
      style="display: block; margin-left: auto; margin-right: auto; width: 400px; max-height: 375px; margin-top: 0px; margin-bottom: 0px" />
 
@@ -127,7 +120,7 @@ So Distributed Bayesian Reasoning is **not** a method for determining what is **
 
 The value of this method lies, first, in the possibility of **better group judgments**. It can be used in decision-support systems to help an organization harness the collective intelligence of its members. It can be used by journalists for collaborative fact-checking, or by blockchains for intelligent governance. And it can be used by social networks to de-amplify potentially viral information that individuals impulsively share but would probably not share if they knew more. 
 
-<img src="/assets/images/distributed-bayesian-reasoning/viral-meme.svg"
+<img src="viral-meme.svg"
      alt="Viral Meme and Critical Comment"
      style="display: block; margin-left: auto; margin-right: auto; max-height: 450px" />
 
@@ -135,7 +128,7 @@ The value of this method lies, first, in the possibility of **better group judgm
 Second, this method provides a mathematical basis for **analyzing disagreement**. It can identify the top reasons people give for their beliefs, and the counter-arguments that are the most convincing. It can identify if there is a "crux" of an argument somewhere in the argument graph that is the ultimate source of disagreement. And it can help people examine their own belief and discover unjustified assumptions and inconsistent reasoning.
 
 
-<img src="/assets/images/distributed-bayesian-reasoning/crux-of-argument.svg"
+<img src="crux-of-argument.svg"
      alt="Crux of the Argument"
      style="display: block; margin-left: auto; margin-right: auto; max-height:  550px" />
 
