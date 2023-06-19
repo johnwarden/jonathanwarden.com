@@ -1,5 +1,5 @@
 ---
 title: Travel
-weight: 2
+weight: 4
 icon: travel
 ---
