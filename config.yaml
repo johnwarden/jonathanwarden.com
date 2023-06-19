@@ -37,6 +37,7 @@ permalinks:
     travel: /:slug/
     language-design: /:slug/
     social-protocols: /:slug/
+    theory: /:slug/
     # page: /:slug/
 
 params:
@@ -44,6 +45,7 @@ params:
         - social-protocols
         - philosophy
         - travel
+        - theory
         - language-design
     featuredImageField: image
     rssFullContent: true
