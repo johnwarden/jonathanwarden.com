@@ -6,6 +6,8 @@ date:   2021-10-27 00:00:00 +0200
 weight: 110
 # toc_sticky: true
 series: ['Distributed Bayesian Reasoning']
+canonical_url: https://jonathanwarden.com/distributed-bayesian-reasoning-math/
+
 # categories: ["social-protocols"]
 
   # - title: ""

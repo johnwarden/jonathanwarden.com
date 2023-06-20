@@ -6,7 +6,7 @@ date:   2021-11-22 00:00:00 +0200
 toc: true
 weight: 112
 series: ['Distributed Bayesian Reasoning']
-
+canonical_url: https://jonathanwarden.com/distributed-bayesian-reasoning-bayesian-averaging/
 ---
 
 This article is part of the series on distributed Bayesian reasoning. It assumes you have read the previous article on the [Basic Math](/distributed-bayesian-reasoning-math).

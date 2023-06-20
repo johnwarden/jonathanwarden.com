@@ -9,6 +9,7 @@ toc: true
 summary: "**Distributed Bayesian Reasoning** is a kind of **hypothetical opinion poll**. It tells us not what people actually believe, but what they **would believe** if they knew more."
 
 image: distributed-brain-without-labels.svg
+canonical_url: https://jonathanwarden.com/distributed-bayesian-reasoning-introduction/
 # header:
 #     teaser: distributed-brain-without-caption.svg
 
