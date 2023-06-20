@@ -10,6 +10,7 @@ sidebar:
   - nav: "distributed-bayesian-reasoning-related"
     title: "Related Articles"
 image: reallocation-of-probabilities.svg
+canonical_url: https://jonathanwarden.com/bayesian-inference-primer 
 
 ---
 
