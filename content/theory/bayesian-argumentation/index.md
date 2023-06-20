@@ -7,6 +7,7 @@ tags: ['Argumentation Theory']
 series: ['Bayesian Argumentation']
 weight: 71
 summary: 'In this essay, we present an account of argumentation as the exchange of information between Bayesian rational agents. The basic idea of the Bayesian view of probability is that probabilities represent subjective degrees of belief. So if we know the beliefs of some rational "subject", we can precisely define and measure various concepts relating to the quality of an argument in the mind of the subject. In other words we can objectively measure the subjective quality of an argument.'
+canonical_url: https://jonathanwarden.com/bayesian-argumentation/
 
 ---
 

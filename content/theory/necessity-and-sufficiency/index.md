@@ -12,6 +12,7 @@ sidebar:
   - nav: "bayesian-argumentation-related"
     title: "Related Articles"
 series: ['Bayesian Argumentation']
+canonical_url: https://jonathanwarden.com/necessity-and-sufficiency/
 
 ---
 
