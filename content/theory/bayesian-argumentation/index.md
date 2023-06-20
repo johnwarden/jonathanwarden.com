@@ -21,7 +21,7 @@ From a rhetorical point of view, a good argument is one that is convincing. But 
 
 In this series of essays, we present a Bayesian model of argumentation, where arguments are treated as information that may cause a Bayesian rational agent to modify their beliefs. Given a model of the beliefs of some Bayesian "subject", we can objectively define "subjective" measures of an argument's quality or strength, such as **relevance**, **persuasiveness**, and **sufficiency**.
 
-This perspective can provide some powerful insights about argumentation for people working in artificial intelligence, law, argument mapping software, or in our case, design of [social protocols](/tags/social-protocols).
+This perspective can provide some powerful insights about argumentation for people working in artificial intelligence, law, argument mapping software, or in our case, design of [social protocols](https://social-protocols.org).
 
 Consider the following example.
 
@@ -54,7 +54,7 @@ If our subject is a Bayesian rational agent with common sense, then probably:
     - Alternatively, the belief that he probably has a pulse is **necessary** for the belief that he might be a good candidate.
 
 As everyone knows, a Bayesian rational agent updates their beliefs when they acquire new information. An argument that is not informative to the agent therefore can't be persuasive. But a Bayesian model allows us to calculate what an agent **would** believe if they did not have that information (e.g. if they thought for some reason the candidate *didn't* have a pulse). This simple insight cracks open a number of ways of measuring argument **strength** other than just persuasiveness. In the essays on 
-[Relevance and Corelevance](/relevance-and-corelevance) and [Necessity and Sufficiency](/necessity-and-suficiency) we will define these measure and see how they all relate mathematically to the informativeness of the argument.
+[Relevance and Corelevance](/relevance-and-corelevance) and [Necessity and Sufficiency](/necessity-and-sufficiency) we will define these measure and see how they all relate mathematically to the informativeness of the argument.
 
 The Bayesian model of argumentation also allows us to take into account the reliability of the arguer themselves. A Bayesian rational agent will only update their beliefs if they believe the information given them. So for an argument to be informative it must not just be **new information**, it must also be believable. This perspective shows us when what looks like an *ad hominim* fallacy may somteimes be perfectly rational[^3]. These ideas are discussed in the essays on [informativeness and persuasiveness](/informativeness-and-persuasiveness).
 
@@ -71,7 +71,7 @@ Theoretically, if we have a model of some subject's beliefs about the world, we 
 
 Like all models, the Bayesian model of subjective belief is an incomplete description of the human mind. But it is clearly defined. Building clear terminology on top of a clear model helps clarify our thinking, facilitate discussion, and sharpen our intuition about what argument actually is. 
 
-There is a lot of recent academic work on Bayesian argumentation[^1][^2]. These essay are intended not as an overview of current theory, but as a useful set of definitions and formulas for practitioners: specifically software engineers building practical applications of argumentation for AI, argument mapping systems, or in our particular case, design of [social protocols](/tags/social-protocols). Our goal is to provide a useful and clear vocabulary, with common-sense but precise definitions for common concepts related to argument strength. This can hopefully help clarify discussion among collaborators and prove useful in documentation and code.
+There is a lot of recent academic work on Bayesian argumentation[^1][^2]. These essay are intended not as an overview of current theory, but as a useful set of definitions and formulas for practitioners: specifically software engineers building practical applications of argumentation for AI, argument mapping systems, or in our particular case, design of [social protocols](https://social-protocols.org). Our goal is to provide a useful and clear vocabulary, with common-sense but precise definitions for common concepts related to argument strength. This can hopefully help clarify discussion among collaborators and prove useful in documentation and code.
 
 
 ## Argumentation Theory and Warrants
@@ -116,7 +116,7 @@ So in a Bayesian argument, an arguer asserts a **premise** in support/opposition
 In the [next essay](/relevance-and-corelevance) in this series, we will formally define a measure of **relevance** from a Bayesian perspective and discuss some of its mathematical properties. In the remaining articles in this series we will define measures of **necessity**, **sufficiency**, **informativeness**, and **persuasiveness**, all of which relate back to this central concept of relevance.
 
 - [Relevance and Corelevance](/relevance-and-corelevance)
-- [Necessity and Sufficiency](/necessity-and-suficiency)
+- [Necessity and Sufficiency](/necessity-and-sufficiency)
 - [Informativeness and Persuasiveness](/informativeness-and-persuasiveness)
 
 ## Summary of Definitions
