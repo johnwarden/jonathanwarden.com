@@ -11,7 +11,15 @@
                 object-fit: cover;
             }
         }
-
+    }
+    .section-description {
+        font-weight: normal;
+        color: var(--card-text-color-secondary);
+        font-size: 1.6rem;
+        margin-top: 0;
+    }
+    .section-term {
+        margin-bottom: 0;
     }
 }
 
