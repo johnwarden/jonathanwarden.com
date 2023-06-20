@@ -34,7 +34,7 @@ Eventually, the group becomes so convinced of the righteousness of their beliefs
 
 Next, people begin to fear this outrage, and the shame of being its target.
 
-So people that disagree learn to be silent, or to express outrage to better blend in. This results in a feedback loop (the [Spiral of Silence](https://en.wikipedia.org/wiki/Spiral_of_silence) or [Preference Falsification](https://en.wikipedia.org/wiki/Preference_falsification#:~:text=Preference%20falsification%20is%20the%20act,odds%20with%20one's%20private%20preference))), with dissenting voices becoming increasingly silent as those most interested in status and power expressing their righteous outrage the loudest.
+So people that disagree learn to be silent, or to express outrage to better blend in. This results in a feedback loop (the [Spiral of Silence](https://en.wikipedia.org/wiki/Spiral_of_silence) or [Preference Falsification](https://en.wikipedia.org/wiki/Preference_falsification#:~:text=Preference%20falsification%20is%20the%20act,odds%20with%20one's%20private%20preference)), with dissenting voices becoming increasingly silent as those most interested in status and power expressing their righteous outrage the loudest.
 
 
 ## Victims, Villains, Heroes
@@ -57,11 +57,9 @@ The hero gains status and political power *within his or her group* by expressin
 
 However, in doing this, heroes open themselves up to becoming villainized in return by the heroes of other groups.
 
-Not everyone has what it takes to play the hero. If you don't, you might settle for being a victim, because you can at least benefit from the political spoils of your hero. If you crave social status or power, don't be the villain in your own social group, unless you are ready to find new friends and become the hero of another group.
+Ironically, the best people are often villains. They don't accept all the beliefs of their social group, and they are unwilling to pretend they do. They have the courage to stand up to the righteously-outraged, and often are disgraced, imprisoned, or killed for that courage. 
 
-Ironically, the best people are often villains. They don't accept all the beliefs of their social group, and they are unwilling to pretend they do, let alone attack other dissenters. They have the courage to stand up to the courage of the righteously outraged, and often are disgraced, imprisoned, or killed for that courage. 
-
-But the villains are often the heroes of the next generation. Progress requires villains, because without a villain willing to tell us when and where we are wrong, we will never learn.
+But the villains are often the heroes of the next generation. Progress requires villains, because without a villain willing to tell us we are wrong, we will never change.
 
 ## Outrage is a Weapon
 
