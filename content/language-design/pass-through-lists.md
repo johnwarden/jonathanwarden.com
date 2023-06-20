@@ -63,13 +63,13 @@ It's nice that I can modify `inverse` to *take* additional parameters without br
 
 ## Proposed Solution
 
-Here's a proposal for a language feature that makes additional return values backwards compatible. This proposal avoids adding additional syntactic complexity to the language using something I call implicit construction/deconstruction.
+Here's a proposal for a language feature that makes addition of return values backwards compatible. This proposal avoids adding additional syntactic complexity to the language using something I call implicit construction/deconstruction.
 
 ### 1. Functions Always Return Lists
 
-In most languages, functions accept lists of arguments, but typically return single values.  But if functions always returned lists, additional values could always be added to the end of the list. Unfortunately, this would require extra code on the caller side to extract returned values from lists.  
+In most languages, functions accept lists of arguments, but typically return single values.  But if functions always returned lists, additional values could always be added to the end of the list. 
 
-But we could reduce that burden with a little syntactic sugar: allowing calling code to accept the values returned by a function using a **deconstructing assignment**:
+Unfortunately, this would require extra code on the caller side to extract returned values from lists. But we could reduce that burden with a little syntactic sugar: allowing calling code to accept the values returned by a function using a **deconstructing assignment**:
 
 {{< highlight java "linenos=false" >}}
 
@@ -128,6 +128,8 @@ println(2 * inverse(4))
 
 And now we have a language where it is easy to modify a function to return additional values, without breaking backwards compatibility.
 
+<!--
+
 ### 3. Implicit Construction
 
 Now, it's a tiny bit inconvenient for our language to force every function to explicitly return a list.
@@ -170,32 +172,12 @@ inverse 4 // same as inverse(4)
 
 {{< /highlight >}}
 
-
-### 5. Implicit Deconstruction in Function Definitions
-
-So functions in our language always accept and return a list of values. Now in many functional languages, functions always accept and return a *single* value.  Let's say that in our language, both of these are true: functions always accept and return a single value -- a list. In cases where that list only contains 1 item, implicit construction/de-construction simplifies the syntax by allowing you to construct and deconstruct the list implicitly, without parentheses.
-
-Previously, we defined an inverse function that takes two arguments:
-
-{{< highlight java "linenos=false" >}}
-
-func inverse(x, verbose=false) // 'verbose' is optional
-	...function body
-{{< /highlight >}}
-
-But we just said that in this language, functions only take a single list as an argument. So the above is actually syntactic sugar: the argument list is treated as a deconstructing assignment. The above is equivalent to the following:
-
-{{< highlight java "linenos=false" >}}
-
-func inverse(args)
-	let (x, verbose) = args
-	...function body
-{{< /highlight >}}
+-->
 
 
-## Pass-Through Lists are Not Regular Lists
+### 3. Pass-Through Lists are Not Regular Lists
 
-Implicit construction/deconstruction means if we try to assign a list to a variable, we will only end up assigning the first value to the variable:
+Implicit deconstruction means if we try to assign a list to a variable, we will only end up assigning the first value to the variable:
 
 {{< highlight java "linenos=false" >}}
 
@@ -221,23 +203,6 @@ let a = (1,2)
 let a = 1
 {{< /highlight >}}
 
-
-## Pass-Through Lists and Parentheses
-
-Using parentheses as the syntax for constructing a pass-through lists just happens to make parentheses do other things we expect from them.
-
-For example, we can now use parentheses for specifying the order of operations. The expression `a*(b+c)` creates a single-item pass-through list containing the value of `b+c`, which is then extracted with an implicit deconstruction and multiplied by `a`, resulting in the intended order of operations.
-
-Implicit construction/destruction also provides a convenient notation for assigning a list of variables to a list of values like so:
-
-{{< highlight java "linenos=false" >}}
-
-let(firstName, lastName) = ("Albert", "Einstein");
-{{< /highlight >}}
-
-
-## Pass-Through Lists and Regular Lists
-
 Since pass-through lists can't be referenced, a language that uses them probably needs an actual list type, perhaps constructed using square brackets instead of parentheses.
 
 {{< highlight java "linenos=false" >}}
@@ -247,14 +212,110 @@ let x = fruit
 x // evaluates to ["applies","oranges","cherries"]
 {{< /highlight >}}
 
-### Further Possibilities
+## Pass-Through Lists and Parentheses
+
+Using parentheses as the syntax for constructing a pass-through lists just happens to make parentheses do other things we expect from them.
+
+For example, we can now use parentheses for specifying the order of operations. The expression `a*(b+c)` creates a single-item pass-through list containing the value of `b+c`, which is then extracted with an implicit deconstruction and multiplied by `a`, resulting in the intended order of operations.
+
+<!--
+
+Implicit deconstruction also provides a convenient notation for assigning a list of variables to a list of values like so:
+
+{{< highlight java "linenos=false" >}}
+
+let(firstName, lastName) = ("Albert", "Einstein");
+{{< /highlight >}}
+
+-->
+
+
+<!--
+
+### Unifying Call/Return Semantics
+
+So functions in our language always accept and return a list of values. And the syntax for receiving function arguments and receiving return values looks similar. In both cases, it is a list of local variables that are assigned values from the argument/return-value list, in order. In a typed language, the variables might also have types. 
+
+Some languages support other features in argument lists: optional arguments and default values, named arguments, variadic/variable-length argument lists, etc.
+
+function sum(values ...int)
+	...return the sum of values
+
+print(sum(1,2,3))
+
+function get
+
+let (x ...int) = getValues(foo)
+
+let x []int = getValues
+
+
+
+
+
+For example, when receiving the value from the inverse function, the caller could make the `explanation` return value optional. If it called a version of the 
+
+	let(x, explanation="n/a") = inverse(4)
+
+
+
+
+In fact, a language could unify the semantics for receiving arguments and receiving return values.
+
+
+
+The deconstructing assignment for receiving return values looks a lot like the parameter definition for passing values. 
+
+When receiving the values returned by a function, the caller uses a deconstructing assignment to assign the elements of the list to local variables. 
+
+In both cases. Both cases 
+
+
+When receiving the values passed to a function, the function definition uses the deconstructing assignment to assign the elements of the argument list to local variables
+
+In the function definition, 
+
+
 
 Using the same semantics for passing/returning values to/from functions could further enable some useful new language features consistently on both sides of the interface to a function: named parameters (named return values), optional and default values (optional and default return values), type constraints, variable-length argument (and return value) lists, pattern matching, and nested deconstructing assignments.  I hope to explore some of these features in future posts.
 
 
+### 3. Implicit Deconstruction in Function Definitions
+
+Now in many functional languages, functions always accept and return a *single* value. Let's say that in our language, both of these are true: functions always accept and return a single value -- a list. 
+
+If the function returns a list with only 1 value, implicit de-construction allows the caller to receive that value without without parentheses.
+
+If the function accepts a list with multiple values, an implicit deconstructing assignment allows the function body to receive the argument list as individual variables.
+
+For example, this function definition
+
+{{< highlight java "linenos=false" >}}
+
+func inverse(x, verbose=false) // 'verbose' is optional
+	...function body
+{{< /highlight >}}
+
+
+Is essentially equivalent to the following:
+
+{{< highlight java "linenos=false" >}}
+
+func inverse(args)
+	let (x, verbose=false) = args
+	...function body
+{{< /highlight >}}
+
+
+This means that 
+-->
+
+
+<!--
+
 ## Synopsis of Pass-Through List Rules
 
-Pass-through lists are created by placing one or more comma-separated values in parentheses.  All functions take a single pass-through list as their argument, and return a single pass-through list.
+Pass-through lists are created by placing one or more comma-separated values in parentheses. All functions take a single pass-through list as their argument, and return a single pass-through list.
 
 The values of pass-through lists can be accessed via deconstructing assignments, for example:
 
@@ -270,55 +331,9 @@ If a pass-through list contains more values than are listed on the left-hand sid
 let (a) = ("a","b")
 {{< /highlight >}}
 
-
-### Implicit Construction
-
-Pass-through lists are implicitly constructed -- in other words, parentheses are assumed -- in any context where a pass-through list is expected, including...
-
-...when passing arguments to functions, so:
-
-{{< highlight java "linenos=false" >}}
-
-f x
-
-// is the same as
-
-f(x)
-{{< /highlight >}}
-
-
-...when returning values from functions, so:
-
-{{< highlight java "linenos=false" >}}
-
-func inverse(x)
-	return 1/x
-
-// is the same as
-
-func inverse(x)
-	return (1/x)
-
-{{< /highlight >}}
-
-
-...and in any deconstructing assignments, so:
-
-{{< highlight java "linenos=false" >}}
-
-let(x) = 5
-
-// is the same as
-
-let(x) = (5)
-{{< /highlight >}}
-
-
 ### Implicit Deconstruction
 
-Implicit deconstruction happens wherever a pass-through list is accessed without an explicit deconstructing assignment, including...
-
-...when accessing function return values, so:
+Implicit deconstruction happens wherever a pass-through list is accessed without an explicit deconstructing assignment
 
 {{< highlight java "linenos=false" >}}
 
@@ -326,17 +341,6 @@ let y = f(x)
 
 // is the same as
 let (y) = f(x)
-{{< /highlight >}}
-
-
-...when pass-through lists of arguments are passed to functions.  So:
-
-{{< highlight java "linenos=false" >}}
-
-let inverse = x -> 1/x
-
-// is the same as
-let inverse = (x) -> 1/x
 {{< /highlight >}}
 
 ### Behavior of Parentheses
@@ -355,7 +359,7 @@ a*(b+c)
 
 let (a,b) = ("a","b")
 {{< /highlight >}}
-
+-->
 
 
 ## Summary
