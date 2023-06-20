@@ -3,6 +3,7 @@ layout: single
 title:  "Moderation as Consensus"
 date:   2020-11-08 13:40:43 -0700
 toc: true
+image: moderation-as-consensus.png
 canonical_url: https://jonathanwarden.com/moderation-as-consensus
 
 # sidebar:
