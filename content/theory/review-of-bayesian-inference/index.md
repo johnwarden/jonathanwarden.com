@@ -159,7 +159,7 @@ The key to the power of Bayesian inference is that it tells us exactly how a rat
 
 Inferring one thing from another thing is only possible here because Holmes' prior beliefs are beliefs in **combinations** of propositions, not just individual propositions. Holmes' prior beliefs are not simply that *there is a 75% chance that the Duke did it* or *there is a 50% chance that the Duchess is dead*. If his beliefs were so simple, learning that the Duchess was murdered would not tell Holmes anything about whether it was the Duke or the Count that did it.
 
-Rather his beliefs are about **combinations** of propositions (e.g. *the Countess is Dead and the Duke did*). His beliefs form a [**joint probability distribution**](https://en.wikipedia.org/wiki/Joint_probability_distribution) that encodes the knowledge that enables Holmes to make inferences about the culprit upon learning of the Duchess's death.
+Rather his beliefs are about **combinations** of propositions (e.g. *the Countess is Dead and the Duke did*). His beliefs form a [**joint probability distribution**](https://en.wikipedia.org/wiki/Joint_probability_distribution) that encodes the knowledge about the relationships between propositions that enables Holmes to make inferences about the culprit upon learning of the Duchess's death.
 
 I think that understanding prior beliefs a joint probability distribution is key to understanding Bayesian Inference.
 
