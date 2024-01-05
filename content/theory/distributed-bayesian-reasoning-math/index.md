@@ -466,7 +466,7 @@ To generalize $\eqref{5}$, we first rewrite it in the more easily-generalizable 
 $$
     \begin{aligned} 
              P_h(A) =  ~ &\sum_{b≥0} P_h(B=b) × \textbf{ if } b=0 \textbf{ then } P(A|B=0) \textbf{ else }   \cr
-               &~~ \sum_{c≥0} P_h(C=c|B=1) × P(A|B=1,C=c)\cr \cr
+               &~~ \sum_{c≥0} P_h(C=c) × P(A|B=1,C=c)\cr \cr
     \end{aligned}
 $$
 
