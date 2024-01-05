@@ -27,14 +27,14 @@ Bridge-based ranking on the other hands let's us break down the vote counts, att
  
 The chart below illustrates how this works. This charts shows a subset of  notes from the Community Notes public data set, run through [my own implementation of the algorithm](https://github.com/social-protocols/bridge-based-ranking). The horizontal axis shows the note's "polarity" -- e.g. +1 for right-wing and  -1 for left wing -- and the vertical axis shows its "helpfulness". The note's final score is its vertical component, or its projection on the "helpfulness" axis. 
 
-The colors of the dots indicate their actual status in Community Notes (as you can see, the polarity factor found by my implementation more or less aligns with the output of the official algorithm).
+The colors of the dots indicate their actual status in Community Notes (as you can see, the common-ground factor found by my implementation more or less aligns with the Helpfulness ratings of the official algorithm).
  
 <img src='community-notes-items-polarity-plot.png' 
                  alt='Community Notes Polarity Plot (Notes)' 
                  style='display: block; margin-left: auto; margin-right: auto; max-height: 500px' />
 
 
-Notice how there is a large spread along not just the the vertical axis, but also the horizontal axis. If want we want to know how helpful a note is, the horizontal axis is just noise. But there is a lot of information along the vertical axis. Separating the polarity factor from the helpfulness factor by ignoring the horizontal component removes the noise and extract useful information.
+Notice how there is a large spread along not just the the vertical axis, but also the horizontal axis. If want we want to know how helpful a note is, the horizontal axis is just noise. But there is a lot of information along the vertical axis. Separating the polarity factor from the helpfulness factor by ignoring the horizontal component removes the noise and extracts useful information.
 
 ### Why it Works
 
@@ -48,7 +48,7 @@ When bridge-based ranking algorithm dissects users voting behavior and factors o
                  style='display: block; margin-left: auto; margin-right: auto; max-height: 500px' />
 
 
-The first thing you may notice is the clump of users in the upper-right quadrant. This tells us community notes users are predominantly right-leaning (or this is due to the way I sampled the data). But notice also that the helpfulness factor for these users is above zero. They are also almost all biased towards helpfulness; their votes can't be entirely explained by their politics. 
+The first thing you may notice is the clump of users in the upper-right quadrant. This tells us community notes users are predominantly right-leaning (or possibly this is an artifact of the way I sampled the data). But notice also that the helpfulness factor for these users is above zero. They are also almost all biased towards helpfulness; their votes can't be entirely explained by their politics. 
 
 
 ### Common Ground
@@ -215,106 +215,12 @@ It then simply finds a combination of values for every $w_i$, $x_j$, $b_i$, and 
 
 The polarity factor the algorithm discovers doesn't necessarily correspond exactly to politics, or cat-dog preferences, or any measurable quantity. It may be a linear combination of factors. But whatever it is, it represents **some** latent factor of users and posts that does a good job predicting their votes.
 
-
-## Breaking the Algorithm
-
-The algorithm we've described so far works on the assumption that this latent factor corresponds to some sort of polarization within the community. But what if this is not the case? What if the factor that best explains variation in users' votes corresponds to, for example, how informed or educated that user is? For example, suppose in some expert advice forum the regression for a post looks like this.
-
-           
-           Vote 
-            +1   ✕ ✕ ✕ ✕ 
-             |    ↗
-             |  ↗ 
-    -1 ______|↗______ +1  User Expertise
-            ↗|
-          ↗  |
-        ↗    |
-      ✕ ✕   -1
-
-Now bridge-based ranking will do the opposite of what we probably want: it will favor posts that get upvoted regardless of user expertise. If the forum was already populated by a majority of experts, and a minority of uninformed quacks promoting baseless claims, then informed posts would have had the advantage. Bridge-based ranking would just take this advantage away.
-
-In fact, this points to a strategy for attacking a bridge-based ranking algorithm. An attacker trying to break Community Notes using a lot of sockpuppet accounts won't succeed just by upvoting notes that support some political agenda. Instead, they should *downvote helpful posts and upvote unelpful posts, regardless of politics*.
-
-With enough sockpuppet accounts contributing, the result will be that the primary factor that explains variation in users voting behavior will not be politics, but helpfulness. The matrix factorization algorithm will thus discover this factor, and a regression for a helpful post will now look something like this:
-
-           Vote 
-            +1   ✕ ✕ ✕ ✕ 
-             |    ↗
-             |  ↗ 
-    -1 ______|↗______ +1  User Helpfulness
-            ↗|
-          ↗  |
-        ↗    |
-      ✕ ✕   -1
-
-This would be a disaster, because bridge-based ranking will nullify the effect of Helpfulness and favor posts would be most upvoted if helpfulness were not a factor. And which posts might these be? Well in the community notes, the factor that most predicts how users vote, after Helpfulness, is ...politics! 
-
-What would the intercept be? A positive intercept means a post gets a lot of upvotes after adjusting for helpfulness. So if the forum is dominated by right-wingers for instance, right-wing posts will have a positive intercept and left-wing posts will have a negative intercept. This is definitely not the desired result.
-
-
-## Two-Dimension Matrix Factorization
-
-To address this problem, I have developed a variation of the algorithm that uses a two dimensional Matrix factorization, and then users a process similar to principal component analysis to find the high-entropy dimension and the low-entropy dimension.
-
-Every user and post is characterized by a two-dimensional vector, instead of a single factor plus an intercept. So the probability of a user upvoting a post is just the dot-product of this vector. That is, the model simplifies to:
-
-$$
-    ŷ_{ij} = \vec{w_i} \cdot \vec{x_j}
-$$
-
-Where $w⃗_i$ and $x⃗_j$ are now vectors.
-
-The problem is, the two factors of this two-dimensional vector do not necessarily align with the polarity-factor and the common-ground factor: instead they may be any arbitrarily linear combination of these factors. So the results of the matrix factorization algorithm, when plotted in two dimensions, will appear to be rotated arbitrarily.
-
-However, we can use a technique similar to principle component analysis to find a change of basis so that our axis align with the polarity and common-ground factor. 
-
-The chart below shows the results of this algorithm using a synthetic dataset. The dataset simulates four user profiles: each profile is either left- or right-wing biased, but some users are less biased -- they make a good-faith effort to rate posts based on helpfulness.
-
-I then created upvote/downvote Matrix with votes drawn randomly with probabilities defined by these profiles. I then factorized the resulting matrix using two latent factors. The results of the initial Matrix factorization are shown in the first row of charts below.
-
-<img src='synthetic-data-polarity-plot-with-basis-change.png'
-                 alt='Synthetic Data Polarity Plot with Basis Change'
-                 style='display: block; margin-left: auto; margin-right: auto; max-height: 900px' />
-
-As you can see, the matrix factorization clearly has discovered the two dimensions that best explain the variation in users' votes: left-right polarity and helpfulness. But it chose, in a sense, an arbitrary set of axes.
-
-The bottom row of charts shows the same data after a change of basis that makes "polarity" the vertical axis and "common ground" the horizontal axis.
-
-The key to discovering the polarity axis and the common-ground axis is to notice that there is less "disagreement" along the common-ground axis. As you can see in the bottom-left chart, almost all users have a positive value for the common-ground factor. If users were to vote entirely based on this factor, there would be little disagreement: they would mostly upvote helpful items and download unhelpful items.
-
-So finding the common-ground axis is as simple as finding a vector which, when users are projected onto this vector, results in most users having a positive (or negative value). The specific measure I use is actually a measure of entropy, which is the log of the probability that a user upvotes a post after users are projected into a vector. The exact code is [here](https://github.com/social-protocols/bridge-based-ranking).
-
-Likewise, the polarity axis can be discovered by finding the vector with maximum entropy.
-
-The algorithm is almost identical to principal component analysis, except instead of maximizing variance (which is how PCA works), we maximize/minimize entropy.
-
-
-Here is a subset of the Community Notes data run through the same algorithm. As you can see, after initially running matrix factorization we don't know which way is "up". But after discovering the high-entropy and low-entropy vectors and doing a change of basis, the vertical does indeed correspond to "common ground", as you see from the fact that the posts that Community Notes has rated as helpful (the green dots) mostly have a positive value for the common ground factor, and the red dots mostly have a negative value.
-
-
-<img src='community-notes-polarity-plot-with-basis-change.png'
-                 alt='Community Notes Polarity Plot with Basis Change'
-                 style='display: block; margin-left: auto; margin-right: auto; max-height: 900px' />
-
-
-### Quantifying User Helpfulness
-
-Another advantage to using two-dimension Matrix factorization is that it actually gives us a helpfulness factor for each user. The 1D Matrix factorization algorithm used by community notes assigns an intercept to each user. This intercept can be thought of as the user's "friendliness" -- how likely they are to upvote a post ignoring that post's polarity. But this intercept does not correspond to a user's helpfulness. 
-
-With two-dimensional matrix factorization, we get both a polarity factor and a helpfulness factor for each user. This is what has allowed us to produce the polarity plot for users shown earlier in this essay, which I repeat here.
-
-<img src='community-notes-users-polarity-plot.png'
-                 alt='Community Notes Polarity Plot (Users)'
-                 style='display: block; margin-left: auto; margin-right: auto; max-height: 500px' />
-
-One of the advantages of characterizing users by helpfulness, and not just polarity, is that it can help with the cold-start problem. If a new post has only received a few votes, then we can estimate what it's helpfulness factor by taking an average of the user's votes weighted by their helpfulness factor. 
-
 ## Conclusion
 
-One of the reasons for my interest in bridge-based ranking is that I think it may be a critical part of a [social protocol](https://social-protocols.org) for a self-moderating community. Without it, user polarization will tend to lead to either suffocating uniformity or least-common-denominator mediocrity. Bridge-based ranking can help focus users attention on posts with high [Information Value](https://social-protocols.org/global-brain/information-value.html). 
+One of the reasons for my interest in bridge-based ranking is that I think it may be a critical part of a [social protocol](https://social-protocols.org) for a self-moderating community. Without it, user polarization will tend to lead to either suffocating uniformity or least-common-denominator mediocrity. Bridge-based ranking can be used in any forum with high entropy (lots of downvotes) as a way to identify posts with posts with high [Information Value](https://social-protocols.org/global-brain/information-value.html) based on the common-ground factor.
 
 
-
+In my [next article](/improving-bridge-based-ranking), I discuss ways that this algorithm can fail, and introduce an improved implementation of the algorithm that users 2-dimensional matrix factorization.
 
 
 <!--
