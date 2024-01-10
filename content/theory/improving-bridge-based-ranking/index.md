@@ -2,6 +2,7 @@
 title: "Improving Bridge-Based Ranking"
 date: "2024-01-05"
 math: true
+image: https://cdn.discordapp.com/attachments/1097595489282703571/1194709920596115567/alphaomega1551_Two_groups_of_people_on_opposite_sides_of_the_wa_fdcccced-0448-42e0-a341-9f4e8f7991de.png?ex=65b15751&is=659ee251&hm=7b3fe3ac92c4f987e3e9a169b60a4580182f26a000c0169fadb118747777ed7b&
 
 ---
 

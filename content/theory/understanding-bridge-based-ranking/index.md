@@ -2,6 +2,7 @@
 title: "Understanding Bridge-Based Ranking"
 date: "2024-01-01"
 math: true
+image: https://cdn.discordapp.com/attachments/1097595489282703571/1194709292775911589/alphaomega1551_Two_groups_of_people_on_opposite_sides_of_the_wa_1c90a2c7-2f57-467a-910b-be12aa5d5f87.png?ex=65b156bc&is=659ee1bc&hm=c91b61ec3c3fcf7de856b308313b0ebab93df4782a170ae108878fe1dfedfe3e&
 
 ---
 
