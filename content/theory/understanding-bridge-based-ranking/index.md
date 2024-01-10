@@ -9,55 +9,57 @@ math: true
 
 [Bridge-Based Ranking](https://www.belfercenter.org/sites/default/files/files/publication/TAPP-Aviv_BridgingBasedRanking_FINAL_220518_0.pdf) is an alternative way to score and rank content by **adjusting for user polarization**.
 
-The most successful implementation of Bridge-Based Ranking, X's Community Notes, explains that the algorithm favors notes that are rated highly by users across a "[diversity of perspectives](https://communitynotes.twitter.com/guide/en/contributing/diversity-of-perspectives)". But as I show in this article, ratings from users with diverse perspectives are not necessary for a note to rank highly. It is somewhat more accurate to say that the note must rank highly **regardless of diversity of perspective**, or more specifically, regardless of **polarization**.
+The most successful implementation of Bridge-Based Ranking, X's Community Notes, explains that the algorithm favors notes that are rated highly by users across a "[diversity of perspectives](https://communitynotes.twitter.com/guide/en/contributing/diversity-of-perspectives)". But as I show in this article, ratings from users with diverse perspectives are not necessary for a note to rank highly. It is somewhat more accurate to say that the note must be highly rated **regardless of diversity of perspective**..
 
-The algorithm works by attempting to model *why* a post receives the votes it does: how many votes are due to users left-wing or right-wing biases, and how many are due to other factors. If a post is only appealing to right-wing voters, and an online forum is dominated by right-wing voters, then that right-wing bias probably explains why it gets so many upvotes. So the algorithm tries to correct for this bias, and estimate how a post would rank if all users were perfect centrists. What remains is content that ranks highly **regardless** of users' political biases.
+The algorithm works by attempting to model *why* a post receives the votes it does: how many votes are due to users left-wing or right-wing biases, and how many are due to other factors. If a post is only appealing to right-wing voters, and an online forum is dominated by right-wing voters, then that right-wing bias probably explains why it gets so many upvotes. So the algorithm tries to correct for this bias, and estimate how many upvotes a post would receive if all users were perfect centrists.
 
 ### Extracting Information
 
-Now why would we want to do this? Why for example would a predominantly left-wing community want to artificially give right-wing opinions more weight?
+Now why would we want to do this? Why for example would a predominantly left-wing community want to artificially give right-wing opinions more weight, especially if they think their own side is better-informed?
 
 For a fact-checking product like Community Notes, plausible political neutrality may be necessary for public acceptance. But bridge-based ranking has advantages beyond political neutrality: it actually allows us to extract more **information** from users. 
 
-In Community Notes, users vote notes as "Helpful" and "not Helpful". If Community Notes was dominated by left-wingers, what would we learn by the fact that a note received a lot of "helpful" votes? That it is helpful? Or that it supports a left-wing worldview? Or both? It's hard to say: perhaps a marginally helpful note that supports a left-wing world view gets more votes than a truly helpful note that supports a right-wing world-view. We can't tell just from the raw vote counts how "helpful" the note is, or how left-wing it is. 
+In Community Notes, users rate notes as "Helpful" or "not Helpful". If Community Notes was dominated by leftists, what would we learn by the fact that a note received a lot of "Helpful" votes? That it is helpful? Or that it supports a left-wing worldview? Or both? It's hard to say: perhaps a marginally helpful note that supports a left-wing world view gets more votes than a truly helpful note that supports a right-wing world-view. We can't tell just from the raw vote counts how "helpful" the note is.
 
-Bridge-based ranking on the other hands let's us break down the vote counts, attributing some to the post's "helpfulness" and others to its "polarity". So it is not about giving "both sides" equal weight; by "cancelling out" the effect of political bias, we can actually extract more interesting **information** from the users votes. 
+Bridge-based ranking on the other hands let's us break down the vote counts, attributing some to whatever users think "helpfulness" means and others to polarity. So it is not about giving "both sides" equal weight; by "cancelling out" the effect of political bias, we can actually extract more interesting **information** from the users' votes. 
  
 ### Projection in Opinion Space 
  
-The chart below illustrates how this works. This charts shows a subset of  notes from the Community Notes public data set, run through [my own implementation of the algorithm](https://github.com/social-protocols/bridge-based-ranking). The horizontal axis shows the note's "polarity" -- e.g. +1 for right-wing and  -1 for left wing -- and the vertical axis shows its "helpfulness". The note's final score is its vertical component, or its projection on the "helpfulness" axis. 
+The chart below illustrates how this works. This charts shows a subset of notes from the Community Notes public data set, run through [my own implementation of the algorithm](https://github.com/social-protocols/bridge-based-ranking). The horizontal axis shows the note's "polarity" -- e.g. +1 for right-wing and  -1 for left wing -- and the vertical axis shows its "helpfulness". The note's final score is its vertical component, or its projection on the "helpfulness" axis. The colors of the dots indicate their actual status in Community Notes.
 
-The colors of the dots indicate their actual status in Community Notes (as you can see, the common-ground factor found by my implementation more or less aligns with the Helpfulness ratings of the official algorithm).
+
  
-<img src='community-notes-items-polarity-plot.png' 
+<img src='https://raw.githubusercontent.com/social-protocols/bridge-based-ranking/main/plots/community-notes-large-items-2d.png' 
                  alt='Community Notes Polarity Plot (Notes)' 
                  style='display: block; margin-left: auto; margin-right: auto; max-height: 500px' />
 
 
-Notice how there is a large spread along not just the the vertical axis, but also the horizontal axis. If want we want to know how helpful a note is, the horizontal axis is just noise. But there is a lot of information along the vertical axis. Separating the polarity factor from the helpfulness factor by ignoring the horizontal component removes the noise and extracts useful information.
+Notice how there is a large spread along not just the the vertical axis, but also the horizontal axis. If want we want to know how helpful a note is, the horizontal axis is just noise. But there is a lot of information along the vertical axis. Separating the polarity factor from the helpfulness factor by ignoring the horizontal component lets us extract extract this information.
+
+But what is this information? It is a measure of some aspect of a post which increases upvotes on that post independently of polarization. What exactly this feature is is impossible to say, but presumably it reveals how users interpret the idea of "helpfulness".
 
 ### Why it Works
 
 
-People are politically biased, but they are also in a sense biased towards helpfulness. That is, they will mostly upvote notes that support their perspective but they will **especially** upvote notes that support their perspective and are actually helpful. And they will tend to downvote notes that support opposing perspectives....but they will extra zealously downvote notes that support the opposing perspective using false or misleading information.
+People are politically biased, but they are also in a sense biased towards helpfulness. That is, they will mostly upvote notes that support their perspective but they will **especially** upvote notes that support their perspective and are actually relevant, factually accurate, etc.. And they will tend to downvote notes that support opposing perspectives....but they will extra zealously downvote notes that support the opposing perspective using false or misleading information.
 
-When bridge-based ranking algorithm dissects users voting behavior and factors out the left-right component, it finds that **almost everyone is slightly biased towards helpfulness**! You can see this in the plot of a sample of Community Notes users below. 
+When bridge-based ranking algorithm dissects users voting behavior and factors out the polarity component, it finds that **most users are at least somehat biased towards helpfulness**! You can see this in the plot of a sample of Community Notes users below. 
 
-<img src='community-notes-users-polarity-plot.png'
+<img src='https://raw.githubusercontent.com/social-protocols/bridge-based-ranking/main/plots/community-notes-large-users-2d.png'
                  alt='Community Notes Polarity Plot (Users)'
                  style='display: block; margin-left: auto; margin-right: auto; max-height: 500px' />
 
 
-The first thing you may notice is the clump of users in the upper-right quadrant. This tells us community notes users are predominantly right-leaning (or possibly this is an artifact of the way I sampled the data). But notice also that the helpfulness factor for these users is above zero. They are also almost all biased towards helpfulness; their votes can't be entirely explained by their politics. 
+The first thing you may notice is the clump of users in the upper-right quadrant. This tells us community notes users are overall right-leaning (though possibly this is an artifact of the way I sampled the data). But notice also that the helpfulness factor for these users is mostly above zero. They are mostly biased towards helpfulness; their votes can't be entirely explained by their politics. 
 
 
 ### Common Ground
 
 This vertical component in these plots represents **common ground**. It is something users tend to agree on independently of their politics.
 
-What exactly the common ground is depends on the community. Suppose for example there is a forum for Harry Potter fan fiction. But unfortunately in recent years it has been overwhelmed by debates about whether J.K. Rowling is transphobic. There is still a lot of good fan-fiction being posted, but the home page is dominated by the political posts.
+In the case of Community Notes, this is presumably some common idea of what constitutes "helpfulness". But in general what exactly the common ground is depends on the community. Suppose for example there is a forum for Harry Potter fan fiction that unfortunately in recent years it has been overwhelmed by debates about whether J.K. Rowling is transphobic. There is still a lot of good fan-fiction being posted, but the home page is dominated by posts about the controversy.
 
-In this case, the horizontal axis will represent the pro- and anti- J.K. Rowling factions, and the vertical axis will represent the common ground of the community: quality Harry Potter fan fiction. Using bridge-based ranking we can in a sense de-polarize the forum, factoring out the effect of polarization and getting back to community's original essence.
+In this case, the horizontal axis would likely represent the pro- and anti- J.K. Rowling factions, and the vertical axis would represent the common ground of the community: quality Harry Potter fan fiction. Using bridge-based ranking we can in a sense de-polarize the forum, factoring out the effect of polarization and getting back to community's original essence.
 
 Politics is not the only factor that can divide a forum. Suppose there is a popular forum for posting ridiculously cute pet pics. Sadly, in recent years, two factions have formed: the cat faction and the dog faction. The more extreme cat people mercilessly downvote pictures of dogs (regardless of how cut they are), and the dog people vice versa. Recently, the dog faction has gained the upper hand, and a cat-picture has little chance of making the front page, no matter how frigging adorably it is.
 
@@ -69,16 +71,16 @@ Again, by separating the dog-cat factor from the common ground factor, we can re
 
 But how does the algorithm actually work? How does it determine the polarization factor and common ground factor for each user and post?
 
-It actually works using a fairly simple algorithm called Matrix Factorization. Below I will explain how the Matrix Factorization algorithm works, starting with the version implemented by Community Notes and described in the [Birdwatch Paper](https://github.com/twitter/communitynotes/blob/main/birdwatch_paper_2022_10_27.pdf). There is also a good writeup by [Vitalik Buterin](https://vitalik.eth.limo/general/2023/08/16/communitynotes.html). I will then describe my variation of the algorithm that uses 2D matrix factorization.
+It actually works using a fairly simple algorithm called Matrix Factorization. Below I will explain how the Matrix Factorization algorithm works, starting with the version implemented by Community Notes and described in the [Birdwatch Paper](https://github.com/twitter/communitynotes/blob/main/birdwatch_paper_2022_10_27.pdf). There is also a good writeup by [Vitalik Buterin](https://vitalik.eth.limo/general/2023/08/16/communitynotes.html). In my [next post](/improving-bridge-based-ranking) describe my variation of the algorithm that uses 2D matrix factorization.
 
-A good way of understanding Matrix Factorization is that it is like running a bunch of regressions: one for each user and each item.
+A good way of understanding Matrix Factorization is that it is like running a bunch of linear regressions: one for each user and each item.
 
-For example, suppose we have already discovered the polarity factor for each user, and we want to find the polarity factor for each post. We can use regression analysis to estimates the probability that a user upvotes a post as a function of the user's polarity factor.
+For example, suppose we have already discovered the polarity factor for each user, and we want to find the polarity factor for each post. A linear regression predicts users' votes as a function of their polarity factors.
 
 For a highly polarizing right-wing post, the regression line might have a positive slope:
 
 
-***Highly Polarizing, Right-Wing Post***
+***Highly Polarizing Right-Wing Post***
 
            Vote 
             +1   ✕ ✕ ✕ ✕ 
@@ -92,7 +94,7 @@ For a highly polarizing right-wing post, the regression line might have a positi
 
 
 
-In this chart upvotes have a value of +1 and downvotes have a value of -1. All the right-wing users upvoted and all the left-wing users downvoted (as shown by the little ✕s). So the best fit is a line with a slope of +1: the more right-wing the user, the higher the probability of an upvote. The more left-wing, the higher the probability of a downvote. 
+In this chart upvotes have a value of +1 and downvotes have a value of -1. All the right-wing users upvoted and all the left-wing users downvoted (as shown by the little ✕s). So the best fit is a line with a slope of approximately +1: the more right-wing the user, the higher the probability of an upvote, and the closer the predicted value is to 1. The more left-wing, the higher the probability of a downvote, and the closer the predicted value is to 0. 
 
 Note that there are more right-wing users than left wing users, but it doesn't make a difference. Even if there were 100 right-wing users and 2 left-wing users, the slope of the best fit would be approximately the same. This is why bridge-based ranking does not favor the majority.
 
@@ -100,7 +102,7 @@ Note that there are more right-wing users than left wing users, but it doesn't m
 A very polarizing lift-wing post might have a negative slope:
 
 
-***A Highly Polarizing, Left-Wing Post***
+***A Highly Polarizing Left-Wing Post***
 
 
            Vote    
@@ -128,7 +130,7 @@ For a completely non-polarazing post, on the other hand, the slope would be zero
            ✕ |       
        
 
-This is a good post. Not just because the upvote probability is independent of the user's politics, but because the intercept is above the horizontal because this post receives mostly upvotes. This post has some quality that users of this forum are looking for.
+This is a good post. Not just because the upvote probability is independent of the user's politics, but because this post receives mostly upvotes -- the intercept is above zero. This post has some quality that users of this forum are looking for.
 
 
 <!-- And for completeness sake, a unequivocally bad post might look like this.
@@ -162,11 +164,11 @@ Now, suppose there is a post that looks like this:
     ✕ ✕ 
  
 
-This post has a positive slope, so it is clearly very polarizing. But the positive intercept means that voting behavior for this post cannot be explained entirely by politics. There is also a component that is independent of politics.
+This post has a positive slope, so it is clearly very polarizing. But the positive intercept means that voting behavior for this post cannot be explained entirely by politics. There is also a component that makes users more likely to upvote it independently of politics.
 
 ### The Intercept is Common Ground
 
-So the intercept represent "common ground". It represents something about a post that causes users to upvote independently of politics -- a component that cannot be explained entirely by users' polarity factors.
+So the intercept represent "common ground". It represents something about a post that causes users to upvote independently of politics that cannot be explained entirely by users' polarity factors.
 
 ### The Intercept is not the Average
 
@@ -183,7 +185,7 @@ Okay, so we have used regression analysis to find the polarity factor for each p
 
 But how do we find these?
 
-Well, if we knew all the **posts'** polarity factors, we could use regression analysis to estimate the probability that a user upvotes a post as a function of the polarity factors of the posts. The slope of the regression line would then be the user's polarity factor. The regression line for a very right-wing user, for example, might look just like that for a very right-wing post. (but in this case, the horizontal axis represents the polarity factor of the post).
+Well, if we knew all the **posts'** polarity factors, we could use regression analysis to estimate the probability that a user upvotes a post as a function of the polarity factors of the posts. The slope of the regression line would then be the user's polarity factor. The regression line for a very right-wing user, for example, might look similar to that for a very right-wing post.
 
 
     A Right-Wing User
@@ -211,7 +213,7 @@ $$
 
 Here $w_i$ is the user's polarity factor, $x_i$ is the post's polarity factor, $b_i$ is the user's intercept, and $c_j$ is the post's intercept.
 
-It then simply finds a combination of values for every $w_i$, $x_j$, $b_i$, and $c_j$ that best *fits* the data -- that produce values for $ŷ_{ij}$ that are closet to the actual values of $y_{ij}$. This is usually done using a standard [gradient descent](https://en.wikipedia.org/wiki/Gradient_descent) algorithm.
+It then simply finds a combination of values for every $w_i$, $x_j$, $b_i$, and $c_j$ that best *fits* the data -- that produce values for $ŷ_{ij}$ that are closet to the actual values of users vote ($y_{ij}$). This is usually done using a variant of the standard [gradient descent](https://en.wikipedia.org/wiki/Gradient_descent) algorithm.
 
 The polarity factor the algorithm discovers doesn't necessarily correspond exactly to politics, or cat-dog preferences, or any measurable quantity. It may be a linear combination of factors. But whatever it is, it represents **some** latent factor of users and posts that does a good job predicting their votes.
 
