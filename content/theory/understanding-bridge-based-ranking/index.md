@@ -10,9 +10,9 @@ image: https://cdn.discordapp.com/attachments/1097595489282703571/11947092927759
 
 [Bridge-Based Ranking](https://www.belfercenter.org/sites/default/files/files/publication/TAPP-Aviv_BridgingBasedRanking_FINAL_220518_0.pdf) is an alternative way to score and rank content by **adjusting for user polarization**.
 
-The most successful implementation of Bridge-Based Ranking, X's Community Notes, explains that the algorithm favors notes that are rated highly by users across a "[diversity of perspectives](https://communitynotes.twitter.com/guide/en/contributing/diversity-of-perspectives)". But as I show in this article, ratings from users with diverse perspectives are not necessary for a note to rank highly. It is somewhat more accurate to say that the note must be highly rated **regardless of diversity of perspective**..
+The most successful implementation of Bridge-Based Ranking, X's Community Notes, explains that the algorithm favors notes that are rated highly by users across a "[diversity of perspectives](https://communitynotes.twitter.com/guide/en/contributing/diversity-of-perspectives)". But as I show in this article, ratings from users with diverse perspectives are not necessary for a note to rank highly. It is somewhat more accurate to say that the note must be highly rated **regardless of diversity of perspective**.
 
-The algorithm works by attempting to model *why* a post receives the votes it does: how many votes are due to users left-wing or right-wing biases, and how many are due to other factors. If a post is only appealing to right-wing voters, and an online forum is dominated by right-wing voters, then that right-wing bias probably explains why it gets so many upvotes. So the algorithm tries to correct for this bias, and estimate how many upvotes a post would receive if all users were perfect centrists.
+The algorithm works by attempting to model *why* a post receives the votes it does: how many votes are due to users left-wing or right-wing biases, and how many are due to other factors. If a post is only appealing to right-wing voters, and an online forum is dominated by right-wing voters, then that right-wing bias probably explains why it gets so many upvotes. So the algorithm tries to correct for this bias, and estimate how many upvotes a post would receive if there was an equal balance of left-wing and right-wing voters.
 
 ### Extracting Information
 
@@ -20,9 +20,9 @@ Now why would we want to do this? Why for example would a predominantly left-win
 
 For a fact-checking product like Community Notes, plausible political neutrality may be necessary for public acceptance. But bridge-based ranking has advantages beyond political neutrality: it actually allows us to extract more **information** from users. 
 
-In Community Notes, users rate notes as "Helpful" or "not Helpful". If Community Notes was dominated by leftists, what would we learn by the fact that a note received a lot of "Helpful" votes? That it is helpful? Or that it supports a left-wing worldview? Or both? It's hard to say: perhaps a marginally helpful note that supports a left-wing world view gets more votes than a truly helpful note that supports a right-wing world-view. We can't tell just from the raw vote counts how "helpful" the note is.
+In Community Notes, users rate notes as "Helpful" or "Not Helpful". If Community Notes was dominated by leftists, what would we learn by the fact that a note received a lot of "Helpful" votes? That it is helpful? Or that it supports a left-wing worldview? Or both? It's hard to say: perhaps a marginally helpful note that supports a left-wing world view gets more votes than a truly helpful note that supports a right-wing world-view. We can't tell just from the raw vote counts how "helpful" the note is.
 
-Bridge-based ranking on the other hands let's us break down the vote counts, attributing some to whatever users think "helpfulness" means and others to polarity. So it is not about giving "both sides" equal weight; by "cancelling out" the effect of political bias, we can actually extract more interesting **information** from the users' votes. 
+Bridge-based ranking on the other hands let's us break down the vote counts, attributing some to whatever users think "helpfulness" means and others to polarity. So it is not about giving "both sides" equal weight; by cancelling out the effect of political bias, we can actually extract more interesting **information** from the users' votes. 
  
 ### Projection in Opinion Space 
  
@@ -30,19 +30,20 @@ The chart below illustrates how this works. This charts shows a subset of notes 
 
 
  
-<img src='https://raw.githubusercontent.com/social-protocols/bridge-based-ranking/main/plots/community-notes-large-items-2d.png' 
+<img src='https://raw.githubusercontent.com/social-protocols/bridge-based-ranking/main/plots/community-notes-large-items-1d.png' 
                  alt='Community Notes Polarity Plot (Notes)' 
                  style='display: block; margin-left: auto; margin-right: auto; max-height: 500px' />
 
 
 Notice how there is a large spread along not just the the vertical axis, but also the horizontal axis. If want we want to know how helpful a note is, the horizontal axis is just noise. But there is a lot of information along the vertical axis. Separating the polarity factor from the helpfulness factor by ignoring the horizontal component lets us extract extract this information.
 
-But what is this information? It is a measure of some aspect of a post which increases upvotes on that post independently of polarization. What exactly this feature is is impossible to say, but presumably it reveals how users interpret the idea of "helpfulness".
+But what is this information? It is a measure of some aspect of a post which increases upvotes on that post independently of users political biases. What exactly this feature is is impossible to say, but presumably it reveals how users interpret the idea of "helpfulness".
+
 
 ### Why it Works
 
 
-People are politically biased, but they are also in a sense biased towards helpfulness. That is, they will mostly upvote notes that support their perspective but they will **especially** upvote notes that support their perspective and are actually relevant, factually accurate, etc.. And they will tend to downvote notes that support opposing perspectives....but they will extra zealously downvote notes that support the opposing perspective using false or misleading information.
+People are politically biased, but they are also in a sense biased towards helpfulness. That is, they will mostly upvote notes that support their political perspective but they will **especially** upvote notes that support their perspective and are actually relevant and factually accurate. And they will tend to downvote notes that support opposing perspectives, but will downvote even more zealously when those notes use false or misleading information.
 
 When bridge-based ranking algorithm dissects users voting behavior and factors out the polarity component, it finds that **most users are at least somehat biased towards helpfulness**! You can see this in the plot of a sample of Community Notes users below. 
 
@@ -51,7 +52,7 @@ When bridge-based ranking algorithm dissects users voting behavior and factors o
                  style='display: block; margin-left: auto; margin-right: auto; max-height: 500px' />
 
 
-The first thing you may notice is the clump of users in the upper-right quadrant. This tells us community notes users are overall right-leaning (though possibly this is an artifact of the way I sampled the data). But notice also that the helpfulness factor for these users is mostly above zero. They are mostly biased towards helpfulness; their votes can't be entirely explained by their politics. 
+There is clump of users in the upper-right quadrant because community notes users are overall right-leaning. But notice also that the helpfulness factor for these users is mostly above zero. They are also mostly biased towards helpfulness. These users are more likely to upvote posts that support a right-wing worldview, **and** also more likely to upvote posts that are helpful.
 
 
 ### Common Ground
