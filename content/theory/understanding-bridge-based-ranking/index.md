@@ -237,39 +237,43 @@ The tables below include examples of notes with various combinations of factors 
 
 | note | polarity | helpfulness | link
 | ---- | ---- | ---- | ---- 
-| Lira has violated Article 436-2 of Ukraine's Criminal Code.<br/><br/>He publicly denied the Bucha massacre and other RU attacks against civilians, blaming Ukraine, exposed the location of Western journalists and Ukrainian soldiers, including their faces, among other crimes.  <a href='https://www.lexology.com/library/detail.aspx?g=83d10eb2-cede-4417-9a3f-9a535949585f'>[link]</a>  <a href='https://www.thedailybeast.com/gonzalo-lira-red-pill-dating-coach-who-is-accused-of-shilling-for-putin-is-arrested-in-ukraine'>[link]</a>  <a href='https://news.yahoo.com/pro-russian-blogger-gonzalo-lira-172900103.html'>[link]</a>  <a href='https://archive.ph/t5sOW'>[link]</a>  <a href='https://www.bbc.com/news/60981238'>[link]</a> | -0.73 | 0.68| <a href='https://twitter.com/i/birdwatch/n/1733797244619427891'  target='_blank'>link</a>
-| Kyiv is about 500km/310mi from the nearest active front line - far from being &quot;war torn&quot; - though there are nightly air raid alerts due to attacks  <a href='https://deepstatemap.live/en#6/49.246/34.893'>[link]</a>  <a href='https://liveuamap.com/'>[link]</a>  <a href='https://alerts.in.ua/en'>[link]</a><br/><br/>Footage of people trying to live a normal life is frequently used by pro-Russian publishers to discourage western aid  <a href='https://observers.france24.com/en/europe/20230512-parties-in-kyiv-nightclubs-in-the-midst-of-war-watch-out-for-these-misleading-images'>[link]</a>  <a href='https://usatoday.com/story/news/factcheck/2022/09/21/fact-check-ukraine-war-real-despite-video-dancing-kyiv-bar/8004366001/'>[link]</a> | -0.53 | 0.8| <a href='https://twitter.com/i/birdwatch/n/1688330206438678905'  target='_blank'>link</a>
-| The Secret Service does not provide protection to non-incumbent Presidential candidates until 120 days before the general election.<br/><br/>The next election is Nov. 5, 2024.  July 8, 2024 is 120 days prior.<br/><br/><a href='https://www.secretservice.gov/about/faq/general'>[link]</a> | -0.57 | 0.73| <a href='https://twitter.com/i/birdwatch/n/1684955453963321344'  target='_blank'>link</a>
-| Fox network lawyers explain that the Tucker Carlson show is not factual: <a href='https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2019cv11161/527808/39/'>[link]</a><br/><br/> Mistakes during the audit were found.   <a href='https://sos.ga.gov/page/2020-general-election-risk-limiting-audit'>[link]</a> <a href='https://www.ajc.com/politics/georgia-investigation-finds-errors-in-fulton-audit-of-2020-election/BZ7D5JXOMRBPZIU4PNVYIHQZR4/'>[link]</a><br/><br/>Georgia received several recounts &amp; audits requested by president Trump, all showing Biden won. <a href='https://apnews.com/article/election-2020-joe-biden-donald-trump-georgia-elections-4eeea3b24f10de886bcdeab6c26b680a'>[link]</a> <a href='https://www.cnn.com/2020/12/07/politics/georgia-recount-recertification-biden/index.html'>[link]</a> <a href='https://sos.ga.gov/news/historic-first-statewide-audit-paper-ballots-upholds-result-presidential-race'>[link]</a><br/><br/>Trump's cabinet declared that the election was fair <a href='https://apnews.com/article/barr-no-widespread-election-fraud-b1f1488796c9a98c4b1a9061a6c7f49d'>[link]</a>   | -0.9 | 0.44| <a href='https://twitter.com/i/birdwatch/n/1723283633421586614'  target='_blank'>link</a>
-| Obama’s order 13603 does not involve the possibility to suspend the US Constitution. The order by Obama was a minor update of a similar order by President Clinton. The Defense Production Act has been in effect since the Truman Administration &amp; amended several times since  <a href='https://www.snopes.com/fact-check/national-defense-resources-preparedness/'>[link]</a><br/><br/><a href='https://www.presidency.ucsb.edu/documents/executive-order-13603-national-defense-resources-preparedness'>[link]</a> | -0.67 | 0.6| <a href='https://twitter.com/i/birdwatch/n/1672599133339672577'  target='_blank'>link</a>
+| Lira has violated Article 436-2 of Ukraine's Criminal Code.    He publicly denied the Bucha massacre and other RU attacks against civilians, blaming Ukraine, exposed the location of Western journalists and Ukrainian soldiers, including their faces, among other crimes.  https://www.lexology.com/library/detail.aspx?g=83d10eb2-cede-4417-9a3f-9a535949585f  https://www.thedailybeast.com/gonzalo-lira-red-pill-dating-coach-who-is-accused-of-shilling-for-putin-is-arrested-in-ukraine  https://news.yahoo.com/pro-russian-blogger-gonzalo-lira-172900103.html  https://archive.ph/t5sOW  https://www.bbc.com/news/60981238 | -0.73 | 0.68| <a href='https://twitter.com/i/birdwatch/n/1733797244619427891'  target='_blank'>note url</a>
+| Kyiv is about 500km/310mi from the nearest active front line - far from being &quot;war torn&quot; - though there are nightly air raid alerts due to attacks  https://deepstatemap.live/en#6/49.246/34.893  https://liveuamap.com/  https://alerts.in.ua/en    Footage of people trying to live a normal life is frequently used by pro-Russian publishers to discourage western aid  https://observers.france24.com/en/europe/20230512-parties-in-kyiv-nightclubs-in-the-midst-of-war-watch-out-for-these-misleading-images  https://usatoday.com/story/news/factcheck/2022/09/21/fact-check-ukraine-war-real-despite-video-dancing-kyiv-bar/8004366001/ | -0.53 | 0.8| <a href='https://twitter.com/i/birdwatch/n/1688330206438678905'  target='_blank'>note url</a>
+| The Secret Service does not provide protection to non-incumbent Presidential candidates until 120 days before the general election.    The next election is Nov. 5, 2024.  July 8, 2024 is 120 days prior.    https://www.secretservice.gov/about/faq/general | -0.57 | 0.73| <a href='https://twitter.com/i/birdwatch/n/1684955453963321344'  target='_blank'>note url</a>
+| Fox network lawyers explain that the Tucker Carlson show is not factual: https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2019cv11161/527808/39/     Mistakes during the audit were found.   https://sos.ga.gov/page/2020-general-election-risk-limiting-audit https://www.ajc.com/politics/georgia-investigation-finds-errors-in-fulton-audit-of-2020-election/BZ7D5JXOMRBPZIU4PNVYIHQZR4/    Georgia received several recounts &amp; audits requested by president Trump, all showing Biden won. https://apnews.com/article/election-2020-joe-biden-donald-trump-georgia-elections-4eeea3b24f10de886bcdeab6c26b680a https://www.cnn.com/2020/12/07/politics/georgia-recount-recertification-biden/index.html https://sos.ga.gov/news/historic-first-statewide-audit-paper-ballots-upholds-result-presidential-race    Trump's cabinet declared that the election was fair https://apnews.com/article/barr-no-widespread-election-fraud-b1f1488796c9a98c4b1a9061a6c7f49d   | -0.9 | 0.44| <a href='https://twitter.com/i/birdwatch/n/1723283633421586614'  target='_blank'>note url</a>
+| Obama’s order 13603 does not involve the possibility to suspend the US Constitution. The order by Obama was a minor update of a similar order by President Clinton. The Defense Production Act has been in effect since the Truman Administration &amp; amended several times since  https://www.snopes.com/fact-check/national-defense-resources-preparedness/    https://www.presidency.ucsb.edu/documents/executive-order-13603-national-defense-resources-preparedness | -0.67 | 0.6| <a href='https://twitter.com/i/birdwatch/n/1672599133339672577'  target='_blank'>note url</a>
+| Community Notes requires agreement from contributors of differing perspectives, as such it is highly resistant to gaming.  The entire Community Notes algorithm and data is open source, and can be reviewed by anyone by following the links on the page below:    https://communitynotes.twitter.com/guide/en/under-the-hood/note-ranking-code | -0.69 | 0.57| <a href='https://twitter.com/i/birdwatch/n/1733887236091895826'  target='_blank'>note url</a>
+| People of all sexes and genders have breast tissue, and can get breast cancer.    https://www.cdc.gov/cancer/breast/men/index.htm    https://www.cancer.org/cancer/breast-cancer-in-men/about/what-is-breast-cancer-in-men.html     | -0.57 | 0.7| <a href='https://twitter.com/i/birdwatch/n/1642424873623646216'  target='_blank'>note url</a>
 
 #### Helpful + Neutral
 
 | note | polarity | helpfulness | link
 | ---- | ---- | ---- | ---- 
-| This video is not from Greece, but from a fire in Spain on July 2022. They are firefighters from the Zulú-2 brigade in Zamora and they speak in Spanish.<br/><br/>The video was viral back then and can be retrieved from several reliable media, like Levante-EMV,  20 minutos or RAC1:  <a href='https://www.levante-emv.com/buzzeando/2022/07/22/tiernas-imagenes-bomberos-dando-beber-corzo-68965340.amp.html'>[link]</a><br/><br/><a href='https://www.20minutos.es/noticia/5033552/0/un-grupo-de-bomberos-forestales-presta-auxilio-a-un-pequeno-corzo-deshidratado/'>[link]</a><br/><br/><a href='https://www.rac1.cat/societat/20220723/98793/video-bombers-ajuden-cabirol-cervol-sobreviure-aigua-incendi-zamora-losacio.amp.html'>[link]</a> | 0.0001 | 0.68| <a href='https://twitter.com/i/birdwatch/n/1684227349380825092'  target='_blank'>link</a>
-| While the post might be satire. The man in the pictures is not actually Riff Raff, but Nina Agdal's ex-boyfriend Reid Heidenry<br/><br/><a href='https://www.tmz.com/2015/11/01/heidi-klum-halloween-party-jlo/'>[link]</a> | -0.0001 | 0.6| <a href='https://twitter.com/i/birdwatch/n/1692432070834811360'  target='_blank'>link</a>
-| リンク先の記事では2015年度の拠出金分担額で日本が第2位であるとしているが、IAEAの2023年度予算(1)によると分担金割合は3位であり、突出した割合ではない。<br/><br/>(1)<a href='https://www.iaea.org/sites/default/files/gc/gc66-11_0.pdf'>[link]</a><br/><br/>参考までに拠出額上位10ヶ国を以下に記す。  アメリカ_25.100%  中国_____14.506%  日本______7.758%  ドイツ____5.902%  イギリス__4.225%  フランス__4.171%  イタリア__3.080%  韓国______2.476%  スペイン__2.061%  ブラジル__1.937% | -0.00019 | 0.72| <a href='https://twitter.com/i/birdwatch/n/1677800403772252160'  target='_blank'>link</a>
-| 原子力発電所事故に関連して発生している「汚染水」と「処理水」は、同じものを呼び替えているのではなく、定義がそもそも異なります。<br/><br/>汚染水とは、原発事故で溶け出した燃料デブリに由来する多量の放射性物質が溶け込んだ水のこと、  処理水とは、汚染水から放射性物質を可能な限り除去する処理を行なった水のことです。<br/><br/>この定義上で「汚染水」にあたるものは、政府も汚染水と呼称しており、「政府が（汚染水を）『処理水と呼ぶ』と決めた」とする当該ツイートには事実誤認が含まれています。<br/><br/>  経済産業省：廃炉・汚染水・処理水対策ポータルサイト  <a href='https://www.meti.go.jp/earthquake/nuclear/hairo_osensui/index.html'>[link]</a> | -0.00027 | 0.74| <a href='https://twitter.com/i/birdwatch/n/1682309926184681472'  target='_blank'>link</a>
-| The foreign minister of Germany did not and has no constitutional power to “declare war.” See Arts 65a and 115 of the Basic Law. <a href='https://www.gesetze-im-internet.de/englisch_gg/englisch_gg.html#p0305'>[link]</a><br/><br/>If a foreign minster’s use of the phrase “at war” was a declaration of war, Russia would have declared war on “the West” a long time ago. <a href='https://www.newsweek.com/russia-already-war-us-collective-west-lavrov-1770102?amp=1'>[link]</a> | -0.00052 | 0.84| <a href='https://twitter.com/i/birdwatch/n/1618271345120346119'  target='_blank'>link</a>
+| This video is not from Greece, but from a fire in Spain on July 2022. They are firefighters from the Zulú-2 brigade in Zamora and they speak in Spanish.    The video was viral back then and can be retrieved from several reliable media, like Levante-EMV,  20 minutos or RAC1:  https://www.levante-emv.com/buzzeando/2022/07/22/tiernas-imagenes-bomberos-dando-beber-corzo-68965340.amp.html    https://www.20minutos.es/noticia/5033552/0/un-grupo-de-bomberos-forestales-presta-auxilio-a-un-pequeno-corzo-deshidratado/    https://www.rac1.cat/societat/20220723/98793/video-bombers-ajuden-cabirol-cervol-sobreviure-aigua-incendi-zamora-losacio.amp.html | 0.0001 | 0.68| <a href='https://twitter.com/i/birdwatch/n/1684227349380825092'  target='_blank'>note url</a>
+| While the post might be satire. The man in the pictures is not actually Riff Raff, but Nina Agdal's ex-boyfriend Reid Heidenry    https://www.tmz.com/2015/11/01/heidi-klum-halloween-party-jlo/ | -0.0001 | 0.6| <a href='https://twitter.com/i/birdwatch/n/1692432070834811360'  target='_blank'>note url</a>
+| The foreign minister of Germany did not and has no constitutional power to “declare war.” See Arts 65a and 115 of the Basic Law. https://www.gesetze-im-internet.de/englisch_gg/englisch_gg.html#p0305    If a foreign minster’s use of the phrase “at war” was a declaration of war, Russia would have declared war on “the West” a long time ago. https://www.newsweek.com/russia-already-war-us-collective-west-lavrov-1770102?amp=1 | -0.00052 | 0.84| <a href='https://twitter.com/i/birdwatch/n/1618271345120346119'  target='_blank'>note url</a>
 
 #### Helpful + Right
 
 | note | polarity | helpfulness | link
 | ---- | ---- | ---- | ---- 
-| Emily wasn’t lost. She was abducted by terrorists from Hamas.<br/><br/> <a href='https://edition.cnn.com/videos/world/2023/11/25/israel-thomas-hand-daughter-released-ward-nr-vpx.cnn'>[link]</a>   | 0.65 | 0.75| <a href='https://twitter.com/i/birdwatch/n/1728553688354918804'  target='_blank'>link</a>
-| Emily Hand was kidnapped by Hamas Terrorists on October the 7th. The use of the term lost is inappropriate and fails to highlight that she was released as part of a hostage deal.<br/><br/> <a href='https://www.bbc.co.uk/news/world-europe-67533506.amp'>[link]</a> | 0.65 | 0.74| <a href='https://twitter.com/i/birdwatch/n/1728554736557711815'  target='_blank'>link</a>
-| Claims against UNRWA have been documented for a long time.<br/><br/>The headmaster of an UNRWA school  was a terrorist.  <a href='https://www.reuters.com/article/middleeastCrisis/idUSL05686115/'>[link]</a><br/><br/>Film by David Bedein in Jenin, UNRWA policies and practices<br/><br/><a href='https://vimeo.com/856467890'>[link]</a><br/><br/>UNRWA teachers celebrated Oct 7 massacre  <a href='https://unwatch.org/report-u-n-teachers-celebrated-hamas-massacre/'>[link]</a><br/><br/>UNRWA teacher holds hostage in attic  <a href='https://www.washingtonexaminer.com/policy/defense-national-security/united-nations-gaza-teacher-israeli-hostage-attic'>[link]</a> | 0.58 | 0.8| <a href='https://twitter.com/i/birdwatch/n/1730887409146175557'  target='_blank'>link</a>
-| &quot;Has died&quot; is misleading and falsely gives the appearance the death was one of natural causes. Vivian Silver was in fact murdered on Oct. 7 by palestinian terrorists, as also confirmed by her son Yonatan Zeigen.<br/><br/>  <a href='https://www.ctvnews.ca/canada/canadian-peace-activist-vivian-silver-was-murdered-by-hamas-son-says-1.6643670'>[link]</a> | 0.64 | 0.73| <a href='https://twitter.com/i/birdwatch/n/1724249231005712599'  target='_blank'>link</a>
-| Harvard President Claudine Gay appeared in a Congressional hearing yesterday.<br/><br/>  While she expressed her personal opinion against these calls, she repeatedly refused to say that calling for genocide of Jews is against Harvard's Code of Conduct:<br/><br/>Sources:   <a href='https://www.washingtonpost.com/education/2023/12/06/3-elite-college-presidents-answered-questions-antisemitism/'>[link]</a><br/><br/>Video Recording: <a href='https://www.youtube.com/watch?v=6Bn95MFQNPY'>[link]</a> | 0.64 | 0.71| <a href='https://twitter.com/i/birdwatch/n/1732476720798658662'  target='_blank'>link</a>
+| Emily wasn’t lost. She was abducted by terrorists from Hamas.     https://edition.cnn.com/videos/world/2023/11/25/israel-thomas-hand-daughter-released-ward-nr-vpx.cnn   | 0.65 | 0.75| <a href='https://twitter.com/i/birdwatch/n/1728553688354918804'  target='_blank'>note url</a>
+| Emily Hand was kidnapped by Hamas Terrorists on October the 7th. The use of the term lost is inappropriate and fails to highlight that she was released as part of a hostage deal.     https://www.bbc.co.uk/news/world-europe-67533506.amp | 0.65 | 0.74| <a href='https://twitter.com/i/birdwatch/n/1728554736557711815'  target='_blank'>note url</a>
+| Claims against UNRWA have been documented for a long time.    The headmaster of an UNRWA school  was a terrorist.  https://www.reuters.com/article/middleeastCrisis/idUSL05686115/    Film by David Bedein in Jenin, UNRWA policies and practices    https://vimeo.com/856467890    UNRWA teachers celebrated Oct 7 massacre  https://unwatch.org/report-u-n-teachers-celebrated-hamas-massacre/    UNRWA teacher holds hostage in attic  https://www.washingtonexaminer.com/policy/defense-national-security/united-nations-gaza-teacher-israeli-hostage-attic | 0.58 | 0.8| <a href='https://twitter.com/i/birdwatch/n/1730887409146175557'  target='_blank'>note url</a>
+| &quot;Has died&quot; is misleading and falsely gives the appearance the death was one of natural causes. Vivian Silver was in fact murdered on Oct. 7 by palestinian terrorists, as also confirmed by her son Yonatan Zeigen.      https://www.ctvnews.ca/canada/canadian-peace-activist-vivian-silver-was-murdered-by-hamas-son-says-1.6643670 | 0.64 | 0.73| <a href='https://twitter.com/i/birdwatch/n/1724249231005712599'  target='_blank'>note url</a>
+| Harvard President Claudine Gay appeared in a Congressional hearing yesterday.      While she expressed her personal opinion against these calls, she repeatedly refused to say that calling for genocide of Jews is against Harvard's Code of Conduct:    Sources:   https://www.washingtonpost.com/education/2023/12/06/3-elite-college-presidents-answered-questions-antisemitism/    Video Recording: https://www.youtube.com/watch?v=6Bn95MFQNPY | 0.64 | 0.71| <a href='https://twitter.com/i/birdwatch/n/1732476720798658662'  target='_blank'>note url</a>
+| Ashdod, Beersheba, Hebron and Jerusalem mentioned in the Bible as part of Israel before the Quran was written.  According to the Supreme Muslim Council's guide for tourists, Temple Mount is linked to Solomon’s Temple (Solomon was a Jewish king).  https://en.wikipedia.org/wiki/Jerusalem  https://en.wikipedia.org/wiki/Solomon  https://en.wikipedia.org/wiki/Temple_Mount#:~:text=Muslim%20interpretations%20of%20the%20Quran,Islam%2C%20that%20was%20later%20destroyed.  https://x.com/visegrad24/status/1730269555115565483?s=20  https://en.wikipedia.org/wiki/Hebron  https://en.wikipedia.org/wiki/Beersheba  https://en.wikipedia.org/wiki/Ashkelon  https://en.wikipedia.org/wiki/Quran | 0.56 | 0.8| <a href='https://twitter.com/i/birdwatch/n/1730687338127188240'  target='_blank'>note url</a>
+| The photo was taken in 1933, not 1944 as claimed.    The photo shows the shores of Tel Aviv, a city built by Zionist Jews in 1909 under Ottoman rule, later under the British Mandate, and later under the State of Israel    Sources:  https://www.ariehsharon.org/TelAviv/Introduction/i-MJLJZFH/A  https://www.polin.pl/en/news/2020/01/09/gdynia-tel-aviv-exhibition-architecture-and-politics  https://en.wikipedia.org/wiki/Tel_Aviv#History | 0.53 | 0.82| <a href='https://twitter.com/i/birdwatch/n/1736144012447273315'  target='_blank'>note url</a>
 
 #### Unhelpful + Left
 
 | note | polarity | helpfulness | link
 | ---- | ---- | ---- | ---- 
-| There is fix for stupid. | -0.59 | -0.86| <a href='https://twitter.com/i/birdwatch/n/1694894980794372107'  target='_blank'>link</a>
-| The protest was not due to the restaurant being Jewish-owned, it was related to the owner, Michael Solomonov, using the restaurant to fundraise for an organization that provides aid to the Israeli military<br/><br/><a href='https://www.cbsnews.com/philadelphia/news/philadelphia-based-israeli-chef-michael-solomonov-zahav-israel-war/'>[link]</a> | -0.62 | -0.76| <a href='https://twitter.com/i/birdwatch/n/1731572646721040430'  target='_blank'>link</a>
-| Elon musk makes this statement, but has been censoring Twitter user @SaeedDicaprio for making tweets in support of Palestine.<br/><br/><a href='https://x.com/saeeddicaprio/status/1737533757052072070?s=46&amp;t=gq1UkkPF91hMLPZfJ2wNbw'>[link]</a> | -0.68 | -0.67| <a href='https://twitter.com/i/birdwatch/n/1737556625768980979'  target='_blank'>link</a>
+| There is fix for stupid. | -0.59 | -0.86| <a href='https://twitter.com/i/birdwatch/n/1694894980794372107'  target='_blank'>note url</a>
+| The protest was not due to the restaurant being Jewish-owned, it was related to the owner, Michael Solomonov, using the restaurant to fundraise for an organization that provides aid to the Israeli military    https://www.cbsnews.com/philadelphia/news/philadelphia-based-israeli-chef-michael-solomonov-zahav-israel-war/ | -0.62 | -0.76| <a href='https://twitter.com/i/birdwatch/n/1731572646721040430'  target='_blank'>note url</a>
+| Elon musk makes this statement, but has been censoring Twitter user @SaeedDicaprio for making tweets in support of Palestine.    https://x.com/saeeddicaprio/status/1737533757052072070?s=46&amp;t=gq1UkkPF91hMLPZfJ2wNbw | -0.68 | -0.67| <a href='https://twitter.com/i/birdwatch/n/1737556625768980979'  target='_blank'>note url</a>
+| I like announcements! But it requires context or a thread.  | -0.61 | -0.74| <a href='https://twitter.com/i/birdwatch/n/1679170741177135104'  target='_blank'>note url</a>
+| MEMRI is an organisation founded by a former member of the Israeli intelligence service and has been accused of misinterpreting statements to suit a pro-Israel, anti-Arab narrative. https://www.theguardian.com/world/2002/aug/12/worlddispatch.brianwhitaker | -0.57 | -0.77| <a href='https://twitter.com/i/birdwatch/n/1719723544848781512'  target='_blank'>note url</a>
 
 #### Unhelpful + Neutral
 
@@ -277,403 +281,15 @@ The tables below include examples of notes with various combinations of factors 
 | ---- | ---- | ---- | ---- 
 | Linda Yaccarino, is an executive at NBC Universal and holds a position at the World Economic Forum.  Last month, during an interview with Elon, Yaccarino encouraged him the reinstatement of an &quot;influence council&quot; for advertisers to regularly interact with Twitter's leadership.    https://twitter.com/marionawfal/status/1657012965336285184?s=46  | 0.0046 | -0.79| <a href='https://twitter.com/i/birdwatch/n/1657055953345212417'  target='_blank'>note url</a>
 | Community Notes agrees with you Elon.  | 0.0056 | -0.7| <a href='https://twitter.com/i/birdwatch/n/1649884571779956736'  target='_blank'>note url</a>
-
+| Then lock her up      YouTube.com | 0.0062 | -0.49| <a href='https://twitter.com/i/birdwatch/n/1715086495059415522'  target='_blank'>note url</a>
 
 #### Unhelpful + Right
 
 | note | polarity | helpfulness | link
 | ---- | ---- | ---- | ---- 
-| NNN. It is not incorrect to refer to an unaffiliated person as a journalist.  | 0.7 | -0.52| <a href='https://twitter.com/i/birdwatch/n/1733778660245876859'  target='_blank'>link</a>
-| It always has, and it always will be. Even without any humans left on earth there would still be a climate change.  | 0.63 | -0.58| <a href='https://twitter.com/i/birdwatch/n/1694556665071149142'  target='_blank'>link</a>
-| By any measurable objective this is incorrect. Trump rebalanced foreign policy to counter China, achieving energy independence, record gains in employment and real wage growth, stemmed illegal immigration and started a global movement to legalize being LGBTQ, etc.<br/><br/><a href='https://www.presidency.ucsb.edu/documents/fact-sheet-president-donald-j-trump-has-delivered-record-breaking-results-for-the-american'>[link]</a> | 0.62 | -0.59| <a href='https://twitter.com/i/birdwatch/n/1706875163088671010'  target='_blank'>link</a>
-| Criticism of George Soros is not a &quot;conspiracy theory,&quot; and Musk's opinion that Soros' behavior is bad for civilization is a reasonable disagreement. There are countless other examples of misinformation in this thread; this is one example of many.<br/><br/><a href='https://www.wsj.com/articles/why-i-support-reform-prosecutors-law-enforces-jail-prison-crime-rate-justice-police-funding-11659277441'>[link]</a><br/><br/><a href='https://www.city-journal.org/article/george-soross-bad-bet'>[link]</a> | 0.54 | -0.64| <a href='https://twitter.com/i/birdwatch/n/1709255558614724693'  target='_blank'>link</a>
-
-
-<!--
-
-
-
-
------
-
-
-
-
-
-
-However, another thing we want from online communities is **information**. We want to find content that is useful, or funny, or accurate, or whatever, and sometimes looking at what **other** people find useful, or funny, or accurate is a good way to do that. But often when a community becomes polarized, upvotes no longer represent these aspects of the content. If people are upvoting something **because** it supports a left-wing or right-wing point of view, then they are not upvoting it **because** it is useful or funny or current.
-
-So bridge-based ranking can be seen as a sort of Information-extraction algorithm, that separates the polarity component from some core component that represents whatever it is that people are looking for from this forum -- what we might call the "common ground" component.
-
-
-So for example Community Notes attempts to identify notes that users find **helpful** -- which basically means accurate and relevant. Unfortunately, users are very biased, and tend to upvote notes not because they are helpful, but because they support their political perspective. 
-
-But they, **also**, to a lesser degree, tend to upvote notes that are helpful. They will mostly upvote notes that support their perspective but they will **especially** upvote notes that support their perspective and are actually helpful. And they will tend to downvote notes that support opposing perspectives....but they will show extra enthusiasm in downvoting notes that support the opposing perspective using false or misleading information.
-
-When bridge-based ranking algorithm dissects users voting behavior and factors out the left-right component, it finds that **almost everyone is slightly biased towards helpfulness!**. Consider the diagram below. It shows a subset of users from the Twitter Community Notes data after running my own modified version of the algorithm. The X axis is the user's polarity factor (roughly, left-wing to right-wing), and the Y axis is their "helpfulness" factor. 
-
-You can see that far more users lean towards the (left/right). Without using bridge-based ranking, Community Note would just be a (left/right-wing) opinion meter... 
-
-But more interestingly, you can see the vast majority of users on both side have a positive value for the "common ground" factor (the vertical axis). 
-
-
-
-
-
-
-
- inaccurate, unfair, or in any way unhelpful that 
-
-
-
-, and downvote, or at best ignore, notes that don't. 
-
-
-
-
-
-Whether it be technical knowledge or cute pet pics or funny jokes or accurate news. An online community uses the "wisdom of crowds", or at least the aggregate opinion of crowds, to help you discover content that you are also likely to find cute or funny or useful or accurate.
-
-
-
-
-Discussion
-
-In a forum 
-
-
-...Crowdsourcing....extracting information
-
-
-
-
-Unfortunately, in an online forum where participation is open to random people on the internet, the opinions of each side will not be very sophisticate
-
-
-...but fact checking....
-
-But ...beyond ostensibly politically neutral fact-checking...compromise...
-
-For every online forum that becomes polarized. Yes, we want our side of the culture war to win, but we also don't want every corner of the internet to be dominated by expressions of the correct opinion about the Isreal-Palestine conflict. 
-
-Unfortunately, whatever long-term foresight some people may exercise when pressing the vote button, it tends to be overwhelmed by short-term passions. They may faithfully downvote political content when they see but tend to let one or two items through on subjects they are particularly passionate about. Others are less disciplined. The aggregate result is a bias towards political content, skewed towards one side.
-
-The trick of bridge-based ranking is to get people
-
-
-
-It models **why** users 
-    strays from that ... start to downvote
-
-
-
-People with some common understanding to 
-
-
-
-
-
-The resulting ranking of content represents the "common ground" of the community.
-
-
-Now what polarizes a community may not always be politics. It could be a controversy about styles of art, an economic theory, or the meaning of a word. And it may be that a community is not polarized, or that differences of opinion are best explained by differences in, say, expertise. In these cases bridge-based ranking can do more harm than good (e.g. dumbing down a forum by removing "expertise bias"). In another essay I hope to explain an variation of the algorithm that addresses this problem.
-
-TODO: show how Community Notes removes left-right bias.
-
-
-
-------
-
-
-
-new users votes do not count until the user has "earned in" by upvoting notes that were ultimately deemed as helpful
-
-
-If I were an attacker trying to break this algorithm, I would of course create a lot of sockpuppet or meanpuppet accounts. But I wouldn't have them upvote notes that support a political agenda. As discussed in "Average vs Intercept" above, changing the average vote does not change the intercept for a post. I could create a billion sock-puppet accounts voting in support of left-wing notes, and the algorithm would simply classify all those accounts as far left-wing and all their votes would be "explained" by their politics.
-
-No, to break the algorithm, I would have my sockpuppet accounts *downvote helpful posts and upvote unelpful posts, regardless of politics*.
-
-With enough sockpuppet accounts contributing, the result will be that the primary factor that explains variation in users voting behavior will not be politics, but helpfulness. The matrix factorization will thus discover this factor. A linear regression for a helpful post will now look like this:
-
-                  Upvote
-                Probability    
-                    ↑
-                    |  ↗ 
-                    |↗
-                   ↗|
-    Unhelpful __ ↗__|_______ Helpful
-    Voter      ↗    |        Voter
-             ↗      |
-
-
-So what does a positive intercept represent now? Well, it means the post has attributes that cause many users to upvote it regardless of helpfulness. What attributes might these be? Politics! 
-
-If I can trick the matrix factorization into flipping the Axis, the intercept will no longer represent the common ground of "Helpfulness", but instead will represent the dominant politics of the forum.
-
-THe protection from such an attack is some sort of reputation system. In Community Notes, new users votes do not count until the user has "earned in" by upvoting notes that were ultimately deemed as helpful
-
-
-
-
-
-----
-
-
-
-
-They are latent factors that the algorithm infers exist, b
-
-may be a linear combination of 
-
-
-
----
- Matrix factorization works exactly the same way, but it tries to find the best *combination* of all values (a Wi and Bi for every user, Xj and Cj for every post) all one go.
-
-
-
-The result is 
-
-
-
-
-----
-
-
-This equation can be interpreted as the regression line for either the user or the post. If we say that Wi to a constant and plot Yij as a function of Xj (replacing Cj with its average), we get the regression line for the user. If we plot Yij as a function of Wj, we get the regression line for the post.
-
-----
-
-
-
-
-
-
-
-
-
-To see how this works, we start with the equation for regression for user i, which looks like this:
-
-    Yij = Wi*Xj + Bi
-
-Yij is the probability that user i upvotes post j. Wi is the slope for user i (their polarity factor), Xj is the polarity factor post j, and Bi is the intercept for user B.
-
-
-
-Now, the equation for a post looks similar
-
-    Yij = Wi*Xj + Bi
-
-To do this, it first creates a single equation for estimating the probability that user i upvotes post j. 
-
-    Yij = Wi*Xj + Bi
-    
-Where Wi is the user's polarity factor, and Xi is the post's polarity factor, and Bi is the intercept for the user. 
-
-
-    r̂_un = μ + i_u + i_n + f_u ∙ f_n 
-
-
-
-
-It does this first by randomly guessing 
-
-TODO: subcommunities
-
-
-
-
-
-
-seems to be a chicken and egg 
-
-
-
-
-
-
-
-Now, to find the slope and intercept 
-
-
-The goal of the algorithm is to assign an estimated slope and intercept to each post
-
-
-
-Matrix Factorization works by 
-
-
-
-Matrix factorization is an algorithm that simply discovers a set of 
-
-
-    Y = f_u ∙ f_n + i_n
-
-
-    Y = W * X + B + C + u
-
-
-    r̂_un = μ + i_u + i_n + f_u ∙ f_n 
-
-### Conclusion
-
-- how exactly it work
-- limitations
-- attacks
-
-What needs to be in the conclusion? An analysis of strengths and weaknesses. Or at least a summary.
-
-- that the primary dimension that explains variation may not be controversial
-
-
-Now, there is a lot more to be said
-
-- Multipple dimensions
-
-
-
-### Discussion
-
-The first implementation of [Bridge-Based Ranking](https://www.belfercenter.org/sites/default/files/files/publication/TAPP-Aviv_BridgingBasedRanking_FINAL_220518_0.pdf) was probably [pol.is](https://pol.is/home), used successfully by vTaiwan to bring together Taiwan's citizens and government to deliberate on national issues. The concept and was refined at Twitter with their launch of Birdwatch, now Community Notes, which is used to rank the "helpfulness" of notes attached to posts that may be misinformed or misleading.
-
-According to the [Community Notes Documentation](https://communitynotes.twitter.com/guide/en/contributing/diversity-of-perspectives),
-
-    "Community Notes takes into account not only how many contributors rated a note as helpful or unhelpful, but also whether people who rated it seem to come from different perspectives."
-
-I think this explanation is mostly correct. However, ratings across a diversity of perspectives is not necessary for a note to receive a high intercept. For example, if a note receives a lot of upvotes from users who are politically neutral, it could still have a high intercept.
-
-Perhaps a better way of describing the algorithm is that it corrects for political bias. Or better yet, that it extracts information from noise -- the information being the common idea of "Helpfulness", and the noise being political bias.
-
-### Breaking the Algorithm 
-
-#### Flipping the Axis
-
-If I were an attacker trying to break this algorithm, I would of course create a lot of sockpuppet or meanpuppet accounts. But I wouldn't have them upvote notes that support a political agenda. As discussed in "Average vs Intercept" above, changing the average vote does not change the intercept for a post. I could create a billion sock-puppet accounts voting in support of left-wing notes, and the algorithm would simply classify all those accounts as far left-wing and all their votes would be "explained" by their politics.
-
-No, to break the algorithm, I would have my sockpuppet accounts *downvote helpful posts and upvote unelpful posts, regardless of politics*.
-
-With enough sockpuppet accounts contributing, the result will be that the primary factor that explains variation in users voting behavior will not be politics, but helpfulness. The matrix factorization will thus discover this factor. A linear regression for a helpful post will now look like this:
-
-                  Upvote
-                Probability    
-                    ↑
-                    |  ↗ 
-                    |↗
-                   ↗|
-    Unhelpful __ ↗__|_______ Helpful
-    Voter      ↗    |        Voter
-             ↗      |
-
-
-So what does a positive intercept represent now? Well, it means the post has attributes that cause many users to upvote it regardless of helpfulness. What attributes might these be? Politics! 
-
-If I can trick the matrix factorization into flipping the Axis, the intercept will no longer represent the common ground of "Helpfulness", but instead will represent the dominant politics of the forum.
-
-
-Some sort of reputation system can help make these attacks more difficult. In Community Notes, new users votes do not count until the user has "earned in" by upvoting notes that were ultimately deemed as helpful. 
-
-
-
-
-
-
-
-
-
-
-
-#### Brigading
-
-Suppose you have an agenda that does not align with the left-right spectrum. Perhaps you represent a company and are trying to protect the reputation of your product. If you create a bunch of sockpuppet accounts that "earn in" by upvoting posts ultimately rated as helpful, then I can call on these accounts to downvote notes critical of my product and vice versa. Because 
-
-Self-selection
-
-
-
-What I am trying to do is make it so that the fa
-
-
-
-### Diving Into the Algorithm
-
-
-
-
-
-corrects for the influence of political
-
-
-
-but also whether people who rated it seem to come from different perspectives.
-
-
-
-### Subdividing Communites
-
-
-
-
-Now, there could be some political posts with a high intercept, but these would be posts that this particular community finds interesting and relevant, for whatever reason, independently of their political leanings.
-
-
-
-
-Common ground might also include relevant political posts that 
-
-
-Because fan-fiction is essentially non-political, 
-
-
-Notice that:
-
-
-The intercept of a post tells us how many upvotes it would get if users weren't influenced by politics.
-
-    or political posts that both sides agree upon, such as non-opinionated news
-
-
-. The intercept tells us which 
-
-
-TODO: what if average post has more upvotes than downvotes? Horizontal is not necessarily at 50%
-... it is common ground.
-
-
-
-## Adding Dimensions
-
-
-
-
- would be how well it aligns with the intent of the community
-
-
-If we could somehow ask them to ignore their political leanings and tell us how much 
-
-
-
-
-
-
-
-
-We can do a regression to 
-
-
-
-
-
-
-- Regular ranking, one side "wins"
-
-
-
-The idea is that 
-
-intercepts for users
-
-First, we all understand devisive conten
-The idea that users votes can be *explained* by 
-
--->
+| NNN. It is not incorrect to refer to an unaffiliated person as a journalist.  | 0.7 | -0.52| <a href='https://twitter.com/i/birdwatch/n/1733778660245876859'  target='_blank'>note url</a>
+| It always has, and it always will be. Even without any humans left on earth there would still be a climate change.  | 0.63 | -0.58| <a href='https://twitter.com/i/birdwatch/n/1694556665071149142'  target='_blank'>note url</a>
+| By any measurable objective this is incorrect. Trump rebalanced foreign policy to counter China, achieving energy independence, record gains in employment and real wage growth, stemmed illegal immigration and started a global movement to legalize being LGBTQ, etc.    https://www.presidency.ucsb.edu/documents/fact-sheet-president-donald-j-trump-has-delivered-record-breaking-results-for-the-american | 0.62 | -0.59| <a href='https://twitter.com/i/birdwatch/n/1706875163088671010'  target='_blank'>note url</a>
+| Criticism of George Soros is not a &quot;conspiracy theory,&quot; and Musk's opinion that Soros' behavior is bad for civilization is a reasonable disagreement. There are countless other examples of misinformation in this thread; this is one example of many.    https://www.wsj.com/articles/why-i-support-reform-prosecutors-law-enforces-jail-prison-crime-rate-justice-police-funding-11659277441    https://www.city-journal.org/article/george-soross-bad-bet | 0.54 | -0.64| <a href='https://twitter.com/i/birdwatch/n/1709255558614724693'  target='_blank'>note url</a>
+| Trump never conspired to steal an election, challenge it yes, but THAT IS Constitutional!  | 0.58 | -0.59| <a href='https://twitter.com/i/birdwatch/n/1712930576578101281'  target='_blank'>note url</a>
 
