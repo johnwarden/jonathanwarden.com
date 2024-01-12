@@ -125,7 +125,7 @@ There is some point on the rim that corresponds to "left wing" and another that 
 
 ### Comparing 1D, 2D, and 3D models
 
-Theoretically the 1D model (using intercepts), and the 2D and 3D should produce similar results. The following chart graphs the common ground factors of the 2D and 3D models against the common-ground factor (the intercept) of the 1D model. As you can see, moving from 2 to 3 dimensions actually produces results closer to the original 1D model. I think this may because the 1D model does a better job in capturing all variation that can't be explained by other factors in the intercept. 
+Theoretically the 1D model (using intercepts), and the 2D and 3D should produce similar results. The following chart graphs the common ground factors of the 2D and 3D models against the common-ground factor (the intercept) of the 1D model. As you can see, moving from 2 to 3 dimensions actually produces results closer to the original 1D model. The intercept in the 1D model does a good job of capturing all variation that can't be explained by polarity.
 
 **1D vs 2D and 3D Models**
 
