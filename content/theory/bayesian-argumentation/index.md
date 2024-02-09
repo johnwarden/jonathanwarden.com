@@ -19,7 +19,7 @@ From a logical point of view, a good argument is logically sound. But in the rea
 
 From a rhetorical point of view, a good argument is one that is convincing. But how can this be measured?
 
-In this series of essays, we present a Bayesian model of argumentation, where arguments are treated as information that may cause a Bayesian rational agent to modify their beliefs. Given a model of the beliefs of some Bayesian "subject", we can objectively define "subjective" measures of an argument's quality or strength, such as **relevance**, **persuasiveness**, and **sufficiency**.
+In this series of essays, we present a Bayesian model of argumentation, where arguments are treated as information that may cause a Bayesian rational agent to modify their beliefs. Given a model of the beliefs of some Bayesian "subject", we can **objectively** measure **subjective** aspects of an argument's quality or strength, such as **relevance**, **persuasiveness**, and **sufficiency**.
 
 This perspective can provide some powerful insights about argumentation for people working in artificial intelligence, law, argument mapping software, or in our case, design of [social protocols](https://social-protocols.org).
 
@@ -53,14 +53,14 @@ If our subject is a Bayesian rational agent with common sense, then probably:
     - If the subject learned that the subject did **not** have a pulse, this would be **sufficient** to reject him as a candidate.
     - Alternatively, the belief that he probably has a pulse is **necessary** for the belief that he might be a good candidate.
 
-As everyone knows, a Bayesian rational agent updates their beliefs when they acquire new information. An argument that is not informative to the agent therefore can't be persuasive. But a Bayesian model allows us to calculate what an agent **would** believe if they did not have that information (e.g. if they thought for some reason the candidate *didn't* have a pulse). This simple insight cracks open a number of ways of measuring argument **strength** other than just persuasiveness. In the essays on 
-[Relevance and Corelevance](/relevance-and-corelevance) and [Necessity and Sufficiency](/necessity-and-sufficiency) we will define these measure and see how they all relate mathematically to the informativeness of the argument.
+As everyone knows, a Bayesian rational agent updates their beliefs when they acquire new information. An argument that is not informative to the agent therefore can't be persuasive. But a Bayesian model allows us to calculate what an agent **would** believe if they had different information (e.g. if they thought that the candidate *didn't* have a pulse). This simple insight cracks open a number of ways of measuring argument **strength** other than just persuasiveness. In the essays on 
+[Relevance and Corelevance](/relevance-and-corelevance) and [Necessity and Sufficiency](/necessity-and-sufficiency) we will define these measures and see how they all relate mathematically to the informativeness of the argument.
 
 The Bayesian model of argumentation also allows us to take into account the reliability of the arguer themselves. A Bayesian rational agent will only update their beliefs if they believe the information given them. So for an argument to be informative it must not just be **new information**, it must also be believable. This perspective shows us when what looks like an *ad hominim* fallacy may somteimes be perfectly rational[^3]. These ideas are discussed in the essays on [informativeness and persuasiveness](/informativeness-and-persuasiveness).
 
 ## Introductory Example 2
 
-Now consider another example argument: *the car won't start* because *the car is out of gas*. If the subject previously believed the car had gas, then this new information might well be persuasive. But suppose the subject accepts this information, but also believes that *the car's battery is dead*? With this assumption, the car being out of gas is now in a sense now irrelevant. 
+Now consider another example argument: *the car won't start* because *the car is out of gas*. If the subject previously believed the car had gas, then this new information might well be persuasive. But suppose the subject accepts this information, but also believes that *the car's battery is dead*? With this assumption, the car being out of gas is now in a sense irrelevant. 
 
 Clearly the relevance of an argument depends on context: it depends on other beliefs the subject has about the state of world. 
 
@@ -76,19 +76,21 @@ There is a lot of recent academic work on Bayesian argumentation[^1][^2]. These 
 
 ## Argumentation Theory and Warrants
 
-This idea of unexpressed beliefs that justify an argument evokes the idea of the **warrant** from the field of [argumentation theory](https://en.wikipedia.org/wiki/Argumentation_theory). Argumentation theory views argument as a kind of flexible, informal logic. Instead of arguing with logical syllogisms, we make simple statements, or **claims** which support other claims. For example, I might claim *people are wearing jackets* to support the claim *it's probably cold outside*. 
+This idea of unexpressed beliefs that justify an argument evokes the idea of the **warrant** from the field of [argumentation theory](https://en.wikipedia.org/wiki/Argumentation_theory). Argumentation theory views argument as a kind of flexible, informal logic. People don't argue with logical syllogisms -- instead they make simple statements, or **claims** which support other claims. For example, I might claim *people are wearing jackets* to support the claim *it's probably cold outside*. 
 
 We use the terms **premise** and **conclusion** to differentiate between the supporting and supported claims. An **argument** is just a premise stated in support of some conclusion.
 
-In every argument there is an unstated claim that *this premise supports this conclusion*. This doesn't need to be stated because it's implied by the fact that the argument was made. After arguing *it's probably cold outside* because *people are wearing jackets*, I don't need to add, pedantically, "and you see, if people are wearing jackets it must be cold outside".
+In every argument there is an unstated claim that *this premise supports this conclusion*. This doesn't need to be stated because it's implied by the fact that the argument was made. After asserting *people are wearing jackets* in support of the conclusion *it's probably cold outside*, I don't need to add, pedantically, "and you see, if people are wearing jackets it must be cold outside".
 
-The unexpressed premise that justifies the inferential leap from premise to conclusion is called the [**warrant**](https://owl.purdue.edu/owl/general_writing/academic_writing/historical_perspectives_on_argumentation/toulmin_argument.html#:~:text=Toulmin%2C%20the%20Toulmin%20method%20is,the%20grounds%2C%20and%20the%20warrant.). The warrant can be based on any kind of inferential rule (deductive, inductive, intuitive) or [argumentation scheme](https://en.wikipedia.org/wiki/Argumentation_scheme) (authority, analogy, example) -- whatever justifies the inference in the mind of the arguer. Some academics use different terms for these concepts: our terminology is influenced by the influential [Toulmin model](https://owl.purdue.edu/owl/general_writing/academic_writing/historical_perspectives_on_argumentation/toulmin_argument.html#:~:text=Toulmin%2C%20the%20Toulmin%20method%20is,the%20grounds%2C%20and%20the%20warrant.), except we prefer the traditional terms **premise** and **conclusion** over **grounds** and **claim**. More precise definitions of our terms are given in the [Deliberati Argument Model](/argument-model).
+This unexpressed premise that justifies the inferential leap from premise to conclusion is called the [**warrant**](https://owl.purdue.edu/owl/general_writing/academic_writing/historical_perspectives_on_argumentation/toulmin_argument.html#:~:text=Toulmin%2C%20the%20Toulmin%20method%20is,the%20grounds%2C%20and%20the%20warrant.). 
+
+The warrant doesn't have to be a logical formula such as "if people are wearing jackets it must be cold outside". It can be based on any kind of inferential rule (deductive, inductive, intuitive) or [argumentation scheme](https://en.wikipedia.org/wiki/Argumentation_scheme) (authority, analogy, example) -- whatever justifies the inference in the mind of the arguer. Some academics use different terms for these concepts: our terminology is influenced by the influential [Toulmin model](https://owl.purdue.edu/owl/general_writing/academic_writing/historical_perspectives_on_argumentation/toulmin_argument.html#:~:text=Toulmin%2C%20the%20Toulmin%20method%20is,the%20grounds%2C%20and%20the%20warrant.), except we prefer the traditional terms **premise** and **conclusion** over **grounds** and **claim**. More precise definitions of our terms are given in the [Deliberati Argument Model](/argument-model).
 
 ## A Bayesian Definition of Warrant
 
 In Bayesian terms, a rational agent is said to acquire **evidence**, which causes them to change their belief in the probability of some **hypothesis** (see this [Bayesian Inference Primer](/bayesian-inference-primer)).
 
-There is clearly an analogy here: **evidence is to hypothesis as premise is to conclusion**. But what is the warrant? 
+There is clearly an analogy here: **evidence is premise as to hypothesis is to conclusion**. But argumentation theory also has warrants. What is the warrant in a Bayesian model? 
 
 The warrant clearly has to do with the subject's **prior beliefs**, because a Bayesian agent's priors are precisely what justify, in their mind, any inferential leap from premise to conclusion.
 
@@ -121,7 +123,7 @@ In the [next essay](/relevance-and-corelevance) in this series, we will formally
 
 ## Summary of Definitions
 
-But skipping ahead, here is a tl;dr; of all the terms that will be defined in the essays in this series:
+Below is a summary of all the terms that will be defined in the above essays.
 
 *For an argument with premise 𝐵 and conclusion 𝐴, and a subject whose beliefs are represented by probability measure P...*
 
