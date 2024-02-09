@@ -1,16 +1,22 @@
 ---
-title: "Understanding Bridge-Based Ranking"
+title: "Understanding Community Notes: Bridging-Based Ranking"
 date: "2024-01-01"
 math: true
 image: https://cdn.discordapp.com/attachments/1097595489282703571/1194709292775911589/alphaomega1551_Two_groups_of_people_on_opposite_sides_of_the_wa_1c90a2c7-2f57-467a-910b-be12aa5d5f87.png?ex=65b156bc&is=659ee1bc&hm=c91b61ec3c3fcf7de856b308313b0ebab93df4782a170ae108878fe1dfedfe3e&
+aliases:
+- /understanding-bridge-based-ranking//
 
 ---
 
 ## Introduction
 
-[Bridge-Based Ranking](https://www.belfercenter.org/sites/default/files/files/publication/TAPP-Aviv_BridgingBasedRanking_FINAL_220518_0.pdf) is an alternative way to score and rank content by **adjusting for user polarization**.
+[Bridging-Based Ranking](https://www.belfercenter.org/sites/default/files/files/publication/TAPP-Aviv_BridgingBasedRanking_FINAL_220518_0.pdf) is an alternative way to score and rank content by **adjusting for user polarization**. 
 
-The most successful implementation of Bridge-Based Ranking, X's Community Notes, explains that the algorithm favors notes that are rated highly by users across a "[diversity of perspectives](https://communitynotes.twitter.com/guide/en/contributing/diversity-of-perspectives)". But as I show in this article, ratings from users with diverse perspectives are not necessary for a note to rank highly. It is somewhat more accurate to say that the note must be highly rated **regardless of diversity of perspective**.
+The idea was first implemented in [pol.is](https://pol.is/home) and used successfully by the [vTaiwan](https://info.vtaiwan.tw/) open citizenship consultation process. The term "Bridging-Based" was introduced in [this essay](https://www.belfercenter.org/sites/default/files/files/publication/TAPP-Aviv_BridgingBasedRanking_FINAL_220518_0.pdf) by Aviv Ovadya of the Harvard Kennedy School Belfer Center. **UPDATE**: A discussion of this article on [Hacker News](https://news.ycombinator.com/item?id=38939660) links to additinal blogs and articles.
+
+### Diversity of Perspectives
+
+The most successful implementation of Bridging-Based Ranking, X's [Community Notes](https://help.twitter.com/en/using-x/community-notes), explains that the algorithm favors notes that are rated highly by users across a "[diversity of perspectives](https://communitynotes.twitter.com/guide/en/contributing/diversity-of-perspectives)". But as I show in this article, ratings from users with diverse perspectives are not necessary for a note to rank highly. It is somewhat more accurate to say that the note must be highly rated **regardless of diversity of perspective**.
 
 The algorithm works by attempting to model *why* a post receives the ratings it does: how many upvotes are due to users left-wing or right-wing biases, and how many are due to other factors. If a post is only appealing to right-wing voters, and an online forum is dominated by right-wing voters, then that right-wing bias probably explains why it gets so many upvotes. So the algorithm tries to correct for this bias, and estimate how many upvotes a post would receive if there was an equal balance of left-wing and right-wing voters.
 
@@ -18,19 +24,19 @@ The algorithm works by attempting to model *why* a post receives the ratings it 
 
 Now why would we want to do this? Why for example would a predominantly left-wing community want to artificially give right-wing opinions more weight, especially if they think their own side is better-informed?
 
-For a fact-checking product like Community Notes, plausible political neutrality may be necessary for public acceptance. But bridge-based ranking has advantages beyond political neutrality: it actually allows us to extract more **information** from users. 
+For a fact-checking product like Community Notes, plausible political neutrality may be necessary for public acceptance. But bridging-based ranking has advantages beyond political neutrality: it actually allows us to extract more **information** from users. 
 
 In Community Notes, users rate notes as "Helpful" or "Not Helpful". If Community Notes was dominated by leftists, what would we learn by the fact that a note received a lot of "Helpful" votes? That it is helpful? Or that it supports a left-wing worldview? Or both? It's hard to say: perhaps a marginally helpful note that supports a left-wing world view gets more votes than a truly helpful note that supports a right-wing world-view. We can't tell just from the raw vote counts how "helpful" the note is.
 
-Bridge-based ranking on the other hands let's us break down the vote counts, attributing some to whatever users think "helpfulness" means and others to polarity. So it is not about giving "both sides" equal weight; by cancelling out the effect of political bias, we can actually extract more interesting **information** from the users' votes. 
+Bridging-based ranking on the other hands let's us break down the vote counts, attributing some to whatever users think "helpfulness" means and others to polarity. So it is not about giving "both sides" equal weight; by cancelling out the effect of political bias, we can actually extract more interesting **information** from the users' votes. 
  
 ### Projection in Opinion Space 
  
-The chart below illustrates how this works. This charts shows a subset of notes from the Community Notes public data set, run through [my own implementation of the algorithm](https://github.com/social-protocols/bridge-based-ranking). The horizontal axis shows the note's "polarity" -- e.g. +1 for right-wing and  -1 for left wing -- and the vertical axis shows its "helpfulness". The note's final score is its vertical component, or its projection on the "helpfulness" axis. The colors of the dots indicate their actual status in Community Notes.
+The chart below illustrates how this works. This charts shows a subset of notes from the Community Notes public data set, run through [my own implementation of the algorithm](https://github.com/social-protocols/bridging-based-ranking). The horizontal axis shows the note's "polarity" -- e.g. +1 for right-wing and  -1 for left wing -- and the vertical axis shows its "helpfulness". The note's final score is its vertical component, or its projection on the "helpfulness" axis. The colors of the dots indicate their actual status in Community Notes.
 
 
  
-<img src='https://raw.githubusercontent.com/social-protocols/bridge-based-ranking/main/plots/community-notes-large-items-1d.png' 
+<img src='https://raw.githubusercontent.com/social-protocols/bridging-based-ranking/main/plots/community-notes-large-items-1d.png' 
                  alt='Community Notes Polarity Plot (Notes)' 
                  style='display: block; margin-left: auto; margin-right: auto; max-height: 500px' />
 
@@ -46,9 +52,9 @@ At the end of this article, I include a section with [example notes](#example-no
 
 People are politically biased, but they have other biases, such as the bias towards interesting, accurate, entertaining, or helpful information. They may mostly upvote things that support their political perspective but they will **especially** upvote things that support their perspective and are actually relevant and factually accurate. And they will tend to downvote notes that support opposing perspectives, but will downvote even more zealously when those notes use false or misleading information.
 
-When bridge-based ranking algorithm dissects users voting behavior and factors out the polarity component, it finds that **most users are at least somewhat biased towards helpfulness**! You can see this in the plot of a sample of Community Notes users below. 
+When bridging-based ranking algorithm dissects users voting behavior and factors out the polarity component, it finds that **most users are at least somewhat biased towards helpfulness**! You can see this in the plot of a sample of Community Notes users below. 
 
-<img src='https://raw.githubusercontent.com/social-protocols/bridge-based-ranking/main/plots/community-notes-large-users-2d.png'
+<img src='https://raw.githubusercontent.com/social-protocols/bridging-based-ranking/main/plots/community-notes-large-users-2d.png'
                  alt='Community Notes Polarity Plot (Users)'
                  style='display: block; margin-left: auto; margin-right: auto; max-height: 500px' />
 
@@ -62,7 +68,7 @@ This vertical component in these plots represents **common ground**. It is somet
 
 In the case of Community Notes, this is presumably some common idea of what constitutes "helpfulness". But in general what exactly the common ground is depends on the community. Suppose for example there is a forum for Harry Potter fan fiction that unfortunately in recent years it has been overwhelmed by debates about whether J.K. Rowling is transphobic. There is still a lot of good fan-fiction being posted, but the home page is dominated by posts about the controversy.
 
-In this case, the horizontal axis would likely represent the pro- and anti- J.K. Rowling factions, and the vertical axis would represent the common ground of the community: quality Harry Potter fan fiction. Using bridge-based ranking we can in a sense de-polarize the forum, factoring out the effect of polarization and getting back to community's original essence.
+In this case, the horizontal axis would likely represent the pro- and anti- J.K. Rowling factions, and the vertical axis would represent the common ground of the community: quality Harry Potter fan fiction. Using bridging-based ranking we can in a sense de-polarize the forum, factoring out the effect of polarization and getting back to community's original essence.
 
 Politics is not the only factor that can divide a forum. Suppose there is a popular forum for posting ridiculously cute pet pics. Sadly, in recent years, two factions have formed: the cat faction and the dog faction. The more extreme cat people mercilessly downvote pictures of dogs (regardless of how cut they are), and the dog people vice versa. Recently, the dog faction has gained the upper hand, and a cat-picture has little chance of making the front page, no matter how frigging adorably it is.
 
@@ -73,7 +79,7 @@ Again, by separating the dog-cat factor from the common ground factor, we can re
 
 But how does the algorithm actually work? How does it determine the polarization factor and common ground factor for each user and post?
 
-It actually works using a fairly simple algorithm called Matrix Factorization. Below I will explain how the Matrix Factorization algorithm works, starting with the version implemented by Community Notes and described in the [Birdwatch Paper](https://github.com/twitter/communitynotes/blob/main/birdwatch_paper_2022_10_27.pdf). There is also a good writeup by [Vitalik Buterin](https://vitalik.eth.limo/general/2023/08/16/communitynotes.html). In my [next post](/improving-bridge-based-ranking) describe my variation of the algorithm that uses multi-dimensional matrix factorization.
+It actually works using a fairly simple algorithm called Matrix Factorization. Below I will explain how the Matrix Factorization algorithm works, starting with the version implemented by Community Notes and described in the [Birdwatch Paper](https://github.com/twitter/communitynotes/blob/main/birdwatch_paper_2022_10_27.pdf). There is also a good writeup by [Vitalik Buterin](https://vitalik.eth.limo/general/2023/08/16/communitynotes.html). In my [next post](/improving-bridging-based-ranking) describe my variation of the algorithm that uses multi-dimensional matrix factorization.
 
 A good way of understanding Matrix Factorization is that it is like running a bunch of linear regressions: one for each user and each item.
 
@@ -98,7 +104,7 @@ For a highly polarizing right-wing post, the regression line might have a positi
 
 In this chart upvotes have a value of +1 and downvotes have a value of -1. All the right-wing users upvoted and all the left-wing users downvoted (as shown by the little ✕s). So the best fit is a line with a slope of approximately +1: the more right-wing the user, the higher the probability of an upvote, and the closer the predicted value is to 1. The more left-wing, the higher the probability of a downvote, and the closer the predicted value is to -1. 
 
-Note that there are more right-wing users than left wing users, but it doesn't make a difference. Even if there were 100 right-wing users and 2 left-wing users, the slope of the best fit would be approximately the same. This is why bridge-based ranking does not favor the majority.
+Note that there are more right-wing users than left wing users, but it doesn't make a difference. Even if there were 100 right-wing users and 2 left-wing users, the slope of the best fit would be approximately the same. This is why bridging-based ranking does not favor the majority.
 
 
 A very polarizing lift-wing post might have a negative slope:
@@ -221,10 +227,10 @@ The polarity factor the algorithm discovers doesn't necessarily correspond exact
 
 ## Conclusion
 
-One of the reasons for my interest in bridge-based ranking is that I think it may be a critical part of a [social protocol](https://social-protocols.org) for a self-moderating community. Without it, user polarization will tend to lead to either suffocating uniformity or least-common-denominator mediocrity. Bridge-based ranking can be used in any forum with high entropy (lots of downvotes) as a way to identify posts with posts with high [Information Value](https://social-protocols.org/global-brain/information-value.html) based on the common-ground factor.
+One of the reasons for my interest in bridging-based ranking is that I think it may be a critical part of a [social protocol](https://social-protocols.org) for a self-moderating community. Without it, user polarization will tend to lead to either suffocating uniformity or least-common-denominator mediocrity. Bridging-based ranking can be used in any forum with high entropy (lots of downvotes) as a way to identify posts with posts with high [Information Value](https://social-protocols.org/global-brain/information-value.html) based on the common-ground factor.
 
 
-In my [next article](/improving-bridge-based-ranking), I discuss ways that this algorithm can fail, and introduce an improved implementation of the algorithm that users 2-dimensional matrix factorization.
+In my [next article](/improving-bridging-based-ranking), I discuss ways that this algorithm can fail, and introduce an improved implementation of the algorithm that users 2-dimensional matrix factorization.
 
 
 
