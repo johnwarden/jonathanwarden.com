@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Paying for Truth: Information Elicitation Mechanisms"
+title:  "Information Elicitation Mechanisms: Paying for Truth"
 slug: information-elicitation-mechanisms
 date:  2021-09-14 00:00:00 +0200
 toc: true
