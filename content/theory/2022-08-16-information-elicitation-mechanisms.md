@@ -6,6 +6,8 @@ toc: true
 toc_sticky: true
 tags: ['Game Theory']
 canonical_url: https://jonathanwarden.com/information-elicitation-mechanisms
+aliases: 
+		- /information-elicitation-mechanisms
 summary: This essay explains how you can pay people to tell the truth, even if you can't verify their answers. 
 
 ---
