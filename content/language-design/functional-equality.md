@@ -14,17 +14,19 @@ aliases:
 
 ## Abstract
 
-In this post, I'll argue that functional programming languages should respect the principle of **functional equality**. This principle states that if `a == b`, then there should exist no function `f` for which `f(a) != f(b)`.
+In this post, I'll argue that functional programming languages should respect the principle of **functional equality**. This principle states that if `a` equals `b`, then there should exist no function `f` for which `f(a)` does not equal `f(b)`.
 
-Many functional programming languages violate this principle, which can cause problems for programmers. Often two different values are different **representations** of the same **underlying value** (the same point on the number line, the same moment in time); they are equal in some ways but different in other ways. Languages should allow programmers to specify what they mean by "equal" when comparing values for equality: equal representations, or equal underlying values.
+Many functional programming languages violate this principle. For example, in many languages division works differently for integers and floats, so the integer `4` and the float `4.0` can be functionally different, even though they are numerically equal. In this essay I will show how values that are "equal" but behave differently can be a source of confusion and bugs for programmers.
 
-This can be done by providing different equality operators (e.g. `==` vs `===` in Javascript), requiring values of different types to be converted to the same type before being compared (as enforced by languages such as Go and Haskell), and the use of **representationless types**. A **representationless numeric type** is possible if the precision of the output of numeric operations is explicitly specified.
+The root of the problem is the fact that two functionally different values are different **representations** of the same **underlying value** (the same point on the number line, the same moment in time). They are thus "equal" in some ways but different in other ways. To minimize confusion, languages should allow programmers to specify what they mean by "equal" when comparing values for equality: equal representations, or equal underlying values.
+
+This can be done either by providing different equality operators (e.g. `==` vs `===` in Javascript), or by requiring values of different types to be converted to the same type before being compared (as enforced by languages such as Go and Haskell), or using what I call **representationless types**. 
 
 ## It's Easy to Violate Functional Equality
 
 Many functional programming languages violate the principle of functional equality. 
 
-In Scala, for example, the `toString` method may evaluate to different values for `a` and `b` even when the `==` operator says they are equal.
+In Scala, to pick an arbitrary language, the `toString` method may evaluate to different values for `a` and `b` even when the `==` operator says they are equal.
 
 {{< highlight scala "linenos=false" >}}
 var a = 2+2

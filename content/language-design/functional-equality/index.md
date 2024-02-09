@@ -21,7 +21,7 @@ When comparing two values for equality, it is important to ask, *what do you mea
 
 But in other cases, what matters is whether the two values are, for all intents and purposes, **exchangeable** in code: you can replace one value with the other in your program and get the exact same output. This only happens if the two values are **functionally equal**.
 
-In this essay I will explore the difference between functional equality and **ideal equality**. Both types of equality comparisons are sometimes necessary, and this gives rise to what I call the **expression problem**. I explore how some common programming languages solve the expression problem by supporting different ways of doing equality comparisons. I argue that the `==` operator should always respect functional equality, and that ideal equality tests should be done by explicitly comparing canonical representations. I then recommend the use of [**canonical types**](/representationless-types) that only permit canonical representations.
+In this essay I will explore the difference between functional equality and **ideal equality**. Both types of equality comparisons are sometimes necessary, and this gives rise to what I call the **representation problem**. I explore how some common programming languages solve the representation problem by supporting different ways of doing equality comparisons. I argue that the `==` operator should always respect functional equality, and that ideal equality tests should be done by explicitly comparing canonical representations. I then recommend the use of [**canonical types**](/representationless-types) that only permit canonical representations.
 
 ## Definition of Functional Equality
 
