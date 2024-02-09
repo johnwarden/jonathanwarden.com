@@ -29,9 +29,7 @@ In this post I will provide a non-mathematical explanation of how these techniqu
 
 Suppose we are randomly drawing from an urn containing a mix of red and blue marbles. With each marble we draw, we get a better idea of the ratio of red to blue: **each draw provides information** that tends to improve our estimate of the true ratio. This is a key concept in statistics, enshrined in the [law of large numbers](https://www.britannica.com/science/law-of-large-numbers).
 
-Now suppose that instead, a group of students each draws one marble, looks at it, and puts it back, without showing it to anyone else. Each student then reports the color they drew. 
-
-The problem is, now we don't know if they are telling the truth.
+Now suppose that instead, a group of students each draws one marble, looks at it, and puts it back, without showing it to anyone else. Each student then reports the color they drew. We can use the reports of the students to estimate the true ratio. The problem is, now we don't know if they are telling the truth.
 
 ## Paying for Information
 
@@ -53,7 +51,7 @@ But why do they expect the other students to tell the truth? This is a coordinat
 
 The Peer Prediction game actually has other equilibria. For example, there is an equilibrium on the strategy of always reporting blue, or on always reporting the opposite of what you observed, etc. If the group coordinates in advance on the always-blue strategy, then everyone will expect everyone else to pick blue, and so that's what they will do.
 
-But establishing an expectation of truthtelling is not hard: it can be as simple as as having one participant that is known to be scrupulously honest. 
+But establishing an expectation of truthtelling is not hard: it can be as simple as having one participant that is known to be scrupulously honest. 
 
 
 ## Your Subjective Opinion is Information
@@ -77,11 +75,11 @@ Honesty about subjective opinions requires the right incentives. Among online us
 
 ## Common Priors
 
-But there is another catch. The peer prediction method rests on an assumption of [**common priors**](https://economics.mit.edu/files/17484). This assumption effectively means that people **don't know how other people are going to answer** -- or at least they don't have any knowledge that the person running the survey doesn't have.
+But there is another catch. The peer prediction method rests on an assumption of [**common priors**](https://economics.mit.edu/files/17484). This assumption effectively means that people **don't know how other people are going to answer** -- or at least they don't have any knowledge that the person running the game doesn't have.
 
 Unfortunately, if people do know how their peer is likely to answer, then this is also information that can be used to improve the estimate of the true ratio. If their own opinion differs from the opinion they expect their peers are likely to have, then knowledge of popular opinion may be a better prediction of the peer's opinion than their own. In these cases, student's that know that their opinion is unpopular are better off lying.
 
-However, knowledge of popular opinion has no information value if the person running the survey (we call this person the "center") has the same knowledge, and has already incorporated it into their estimate. So for peer prediction to work, we have to assume that the students and the center have the same information, or **common priors**. Given these assumptions, the only way for a student to improve their expected score is to provide information the center doesn't already have: the student's own opinion.
+However, knowledge of popular opinion has no information value if the person running the game (we call this person the "center") has the same knowledge, and has already incorporated it into their estimate. So for peer prediction to work, we have to assume that the students and the center have the same information, or **common priors**. Given these assumptions, the only way for a student to improve their expected score is to provide information the center doesn't already have: the student's own opinion.
 
 Unfortunately, the assumption of common priors severely limits the applicability of Peer Prediction....
 
@@ -93,11 +91,25 @@ But the genius of the mechanism is this: their payouts are also partly based on 
 
 In other words, there is an equilibrium where everyone answers honestly because everyone predicts honestly, and everyone predicts honestly because everyone answers honestly.
 
-## Multi-Task Peer-Prediction
+## Peer Truth Serum and Other Methods
 
 But asking students for this estimate complicates things. One of our goals is to induce truthtelling in a social network. In social networks, asking people for their predictions about how many other people will also share or upvote some post would require awkward UI changes, and people may not engage with them.
 
-Fortunately, variations of these methods have since been developed that don't require asking for predictions, the mechanism proposed by [Dasgupta and Gosh](https://arxiv.org/pdf/1303.0799.pdf)  asks participants for opinions on **multiple** items, and then the system in a sense uses this information in place of common priors. Obtaining opinions on multiple items is not a problem in social networks if, for example, people upvote or downvote many posts. So these mechanisms can be transparently integrated into a social media algorithm without changes to the UI.
+
+Fortunately, variations of these methods have since been developed that don't assume common priors, and don't require asking for predictions.
+
+With the [Peer Truth Serum](https://ojs.aaai.org/index.php/HCOMP/article/view/13145/12993) mechanism, the center publishes their current best estimate of the probability that the next participant will answer "yes" to some question, and does a Bayesian belief update of this estimate each time it receives a report. The scoring mechanism is designed such that, if the participant believes the center's estimate is too low, they maximize their expected payout by answering "yes", and otherwise they maximize by answering "no". So users don't answer based on whet they personally honestly believe, but rather on what they think other people believe. The paper proves that this mechanism is *asymptotically truthful*: It will converge converge on the true distribution.
+
+Another mechanism that doesn't require common priors is the multi-task peer-prediction method proposed by [Dasgupta and Gosh](http://www.arpitaghosh.com/papers/elicit_arxiv.pdf) asks participants for opinions on **multiple** items, and then the system in a sense uses this information in place of common priors. Obtaining opinions on multiple items is not a problem in social networks if, for example, people upvote or downvote many posts. This mechanism has the additional benefit of creating incentives for participants to put effort in solving the the task.
+
+I would also propose using LLMs to provide estimates. Since the "beliefs" of an LLM are in essence the average beliefs of a large sample of human beings as expressed in an large archive of human language, these predictions may be as good or better than the predictions of most participants -- especially if the LLM can be fine-tuned on the beliefs of the particular group. Of course this calls into question the need for asking people for their opinions at all. But I would expect LLMs to do a good job of predicting what people **believe other people to believe**, and these beliefs [may differ from what people actually believe](https://en.wikipedia.org/wiki/Pluralistic_ignorance).
+
+
+### Other Issues: Self Selection and Brigading
+
+In social networks such as Reddit, *brigading* is when a group of users coordinates to submit a large number of votes on some piece of content that would receive relatively few votes otherwise. If the subgroup all vote honestly, they will still expect positive rewards.
+
+The problem here is *self-selection*. In social networks, users self select: usually decide what to vote and not vote on.
 
 ## Conclusion
 
