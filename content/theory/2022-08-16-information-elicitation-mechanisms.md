@@ -1,6 +1,6 @@
 ---
 layout: single
-title:  "Information Elicitation Mechanisms"
+title:  "Information Elicitation Mechanisms: Paying for Truth"
 date:   2021-09-14 00:00:00 +0200
 toc: true
 toc_sticky: true
@@ -10,7 +10,7 @@ summary: This essay explains how you can pay people to tell the truth, even if y
 
 ---
 
-## Paying for the Truth
+## Introduction
 
 <!--
 [TODO: link to studies with emperical verification of these methods]
