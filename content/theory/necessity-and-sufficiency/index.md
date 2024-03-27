@@ -70,13 +70,13 @@ If the subject already accepts the premise and conclusion, and they wouldn't acc
 
 ### Examples: Necessary but not Sufficient:
 
-Consider the following examples. You probably agree that these premises all seem like they should be necessary but not sufficient. 
+Consider the following examples. You probably agree that these premises all seem like they should be necessary but not sufficient.
 
 - *This is a good candidate* **because** *he has a pulse*.
 - *Tweety can fly* **because** *he has wings*.
 - *My car will start* **because** *it has a battery*.
 
-Notice also that these premises all seem, *a priori*, probable. The subject probably accepts the premise, and that is why they probably accept the conclusion. If they didn't accept the premise, they would probably reject the conclusion, and so the premise is necessary.
+Notice also that these premises all seem, *a priori*, probable, and that is why the conclusions seem *a priori* probable. Knowing nothing about Tweety except his name, you are probably not surprised that he is a bird, and that's why you aren't surprised that Tweety can fly. If you rejected the premise that Tweety was a bird, you would likely reject the conclusion that he can fly. So the premise is necessary.
 
 ### Examples: Sufficient but not Necessary:
 
@@ -86,7 +86,7 @@ For the following examples, you probably agree that the premises all seem like t
 - *John can fly* **because** *John is a bird*.
 - *The world will end next year* **because** *it will be hit by a giant asteroid*.
 
-Notice also that these premises all seem, *a priori*, improbable. The subject probably rejects the premise, and that is why the probably reject the conclusion. If they accepted the premise, they would probably accept the conclusion, and so the premise is sufficient.
+Notice also that these premises all seem, *a priori*, improbable, or surprising, and that is why the conclusions seem *a priori* improbable. Knowing nothing about John except his name, you probably didn't expect him to be a bird, and that's why you didn't expect him to be able to fly. But if you accept the premise that John is a bird, it is easy to accept the conclusion that he can fly. So the premise is sufficient.
 
 ## Partial Acceptance of the Premise
 

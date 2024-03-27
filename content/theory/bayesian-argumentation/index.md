@@ -110,7 +110,7 @@ If the warrant exists, we say that 𝐵 is **relevant** to 𝐴. Otherwise, we s
 
 ## Summary
 
-So in a Bayesian argument, an arguer asserts a **premise** in support/opposition to some **conclusion**, and if the premise is **relevant** -- the subject is more likely to believe the conclusion if they believe the conclusion -- then there must be some **warrant** justifying the inference from premise to conclusion.
+So in a Bayesian argument, an arguer asserts a **premise** in support/opposition to some **conclusion**, and if the premise is **relevant** -- the subject is more likely to believe the conclusion if they believe the premise -- then there must be some **warrant** justifying the inference from premise to conclusion.
 
 
 ## This Series
