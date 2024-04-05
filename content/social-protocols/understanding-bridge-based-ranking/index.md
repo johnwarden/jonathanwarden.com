@@ -8,14 +8,15 @@ image: bridging-based-ranking.webp
 canonical_url: https://jonathanwarden.com/understanding-community-notes
 aliases:
 - /understanding-bridge-based-ranking/
-
 ---
 
 ## Introduction
 
 [Bridging-Based Ranking](https://www.belfercenter.org/sites/default/files/files/publication/TAPP-Aviv_BridgingBasedRanking_FINAL_220518_0.pdf) is an alternative way to score and rank content by **adjusting for user polarization**. 
 
-The idea was first implemented in [pol.is](https://pol.is/home) and used successfully by the [vTaiwan](https://info.vtaiwan.tw/) open citizenship consultation process. The term "Bridging-Based" was introduced in [this essay](https://www.belfercenter.org/sites/default/files/files/publication/TAPP-Aviv_BridgingBasedRanking_FINAL_220518_0.pdf) by Aviv Ovadya of the Harvard Kennedy School Belfer Center. **UPDATE**: A discussion of this article on [Hacker News](https://news.ycombinator.com/item?id=38939660) links to additinal blogs and articles.
+The idea was first implemented in [pol.is](https://pol.is/home) and used successfully by the [vTaiwan](https://info.vtaiwan.tw/) open citizenship consultation process. The term "Bridging-Based" was introduced in [this essay](https://www.belfercenter.org/sites/default/files/files/publication/TAPP-Aviv_BridgingBasedRanking_FINAL_220518_0.pdf) by Aviv Ovadya of the Harvard Kennedy School Belfer Center.<!--more-->
+ **UPDATE**: A discussion of this article on [Hacker News](https://news.ycombinator.com/item?id=38939660) links to additinal blogs and articles.
+
 
 ### Diversity of Perspectives
 
