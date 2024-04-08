@@ -3,7 +3,7 @@ title: "Understanding Community Notes: Bridging-Based Ranking"
 slug: understanding-community-notes
 date: "2024-01-01"
 math: true
-weight: 1
+weight: 2
 image: bridging-based-ranking.webp
 canonical_url: https://jonathanwarden.com/understanding-community-notes
 aliases:
