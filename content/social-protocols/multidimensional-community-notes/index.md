@@ -1,14 +1,16 @@
 ---
-title: "Improving Bridge-Based Ranking"
+title: "Multidimensional Community Notes"
+slug: multidimensional-community-notes
+weight: 5
 date: "2024-01-05"
 math: true
-image: https://cdn.discordapp.com/attachments/1097595489282703571/1194709920596115567/alphaomega1551_Two_groups_of_people_on_opposite_sides_of_the_wa_fdcccced-0448-42e0-a341-9f4e8f7991de.png?ex=65b15751&is=659ee251&hm=7b3fe3ac92c4f987e3e9a169b60a4580182f26a000c0169fadb118747777ed7b&
+image: 3d-plot-static.jpg
 
 ---
 
 ## Introduction
 
-In my article on [Understanding Bridge-Based Ranking](/understanding-bridge-based-ranking), I describe the basic Matrix Factorization algorithm used in the bridge-based ranking algorithm used by Community Notes. In this article, I introduce a way to break this algorithm and describe an variation of the algorithm that uses 2-dimensional Matrix factorization.
+In my article on [Understanding Community Notes](/understanding-community-notes), I describe the basic Matrix Factorization algorithm used to identify notes that are helpful despite user polarization. In this article, I introduce a way to break this algorithm and describe an variation of the algorithm that uses 2-dimensional Matrix factorization.
 
 ## Breaking the Algorithm
 
@@ -25,9 +27,9 @@ The algorithm uses Matrix Factorization to find a latent factor that best explai
         ↗    |
       ✕ ✕   -1
 
-Now bridge-based ranking will do the opposite of what we probably want: it will favor posts that get upvoted regardless of user expertise. If the forum was already populated by a majority of experts, and a minority of uninformed quacks promoting baseless claims, then informed posts would have had the advantage. Bridge-based ranking would just take this advantage away.
+Now the algorithm will do the opposite of what we probably want: it will favor posts that get upvoted regardless of user expertise. If the forum was already populated by a majority of experts, and a minority of uninformed quacks promoting baseless claims, then informed posts would have had the advantage. The algorithm would just take this advantage away.
 
-In fact, this points to a strategy for attacking a bridge-based ranking algorithm. An attacker trying to break Community Notes using a lot of sockpuppet accounts won't succeed just by upvoting notes that support some political agenda. As discussed in the last post, [the intercept is not the average](/understanding-bridge-based-ranking/#the-intercept-is-not-the-average). Downvotes will not shift the intercept for a post if the Matrix Factorization can "explained" these downvotes by the polarity factors of the users.
+In fact, this points to a strategy for attacking the Community Notes algorithm. An attacker trying to break Community Notes using a lot of sockpuppet accounts won't succeed just by upvoting notes that support some political agenda. As discussed in the last post, [the intercept is not the average](/understanding-community-notes/#the-intercept-is-not-the-average). Downvotes will not shift the intercept for a post if the Matrix Factorization can "explained" these downvotes by the polarity factors of the users.
 
 Instead, the attacker should *downvote helpful posts and upvote unelpful posts, regardless of politics*.
 
@@ -51,7 +53,7 @@ So then what would the intercept be? A positive intercept means a post gets a lo
 
 ## Two-Dimensional Matrix Factorization
 
-To address this problem, I have developed a variation of the algorithm that uses a two dimensional Matrix factorization, and then users a process similar to principal component analysis to find the high-entropy dimension and the low-entropy dimension.
+Towards a possible solution to this problem, I have developed a variation of the algorithm that uses a two dimensional Matrix factorization, and then users a process similar to principal component analysis to find the high-entropy dimension and the low-entropy dimension.
 
 Every user and post is characterized by a two-dimensional vector, instead of a single factor plus an intercept. So the estimated value of the user's vote on a post is just the dot-product of this vector. That is, the model simplifies to:
 
@@ -143,7 +145,7 @@ Another advantage to using two-dimension Matrix factorization is that it actuall
 
 With multi-dimensional matrix factorization, we get both a polarity factor and a helpfulness factor for each user. One of the advantages of characterizing users by helpfulness, and not just polarity, is that it can help with the cold-start problem. If a new post has only received a few votes, then we can estimate what it's helpfulness factor by taking an average of the user's votes weighted by their helpfulness factor. 
 
-Another thing I envision doing with a multi-model is automatic community "splitting" in a social network. A polarized community would use bridge-based ranking but then the system could automatically create two subcommunities based on the polarization factors (e.g. "cats" and "dogs"). The original pet-pics community would be the "bridge" community, and the scores of posts in this community would be a projection of posts onto the common-ground vector. Then the sub-communities would be ranked by projecting posts onto vectors pointing to the left and right (and a little bit up). So dog-lovers could drill into the dog subcommunity to see posts that have a high raw-cuteness factor and a high dog factor.
+Another thing I envision doing with a multi-model is automatic community "splitting" in a social network. A polarized community would use a bridgeing-based ranking algorithm but then the system could automatically create two subcommunities based on the polarization factors (e.g. "cats" and "dogs"). The original pet-pics community would be the "bridge" community, and the scores of posts in this community would be a projection of posts onto the common-ground vector. Then the sub-communities would be ranked by projecting posts onto vectors pointing to the left and right (and a little bit up). So dog-lovers could drill into the dog subcommunity to see posts that have a high raw-cuteness factor and a high dog factor.
 
 There is a lot more to explore here. The algorithm is still susceptible to the problems such brigading, but this might be addressable using a technique similar to the technique used in pairwise quadratic funding as proposed in [Vitalik Buterin's article on community notes](https://vitalik.eth.limo/general/2023/08/16/communitynotes.html).
 
