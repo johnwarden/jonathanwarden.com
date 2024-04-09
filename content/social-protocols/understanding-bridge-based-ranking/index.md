@@ -40,7 +40,7 @@ The chart below illustrates how this works. This charts shows a subset of notes 
 
 
  
-<img src='https://raw.githubusercontent.com/social-protocols/bridging-based-ranking/main/plots/community-notes-large-items-1d.png' 
+<img src='https://raw.githubusercontent.com/social-protocols/bridge-based-ranking/main/plots/community-notes-large-items-1d.png' 
                  alt='Community Notes Polarity Plot (Notes)' 
                  style='display: block; margin-left: auto; margin-right: auto; max-height: 500px' />
 
@@ -58,7 +58,7 @@ People are politically biased, but they have other biases, such as the bias towa
 
 When bridging-based ranking algorithm dissects users voting behavior and factors out the polarity component, it finds that **most users are at least somewhat biased towards helpfulness**! You can see this in the plot of a sample of Community Notes users below. 
 
-<img src='https://raw.githubusercontent.com/social-protocols/bridging-based-ranking/main/plots/community-notes-large-users-2d.png'
+<img src='https://raw.githubusercontent.com/social-protocols/bridge-based-ranking/main/plots/community-notes-large-users-2d.png'
                  alt='Community Notes Polarity Plot (Users)'
                  style='display: block; margin-left: auto; margin-right: auto; max-height: 500px' />
 
