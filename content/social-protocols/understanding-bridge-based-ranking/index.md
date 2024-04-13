@@ -12,7 +12,7 @@ aliases:
 
 ## Introduction
 
- **UPDATE**: A discussion of this article on [Hacker News](https://news.ycombinator.com/item?id=38939660) links to additional blogs and articles.
+ **UPDATE**: See a discussion of this article on [Hacker News](https://news.ycombinator.com/item?id=38939660).
 
 [Bridging-Based Ranking](https://www.belfercenter.org/sites/default/files/files/publication/TAPP-Aviv_BridgingBasedRanking_FINAL_220518_0.pdf) is a way of scoring and ranking content on social platforms that bridges divides. The term "Bridging-Based Ranking" was introduced in [this essay](https://www.belfercenter.org/sites/default/files/files/publication/TAPP-Aviv_BridgingBasedRanking_FINAL_220518_0.pdf) by Aviv Ovadya of the Harvard Kennedy School Belfer Center.
 
