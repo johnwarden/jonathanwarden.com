@@ -5,7 +5,7 @@ weight: 5
 date: "2024-01-05"
 math: true
 image: 3d-plot-static.jpg
-canonical_url: https://jinathanwarden.com/multidimensional-community-notes
+canonical_url: https://jonathanwarden.com/multidimensional-community-notes
 aliases:
 - /improving-bridge-based-ranking/
 
