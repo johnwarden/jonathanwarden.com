@@ -17,7 +17,7 @@ In my article on [Understanding Community Notes](/understanding-community-notes)
 
 ## Breaking the Algorithm
 
-The algorithm uses Matrix Factorization to find a latent factor that best explains the variation among users votes. It assumes that this latent factor corresponds to some sort of polarization within the community. But what if the latent factor is due to **diversity** but not **polarization**. What if the factor that best explains variation in users' votes corresponds to, for example, how informed or educated that user is? For example, suppose in some expert advice forum the regression for a post looks like this.
+The algorithm uses Matrix Factorization to find a latent factor that best explains the variation among users' votes. It assumes that this latent factor corresponds to some sort of polarization within the community. But what if the latent factor is due to **diversity** but not **polarization**? What if the factor that best explains variation in users' votes corresponds to, for example, how informed or educated that user is? For example, suppose in some expert advice forum the regression for a post looks like this.
 
            
            Vote 
@@ -32,11 +32,9 @@ The algorithm uses Matrix Factorization to find a latent factor that best explai
 
 Now the algorithm will do the opposite of what we probably want: it will favor posts that get upvoted regardless of user expertise. If the forum was already populated by a majority of experts, and a minority of uninformed quacks promoting baseless claims, then informed posts would have had the advantage. The algorithm would just take this advantage away.
 
-In fact, this points to a strategy for attacking the Community Notes algorithm. An attacker trying to break Community Notes using a lot of sockpuppet accounts won't succeed just by upvoting notes that support some political agenda. As discussed in the last post, [the intercept is not the average](/understanding-community-notes/#the-intercept-is-not-the-average). Downvotes will not shift the intercept for a post if the Matrix Factorization can "explained" these downvotes by the polarity factors of the users.
+In fact, this points to a strategy for attacking the Community Notes algorithm. An attacker trying to break Community Notes using a lot of sockpuppet accounts won't succeed just by upvoting notes that support some political agenda. As explained in the last post, [the intercept is not the average](/understanding-community-notes/#the-intercept-is-not-the-average), downvotes will not shift the intercept for a post if the Matrix Factorization can "explain" these downvotes by the polarity factors of the users.
 
-Instead, the attacker should *downvote helpful posts and upvote unelpful posts, regardless of politics*.
-
-With enough sockpuppet accounts contributing, the result will be that the primary factor that explains variation in users voting behavior will not be politics, but helpfulness. The matrix factorization algorithm will thus discover this factor, and a regression for a helpful post will now look something like this:
+Instead, the attacker should *downvote helpful posts and upvote unhelpful posts, regardless of politics*. With enough sockpuppet accounts, the result will be that the primary factor that explains variation in users voting behavior will not be politics, but helpfulness. The matrix factorization algorithm will thus discover this factor, and a regression for a helpful post will now look something like this:
 
            Vote 
             +1   ✕ ✕ ✕ ✕ 
@@ -51,12 +49,12 @@ With enough sockpuppet accounts contributing, the result will be that the primar
 
 The algorithm doesn't know that the latent factor it has discovered corresponds to user helpfulness. It assumes that it corresponds to polarity. The result would be disastrous, because the algorithm will nullify the effect of Helpfulness and favor posts would be most upvoted if helpfulness were not a factor. And which posts might these be? Well in Community Notes, the factor that most predicts how users vote, after helpfulness, is...politics! 
 
-So then what would the intercept be? A positive intercept means a post gets a lot of upvotes after adjusting for helpfulness. Community notes users seem to lean to the right, right-wing posts will have a positive intercept and left-wing posts will have a negative intercept. This is definitely not the desired result.
+So then what would the intercept be? A positive intercept means a post gets a lot of upvotes after adjusting for helpfulness. Since community notes users seem to lean to the right, right-wing posts will have a positive intercept and left-wing posts will have a negative intercept. This is definitely not the desired result.
 
 
 ## Two-Dimensional Matrix Factorization
 
-Towards a possible solution to this problem, I have developed a variation of the algorithm that uses a two dimensional Matrix factorization, and then users a process similar to principal component analysis to find the high-entropy dimension and the low-entropy dimension.
+Towards a possible solution to this problem, I have developed a variation of the algorithm that uses two dimensional Matrix factorization, and then uses a process similar to principal component analysis to find the high-entropy dimension and the low-entropy dimension.
 
 Every user and post is characterized by a two-dimensional vector, instead of a single factor plus an intercept. So the estimated value of the user's vote on a post is just the dot-product of this vector. That is, the model simplifies to:
 
@@ -64,11 +62,11 @@ $$
     ŷ_{ij} = \vec{w_i} \cdot \vec{x_j}
 $$
 
-The problem is, the two factors of this two-dimensional vector do not necessarily align with the polarity-factor and the common-ground factor: instead they may be any arbitrarily linear combination of these factors. So the results of the matrix factorization algorithm, when plotted in two dimensions, will appear to be rotated arbitrarily.
+Now, the two factors of this two-dimensional vector do not necessarily align with the polarity-factor and the common-ground factor: instead they may be any arbitrarily linear combination of these factors. So the results of the matrix factorization algorithm, when plotted in two dimensions, will appear to be rotated arbitrarily.
 
 However, we can use a technique similar to principle component analysis to find a change of basis so that our axis align with the polarity and common-ground factor. 
 
-The chart below shows the results of this algorithm using a synthetic dataset. The dataset simulates four user profiles: each profile is either left- or right-wing biased, but some users are less biased -- they make a good-faith effort to rate posts based on helpfulness.
+The chart below shows the results of this algorithm using a synthetic dataset. I created this dataset based on four user profiles: each profile is either left- or right-wing biased, but some users are "thugs" who only care about politics and not helpfulness, while other users make a good-faith effort to rate posts based on helpfulness.
 
 I then created upvote/downvote Matrix with votes drawn randomly with probabilities defined by these profiles. I then factorized the resulting matrix using two latent factors. The results of the initial Matrix factorization are shown in the first row of charts below.
 
@@ -82,11 +80,11 @@ The bottom row of charts shows the same data after a change of basis that makes 
 
 The key to discovering the polarity axis and the common-ground axis is to notice that there is less "disagreement" along the common-ground axis. As you can see in the bottom-left chart, almost all users have a positive value for the common-ground factor. If users were to vote entirely based on this factor, there would be little disagreement: they would mostly upvote helpful items and download unhelpful items.
 
-So finding the common-ground axis is as simple as finding a vector which, when users are projected onto this vector, results in most users having a positive (or negative value). The specific measure I use is actually a measure of entropy, which is the log of the probability that a user upvotes a post after users are projected into a vector. The exact code is [here](https://github.com/social-protocols/bridge-based-ranking/blob/main/change-basis.jl#L132).
+So finding the common-ground axis is as simple as finding a vector which, when users are projected onto this vector, results in most users having a positive (or negative) value. The specific measure I use is actually a measure of entropy, which is the log of the probability that a user upvotes a post after users are projected into a vector. The exact code is [here](https://github.com/social-protocols/bridge-based-ranking/blob/main/change-basis.jl#L132).
 
 Likewise, the polarity axis can be discovered by finding the vector with maximum entropy.
 
-The algorithm is almost identical to principal component analysis, except instead of maximizing variance (which is how PCA works), we maximize/minimize entropy.
+The algorithm is almost identical to principal component analysis, except instead of maximizing variance, we maximize/minimize entropy.
 
 Here is a subset of the Community Notes data run through the same algorithm. As you can see, after initially running matrix factorization we don't know which way is "up". But after discovering the high-entropy and low-entropy vectors and doing a change of basis, the vertical does indeed correspond to "common ground", as you see from the fact that the posts that Community Notes has rated as helpful (the green dots) mostly have a positive value for the common ground factor, and the red dots mostly have a negative value.
 
@@ -100,7 +98,7 @@ Here is a subset of the Community Notes data run through the same algorithm. As 
 
 What happens if we go higher than 2 dimensions? When we do this, we find that users are actually highly polarized along two dimensions, but that there is still a third "common ground" dimension with lower entropy. 
 
-The graph of users in three dimensions looks like a bottle cop, with the top of the cap pointing in the direction of lowest entropy (common ground). Users along the rim of the bottle cap have low values for the common ground dimension, and high values for some linear combination of the two polarity dimensions. The bottom of the bottle cap is open/hollow because users that have a low value for the polarity factors have a high value for the common-ground factor. The more polarized users get along some dimensions, the lower their common ground factor tends to become, and the closer they approach one of the points on the rim.
+The graph of users in three dimensions looks like a hollow hemisphere, with the top of the hemisphere "pointing" in the direction of lowest entropy (common ground). Users along the of the hemisphere have low values for the common ground dimension, and high values for some linear combination of the two polarity dimensions. The bottom of the hemisphere is open/hollow because users that have a low value for the polarity factors have a high value for the common-ground factor. The more polarized users get along some dimensions, the lower their common ground factor tends to become, and the closer they approach one of the points on the rim.
 
 The blue arrow points in the direction of "common ground".
 

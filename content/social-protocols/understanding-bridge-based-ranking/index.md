@@ -191,7 +191,7 @@ We might suppose that the last post above will receive more upvotes than downvot
 
 What a positive intercept does tell us is that this post **would** receive more upvotes than downvotes if there **was** an equal balance of left and right-wing users. 
 
-It also tells us how users would hypothetically vote if they were all totally a-political. In such a hypothetical world, the only thing influencing users votes is some common-ground factor that aligns with the intent of this particular community, attracting upvotes independently of politics.
+It also tells us how users would hypothetically vote if they were all totally a-political. In such a hypothetical world, the only thing influencing users' votes is some common-ground factor that aligns with the intent of this particular community, attracting upvotes independently of politics.
 
 
 ### Matrix Factorization
