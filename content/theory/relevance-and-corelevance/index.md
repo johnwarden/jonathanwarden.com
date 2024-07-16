@@ -81,10 +81,17 @@ proof
 -->
 
 
+### Acceptance of the Premise
+
+Now a Bayesian agent doesn't just accept or reject premises. In a Bayesian model all beliefs are probabilities. 
+
+I'll use the term **acceptance** to mean the probability that the user accepts a claim (the premise or conclusion). $ P(A \vert B) $ is acceptance of the conclusion given that the acceptance of the premise is 100%. And $P(A \vert \bar{B})$ is the acceptance of the conclusion given acceptance of the premise is 0%. But what will acceptance of the conclusion  be if acceptance of the premise was, say, 50%?
+
+
 
 ### Relevance as Slope
 
-The relevance can be understood as the **slope of the line relating belief in the premise with belief in the conclusion**.
+It turns out that the relationship between acceptance of the premise and conclusion is linear, and **relevance is the slope of the line relating acceptance of the premise with acceptance the conclusion**.
 
 $$
 \label{2}
@@ -92,28 +99,7 @@ P(A) = P(A|\bar{B}) + P(B)R(A,B)
 \tag{2}
 $$
 
-This follows from rewriting $P(A)$ using the law of total probability:
-
-$$
-\begin{aligned}
-    P(A) &= P(A|\bar{B})P(\bar{B}) + P(A|B)P(B) ~ \text{(Law of total prob.)}\cr
-         &= P(A|\bar{B})(1 - P(B)) + P(A|B)P(B) \cr
-         &= P(A|\bar{B}) - P(A|\bar{B})P(B) + P(A|B)P(B) \cr
-         &= P(A|\bar{B}) + P(B)(P(A|B) - P(A|\bar{B})) \cr
-         &= P(A|\bar{B}) + P(B)R(A,B) 
-\end{aligned}
-$$
-
-If we assume that the conditional probabilities $P(A \vert B)$ and $P(A \vert \bar{B})$ don't change when $P(B)$ changes, then if the subject acquires information that causes them to increase their belief in $B$ from prior $P(B)$ to posterior $P'(B)$, then their posterior belief $P'(A)$ changes according to the following formula ([proof](#proof-1)).
-
-$$
-\label{3}
-    P'(A) = P(A|\bar{B}) + P'(B)R(A,B) 
-\tag{3}$$
-
-Formula $\eqref{3}$ is known as [Jeffrey's Rule of Conditioning](https://www.sciencedirect.com/science/article/pii/0888613X89900030#:~:text=Abstract,of%20the%20normative%20Bayesian%20inference.). 
-
-
+This relationship is illustrated in the chart below:
 
 <!-- This image is generated using R. Source: relevance-delta-chart.R -->
 <img id="chart1" src="relevance-delta.png"
@@ -141,6 +127,60 @@ Formula $\eqref{3}$ is known as [Jeffrey's Rule of Conditioning](https://www.sci
 -->
 
 The horizontal axis is the **posterior** belief $P'(B)$, and the vertical axis is the **posterior** belief $P'(A)$. The line intersects the vertical at $P(A \vert \bar{B})$ -- the subject's belief were they to completely reject 𝐵. The posterior belief in 𝐴 increases linearly as the posterior belief in 𝐵 increases, to the point that the subject completely accepts 𝐵, and the belief in $P'(A)$ has the maximum possible value $P(A \vert B)$. The prior beliefs, $P(A)$ and $P(B)$, are a point on this line. 
+
+
+<aside class="custom-aside" markdown="1">
+
+### Derivation of Formula
+
+The above formula follows from rewriting $P(A)$ using the law of total probability:
+
+$$
+\begin{aligned}
+    P(A) &= P(A|\bar{B})P(\bar{B}) + P(A|B)P(B) ~ \text{(Law of total prob.)}\cr
+         &= P(A|\bar{B})(1 - P(B)) + P(A|B)P(B) \cr
+         &= P(A|\bar{B}) - P(A|\bar{B})P(B) + P(A|B)P(B) \cr
+         &= P(A|\bar{B}) + P(B)(P(A|B) - P(A|\bar{B})) \cr
+         &= P(A|\bar{B}) + P(B)R(A,B) 
+\end{aligned}
+$$
+
+</aside>
+
+<aside class="custom-aside" markdown="1">
+
+### Jeffrey's Rule
+
+If the subject acquires information that causes an agent to increase their belief in $B$ from prior $P(B)$ to posterior $P'(B)$, but does not have any other effects on the agent's beliefs, then their posterior belief $P'(A)$ changes according to the following formula ([proof](#proof-1)).
+
+$$
+\label{3}
+    P'(A) = P(A|\bar{B}) + P'(B)R(A,B) 
+\tag{3}$$
+
+Formula $\eqref{3}$ is known as [Jeffrey's Rule of Conditioning](https://www.sciencedirect.com/science/article/pii/0888613X89900030#:~:text=Abstract,of%20the%20normative%20Bayesian%20inference.). 
+
+</aside>
+
+<style>
+.custom-aside
+{
+  margin: auto;
+  background-color: lightgrey;
+  border: 1px solid black;
+  max-width: 600px;
+  padding-top: 1em;
+  padding-bottom: 0px;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-bottom:  1em;
+}
+
+aside h3 {
+    margin-top: 0px;
+}
+
+</style>
 
 
 
