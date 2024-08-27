@@ -25,9 +25,42 @@ I now understand Bayesian Inference to be essentially Sherlock Holmes' pithy sta
 
 ## Prior Beliefs
 
-A Bayesian reasoner starts out with **prior** beliefs, which are a set of mutually exclusive and exhaustive possibilities for the situation at hand.
+A Bayesian reasoner starts out with a set of beliefs, which are modeled as a probability distribution. You can think of the probability distribution as simply a list of possibilities, each of which has a probability. These possibilities are mutually exclusive and sum to 100%.
 
-For example, suppose that Sherlock Holmes is investigating the Case of the Disappearing Duchess, and believes that there is:
+For example, suppose you pick a card at random from 52-card deck. There are 52 possibilities, each with a probability of 1/52, and the total adds up to 1, or 100%
+
+<img src="bayesian-gambler-prior.svg"
+     alt="Example Prior Beliefs: Bayesian Gambler"
+     style="display: block; margin-left: auto; margin-right: auto; max-height: 300px" />
+
+
+## Revising Beliefs
+
+The Bayesian reasoner's beliefs before he acquires new information, are called **prior** beliefs.
+
+
+Bayesian reasoners then revise their beliefs when they acquire new information/evidence according to very simple rules:
+
+- reject any possibilities that are incompatible with the evidence
+- reallocate probability to the remaining possibilities so that they sum to 100%
+
+A Bayesian reasoner's beliefs **after** acquiring new evidence are called the **posterior** beliefs.
+
+For example, if you find out that the card is a heart, you must eliminate all non-hearts, and reallocate the remaining probability to the remaining 13 cards. These each now have a probability of 1/13, and the total still adds up to 1.
+
+<img src="bayesian-gambler-posterior.svg"
+     alt="Example Posterior Beliefs: Bayesian Gambler"
+     style="display: block; margin-left: auto; margin-right: auto; max-height: 400px" />
+
+## That's All it Is
+
+As simple as this seems, that's all Bayesian inference is. This doesn't seem all that powerful or impressive, but that's just because this example probability distribution is so simple. It lacks interesting correlations. A card's suit for example is not correlated with it's rank: the prior probability of a queen was 1/13, and the posterior is also 1/13. Learning that the card was a heart doesn't tell us much except that the card is a heart.
+
+Bayesian inference becomes powerful when the prior beliefs contain interesting correlations, so that learning about one thing tells you about something else, sometimes in counter-intuitive ways.
+
+## The Case of the Disappearing Duchess
+
+Let's look at another example. Suppose that Sherlock Holmes is investigating the Case of the Disappearing Duchess, and believes that there is:
 - a 50% chance that the Duke has kidnapped the Duchess and is holding her alive in captivity
 - a 25% that chance that the Duke has murdered her
 - and a 25% chance that she has been murdered by the Count
@@ -43,30 +76,28 @@ The total of the probabilities is 100%. Holmes' prior beliefs can be summarized 
 | Count     | Dead      | 25%         
 |           | TOTAL     | 100%
 
-## Revising Beliefs
 
-Bayesian reasoners then revise their beliefs when they acquire new information/evidence according to very simple rules:
-
-- reject any possibilities that are incompatible with the evidence
-- reallocate probability to the remaining possibilities so that they sum to 100%
-
-A Bayesian reasoner's beliefs **after** acquiring new evidence are called the **posterior** beliefs.
-
-For example, if the Duchess's body is found buried under the Atrium, Holmes must eliminate the possibility that she is being held alive by her jealous husband, the Duke. He must then reallocate probability among the remaining two scenarios in which the Duchess is dead.
+If the Duchess's body is subsequently found buried under the Atrium, Holmes must eliminate the possibility that she is being held alive by her jealous husband, the Duke. He must then reallocate probability among the remaining two scenarios in which the Duchess is dead.
 
 
 **Holmes' Posterior Beliefs**
 
 | Culprit   | Status    | Probability 
 | --------- | --------- | -------------
-| Duke      | Alive     | **0% (eliminated)**         
+| ~~Duke~~      | ~~Alive~~     | **0% (eliminated)**         
 | Duke      | Dead      | 50%         
 | Count     | Dead      | 50%         
 |           | TOTAL     | 100%
 
+
+
+----
+
+
+
 ## Reallocation of Probability Mass
 
-Another way of looking at this is that the 50% "probability mass" previously allocated to the first possibility is reallocated to the remaining possibilities. You can visualize this if we plot the prior and posterior probabilities as bar charts. The total volume of the bars in each of the two charts below is the same: 100%. The 50% probability mass that was previously allocated to the first possibility in Holmes' prior beliefs is reallocated to the remaining two possibilities in his posterior beliefs.
+Another way of looking at this is that the 50% "probability mass" previously allocated to the eliminated possibility is reallocated to the remaining possibilities. You can visualize this if we plot the prior and posterior probabilities as bar charts. The total volume of the bars in each of the two charts below is the same: 100%. The 50% probability mass that was previously allocated to the first possibility in Holmes' prior beliefs is reallocated to the remaining two possibilities in his posterior beliefs.
 
 <!--
      Prior Probabilities                        Posterior Probabilities (After body found)                
@@ -129,7 +160,7 @@ Next, we eliminate possibility #3 (she was murdered by the Count). This time, si
 
 So what happens now that we've reached a point where there are no more possibilities to eliminate? At this point, no more inferences can be made. There is nothing more to learn -- at least with respect to the Case of the Disappearing Duchess. Holmes has eliminated the impossible and the remaining possibility *must* be the truth.
 
-It's not always possible to eliminate all uncertainty such that only one possibility remains. But Bayesian inference can be thought of as the process of reducing uncertainty: eliminating the impossible, and increasing the probability of "all that remains" so that it sums to 100%.
+It's not always possible to eliminate all uncertainty such that only one possibility remains. But Bayesian inference can be thought of as the process of reducing uncertainty by eliminating the impossible, and then reallocating probability mass.
 
 > When you have eliminated the impossible, the probability of all that remains, no matter how improbable, must sum to 100%
 > 
@@ -138,13 +169,13 @@ It's not always possible to eliminate all uncertainty such that only one possibi
 
 ## Updating Beliefs based on Evidence
 
-What makes Bayesian inference so powerful is that learning about one thing can shift beliefs in other things, sometimes in surprising ways.
+What makes Bayesian inference so powerful is that learning about one thing can shift beliefs in other things in counter-intuitive ways.
 
-For example, learning that the Duchess is dead *decreased* the probability that the Duke did it (from 75% to 50%), and *increased* the probability that the Count did it (from 25% to 50%). But why? 
+For example, learning that the Duchess is dead *decreased* the probability that the Duke did it (from 75% to 50%), and *increased* the probability that the Count did it (from 25% to 50%). You should be able to convince yourself that this is the case using common sense logic. But the rules of Bayesian inference give you a systematic way to come to the conclusion.
 
 This is demonstrated visually in the four charts below. The first row of charts we have already seen: they show Holmes' priors on the left, and his posteriors after learning that the Duchess is dead on the right.
 
-The second row of charts show the same probabilities, but this time the charts show the *total* for each possible *culprit*. The Duke is the culprit in two different scenarios in the priors, so the total prior probability for the Duke is 50% + 25% = 75%. The total prior probability for the Count is 25%.
+The second row of charts show the same probabilities, but this time the charts show the *margin probability* (e.g. the total) for each possible *culprit*. The Duke is the culprit in two different scenarios in the priors, so the total prior probability for the Duke is 50% + 25% = 75%. The total prior probability for the Count is 25%.
 
 After eliminating the Alive+Dike scenario, the remaining probability mass for the Duke and the Count are both 25% -- but these are then scaled up so to 50% each so their total sums to 100%, as shown in the bottom-right chart. The net result is a decreased total probability for the Duke and increased total probability for the Count.
 
@@ -158,11 +189,11 @@ After eliminating the Alive+Dike scenario, the remaining probability mass for th
 
 ## Beliefs as Joint Probability Distributions 
 
-The key to the power of Bayesian inference is that, once we know their prior beliefs, we know exactly how a rational being should update their belief in one thing (the Duke or Count did it), after learning another thing (the Countess is dead).
+The key to the power of Bayesian inference is that, once we know a rational agent's prior beliefs, we know exactly how they should update their belief in one thing (the Duke or Count did it), after learning another thing (the Countess is dead).
 
 Inferring one thing from another thing is only possible here because Holmes' prior beliefs are beliefs in **combinations** of propositions, not just individual propositions. Holmes' prior beliefs are not simply that *there is a 75% chance that the Duke did it* or *there is a 50% chance that the Duchess is dead*. If his beliefs were so simple, learning that the Duchess was murdered would not tell Holmes anything about whether it was the Duke or the Count that did it.
 
-Rather his beliefs are about **combinations** of propositions (e.g. *the Countess is Dead and the Duke did*). His beliefs form a [**joint probability distribution**](https://en.wikipedia.org/wiki/Joint_probability_distribution) that encodes the knowledge about the relationships between propositions that enables Holmes to make inferences about the culprit upon learning of the Duchess's death.
+Rather his beliefs are about **combinations** of propositions (e.g. *the Countess is Dead and the Duke did it*). His beliefs form a [**joint probability distribution**](https://en.wikipedia.org/wiki/Joint_probability_distribution) that encodes the knowledge about the relationships between propositions that enables Holmes to make inferences.
 
 I think that understanding prior beliefs a joint probability distribution is key to understanding Bayesian Inference.
 
@@ -188,12 +219,26 @@ $$
 
 Where $P(Hypothesis, Evidence)$ is the **total prior probability** of all possibilities where both the evidence and hypothesis is true, and $P(Evidence)$ is the total probability of all possibilities where the evidence is true.
 
-For example, referring back to Holmes' prior probability table, you can see that $P(Duke, Dead) = 25\\%$, and $P(Dead) = 25\\% + 25\\% = 50\\%$. So:
+For example, referring back to Holmes' prior probability table, you can see that 
 
 $$
 \begin{aligned}
-    P(Duke|Dead) &= \frac{P(Duke, Dead)}{P(Dead)}\cr
-                 &= \frac{25\\%}{50\\%} = 50\\%
+    P(Dead+Duke) &= 25\\% 
+    \cr
+    P(Dead) &= P(Dead+Duke) + P(Dead+Count) \cr
+    &= 25\\% + 25\\% \cr
+    &= 50\\%
+\end{aligned}
+$$
+
+
+So:
+
+$$
+\begin{aligned}
+    P(Duke|Dead) &= \frac{P(Dead+Duke)}{P(Dead)}\cr
+                 &= \frac{25\\%}{50\\%} \cr
+                 &= 50\\%
 \end{aligned}
 $$
 
