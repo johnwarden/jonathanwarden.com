@@ -25,7 +25,7 @@ I now understand Bayesian Inference to be essentially Sherlock Holmes' pithy sta
 
 ## Prior Beliefs
 
-A Bayesian reasoner starts out with a set of beliefs, which are modeled as a probability distribution. You can think of the probability distribution as simply a list of possibilities, each of which has a probability. These possibilities are mutually exclusive and sum to 100%.
+A Bayesian reasoner starts out with a set of beliefs, which are modeled as a probability distribution. You can think of the probability distribution as simply a list of **possibilities**, each of which has a **probability**. These possibilities are mutually exclusive and their probabilities sum to 100%.
 
 For example, suppose you pick a card at random from 52-card deck. There are 52 possibilities, each with a probability of 1/52, and the total adds up to 1, or 100%
 
@@ -52,9 +52,9 @@ For example, if you find out that the card is a heart, you must eliminate all no
      alt="Example Posterior Beliefs: Bayesian Gambler"
      style="display: block; margin-left: auto; margin-right: auto; max-height: 400px" />
 
-## That's All it Is
+## That's All It Is
 
-As simple as this seems, that's all Bayesian inference is. This doesn't seem all that powerful or impressive, but that's just because this example probability distribution is so simple. It lacks interesting correlations. A card's suit for example is not correlated with it's rank: the prior probability of a queen was 1/13, and the posterior is also 1/13. Learning that the card was a heart doesn't tell us much except that the card is a heart.
+As simple as this seems, that's all Bayesian inference is. This doesn't seem all that powerful or impressive, but that's just because this example probability distribution is so simple. It lacks interesting correlations. A card's suit for example is not correlated with its rank: the prior probability of a queen was 1/13, and the posterior is also 1/13. Learning that the card was a heart doesn't tell us much except that the card is a heart.
 
 Bayesian inference becomes powerful when the prior beliefs contain interesting correlations, so that learning about one thing tells you about something else, sometimes in counter-intuitive ways.
 
@@ -77,7 +77,7 @@ The total of the probabilities is 100%. Holmes' prior beliefs can be summarized 
 |           | TOTAL     | 100%
 
 
-If the Duchess's body is subsequently found buried under the Atrium, Holmes must eliminate the possibility that she is being held alive by her jealous husband, the Duke. He must then reallocate probability among the remaining two scenarios in which the Duchess is dead.
+If the Duchess's body is subsequently found buried under the Atrium, Holmes must eliminate the possibility that she is being held alive by the Duke. He must then reallocate probability among the remaining two scenarios in which the Duchess is dead.
 
 
 **Holmes' Posterior Beliefs**
@@ -91,13 +91,9 @@ If the Duchess's body is subsequently found buried under the Atrium, Holmes must
 
 
 
-----
-
-
-
 ## Reallocation of Probability Mass
 
-Another way of looking at this is that the 50% "probability mass" previously allocated to the eliminated possibility is reallocated to the remaining possibilities. You can visualize this if we plot the prior and posterior probabilities as bar charts. The total volume of the bars in each of the two charts below is the same: 100%. The 50% probability mass that was previously allocated to the first possibility in Holmes' prior beliefs is reallocated to the remaining two possibilities in his posterior beliefs.
+Another way of looking at this is that the 50% **probability mass** previously allocated to the eliminated possibility is **reallocated** to the remaining possibilities. You can visualize this if we plot the prior and posterior probabilities as bar charts. The total volume of the bars in each of the two charts below is the same: 100%. The 50% probability mass that was previously allocated to the first possibility in Holmes' prior beliefs is reallocated to the remaining two possibilities in his posterior beliefs.
 
 <!--
      Prior Probabilities                        Posterior Probabilities (After body found)                
@@ -119,7 +115,7 @@ Another way of looking at this is that the 50% "probability mass" previously all
      alt="Reallocation of Probabilities Example"
      style="display: block; margin-left: auto; margin-right: auto; max-height: 800px" />
 
-<div style="font-size: smaller; padding-left: 20px; margin-bottom: 20px;">Illustration of the concept of "Reallocation" or Probability Mass. After the "Alive+Duke" scenario is eliminated, probability mass is reallocated to the remaining 2 scenarios.</div>
+<div style="font-size: smaller; padding-left: 20px; margin-bottom: 20px;">Illustration of the concept of reallocation of probability mass. After the "Alive+Duke" scenario is eliminated, probability mass is reallocated to the remaining 2 scenarios.</div>
 
 ## Sequential Updating
 
@@ -175,9 +171,9 @@ For example, learning that the Duchess is dead *decreased* the probability that 
 
 This is demonstrated visually in the four charts below. The first row of charts we have already seen: they show Holmes' priors on the left, and his posteriors after learning that the Duchess is dead on the right.
 
-The second row of charts show the same probabilities, but this time the charts show the *margin probability* (e.g. the total) for each possible *culprit*. The Duke is the culprit in two different scenarios in the priors, so the total prior probability for the Duke is 50% + 25% = 75%. The total prior probability for the Count is 25%.
+The second row of charts show the same probabilities, but this time the charts show the *marginal probabilities* (e.g. the totals) for each possible culprit. The Duke is the culprit in two different scenarios in the priors, so the total prior probability for the Duke is 50% + 25% = 75%. The total prior probability for the Count is 25%.
 
-After eliminating the Alive+Dike scenario, the remaining probability mass for the Duke and the Count are both 25% -- but these are then scaled up so to 50% each so their total sums to 100%, as shown in the bottom-right chart. The net result is a decreased total probability for the Duke and increased total probability for the Count.
+After eliminating the Alive+Duke scenario, the remaining probability mass for the Duke and the Count are both 25% -- but these are then scaled up so to 50% each so their total sums to 100%, as shown in the bottom-right chart. The net result is a decreased total probability for the Duke and increased total probability for the Count.
 
 <img src="reallocation-of-probabilities-3.svg"
      alt="Reallocation of Probabilities Example"
@@ -189,13 +185,13 @@ After eliminating the Alive+Dike scenario, the remaining probability mass for th
 
 ## Beliefs as Joint Probability Distributions 
 
-The key to the power of Bayesian inference is that, once we know a rational agent's prior beliefs, we know exactly how they should update their belief in one thing (the Duke or Count did it), after learning another thing (the Countess is dead).
+The key to the power of Bayesian inference is that, once we know a rational agent's prior beliefs, we know exactly how they should update their belief in one thing (the culprit), after learning another thing (the Countess is dead).
 
-Inferring one thing from another thing is only possible here because Holmes' prior beliefs are beliefs in **combinations** of propositions, not just individual propositions. Holmes' prior beliefs are not simply that *there is a 75% chance that the Duke did it* or *there is a 50% chance that the Duchess is dead*. If his beliefs were so simple, learning that the Duchess was murdered would not tell Holmes anything about whether it was the Duke or the Count that did it.
+Inferring one thing from another thing is only possible here because these things are correlated. And these correlations only exist because the prior probability distribution covers beliefs about **combinations** of propositions, not just individual propositions. 
 
-Rather his beliefs are about **combinations** of propositions (e.g. *the Countess is Dead and the Duke did it*). His beliefs form a [**joint probability distribution**](https://en.wikipedia.org/wiki/Joint_probability_distribution) that encodes the knowledge about the relationships between propositions that enables Holmes to make inferences.
+Holmes' prior beliefs are not simply that *there is a 50% chance that the Duchess is dead* or *there is a 75% chance that the Duke did it*. If his beliefs were so simple, learning that the Duchess was dead would not tell Holmes anything about the culprit.
 
-I think that understanding prior beliefs a joint probability distribution is key to understanding Bayesian Inference.
+Rather he assigns different probabilities to different **combinations** such a *the Countess is Dead and the Duke did it*. His beliefs form a [**joint probability distribution**](https://en.wikipedia.org/wiki/Joint_probability_distribution) that encodes the knowledge about the correlations between propositions that enables Holmes to make inferences.
 
 <!--
 ## Proportional Reallocation
@@ -268,7 +264,7 @@ This three-part formula is useful one to memorize. Note that the left-hand side 
 
 ## Summary
 
-So far, we have engaged in Bayesian inference without using the famous Bayes' Theorem. Bayes theorem is not actually necessary for Bayesian inference, and conflating the use of Bayes' theorem with Bayesian inference can interfere with an understanding of the more fundamental principle of Bayesian inference as reallocation of probabilities.
+So far, we have engaged in Bayesian inference without using the famous Bayes' Theorem. Bayes' theorem is not actually necessary for Bayesian inference, and conflating the use of Bayes' theorem with Bayesian inference can interfere with an understanding of the more fundamental principle of Bayesian inference as reallocation of probabilities.
 
 So here's a summary of the principle of Bayesian inference:
 

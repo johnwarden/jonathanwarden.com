@@ -17,7 +17,7 @@ What makes for a *good* argument?
 
 From a logical point of view, a good argument is logically sound. But in the real-world people rarely argue with pure logic. 
 
-From a rhetorical point of view, a good argument is one that is convincing. But how can this be measured?
+From a rhetorical point of view, a good argument is one that is persuasive. But how can this be measured?
 
 In this series of essays, I present a Bayesian model of argumentation, where arguments are treated as information that may cause a Bayesian rational agent to modify their beliefs. From a Bayesian perspective, the beliefs of any rational "subject" are modeled as a probability distribution. Given this distribution, we can define various metrics that relate the information given in an argument to the subject's other beliefs. This lets us define **objective** measures of what would normally be considered **subjective** aspects of an argument's quality or strength, such as **relevance** and **persuasiveness**.
 
@@ -54,9 +54,13 @@ If our subject is a Bayesian rational agent with common sense, then probably:
 
 ## The Value of Bayesian Argumentation: Hypotheticals
 
-As everyone knows, a Bayesian rational agent updates their beliefs when they acquire new information. An argument that is not informative therefore can't be persuasive. 
+As everyone knows, a Bayesian rational agent updates their beliefs when, and only when, they acquire new information.
 
-But even when an argument is not persuasive, a Bayesian model tells us what an agent **would** believe if they accepted or rejected the information in the argument (e.g. if they thought that the candidate *didn't* have a pulse). This simple insight cracks open a number of ways of measuring argument strength other than just persuasiveness. In the essays on [Relevance and Corelevance](/relevance-and-corelevance) and [Necessity and Sufficiency](/necessity-and-sufficiency) I will define these measures and see how they all relate mathematically to the informativeness of the argument.
+If persuasiveness is the only criteria for a "strong" argument, then an argument based on information the agent already knows can never be considered strong. That means, for example, that if yesterday I learned that the candidate was deceased, and you tell me today we should reject the candidate because he doesn't have a pulse, that would not be a strong argument. But clearly this is a pretty strong argument. So what's wrong?
+
+It is a strong argument because, if I *didn't* know it, I might have a different opinion.
+
+A Bayesian model tells us what an agent **would** believe if they accepted or rejected different information. This simple insight cracks open a number of ways of measuring argument strength other than just persuasiveness. In the essays on [Relevance and Corelevance](/relevance-and-corelevance) and [Necessity and Sufficiency](/necessity-and-sufficiency) I will define these measures and see how they all relate mathematically to the informativeness of the argument.
 
 The Bayesian model of argumentation also allows us to take into account the reliability of the arguer themselves. A Bayesian rational agent will only update their beliefs if they believe the information given them. So for an argument to be informative it must not just be new information, it must also be *believable*. This perspective shows us when what looks like an *ad hominim* fallacy may somteimes be perfectly rational[^3]. These ideas are discussed in the essays on [informativeness and persuasiveness](/informativeness-and-persuasiveness).
 
