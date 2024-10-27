@@ -29,7 +29,7 @@ The algorithm works by attempting to explain *why* a post receives the ratings i
 
 ### Extracting Information
 
-Now why would we want to do this? Why for example would a predominantly right-wing community want to artificially give left-wing opinions more weight, or vice versa?
+Now why would we want to do this? Why would a predominantly right-wing community want to artificially give left-wing opinions more weight, or vice versa?
 
 For a fact-checking product like Community Notes, plausible political neutrality may be necessary for public acceptance. But the algorithm has advantages beyond political neutrality: it actually allows us to extract more **information** from users. 
 
@@ -39,7 +39,7 @@ The community notes algorithm on the other hand let's us break down the vote cou
  
 ### Projection in Opinion Space 
  
-The chart below illustrates how this works. This charts shows a subset of notes from the Community Notes public data set, run through [my own implementation of the algorithm](https://github.com/social-protocols/bridge-based-ranking). The horizontal axis shows the note's "polarity" -- e.g. +1 for right-wing and  -1 for left wing -- and the vertical axis shows its "helpfulness" (I have labeled as the "common ground factor" in my chart). The note's final score is its vertical component, or its projection on the "helpfulness" axis. The colors of the dots indicate their actual status in Community Notes.
+The chart below illustrates how this works. This charts shows a subset of notes from the Community Notes public data set, run through [my own implementation of the algorithm](https://github.com/social-protocols/bridge-based-ranking). The horizontal axis shows the note's "polarity" -- e.g. +1 for right-wing and  -1 for left wing -- and the vertical axis shows its "helpfulness" (which I have labeled "common ground factor" in my chart). The note's final score is its vertical component, or its projection on the helpfulness/common ground axis. The colors of the dots indicate their actual status in Community Notes.
  
 <img src='https://raw.githubusercontent.com/social-protocols/bridge-based-ranking/main/plots/community-notes-large-items-1d.png' 
                  alt='Community Notes Polarity Plot (Notes)' 
@@ -55,7 +55,7 @@ At the end of this article, I include a section with [example notes](#example-no
 
 ### Why it Works
 
-People are politically biased, but they have other biases, such as the bias towards interesting, accurate, entertaining, or helpful information. They may mostly upvote things that support their political perspective but they will **especially** upvote things that support their perspective and are actually relevant and factually accurate. And they will tend to downvote notes that support opposing perspectives, but will downvote even more zealously when those notes use false or misleading information.
+People are politically biased, but they have other tendencies, such as the tendency to upvote interesting, accurate, entertaining, or helpful information. They may mostly upvote things that support their political perspective but they will **especially** upvote things that support their perspective and are actually relevant and factually accurate. And they will tend to downvote notes that support opposing perspectives, but will downvote even more zealously when those notes use false or misleading information.
 
 When the Community Notes algorithm dissects users voting behavior and factors out the polarity component, it finds that **most users are at least somewhat "biased" towards helpfulness**! You can see this in the plot of a sample of Community Notes users below. 
 
@@ -64,7 +64,7 @@ When the Community Notes algorithm dissects users voting behavior and factors ou
                  style='display: block; margin-left: auto; margin-right: auto; max-height: 500px' />
 
 
-There is clump of users in the upper-right quadrant because community notes users are overall right-leaning. But notice also that the helpfulness factor for these users is mostly above zero. They are also mostly biased towards helpfulness. These users are more likely to upvote posts that support a right-wing worldview, **and** also more likely to upvote posts that are helpful.
+There are more users with a positive common-ground factor than a negative one. There is clump of users in the upper-right quadrant because community notes users are overall right-leaning. But notice also that the helpfulness factor for these users is mostly above zero. They are also mostly biased towards helpfulness. These users are more likely to upvote posts that support a right-wing worldview, **and** also more likely to upvote posts that are helpful.
 
 
 ### Common Ground
