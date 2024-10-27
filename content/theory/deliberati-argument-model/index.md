@@ -34,20 +34,22 @@ For example, during a jury trial, the prosecutor might claim that (𝐵) *the de
 
 An argument may be worded in such a way that the premise is unclear (sarcasm, etc.), but there is general agreement among argumentation theorists that there is always a premise hiding in an argument. Some authors use the "grounds", "evidence", or "data" instead of premise.
 
-Since any logical combination of premises can be treated as a single premise, we will speak of an argument as always having one explicit premise. 
+Since any logical combination of premises can be treated as a single premise, we will speak of an argument as always having one premise. 
 
 It is easy to confuse the term *claim* with *premise* or *conclusion*. A claim is any declarative statement that can be agreed with or disagreed with. A claim can also take the **role** of premise or conclusion in some argument. In the example above, 𝐴 and 𝐵 are both claims, where 𝐵 takes on the role of premise, and 𝐴 takes on the role of conclusion. If the defense contested the premise 𝐵 with some new argument (e.g. *the signature was forged*), 𝐵 would take on the role of **conclusion** in the new argument.
 
 ### The Warrant
 
-The warrant can be thought of as a second unexpressed premise, comprising whatever might link the premise to the conclusion in the minds of the arguers. 
+The warrant can be thought of as a second *unexpressed premise* that links the expressed premise to the conclusion. For example, the warrant of argument (𝐵) *the defendant signed a confession* might be (𝐶) *if she confessed, she must be guilty!*.
 
-Anything that is actually stated in the argument is part of the explicit premise, but there is always always *something* that is left unexpressed, some belief that justifies the inferential leap from premise to conclusion. In his case, the unexpressed premise might be a general rule like *if people confess, they are usually guilty*, or something more specific, such as *this defendant wouldn't confess unless they were guilty.* In any case, the warrant can be thought of as the claim that, for whatever reason, the premise is a good reason to accept the conclusion.
+People generally don't find it necessary to explicitly state the warrant. It it's a good argument, the link from the premise to the conclusion will be obvious. The arguer assumes that their audience shares the belief.
 
-So in our model, for simplicity sake, we assume **every argument has an implicit warrant**, which is the claim that **the premise is a good reason to accept the conclusion**. 
+The warrant can be thought of as belief that "justifies the inferential leap from premise to conclusion". It related to the Aristotles concept of [**enthymeme**](https://en.wikipedia.org/wiki/Enthymeme). 
 
-The idea of an argument with an unstated premise is related to the Aristotles concept of [**enthymeme**](https://en.wikipedia.org/wiki/Enthymeme). This means that in our model, we in a sense treat all arguments as enthymemes.
 
+Even if the arguer does (pedantically) explicitly explicitly express the warrant, there still is 
+
+In our model, for simplicity sake, we assume **every argument has an implicit warrant**.  
 
 ### Summary of Model
 
