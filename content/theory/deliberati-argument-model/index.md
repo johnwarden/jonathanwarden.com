@@ -60,9 +60,9 @@ The diagram below shows a sample argument with labels for the three parts of the
      style="display: block; margin-left: auto; margin-right: auto; width: 500px" />
 
 
-So in the diagram above, the argument in support of conclusion (𝐴) *the defendant is guilty*, has two halves. On the left is the premise (𝐵) *the defendant signed a confession*. This is the actual claim that has been made. On the right is the *warrant*: the claim that *𝐵 is a good reason to accept 𝐴*.
+So in the diagram above, the argument in support of conclusion (𝐴) *the defendant is guilty*, has two halves. On the left is the premise (𝐵) *the defendant signed a confession*. This is the claim that has been explicitly made. On the right is the *warrant*: the claim that *𝐵 is a good reason to accept 𝐴*.
 
-This is a very simplified model. There are many concepts from the field of argumentation theory literature that we don't need to address here (rebuttals, backing, etc.), and our definitions may lack nuance. But these definitions are meant to provide not a comprehensive theory of argumentation, but a vocabulary that allows us to have clear discussions about certain otherwise nebulous concepts.
+This is a very simplified model. There are many concepts from the field of argumentation theory literature that we don't need to address here (rebuttals, backing, etc.), and our definitions may lack nuance. But these definitions are meant to provide not a comprehensive theory of argumentation, but a basic vocabulary that allows us to have clear discussions about certain otherwise nebulous concepts.
 
 ## Types of Arguments
 
@@ -101,7 +101,7 @@ Note we place the premise after the conclusion.
 
 For example, referring to our jury trial argument graph, the argument $\text{𝐴◂-𝐵}$ could be expressed in plain English as *the fact that the defendant signed a confession is a good reason to believe that she is guilty.*
 
-We represent an argument that opposes conclusion 𝑋 with some premise 𝑌 using the notation:
+We represent an argument that opposes conclusion 𝑋 with some premise 𝑌 using similar notation, but with a hollow arrow:
 
 $$
     \text{𝑋◃-𝑌}
@@ -119,7 +119,7 @@ $$
     \text{𝐴◂𝐵}
 $$
 
-It's easy to confuse the warrant $\text{𝐴◂𝐵}$ with the argument $\text{𝐴◂-𝐵}$ -- especially since the notation is similar. To reiterate the difference: the **warrant** $\text{𝐴◂𝐵}$ is a claim that 𝐵, *given it is accepted*, supports 𝐴, whereas the **argument** $\text{𝐴◂-𝐵}$ is the claim that 𝐵 *should be accepted*, and that it supports 𝐴. The former says "**if** the defendant signed a confession, that would be a good reason to believe she is guilty," whereas the latter says “**the fact that** the defendant signed a confession is a good reason to believe she is guilty.”
+It's easy to confuse the warrant $\text{𝐴◂𝐵}$ with the argument $\text{𝐴◂-𝐵}$, especially since the notation is similar. To reiterate the difference: the **warrant** $\text{𝐴◂𝐵}$ is a claim that 𝐵, *given it is accepted*, supports 𝐴, whereas the **argument** $\text{𝐴◂-𝐵}$ is the claim that 𝐵 *should be accepted*, and that it supports 𝐴. Or in other words, the warrant says "**if** the defendant signed a confession, that would be a good reason to believe she is guilty," whereas the argument says “**the fact that** the defendant signed a confession is a good reason to believe she is guilty.”
 
 ### Identifiers for Warrant Arguments
 
@@ -148,7 +148,9 @@ Given a set of arguments that have been made in some situation, we can create a 
 
 Each argument in this graph has one outgoing blue arrow, pointing to the argument or claim it supports or opposes. Using the same convention we adopted for argument identifiers, solid arrow heads represent supporting arguments, and hollow arrows heads indicate opposing arguments.
 
-Note that the blue arrows in this graph are redundant, because the relationships between arguments are revealed in the identifiers themselves. But note also that the two arguments that oppose $\text{𝐴◂-𝐵}$ oppose it in different ways: $\text{𝐵◃-𝐺}$ opposes the premise ($𝐵$), and $\text{𝐴◂𝐵◃-𝐶}$ opposes the warrant ($\text{𝐴◂𝐵}$), but they both oppose the argument overall.
+Note that the blue arrows in this graph contain redundant information, because the relationships between arguments are revealed in the identifiers themselves. 
+
+Note also that the entire graph could be reconstructed entirely from the identifiers of the leaf nodes.
 
 Because cycles are hard to deal with, we will assume all argument graphs are acyclic, thus our argument graphs will always be DAGs.
 
