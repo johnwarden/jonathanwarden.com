@@ -45,9 +45,9 @@ It is easy to confuse the term *claim* with the term *premise* or *conclusion* -
 
 The warrant can be thought of as a second *unexpressed premise* that links the expressed premise to the conclusion. For example, the warrant of argument (𝐵) *the defendant signed a confession* might be (𝐶) *if she confessed, she must be guilty!*
 
-The warrant can be thought of as belief that "justifies the inferential leap from premise to conclusion" (to paraphrase Toulmin). It related to the Aristotles concept of [**enthymeme**](https://en.wikipedia.org/wiki/Enthymeme). 
+The warrant can be thought of as belief that "justifies the inferential leap from premise to conclusion" (to paraphrase Toulmin). It is related to the Aristotles concept of [**enthymeme**](https://en.wikipedia.org/wiki/Enthymeme). 
 
-People don't find it necessary to explicitly state the warrant. They assume the link from the premise to the conclusion is evident to their audience (otherwise, they would be more explicit).
+People don't find it necessary to explicitly state the warrant. They assume the link from the premise to the conclusion will be evident to their audience (otherwise, they would be more explicit).
 
 Even if the arguer does (pedantically) explicitly express what they see as the warrant of their argument, there still is always an unexpressed premise of the form *if this premise and warrant are true, then this conclusion is true*. This is the idea behind [Carrol's paradox](https://en.wikipedia.org/wiki/What_the_Tortoise_Said_to_Achilles), though we don't need to go down that Rabbit hole here. To keep things simple and practical, we assume that the premises are always incomplete (or conversely, we *do not* assume that premises are always perfect logical syllogisms from which the conclusion infallibly follows). We must therefore always allow room for questioning whether the conclusion follows from the premise, which means we assume **every argument has an implicit warrant**. And this warrant, just like the explicit premise, is fair game to argue over.
 
