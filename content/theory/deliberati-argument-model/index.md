@@ -13,9 +13,12 @@ toc_sticky: true
 ---
 
 
-In this article we introduce an *argument model*: a set of terms for analyzing *arguments* by naming their parts. There are various argument models in the academic literature on [argumentation theory](https://en.wikipedia.org/wiki/Argumentation_theory) and related fields but none provide us with precise definitions for all the concepts behind our algorithms for improving for online conversations. So we will define those concepts here. Our model incorporates the basic ideas from the influential [Toulmin model](https://link.springer.com/content/pdf/10.1007%2F978-90-481-9473-5_4.pdf) of argumentation first [introduced in 1948](https://www.goodreads.com/book/show/859298.The_Uses_of_Argument).
+In this article we introduce an *argument model*: a set of terms for analyzing *arguments* by naming their parts. There are various argument models in the academic literature on [argumentation theory](https://en.wikipedia.org/wiki/Argumentation_theory) and related fields but none provide us with precise definitions for all the concepts behind our algorithms for improving online conversations. So we will define those concepts here. 
+
 
 ## Anatomy of an Argument
+
+Our model incorporates the basic ideas from the influential [Toulmin model](https://link.springer.com/content/pdf/10.1007%2F978-90-481-9473-5_4.pdf) of argumentation first [introduced in 1948](https://www.goodreads.com/book/show/859298.The_Uses_of_Argument), but uses a simpler model with more modern terminology.
 
 ### Claims
 
@@ -42,14 +45,12 @@ It is easy to confuse the term *claim* with *premise* or *conclusion*. A claim i
 
 The warrant can be thought of as a second *unexpressed premise* that links the expressed premise to the conclusion. For example, the warrant of argument (𝐵) *the defendant signed a confession* might be (𝐶) *if she confessed, she must be guilty!*.
 
-People generally don't find it necessary to explicitly state the warrant. It it's a good argument, the link from the premise to the conclusion will be obvious. The arguer assumes that their audience shares the belief.
+People generally don't find it necessary to explicitly state the warrant. It it's a good argument, the link from the premise to the conclusion will be obvious. The arguer assumes that their audience shares their belief in the prior.
 
 The warrant can be thought of as belief that "justifies the inferential leap from premise to conclusion". It related to the Aristotles concept of [**enthymeme**](https://en.wikipedia.org/wiki/Enthymeme). 
 
 
-Even if the arguer does (pedantically) explicitly explicitly express the warrant, there still is 
-
-In our model, for simplicity sake, we assume **every argument has an implicit warrant**.  
+Even if the arguer does (pedantically) explicitly express what they see as the warrant of their argument, there still is, arguably, always an unexpressed premise of the form *if this premise and warrant are true, then this conclusion is true*. This is the idea behind [Carrol's paradox](https://en.wikipedia.org/wiki/What_the_Tortoise_Said_to_Achilles), though we don't need to go down that Rabbit hole here. To keep things simple and practical, we assume that the premises are always incomplete (or conversely, we *do not* assume that premises are always perfect logical syllogisms from which the conclusion infallibly follows). We must therefore always allow room for questioning whether the conclusion follows from the premise, which means we assume **every argument has an implicit warrant**.
 
 ### Summary of Model
 
@@ -62,8 +63,7 @@ The diagram below shows a sample argument with labels for the three parts of the
 
 So in the diagram above, the argument in support of conclusion (𝐴) *the defendant is guilty*, has two halves. On the left is the premise (𝐵) *the defendant signed a confession*. This is the actual claim that has been made. On the right is the *warrant*: the claim that *𝐵 is a good reason to accept 𝐴*.
 
-This is a very simplified model. There are many concepts from the field of argumentation theory literature that we don't need to address here (rebuttals, backing, etc.), and our definitions may lack nuance. But these definitions are meant to provide not as a comprehensive theory of argumentation, but a vocabulary that helps us develop the [math](/distributed-bayesian-reasoning-math).
-
+This is a very simplified model. There are many concepts from the field of argumentation theory literature that we don't need to address here (rebuttals, backing, etc.), and our definitions may lack nuance. But these definitions are meant to provide not a comprehensive theory of argumentation, but a vocabulary that allows us to have clear discussions about certain otherwise nebulous concepts.
 
 ## Types of Arguments
 
@@ -89,7 +89,6 @@ In the chart below, we have added two arguments that oppose 𝐵. The argument w
 
 ## Argument Notation
 
-The same claim can be used as the premise of many different arguments. To identify arguments unambiguously, we will need a notation that represent the argument itself, and not just the premise.
 
 ### Identifiers for Premise Arguments
 
@@ -121,9 +120,7 @@ $$
     \text{𝐴◂𝐵}
 $$
 
-It's easy to confuse the warrant with $\text{𝐴◂𝐵}$ with the argument $\text{𝐴◂-𝐵}$. The **warrant** $\text{𝐴◂𝐵}$ is a claim that 𝐵, *given it is accepted*, supports 𝐴, whereas the **argument** $\text{𝐴◂-𝐵}$ is the claim that 𝐵 *should be accepted*, and that it supports 𝐴. The former says "**if** the defendant signed a confession, that would be a good reason to believe she is guilty," whereas the latter says “**the fact that** the defendant signed a confession is a good reason to believe she is guilty.”
-
-
+It's easy to confuse the warrant $\text{𝐴◂𝐵}$ with the argument $\text{𝐴◂-𝐵}$ -- especially since the notation is similar. To reiterate the difference: the **warrant** $\text{𝐴◂𝐵}$ is a claim that 𝐵, *given it is accepted*, supports 𝐴, whereas the **argument** $\text{𝐴◂-𝐵}$ is the claim that 𝐵 *should be accepted*, and that it supports 𝐴. The former says "**if** the defendant signed a confession, that would be a good reason to believe she is guilty," whereas the latter says “**the fact that** the defendant signed a confession is a good reason to believe she is guilty.”
 
 ### Identifiers for Warrant Arguments
 
@@ -189,7 +186,7 @@ We define an **argument thread** is a premise argument followed by a chain of **
 
 ### Argument Threads are Dialogs
 
-Argument threads proceed along the lines of "𝐴 because 𝐵, yes but not 𝐶, okay but 𝐷," and so on. Each argument in the thread is made in the context of all the previous arguments in the thread. The thread may be long, but arguers that are adding to the thread can be assumed to have have followed the whole thread of the argument -- even if they have not participated in the sub-jury about each premise. 
+Argument threads proceed along the lines of "𝐴 because 𝐵, yes but not 𝐶, okay but 𝐷," and so on. Each argument in the thread is made in the context of all the previous arguments in the thread. The thread may be long, but arguers that are adding to the thread can be assumed to have have followed the whole thread of the argument. 
 
 The claims in the thread thus represents a **shared context**. Each argument in the thread is made in the context of all the previous claims in the thread, and **presumes acceptance of all claims but the root claim**. For example, when someone argues that ($\text{𝐴◂𝐵◃-𝐶}$) *the defendant retracted her confession* it is clear from context that they accept (concede) that (𝐵) *the defendant signed a confession* but still don't accept that (𝐴) *the defendant is guilty*. 
 
