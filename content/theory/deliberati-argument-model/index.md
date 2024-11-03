@@ -22,7 +22,7 @@ Our model incorporates the basic ideas from the influential [Toulmin model](http
 
 ### Claims
 
-A **claim** is a declarative sentence that people can accept or reject (agree with or disagree with). This definition is broad enough to include not only **descriptive** claims about reality, such as *the universe is expanding*  (what *is*), but also **normative** claims about goals, such as *we should go to the beach* (what *should be*).
+A **claim** is a declarative sentence that people can accept or reject (agree with or disagree with). This definition is broad enough to include not only **descriptive** (or **empirical**) claims about reality, such as *the universe is expanding*  (what *is*), but also **normative** claims about goals, such as *we should go to the beach* (what *should be*).
 
 An argument involves at least three claims:
 
@@ -35,11 +35,11 @@ An argument involves at least three claims:
 
 For example, during a jury trial, the prosecutor might claim that (𝐵) *the defendant signed a confession* to support the claim that  (𝐴) *the defendant is guilty*. In this case (𝐵) *the defendant signed a confession* is the premise, and (𝐴) *the defendant is guilty* is the conclusion
 
-An argument may be worded in such a way that the premise is unclear (sarcasm, etc.), but there is general agreement among argumentation theorists that there is always a premise hiding in an argument. Some authors use the "grounds", "evidence", or "data" instead of premise.
+An argument may be worded in such a way that the premise is unclear (sarcasm, etc.), but there is general agreement among argumentation theorists that there is always a premise hiding in an argument. 
 
 Since any logical combination of premises can be treated as a single premise, we will speak of an argument as always having one premise. 
 
-It is easy to confuse the term *claim* with *premise* or *conclusion*. A claim is any declarative statement that can be agreed with or disagreed with. A claim can also take the **role** of premise or conclusion in some argument. In the example above, 𝐴 and 𝐵 are both claims, where 𝐵 takes on the role of premise, and 𝐴 takes on the role of conclusion. If the defense contested the premise 𝐵 with some new argument (e.g. *the signature was forged*), 𝐵 would take on the role of **conclusion** in the new argument.
+It is easy to confuse the term *claim* with the term *premise* or *conclusion* -- especially since different authors use these terms differently. In this model, a claim is any declarative statement that can be agreed with or disagreed with. A claim can also take the **role** of premise or conclusion in some argument. In the example above, 𝐴 and 𝐵 are both claims, where 𝐵 takes on the role of premise, and 𝐴 takes on the role of conclusion. If the defense contested the premise 𝐵 with some new argument (e.g. *the signature was forged*), 𝐵 would take on the role of **conclusion** in the new argument.
 
 ### The Warrant
 
