@@ -181,3 +181,22 @@ markup:
         lineNos: true
         lineNumbersInTable: true
         tabWidth: 4
+
+module:
+  mounts:
+  - source: content
+    target: content
+  - source: content/social-protocols
+    target: content/social-protocols
+  - source: syndication-sources/social-protocols/content/articles/deliberative-consensus-protocols
+    target: content/social-protocols/deliberative-consensus-protocols
+  - source: syndication-sources/social-protocols/content/articles/give-truth-the-advantage
+    target: content/social-protocols/give-truth-the-advantage
+  - source: syndication-sources/social-protocols/content/articles/the-deliberative-poll
+    target: content/social-protocols/the-deliberative-poll
+  - source: syndication-sources/social-protocols/content/articles/the-law-of-attention
+    target: content/social-protocols/the-law-of-attention
+  - source: syndication-sources/social-protocols/content/articles/truthtelling-games
+    target: content/social-protocols/truthtelling-games
+  - source: syndication-sources/social-protocols/content/articles/what-deserves-our-attention
+    target: content/social-protocols/what-deserves-our-attention
