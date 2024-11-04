@@ -50,7 +50,7 @@ Notice how there is a large spread along not just the the vertical axis, but als
 
 But what is this information? It is a measure of some feature of a post that users think deserves an upvote independently of their political biases. We pinpoint or describe exactly what this feature is, but presumably it reveals how users interpret the idea of "helpfulness".
 
-At the end of this article, I include a section with [example notes](#example-notes) with a variety of factors (Helpful+Left, Unhelpful+Right, Helpful+Neutral, etc). 
+To get an idea of what notes are "helpful", I include a section with [example notes](#example-notes) at the end of this article. This section includes examples with a variety of combinations of factors (Helpful+Left, Unhelpful+Right, Helpful+Neutral, etc). 
 
 ### Why it Works
 
@@ -76,14 +76,14 @@ In this case, the horizontal axis would likely represent the pro- and anti- J.K.
 
 Politics is not the only factor that can divide a forum. Suppose there is a popular forum for posting ridiculously cute pet pics. Sadly, in recent years, two factions have formed: the cat faction and the dog faction. The more extreme cat people mercilessly downvote pictures of dogs (regardless of how cute they are), and the dog people vice versa. Recently, the dog faction has gained the upper hand, and a cat-picture has little chance of making the front page, no matter how adorably it is.
 
-Again, by separating the dog-cat factor from the common ground factor, we can re-focus the community on it's original purpose: raw frigging cuteness.
+Again, by separating the dog-cat factor from the common ground factor, we can estimate how users would vote if there were no dog-cat controversy, re-focusing the community on it's original purpose: raw frigging cuteness.
 
 
 ## Understanding the Algorithm
 
 But how does the algorithm actually work? How does it determine the polarization factor and common ground factor for each user and post?
 
-It actually works using a fairly simple algorithm called Matrix Factorization. Below I will explain how the Matrix Factorization algorithm works, starting with the version implemented by Community Notes and described in the [Birdwatch Paper](https://github.com/twitter/communitynotes/blob/main/birdwatch_paper_2022_10_27.pdf). There is also a good writeup by [Vitalik Buterin](https://vitalik.eth.limo/general/2023/08/16/communitynotes.html). In my [next post](/multidimensional-community-notes) describe my variation of the algorithm that uses multi-dimensional matrix factorization.
+It actually works using a fairly simple algorithm called Matrix Factorization. Below I will explain how the Matrix Factorization algorithm works, starting with the version implemented by Community Notes and described in the [Birdwatch Paper](https://github.com/twitter/communitynotes/blob/main/birdwatch_paper_2022_10_27.pdf). There is also a good writeup by [Vitalik Buterin](https://vitalik.eth.limo/general/2023/08/16/communitynotes.html). In my [next post](/multifactor-community-notes) describe my variation of the algorithm that uses multi-factor matrix factorization.
 
 A good way of understanding Matrix Factorization is that it is like running a bunch of linear regressions: one for each user and each item.
 
@@ -106,9 +106,9 @@ For a highly polarizing right-wing post, the regression line might look like thi
 
 
 
-In this chart upvotes have a value of +1 and downvotes have a value of -1. All the right-wing users upvoted and all the left-wing users downvoted (as shown by the little ✕s). So the best fit is a line with a slope of approximately +1: the more right-wing the user, the higher the probability of an upvote, and the closer the predicted value is to 1. The more left-wing, the higher the probability of a downvote, and the closer the predicted value is to -1. 
+In this chart upvotes have a value of +1 and downvotes have a value of -1. All the right-wing users upvoted and all the left-wing users downvoted (as shown by the little ✕s). So the best fit is a line with a slope of approximately +1: the more right-wing the user, the higher the probability of an upvote, and the closer the predicted vote value is to 1. The more left-wing, the higher the probability of a downvote, and the closer the predicted vote value is to -1. 
 
-Note that there are more right-wing users than left wing users, but it doesn't make a difference. Even if there were 100 right-wing users and 2 left-wing users, the slope of the best fit would be approximately the same. The algorithm does not favor the majority.
+Note that there are more right-wing users than left wing users, but it doesn't make a difference. Even if there were 100 right-wing users and only a handful of left-wing users, the slope of the best fit would be approximately the same. The algorithm does not favor the majority.
 
 
 A very polarizing lift-wing post might have a negative slope:
@@ -186,14 +186,14 @@ The intercept represent some kind of "common ground": something about the post t
 
 We might suppose that the last post above will receive more upvotes than downvotes because it has a positive intercept. But this is not necessarily the case. It depends on how many left-wing and right-wing users there are. The intercept is not the average: a post can have a positive intercept even though it receives more downvotes than upvotes, or it can have a negative intercept even though it receives more upvotes than downvotes. 
 
-What a positive intercept does tell us is that this post **would** receive more upvotes than downvotes if there **was** an equal balance of left and right-wing users. 
+What a positive intercept does tell us is that this post **would** receive more upvotes than downvotes **if there was an equal balance** of left and right-wing users. 
 
 It also tells us how users would hypothetically vote if they were all totally neutral. In such a hypothetical world, the only thing influencing users' votes would be some common-ground factor that aligned with the intent of this particular community, attracting upvotes independently of politics.
 
 
 ### Matrix Factorization
 
-Okay, so we have used regression analysis to find the polarity factor for each post (the slope of the regression line). But in order to do these regressions, we first need to know the polarity factors for the users.
+Okay, so we have used regression analysis to find the polarity factor for each post (the slopes of the regression lines). But in order to do these regressions, we first need to know the polarity factors for the users.
 
 But how do we find these?
 
@@ -220,12 +220,12 @@ However, the Matrix Factorization algorithm solves this by discovering the polar
 It does this by using a single equation to estimate the probability that user $i$ upvotes post $j$:
 
 $$
-    ŷ_{ij} = w_i×x_j + b_i + c_j
+    ŷ_{ij} = w_{i}x_{j} + b_i + c_j
 $$
 
 Here $w_i$ is the user's polarity factor, $x_i$ is the post's polarity factor, $b_i$ is the user's intercept, and $c_j$ is the post's intercept.
 
-It then simply finds a combination of values for every $w_i$, $x_j$, $b_i$, and $c_j$ that best *fits* the data -- that produce estimates for $ŷ_{ij}$ that are closet to the actual values of users vote ($y_{ij}$). This is usually done using a variant of the standard [gradient descent](https://en.wikipedia.org/wiki/Gradient_descent) algorithm.
+It then simply finds a combination of values for every $w_i$, $x_j$, $b_i$, and $c_j$ that best *fits* the data -- that produce estimates for $ŷ_{ij}$ that are closet to the actual values $y_{ij}$. This is usually done using a variant of the standard [gradient descent](https://en.wikipedia.org/wiki/Gradient_descent) algorithm.
 
 The polarity factor the algorithm discovers doesn't necessarily correspond exactly to politics, or cat-dog preferences, or any measurable quantity. It may be a linear combination of factors. But whatever it is, it represents **some** latent factor of users and posts that divides the community and does a good job explaining their votes.
 
@@ -234,7 +234,7 @@ The polarity factor the algorithm discovers doesn't necessarily correspond exact
 One of the reasons for my interest in Community Notes is that the same basic algorithm may be a critical part of better [social protocols](https://social-protocols.org) for improving the quality of discussion and decision-making online communities. Without it, user polarization will tend to lead to either suffocating uniformity or least-common-denominator mediocrity. The Community Notes algorithm can be used in any forum with high entropy (lots of downvotes) as a way to identify posts with posts with high [Information Value](https://social-protocols.org/global-brain/information-value.html) based on the common-ground factor.
 
 
-In my [next article](/multidimensional-community-notes), I discuss ways that this algorithm can fail, and introduce an improved implementation of the algorithm that users 2-dimensional matrix factorization.
+In my [next article](/multidimensional-community-notes), I discuss ways that this algorithm can fail, and introduce an improved implementation of the algorithm that users multi-factor matrix factorization.
 
 
 ## Example Notes
