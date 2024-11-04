@@ -25,7 +25,7 @@ There are at least two examples of social platforms that have successfully imple
 
 The Community Notes Documentation explains that the algorithm favors notes that are rated highly by users across a "[diversity of perspectives](https://communitynotes.twitter.com/guide/en/contributing/diversity-of-perspectives)". But as I show in this article, it is somewhat more accurate to say that the note must be highly rated **regardless of diversity of perspective**.
 
-The algorithm works by attempting to explain *why* a post receives the ratings it does: how many upvotes are due to users left-wing or right-wing biases, and how many are due to other factors. In online forum dominated by right-wing users, posts that support a right-wing worldview will tend to get more upvotes. But the algorithm can explain those extra upvotes as a consequence of users' overall right-wing bias, and then estimate how many upvotes a post would receive if that bias didn't exist.
+The algorithm works by attempting to explain *why* a post receives the ratings it does: how many upvotes are due to users left-wing or right-wing biases, and how many are due to other factors. For example, in an online forum dominated by right-wing users, posts that support a right-wing worldview will obviously tend to get more upvotes. The algorithm estimates how many of those extra upvotes are a consequence of users' right-wing bias, and how many upvotes a post would receive if that bias didn't exist.
 
 ### Extracting Information
 
