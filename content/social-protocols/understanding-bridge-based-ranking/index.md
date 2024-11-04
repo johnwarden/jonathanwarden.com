@@ -48,8 +48,7 @@ The chart below illustrates how this works. This charts shows a subset of notes 
 
 Notice how there is a large spread along not just the the vertical axis, but also the horizontal axis. If want we want to know how helpful a note is, the horizontal axis is just noise. But there is a lot of information along the vertical axis. The vertical component tells us *something* about the post that users are trying to express through their votes. Separating this component from the horizontal component lets us extract this information, in a sense separating signal from noise.
 
-But what is this information? It is a measure of some feature of a post that users think deserves an upvote independently of their political biases. What exactly this feature is is impossible to say, but presumably it reveals how users interpret the idea of "helpfulness".
-
+But what is this information? It is a measure of some feature of a post that users think deserves an upvote independently of their political biases. We pinpoint or describe exactly what this feature is, but presumably it reveals how users interpret the idea of "helpfulness".
 
 At the end of this article, I include a section with [example notes](#example-notes) with a variety of factors (Helpful+Left, Unhelpful+Right, Helpful+Neutral, etc). 
 
