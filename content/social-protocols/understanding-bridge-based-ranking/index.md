@@ -10,9 +10,9 @@ aliases:
 - /understanding-bridge-based-ranking/
 ---
 
-## Introduction
+**UPDATE**: See a discussion of this article on [Hacker News](https://news.ycombinator.com/item?id=38939660).
 
- **UPDATE**: See a discussion of this article on [Hacker News](https://news.ycombinator.com/item?id=38939660).
+## Introduction
 
 [Bridging-Based Ranking](https://www.belfercenter.org/sites/default/files/files/publication/TAPP-Aviv_BridgingBasedRanking_FINAL_220518_0.pdf) is a way of scoring and ranking online content that bridges divides. 
 
