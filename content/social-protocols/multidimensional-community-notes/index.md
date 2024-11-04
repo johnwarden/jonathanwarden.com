@@ -1,19 +1,19 @@
 ---
-title: "Multidimensional Community Notes"
-slug: multidimensional-community-notes
+title: "Multi-Factor Community Notes"
+slug: multifactor-community-notes
 weight: 5
 date: "2024-01-05"
 math: true
 image: 3d-plot-static.jpg
-canonical_url: https://jonathanwarden.com/multidimensional-community-notes
+canonical_url: https://jonathanwarden.com/multifactor-community-notes
 aliases:
 - /improving-bridge-based-ranking/
-
+- /multidimensional-community-notes/
 ---
 
 ## Introduction
 
-In my article on [Understanding Community Notes](/understanding-community-notes), I describe the basic Matrix Factorization algorithm used to identify notes that are helpful despite user polarization. In this article, I introduce a way to break this algorithm and describe an variation of the algorithm that uses 2-dimensional Matrix factorization.
+In my article on [Understanding Community Notes](/understanding-community-notes), I describe the basic Matrix Factorization algorithm used to identify notes that are helpful despite user polarization. In this article, I introduce a way to break this algorithm and describe an variation of the algorithm that uses 2-factor Matrix factorization.
 
 ## Breaking the Algorithm
 
