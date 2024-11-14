@@ -16,10 +16,9 @@ canonical_url: https://jonathanwarden.com/necessity-and-sufficiency/
 
 ---
 
-
 ## Argument and Information
 
-In the [previous essay](/relevance-and-corelevance) in this series, we introduced the idea of **relevance**, and said that a premise is relevant to the conclusion iff $P(A \vert B) > P(A \vert \bar{B})$.
+In the [previous essay](/relevance) in this series, we introduced the idea of **relevance**, and said that a premise is relevant to the conclusion iff $P(A \vert B) > P(A \vert \bar{B})$.
 
 Consider the argument (𝐴) *this is a good candidate for the job* because (𝐵) *he has a pulse*. Having a pulse may not be a very **persuasive** reason to hire somebody, but it is probably quite **relevant**, because if the candidate did **not** have a pulse, the subject would probably be much less likely to want to hire him. That is $P(A \vert B) > P(A \vert \bar{B})$.
 
@@ -257,7 +256,7 @@ But an important question remains. Will the subject accept the premise? In the n
 
 ## Proofs
 
-The proofs below use the following equality, which is derived in the [previous essay](/relevance-and-corelevance#relevance-as-slope).
+The proofs below use the following equality, which is derived in the [previous essay](/relevance#relevance-as-slope).
 
 $$
 \label{1}

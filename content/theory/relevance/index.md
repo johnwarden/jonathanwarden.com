@@ -1,18 +1,15 @@
 ---
 
 layout: single
-title:  "Relevance and Corelevance"
+title:  "Relevance"
 toc: true
 toc_sticky: true
 tags: ['Argumentation Theory']
 weight: 71
-sidebar:
-  - title: "In This Series"
-    nav: "bayesian-argumentation"
-  - nav: "bayesian-argumentation-related"
-    title: "Related Articles"
 series: ['Bayesian Argumentation']
-canonical_url: https://jonathanwarden.com/relevance-and-corelevance/
+canonical_url: https://jonathanwarden.com/relevance/
+aliases:
+- /relevance-and-corelevance/
 
 ---
 
@@ -85,9 +82,7 @@ proof
 
 Now a Bayesian agent doesn't just accept or reject premises. In a Bayesian model all beliefs are probabilities. 
 
-I'll use the term **acceptance** to mean the probability that the user accepts a claim (the premise or conclusion). $ P(A \vert B) $ is acceptance of the conclusion given that the acceptance of the premise is 100%. And $P(A \vert \bar{B})$ is the acceptance of the conclusion given acceptance of the premise is 0%. But what will acceptance of the conclusion  be if acceptance of the premise was, say, 50%?
-
-
+I'll use the terms **acceptance** to mean simply the subject's degree of belief in the claim (the probability that the claim is true. $ P(A \vert B) $ is the subject's degree of belief in, or acceptance of, the conclusion given they **completely accept the premise** -- that is, if they think there is a 100% probability that the premise is true. And $P(A \vert \bar{B})$ is the acceptance of the conclusion given they completely reject of the premise. But what will acceptance of the conclusion be if they thought the premise might be true -- suppose the acceptance of the premise was, say, 50%?
 
 ### Relevance as Slope
 
@@ -184,58 +179,9 @@ aside h3 {
 
 
 
-
-## Conditional Relevance and Corelevance
-
-Relevance exists in the context of the subject's other prior beliefs.  For example, if (𝐶̅) *the car is out of gas*, and also ($\bar{B}$) *the battery is dead*, then both of these are good reasons to believe (𝐴̅) *the car won't start*. Yet neither is relevant on its own by the definition of relevance given above. Given that the car is out of gas, it makes no difference whether the battery is dead or not: the car won't start anyway. In other words, ($\bar{B}$) *the battery is dead* is irrelevant to (𝐴̅) *the car won't start* given (𝐶̅) *the car is out of gas*.
-
-But if the subject believes (𝐶) *the car has gas*, then ($\bar{B}$) the battery is dead will probably be relevant. When accepting one premise causes another premise to become relevant, we say that the premises are **corelevant**. If a premise is corelevant with some unexpressed premise, we can say that the premise is **conditionally relevant**.
-
-### Definition of Conditional Relevance
-
-To define corelevance mathematically, we need to first define the **conditional relevance** of 𝐵 to 𝐴 given 𝐶, $R(A,B \vert C)$:
-
-$$
-    R(A,B|C) = P(A|B,C) - P(A|\bar{B},C)
-$$
-
-### Definition of Corelevant
-
-Then 𝐵 and 𝐶 are corelevant to 𝐴 if:
-
-$$
-    R(A,B|C) ≠ R(A,B|\bar{C})
-$$
-
-
-### Quantifying Corelevance 
-
-We can measure the magnitude of the correlevance as the difference:
-
-$$
-    CR(A;B,C) = R(A,B|C) - R(A,B|\bar{C})
-$$
-
-It's easy show that co-relevance is symmetrical ([proof](#proof3)).
-
-$$
-    CR(A;B,C) = CR(A;C,B)
-$$
-
-
-
-### Counterfactual Relevance
-
-Unfortunately, this definition of conditional relevance still doesn't capture the the common notion of "relevance" very well, because we can almost always find some second premise that makes the premise conditionally relevant. For example, the premise (𝐻) *The car has a hood ornament* may not seem relevant to (𝐴) *the car will start*, but it is conditionally relevant given the premise (𝑀) *The car is powered by a magical hood ornament*.
-
-Of course, 𝑀 is pretty implausible -- $P(M)$ may be infinitesimally small. But other more plausible corelevant premises may have small probabilities. For example, if the subject just filled the car with gas, they will be quite certain that (𝐺) *the car has gas* and thus $P(\bar{G})$ might be infinitesimally small. So in both cases we have corelevant premises with small prior probabilities, but a car running out of gas is something that is likely to actually happen in many similar scenarios, even if not this particular one. 
-
-Accounting for the difference in relevance in these two cases takes us into the metaphysical realm of modal logic, possible worlds, counterfactuals, and other difficult epistemological questions, that we won't try to answer here.
-
-
 ## Next in this Series
 
-In our introductory example, we claimed that *he has a pulse* is relevant to the conclusion *this is a good candidate for the job*. But it is obviously not a very good argument.  Why not?
+In our introductory example, we claimed that *he has a pulse* is relevant to the conclusion *this is a good candidate for the job*. But it is obviously not a very good argument. Why not?
 
 Obviously, because the subject probably already assumed that the candidate had a pulse. Relevance doesn't say anything about the subject's **actual** prior degree of belief in the premise or conclusion. In the [next essay in this series](/necessity-and-sufficiency), we will show that, because the subject already believes that *he has a pulse* is true, it is a **necessary but not sufficient** premise for the conclusion *this is a good candidate for the job*.
 
@@ -321,33 +267,6 @@ $$
          &= P(A|\bar{B})
 \end{aligned}
 $$
-
-
-### Proof 3
-
-**Symmetry of Corelevance**
-
-$$
-    CR(A;B,C) = CR(A;C,B)
-$$
-
-**Proof:**
-
-$$
-\begin{aligned}
-    CR(A;B,C)   &= R(A,B \vert C) - R(A,B \vert \bar{C}) \cr
-                &= ( P(A \vert B,C) - P(A \vert \bar{B},C) )  \cr
-                &\space\space\space\space- ( P(A \vert B,\bar{C}) - P(A \vert \bar{B},\bar{C}) )  \cr
-                &= ( P(A \vert B,C) - P(A \vert B,\bar{C}) )  \cr
-                &\space\space\space\space- ( P(A \vert \bar{B},C) - P(A \vert \bar{B},\bar{C}) )  \cr
-                &= ( P(A \vert C,B) - P(A \vert \bar{C},B) \cr
-                &\space\space\space\space- ( P(A \vert C,\bar{B}) - P(A \vert \bar{C},\bar{B}) )  \cr
-                &= R(A,C \vert B) - R(A,C \vert \bar{B}) \cr
-                &= CR(A;C,B) \cr
-\end{aligned}
-$$
-
-
 
 
 

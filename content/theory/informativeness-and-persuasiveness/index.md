@@ -126,7 +126,7 @@ $$
 
 ## Persuasiveness = Relevance × Informativeness 
 
-In [Relevance and Corelevance](/relevance-and-corelevance/#relevance-as-slope), we introduced Jeffrey's Rule of Conditioning, which says that if a Bayesian reasoner acquires information that has no effect other than to cause them to increase their belief in the premise, then their posterior belief in the conclusion changes according to the formula:
+In [Relevance](/relevance/#relevance-as-slope), we introduced Jeffrey's Rule of Conditioning, which says that if a Bayesian reasoner acquires information that has no effect other than to cause them to increase their belief in the premise, then their posterior belief in the conclusion changes according to the formula:
 
 $$
 \label{1}
@@ -182,10 +182,13 @@ So we can look at argument as the **exchange of information among Bayesian reaso
 
 First, the assertion must be **informative**. The assertion itself must effectively be new information that causes the subject to change their belief in the premise (even if the assertion induces them to change their belief by actively seeking new information, fixing their reasoning, etc.). 
 
-Second, the premise must be **relevant** to the conclusion, which means the belief in the conclusion has a linear relationship with belief in the premise, as illustrated in [Chart 1 from Relevance and Corelevance](/relevance-and-corelevance/#chart1). When this is the case, the agent will necessarily revise their beliefs in the conclusion according to Jeffrey's Rule $\eqref{1}$. The argument can then said to be **persuasive**.
+Second, the premise must be **relevant** to the conclusion, which means the belief in the conclusion has a linear relationship with belief in the premise, as illustrated in [Chart 1 from Relevance](/relevance/#chart1). When this is the case, the agent will necessarily revise their beliefs in the conclusion according to Jeffrey's Rule $\eqref{1}$. The argument can then said to be **persuasive**.
 
 However, if the argument was not informative, it is not necessarily a bad argument. The subject may already believe in the premise, and it may still be **necessary**, because the premise forms the basis for the subject's belief in the conclusion in that the subject **would** change their belief in the conclusion if they were for any reason to reject the premise.
 
+## Next in this Series
+
+In the final essay in this series, we will explore the idea of **conditional relevance** and **corelevance**: situations where the relevance of the premise to the conclusion depends on what other beliefs the subject holds. We will link the concept of **warrant** from argumentation theory and define warrants from a Bayesian perspective.
 
 <!--
 
@@ -239,7 +242,7 @@ $$
 **Proof:**
 
 
-This proof uses the following equality defined in the [previous essay](/relevance-and-corelevance#relevance-as-slope).
+This proof uses the following equality defined in the [previous essay](/relevance#relevance-as-slope).
 
 $$
 \label{2}

@@ -5,7 +5,7 @@ slug: bayesian-argumentation-definitions
 toc: true
 tags: ['Argumentation Theory']
 series: ['Bayesian Argumentation']
-weight: 74
+weight: 75
 canonical_url: https://jonathanwarden.com/bayesian-argumentation-definitions/
 
 ---
