@@ -13,16 +13,19 @@ canonical_url: https://jonathanwarden.com/bayesian-argumentation/
 
 ## Quantifying Argument
 
-What makes for a *good* argument?
+What is a *good* argument?
 
 From a logical point of view, a good argument is logically sound. But in the real-world people rarely argue with pure logic. 
 
 From a rhetorical point of view, a good argument is one that is persuasive. But how can this be measured?
 
-In this series of essays, I present a Bayesian model of argumentation, where arguments are treated as information that may cause a Bayesian rational agent to modify their beliefs. From a Bayesian perspective, the beliefs of any rational "subject" are modeled as a probability distribution. Given this distribution, we can define various metrics that relate the information given in an argument to the subject's other beliefs. This lets us define **objective** measures of what would normally be considered **subjective** aspects of an argument's quality or strength, such as **relevance** and **persuasiveness**.
+In this series of essays, I consider this question from a Bayesian point of view, under which arguments are simply information that may cause a Bayesian rational agent to modify their beliefs. 
+
+The beliefs of a Bayesian reasoner, which I will refer to as a **subject**, can be modeled as a probability distribution. If we know this distribution, we can define various formulas for revealing how the information in an argument affects or may affect the subject's other beliefs. For example, if an argument changes the subject's mind, it is **persuasive**, and the degree to which it changes the subjects mind is a measure of persuasiveness. Yet persuasiveness is not the only measure of a good argument, because an argument won't change the subject's mind if the subject has already heard it; only **new** information can change a Bayesian subject's mind. Other measures of argument strength include **relevance**, **informativeness**, **sufficiency**, and **necessity**. 
+
+These are all **objective** measures. And yet they measure what many people would consider **subjective** aspects of an argument's quality or strength.
 
 This perspective can provide some powerful insights about argumentation for people working in artificial intelligence, law, argument mapping software, or in our case, design of [social protocols](https://social-protocols.org).
-
 
 <!--
 
@@ -58,15 +61,15 @@ As everyone knows, a Bayesian rational agent updates their beliefs when, and onl
 
 If persuasiveness is the only criteria for a "strong" argument, then an argument based on information the agent already knows can never be considered strong. That means, for example, that if yesterday I learned that the candidate was deceased, and you tell me today we should reject the candidate because he doesn't have a pulse, that would not be a strong argument. But clearly this is a pretty strong argument. So what's wrong?
 
-It is a strong argument because, if I *didn't* know it, I might have a different opinion.
+It is a strong argument because, if I *didn't* know he was deceased, I might have a different opinion.
 
-A Bayesian model tells us what an agent **would** believe if they accepted or rejected different information. This simple insight cracks open a number of ways of measuring argument strength other than just persuasiveness. In the essays on [Relevance and Corelevance](/relevance-and-corelevance) and [Necessity and Sufficiency](/necessity-and-sufficiency) I will define these measures and see how they all relate mathematically to the informativeness of the argument.
+A Bayesian model tells us not just what the subject believes, but what they **would** believe if they had different information. This simple insight cracks open a number of ways of measuring argument strength other than just persuasiveness. In the essays on [Relevance and Corelevance](/relevance-and-corelevance) and [Necessity and Sufficiency](/necessity-and-sufficiency) I will define these measures and see how they all relate mathematically to the informativeness of the argument.
 
 The Bayesian model of argumentation also allows us to take into account the reliability of the arguer themselves. A Bayesian rational agent will only update their beliefs if they believe the information given them. So for an argument to be informative it must not just be new information, it must also be *believable*. This perspective shows us when what looks like an *ad hominim* fallacy may somteimes be perfectly rational[^3]. These ideas are discussed in the essays on [informativeness and persuasiveness](/informativeness-and-persuasiveness).
 
 Like all models, the Bayesian model of subjective belief is an incomplete description of the human mind. But it is clearly defined. Building clear terminology on top of a clear model helps clarify our thinking, facilitate discussion, and sharpen our intuition about what argument actually is. 
 
-There is a lot of recent academic work on Bayesian argumentation[^1][^2]. These essay are intended not as an overview of current theory, but as a useful set of definitions and formulas for practitioners: specifically software engineers building practical applications of argumentation for AI, argument mapping systems, or in our particular case, design of [social protocols](https://social-protocols.org). Our goal is to provide a useful and clear vocabulary, with common-sense but precise definitions for common concepts related to argument strength. This can hopefully help clarify discussion among collaborators and prove useful in documentation and code.
+There is a lot of recent academic work on Bayesian argumentation[^1][^2]. These essay are intended not as an overview of current theory, but as a useful set of definitions and formulas for practitioners: specifically software engineers building practical applications of argumentation for AI, argument mapping systems, or in our particular case, design of [social protocols](https://social-protocols.org). Our goal is to provide a useful and clear vocabulary, with common-sense but precise definitions for common concepts related to argument strength.
 
 
 ## Introductory Example 2
@@ -75,7 +78,7 @@ Now consider another example argument: *the car won't start* because *the car is
 
 Clearly the relevance of an argument depends on context: it depends on other beliefs the subject has about the state of world. 
 
-Theoretically, if we have a model of some subject's beliefs about the world, we can identify the **corelevant** beliefs -- the beliefs cause the argument to be relevant. I will define this more precisely in the essay on [relevance and corelevance](/relevance-and-corelevance).
+Theoretically, if we have a model of some subject's beliefs about the world, we can identify the **corelevant** beliefs -- the beliefs that would cause the argument to be relevant. I will define this more precisely in the essay on [relevance and corelevance](/relevance-and-corelevance).
 
 
 ## Basic Argumentation Theory
