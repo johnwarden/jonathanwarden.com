@@ -30,7 +30,7 @@ To anyone with common sense, this argument is probably:
 
 - not very **persuasive**.
 - not **informative**, because *he has a pulse* is probably not new information to the subject.
-- yet clearly **relevant**, because:
+- clearly **relevant**, because:
     - If the subject learned that the subject did *not* have a pulse, this would be **sufficient** to reject him as a candidate.
     - Alternatively, the belief that he probably has a pulse is **necessary** for the belief that he might be a good candidate.
 
@@ -44,9 +44,9 @@ The beliefs of a Bayesian agent, which I will refer to as a **subject**, can be 
 
 ## Objective Measures of Argument Strength
 
-Clearly, if an argument changes the subject's mind about something, it is **persuasive**. However, this can't be the only measure of a good argument, because once the subject has been persuaded, the argument is no longer persuasive! If I argue *you should wear a seat belt* because *seat belts save lives*, that is not going to change my mind because I already know seat belts save lives!. Only *new* information can change a Bayesian agent's mind. 
+Clearly, if an argument changes the subject's mind about something, it is **persuasive**. However, this can't be the only measure of a good argument, because once the subject already knows something, the argument is no longer persuasive! If I argue *you should wear a seat belt* because *seat belts save lives*, that is not going to change my mind because I already know seat belts save lives! Only *new* information can change a Bayesian agent's mind. 
 
-But clearly, in another sense, this is still a good argument. Fortunately the Bayesian model tells us not just what the subject believes, but what they **would** believe if they had different information. This simple insight cracks open other ways of measuring argument strength. In the essays on [Relevance](/relevance) and [Necessity and Sufficiency](/necessity-and-sufficiency) I will define these measures and see how they all relate mathematically.
+But clearly, in another sense, this is still a good argument even if it doesn't change my mind. Fortunately the Bayesian model tells us not just what the subject believes, but what they **would** believe if they had different information. This simple insight cracks open other ways of measuring argument strength. In the essays on [Relevance](/relevance) and [Necessity and Sufficiency](/necessity-and-sufficiency) I will define these measures and see how they all relate mathematically.
 
 ## Advantages of the Bayesian Perspective
 
