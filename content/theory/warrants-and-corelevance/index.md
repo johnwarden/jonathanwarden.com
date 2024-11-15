@@ -11,9 +11,13 @@ canonical_url: https://jonathanwarden.com/warrants-and-corelevance/
 
 ---
 
-Relevance exists in the context of the subject's other prior beliefs. For example, if the subject beleives tha (𝐶̅) *the car is out of gas*, and also ($\bar{B}$) *the battery is dead*, then both of these are good reasons to believe (𝐴̅) *the car won't start*. Yet neither is relevant on its own by our definition of relevance! 
+This is the final article in my series on Bayesian Argumentation. To understand this essay, read the [introductory article](/bayesian-argumentation) for definition of key concepts and terminology.
 
-Given that the car is out of gas, it makes no difference whether the battery is dead or not: the car won't start anyway. In other words, ($\bar{B}$) *the battery is dead* is irrelevant to (𝐴̅) *the car won't start* given (𝐶̅) *the car is out of gas*.
+## Relevance is Not Absolute
+
+Relevance exists in the context of the subject's other prior beliefs. For example, if the subject believes that ($\bar{𝐶}$) *the car is out of gas*, and also ($\bar{B}$) *the battery is dead*, then both of these are good reasons to believe ($\bar{A}$) *the car won't start*. 
+
+Yet neither is relevant on its own by our definition of relevance! Given that the car is out of gas, it makes no difference whether the battery is dead or not: the car won't start anyway. In other words, ($\bar{B}$) *the battery is dead* is irrelevant to ($\bar{A}$) *the car won't start* given ($\bar{𝐶}$) *the car is out of gas*.
 
 But if the subject believes (𝐶) *the car has gas*, then ($\bar{B}$) the battery is dead will probably be relevant. When accepting one premise causes another premise to become relevant, we say that the premises are **corelevant**. If a premise is corelevant with some unexpressed premise, we can say that the premise is **conditionally relevant**.
 
@@ -49,25 +53,19 @@ $$
 $$
 
 
+## Warrants 
 
-
-## Basic Argumentation Theory
-
-This idea of unexpressed beliefs that justify an argument evokes the idea of the **warrant** from the field of [argumentation theory](https://en.wikipedia.org/wiki/Argumentation_theory). Argumentation theory views argument as a kind of flexible, informal logic. People don't argue with logical syllogisms -- instead they make simple statements, or **claims** which support other claims. For example, I might claim *people are wearing jackets* to support the claim *it's probably cold outside*. 
-
-We use the terms **premise** and **conclusion** to differentiate between the supporting and supported claims. An **argument** is just a premise stated in support of some conclusion.
+This idea of unexpressed beliefs that justify an argument evokes the idea of the [**warrant**](https://owl.purdue.edu/owl/general_writing/academic_writing/historical_perspectives_on_argumentation/toulmin_argument.html#:~:text=Toulmin%2C%20the%20Toulmin%20method%20is,the%20grounds%2C%20and%20the%20warrant.) from the field of [argumentation theory](https://en.wikipedia.org/wiki/Argumentation_theory).
 
 In every argument there is an unstated claim that *this premise supports this conclusion*. This doesn't need to be stated because it's implied by the fact that the argument was made. After asserting *people are wearing jackets* in support of the conclusion *it's probably cold outside*, I don't need to add, pedantically, "and you see, if people are wearing jackets it must be cold outside".
 
-This unexpressed premise that justifies the inferential leap from premise to conclusion is called the [**warrant**](https://owl.purdue.edu/owl/general_writing/academic_writing/historical_perspectives_on_argumentation/toulmin_argument.html#:~:text=Toulmin%2C%20the%20Toulmin%20method%20is,the%20grounds%2C%20and%20the%20warrant.). 
+This unexpressed premise that justifies the inferential leap from premise to conclusion is called the warrant. 
 
 The warrant doesn't have to be a logical formula such as "if people are wearing jackets it must be cold outside". It can be based on any kind of inferential rule (deductive, inductive, intuitive) or [argumentation scheme](https://en.wikipedia.org/wiki/Argumentation_scheme) (authority, analogy, example) -- whatever justifies the inference in the mind of the arguer. Some academics use different terms for these concepts: our terminology is influenced by the influential [Toulmin model](https://owl.purdue.edu/owl/general_writing/academic_writing/historical_perspectives_on_argumentation/toulmin_argument.html#:~:text=Toulmin%2C%20the%20Toulmin%20method%20is,the%20grounds%2C%20and%20the%20warrant.), except we prefer the traditional terms **premise** and **conclusion** over **grounds** and **claim**. More precise definitions of our terms are given in the [Deliberati Argument Model](/argument-model).
 
 ## Bayesian Warrants
 
-In Bayesian terms, a rational agent is said to acquire **evidence**, which causes them to change their belief in the probability of some **hypothesis** (see this [Bayesian Inference Primer](/bayesian-inference-primer)).
-
-There is clearly an analogy here: **evidence is premise as to hypothesis is to conclusion**. But argumentation theory also has warrants. What is the warrant in a Bayesian model? 
+What is the warrant in a Bayesian model? 
 
 The warrant clearly has to do with the subject's **prior beliefs**, because a Bayesian agent's priors are precisely what justify, in their mind, any inferential leap from premise to conclusion.
 
@@ -75,7 +73,7 @@ For example, if our subject is more likely to believe that (𝐴) *it is going t
 
 But **why** does this warrant exist in the subject's mind? What is the inferential rule that actually justifies the inference? Is it a deductive inference? Inductive? Gut feeling?
 
-In the Toulmin Model, the warrant would be a rule along the lines of *a cloudy sky is a sign of rain*. But in a Bayesian model, there are no rules: there is just a probability distribution modeling the Bayesian agent's beliefs. This gives us the end result of the agent's thought process, but not how they got there. But this probability distribution still serves the role of the warrant in that it justifies the inferential leap from premise to conclusion.
+In the Toulmin Model, the warrant would be a rule along the lines of *a cloudy sky is a sign of rain*. In a Bayesian model, there are only **corelevant claims** that the subject must believe for the premise to be relevant. Every corelevant phrase helps, to paraphrase Toulmin's words, to "justify the inferential leap from premise to conclusion". So it's best to think of all the warrant being *the entire set of relevant prior beliefs*.
 
 If the prior beliefs of our subject are represented by the probability measure $P$, then we can say that, in the mind of the subject, **a warrant exists justifying the inference from premise 𝐵 to conclusion 𝐴 iff**:
 
@@ -85,19 +83,19 @@ $$
 
 If the warrant exists, we say 𝐵 is relevant to 𝐴.
 
-
 ### Counterfactual Relevance
 
-Unfortunately, this definition of conditional relevance still doesn't capture the the common notion of "relevance" pefectly well, because we can almost always find some second premise that makes the premise conditionally relevant. For example, the premise (𝐻) *The car has a hood ornament* may not seem relevant to (𝐴) *the car will start*, but it is conditionally relevant given the premise (𝑀) *The car is powered by a magical hood ornament*.
+Unfortunately, this definition of conditional relevance above still doesn't fully capture the the common notion of "relevance", because we can almost always find some second premise that makes the premise conditionally relevant. For example, the premise (𝐻) *The car has a hood ornament* may not seem relevant to (𝐴) *the car will start*, but it is conditionally relevant given the premise (𝑀) *The car is powered by a magical hood ornament*.
 
 Of course, 𝑀 is pretty implausible -- $P(M)$ may be infinitesimally small. But other more plausible corelevant premises may have small probabilities. For example, if the subject just filled the car with gas, they will be quite certain that (𝐺) *the car has gas* and thus $P(\bar{G})$ might be infinitesimally small. So in both cases we have corelevant premises with small prior probabilities, but a car running out of gas is something that is likely to actually happen in many similar scenarios, even if not this particular one. 
 
 Accounting for the difference in relevance in these two cases takes us into the metaphysical realm of modal logic, possible worlds, counterfactuals, and other difficult epistemological questions, that we won't try to answer here.
 
-
 ## Summary
 
-So in a Bayesian argument, an arguer asserts a **premise** in support/opposition to some **conclusion**, and if the premise is **relevant** -- the subject is more likely to believe the conclusion if they believe the premise -- then there must be some **warrant** justifying the inference from premise to conclusion.
+So we've rounded out our reconciliation of Bayesianism and argumentation theory by defining the **warrant** as those prior beliefs that make the premise **relevant**. If you've read this far, I am impressed! I hope this has been useful.
+
+In the next article I summarize all the definitions and mathematical formulas introduced in this series.
 
 
 <style>

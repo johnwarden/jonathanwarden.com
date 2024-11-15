@@ -13,13 +13,14 @@ aliases:
 
 ---
 
+
 ## Definition of Relevance
 
-In the [previous essay](/bayesian-argumentation) in this series, we introduced the basic ideas and terminology of Bayesian argumentation, including the concept of **relevance**.
+In the [previous essay](/bayesian-argumentation) in this series, we introduced the basic ideas and terminology of Bayesian argumentation, including the terms **relevant** and **relevance**. In this essay I introduce a precise formula for measuring relevance.
 
 <!--more-->
 
-To review, **a premise $B$ is relevant to conclusion $A$** (in the mind of the subject) **iff**:
+**A premise $B$ is relevant to conclusion $A$** (in the mind of the subject) **iff**:
 
 $$
     P(A|B) ≠ P(A|\bar{B})
@@ -30,16 +31,23 @@ If the above condition does not hold, then **𝐵 is irrelevant to 𝐴**. It's 
 ## Definition of Support and Oppose
 
 
-We say that premise **supports** the conclusion (in the mind of the subject) iff the subject is **more** likely to accept the premise if they accept the conclusion. That is, **𝐵 supports 𝐴 iff**:
+We say that a premise **supports** the conclusion (in the mind of the subject) iff the subject is **more** likely to accept the premise if they accept the conclusion. That is, **𝐵 supports 𝐴 iff**:
 
 $$
     P(A \vert B) > P(A \vert \bar{B})
 $$
 
-If the subject is **less** likely to accept 𝐴 if they accept 𝐵 ($P(A \vert B) < P(A \vert \bar{B})$), it follows that they are **more likely to accept not 𝐴**, in which case we say that the premise **opposes** the conclusion. That is, **𝐵 opposes 𝐴 iff:**
+
+We say that the premise **opposes** the conclusion if the subject is **less** likely to accept 𝐴 if they accept 𝐵. In other words, **𝐵 opposes 𝐴 iff**:
 
 $$
-    P(A|B) < P(A|\bar{B}) ⟺ P(\bar{A}|B) > P(\bar{A}|\bar{B})
+    P(A \vert B) < P(A \vert \bar{B})
+$$
+
+Now, if the subject is more likely to accept A is another way of saying that they are more likely to accept $not A$. So we can also say that **𝐵 opposes 𝐴 iff:**
+
+$$
+    P(\bar{A}|B) > P(\bar{A}|\bar{B})
 $$
 
 
@@ -57,7 +65,15 @@ $$
 \tag{1}
 $$
 
-The relevance will be negative if 𝐵 opposes 𝐴. Now recall that if 𝐵 opposes 𝐴 it supports $\bar{A}$. And it's also the case that if 𝐵 opposes 𝐴, $\bar{B}$ supports 𝐴! In fact, the following are all equal:
+The relevance will be negative if 𝐵 opposes 𝐴. 
+
+Now we said that if 𝐵 opposes 𝐴 it supports $not~A$. It is easy to show that magnitude of the relevance is the same in both cases!
+
+$$
+    R(A,B) = -R(\bar{A},B)
+$$
+
+And it's also the case that if 𝐵 opposes 𝐴, $\bar{B}$ supports 𝐴! And again, the magnitudes are the same. In fact, the following are all equal:
 
 $$
     R(A,B) = -R(\bar{A},B) = -R(A,\bar{B}) = R(\bar{A},\bar{B})
@@ -82,7 +98,7 @@ proof
 
 Now a Bayesian agent doesn't just accept or reject premises. In a Bayesian model all beliefs are probabilities. 
 
-I'll use the terms **acceptance** to mean simply the subject's degree of belief in the claim (the probability that the claim is true. $ P(A \vert B) $ is the subject's degree of belief in, or acceptance of, the conclusion given they **completely accept the premise** -- that is, if they think there is a 100% probability that the premise is true. And $P(A \vert \bar{B})$ is the acceptance of the conclusion given they completely reject of the premise. But what will acceptance of the conclusion be if they thought the premise might be true -- suppose the acceptance of the premise was, say, 50%?
+I'll use the terms **acceptance** to mean simply the subject's degree of belief in the claim (the probability that the claim is true). $ P(A \vert B) $ is the subject's degree of belief in, or acceptance of, the conclusion given they **completely accept the premise** -- that is, if they think there is a 100% probability that the premise is true. And $P(A \vert \bar{B})$ is the acceptance of the conclusion given they completely reject of the premise. But what will acceptance of the conclusion be if the subject is not certain if the premise is true or not?
 
 ### Relevance as Slope
 

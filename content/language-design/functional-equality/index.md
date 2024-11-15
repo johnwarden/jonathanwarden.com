@@ -15,10 +15,10 @@ aliases:
 
 In this post, I discuss the concept of **functional equality**.
 
-If two values $a$ and $b$ are **functionally equal**, then there should exist no function $f$ for which $f(a)$ does not equal $f(b)$. Formally:
+If two values $a$ and $b$ are **functionally equal**, then there should exist no function $f$ for which $f(a)$ does not equal $f(b)$. For mathematically-minded readers, we can give a more precise definition:
 
 $$
-a = b ⟺ ∀f ~ f(a) = f(b)
+  a = b ⟺ ∀f ~ f(a) = f(b)
 $$
 
 In many programming languages, the `==` operator does not test for functional equality. For example, the integer `4` and the float `4.0` can be equal according to the `==` operator, and yet an integer and a float generally are not functionally equal. For example, their string representations will typically differ. If `toString(4) != toString(4.0)`, then `4` and `4.0` are not functionally equal by the definition above.

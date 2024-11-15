@@ -14,6 +14,15 @@ canonical_url: https://jonathanwarden.com/bayesian-argumentation-definitions/
 
 Below is a summary of all the terms and equations defined in the essays in this series, followed by a detailed example.
 
+
+- **Claim**: A statement that one can agree or disagree with 
+
+- **Premise**: A claim intended to support or oppose some conclusion 
+
+- **Conclusion**: The claim supported or opposed by the premise
+
+- **Argument**: A premise asserted in support of or opposition to some conclusion
+
 *For an argument with premise 𝐵 and conclusion 𝐴, and a subject whose beliefs are represented by probability measure P...*
 
 - **Relevant**: The premise is **relevant** to the conclusion (or, the argument is relevant) **iff** $P(A \vert B) ≠ P(A \vert \bar{B})$
