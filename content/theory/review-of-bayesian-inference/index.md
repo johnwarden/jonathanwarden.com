@@ -209,17 +209,17 @@ An important detail we previously glossed over as that reallocation of probabili
 
 Before discovering the Duchess's body, we can calculate what Holmes' beliefs **would** be if he learned that the Duchess was definitely alive or dead. The probability that the Duke/Count is the culprit **given** the countess is Alive/Dead is called a **conditional** probability.
 
-Conditional probabilities are written in the form $P(Hypothesis \vert Evidence)$. $Evidence$ is whatever new information might be learned (e.g. the *Duchess is Dead*), and $Hypothesis$ is any other proposition of interest (e.g. the *Duke Count did it*).
+Conditional probabilities are written in the form $P(H \vert E)$. $Evidence$ is whatever new information might be learned (e.g. the *Duchess is Dead*), and $Hypothesis$ is any other proposition of interest (e.g. the *Duke Count did it*).
 
-The conditional probability of some Hypothesis given some piece of Evidence can be calculated using the following formula:
+The conditional probability of some Hypothesis $H$ given some piece of Evidence $E$ can be calculated using the following formula:
 
 $$
 \begin{aligned}
-    P(Hypothesis \vert Evidence) &= \frac{P(Hypothesis, Evidence)}{P(Evidence)}
+    P(H \vert E) &= \frac{P(H, E)}{P(E)}
 \end{aligned}
 $$
 
-Where $P(Hypothesis, Evidence)$ is the **total prior probability** of all possibilities where both the evidence and hypothesis is true, and $P(Evidence)$ is the total probability of all possibilities where the evidence is true.
+Where $P(H, E)$ is the **total prior probability** of all possibilities where both the evidence and hypothesis is true, and $P(E)$ is the total probability of all possibilities where the evidence is true.
 
 For example, referring back to Holmes' prior probability table, you can see that 
 
@@ -260,9 +260,9 @@ Or more generally
 
 $$
 \begin{aligned}
-    P'(Hypothesis)\cr
-        &= P(Hypothesis|Evidence)\cr\cr
-        &= \frac{P(Hypothesis, Evidence)}{P(Evidence)}\cr
+    P'(H)\cr
+        &= P(H|E)\cr\cr
+        &= \frac{P(H, E)}{P(E)}\cr
 \end{aligned}
 $$
 
@@ -277,8 +277,8 @@ However, now that we've got this far, the derivation of Bayes' theorem is simple
 
 $$
 \begin{aligned}
-        P(Hypothesis|Evidence) &= \frac{P(Hypothesis, Evidence)}{P(Evidence)}\cr
-        P(Evidence|Hypothesis) &= \frac{P(Evidence, Hypothesis)}{P(Hypothesis)}\cr
+        P(H|E) &= \frac{P(H, E)}{P(E)}\cr
+        P(E|H) &= \frac{P(E, H)}{P(H)}\cr
 \end{aligned}
 $$
 
@@ -286,21 +286,21 @@ Rearranging these formulas, we have:
 
 $$
 \begin{aligned}
-        P(Hypothesis|Evidence)P(Evidence) &= P(Hypothesis, Evidence)\cr
-        P(Evidence|Hypothesis)P(Hypothesis) &= P(Evidence, Hypothesis)\cr
+        P(H|E)P(E) &= P(H, E)\cr
+        P(E|H)P(H) &= P(E, H)\cr
 \end{aligned}
 $$
 
-$ P(Hypothesis, Evidence) = P(Evidence, Hypothesis) $. And so:
+$ P(H, E) = P(E, H) $. And so:
 
 $$
-         P(Hypothesis|Evidence)P(Evidence) = P(Evidence|Hypothesis)P(Hypothesis)
+         P(H|E)P(E) = P(E|H)P(H)
 $$
 
 Which we can arrange to get Bayes theorem:
 
 $$
-        P(Hypothesis|Evidence) = \frac{P(Evidence|Hypothesis)P(Hypothesis)}{P(Evidence)}
+        P(H|E) = \frac{P(E|H)P(H)}{P(E)}
 $$
 
 So Bayes' Theorem is just an alternative formula for calculating conditional probability.
@@ -308,14 +308,14 @@ So Bayes' Theorem is just an alternative formula for calculating conditional pro
 
 $$
 \begin{aligned}
-    P(Hypothesis|Evidence)\cr 
-    &= \frac{P(Hypothesis, Evidence)}{P(Evidence)}\cr
-    &= \frac{P(Evidence|Hypothesis)P(Hypothesis)}{P(Evidence)}
+    P(H|E)\cr 
+    &= \frac{P(H, E)}{P(E)}\cr
+    &= \frac{P(E|H)P(H)}{P(E)}
 \end{aligned}
 $$
 
 
-Using either of these foruls is just a shortcut. Although theoretically Bayesian inference involves updating our entire posterior probability distribution to $P'$ after learning some evidence, useually we are interested in a single hypothesis and just want to know what $P'(hypothesis)$ is. We can calculate this without calculating the entire posterior by calculating $P(hypothesis \vert evidence)$ using one of the formulas above.
+Using either of these formuls is just a shortcut. Although theoretically Bayesian inference involves updating our entire posterior probability distribution to $P'$ after learning some evidence, usually we are interested in a single hypothesis and just want to know what $P'(H)$ is. We can calculate this without calculating the entire posterior by calculating $P(H \vert E)$ using one of the formulas above.
 
 
 ## Summary
