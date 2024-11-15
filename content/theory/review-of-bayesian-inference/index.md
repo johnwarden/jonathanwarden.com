@@ -156,7 +156,7 @@ Next, we eliminate possibility #3 (she was murdered by the Count). This time, si
 
 So what happens now that we've reached a point where there are no more possibilities to eliminate? At this point, no more inferences can be made. There is nothing more to learn -- at least with respect to the Case of the Disappearing Duchess. Holmes has eliminated the impossible and the remaining possibility *must* be the truth.
 
-It's not always possible to eliminate all uncertainty such that only one possibility remains. But Bayesian inference can be thought of as the process of reducing uncertainty by eliminating the impossible, and then reallocating probability mass.
+It's not always possible to eliminate all uncertainty such that *only* one possibility remains. But Bayesian inference can be thought of as the process of reducing uncertainty as much as possible by eliminating the impossible, and then reallocating the probability mass to the possibilities that remain.
 
 > When you have eliminated the impossible, the probability of all that remains, no matter how improbable, must sum to 100%
 > 
@@ -173,7 +173,7 @@ This is demonstrated visually in the four charts below. The first row of charts 
 
 The second row of charts show the same probabilities, but this time the charts show the *marginal probabilities* (e.g. the totals) for each possible culprit. The Duke is the culprit in two different scenarios in the priors, so the total prior probability for the Duke is 50% + 25% = 75%. The total prior probability for the Count is 25%.
 
-After eliminating the Alive+Duke scenario, the remaining probability mass for the Duke and the Count are both 25% -- but these are then scaled up so to 50% each so their total sums to 100%, as shown in the bottom-right chart. The net result is a decreased total probability for the Duke and increased total probability for the Count.
+After eliminating the Alive+Duke scenario, the total probability is 50% for both the Duke and the Count, as shown in the bottom-right chart. And so the probability decreased for the Duke and increased for the Count.
 
 <img src="reallocation-of-probabilities-3.svg"
      alt="Reallocation of Probabilities Example"
