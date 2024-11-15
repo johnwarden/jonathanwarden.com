@@ -23,6 +23,10 @@ For a long time Bayesian inference was something I understood without really und
 
 I now understand Bayesian Inference to be essentially Sherlock Holmes' pithy statement about eliminating the impossible quoted above, taken to its mathematical conclusion. This article is my own attempt to elucidate this idea. If this essay doesn't do the trick, you might try [Bayesian Reasoning for Intelligent People](https://www.google.com/search?q=bayesian+for+smart+people&oq=bayesian+for+smart+people&aqs=chrome..69i57.3581j0j9&sourceid=chrome&ie=UTF-8) by Simon DeDeo or Kruschke's [Bayesian data analysis for newcomers](https://link.springer.com/article/10.3758/s13423-017-1272-1).
 
+This essay has two parts. Part 1 is a purely visual explanation of the concept of Bayesian inference, without any math, where Part 2 translates these ideas into mathematical formulas, including the famous Bayes theorem.
+
+# Part 1: The Concept
+
 ## Prior Beliefs
 
 A Bayesian reasoner starts out with a set of beliefs, which are modeled as a probability distribution. You can think of the probability distribution as simply a list of **possibilities**, each of which has a **probability**. These possibilities are mutually exclusive and their probabilities sum to 100%.
@@ -199,6 +203,8 @@ Rather he assigns different probabilities to different **combinations** such a *
 An important detail we previously glossed over as that reallocation of probability must be proportional. In the example above, the prior probabilities of last two possibilities were equal, so the posteriors must also be equal -- anything else would be arbitrary and illogical. On the other hand, if one possibility were twice as likely as the next in the priors, it would remain twice as likely in the posteriors. 
 -->
 
+# Part 2: The Math
+
 ## Conditional Probability
 
 Before discovering the Duchess's body, we can calculate what Holmes' beliefs **would** be if he learned that the Duchess was definitely alive or dead. The probability that the Duke/Count is the culprit **given** the countess is Alive/Dead is called a **conditional** probability.
@@ -260,11 +266,60 @@ $$
 \end{aligned}
 $$
 
-This three-part formula is useful one to memorize. Note that the left-hand side is a *posterior* probability. The middle formula is the notation for the *conditional* probability of the hypothesis given the evidence. And the right-hand side lets us calculate the posterior probability of any hypothesis given any piece of evidence in terms of the prior probability distribution.
+This three-part formula is useful one to memorize. Note that the left-hand side is a *posterior* probability. The middle formula is the notation for the *conditional* probability of the hypothesis given the evidence. This is defined in terms of the *prior* probability distribution. And the right-hand side is the formula for calculating the conditional probability.
+
+
+## Bayes Theorem
+
+So far, we have engaged in Bayesian inference without using the famous Bayes' Theorem. Bayes' theorem is not actually necessary for Bayesian inference, and the use of Bayes' theorem should not be conflated with Bayesian inference.
+
+However, now that we've got this far, the derivation of Bayes' theorem is simple. We just need to observe that the formula for conditional probability can be applied "in reverse" to define the probability of the *evidence* given the *hypothesis*.
+
+$$
+\begin{aligned}
+        P(Hypothesis|Evidence) &= \frac{P(Hypothesis, Evidence)}{P(Evidence)}\cr
+        P(Evidence|Hypothesis) &= \frac{P(Evidence, Hypothesis)}{P(Hypothesis)}\cr
+\end{aligned}
+$$
+
+Rearranging these formulas, we have:
+
+$$
+\begin{aligned}
+        P(Hypothesis|Evidence)P(Evidence) &= P(Hypothesis, Evidence)\cr
+        P(Evidence|Hypothesis)P(Hypothesis) &= P(Evidence, Hypothesis)\cr
+\end{aligned}
+$$
+
+$ P(Hypothesis, Evidence) = P(Evidence, Hypothesis) $. And so:
+
+$$
+         P(Hypothesis|Evidence)P(Evidence) = P(Evidence|Hypothesis)P(Hypothesis)
+$$
+
+Which we can arrange to get Bayes theorem:
+
+$$
+        P(Hypothesis|Evidence) = \frac{P(Evidence|Hypothesis)P(Hypothesis)}{P(Evidence)}
+$$
+
+So Bayes' Theorem is just an alternative formula for calculating conditional probability.
+
+
+$$
+\begin{aligned}
+    P(Hypothesis|Evidence)\cr 
+    &= \frac{P(Hypothesis, Evidence)}{P(Evidence)}\cr
+    &= \frac{P(Evidence|Hypothesis)P(Hypothesis)}{P(Evidence)}
+\end{aligned}
+$$
+
+
+Using either of these foruls is just a shortcut. Although theoretically Bayesian inference involves updating our entire posterior probability distribution to $P'$ after learning some evidence, useually we are interested in a single hypothesis and just want to know what $P'(hypothesis)$ is. We can calculate this without calculating the entire posterior by calculating $P(hypothesis \vert evidence)$ using one of the formulas above.
+
 
 ## Summary
 
-So far, we have engaged in Bayesian inference without using the famous Bayes' Theorem. Bayes' theorem is not actually necessary for Bayesian inference, and conflating the use of Bayes' theorem with Bayesian inference can interfere with an understanding of the more fundamental principle of Bayesian inference as reallocation of probabilities.
 
 So here's a summary of the principle of Bayesian inference:
 
@@ -272,7 +327,7 @@ So here's a summary of the principle of Bayesian inference:
 - Eliminate possibilities inconsistent with new evidence
 - Reallocate probability to remaining possibilities such that they sum to 100%
 - Update beliefs sequentially by eliminating possibilities as new evidence is learned
-- Make inferences by simply calculating the total posterior probability of the hypothesis given the evidence using the conditional probability formula
+- Make inferences by simply calculating the total posterior probability of the hypothesis given the evidence using the conditional probability formula or Bayes theorem
 
 <!--
 
