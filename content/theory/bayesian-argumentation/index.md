@@ -6,7 +6,14 @@ toc: true
 tags: ['Argumentation Theory']
 series: ['Bayesian Argumentation']
 weight: 71
-summary: 'In this essay, I present an account of argumentation as the exchange of information between Bayesian rational agents. The basic idea of the Bayesian view of probability is that probabilities represent subjective degrees of belief. So if we know the beliefs of some rational "subject", we can precisely define and measure various concepts relating to the quality of an argument in the mind of the subject. In other words we can objectively measure the subjective quality of an argument.'
+summary: 'What is a *good* argument?
+
+From a logical point of view, a good argument is logically sound. But in the real-world people rarely argue with pure logic. 
+
+From a rhetorical point of view, a good argument is one that is persuasive. But how can this be measured?
+
+In this series of essays, I consider this question from a Bayesian point of view. 
+'
 canonical_url: https://jonathanwarden.com/bayesian-argumentation/
 
 ---
@@ -44,7 +51,7 @@ The beliefs of a Bayesian agent, which I will refer to as a **subject**, can be 
 
 ## Objective Measures of Argument Strength
 
-Clearly, if an argument changes the subject's mind about something, it is **persuasive**. However, this can't be the only measure of a good argument, because once the subject already knows something, the argument is no longer persuasive! If I argue *you should wear a seat belt* because *seat belts save lives*, that is not going to change my mind because I already know seat belts save lives! Only *new* information can change a Bayesian agent's mind. 
+Clearly, if an argument changes the subject's beliefs about something, it is **persuasive**. However, this can't be the only measure of a good argument, because once the subject already knows something, the argument is no longer persuasive! If I argue *you should wear a seat belt* because *seat belts save lives*, that is not going to change my beliefs because I already know seat belts save lives! Only *new* information can change a Bayesian agent's beliefs. 
 
 But clearly, in another sense, this is still a good argument even if it doesn't change my mind. Fortunately the Bayesian model tells us not just what the subject believes, but what they **would** believe if they had different information. This simple insight cracks open other ways of measuring argument strength. In the essays on [Relevance](/relevance) and [Necessity and Sufficiency](/necessity-and-sufficiency) I will define these measures and see how they all relate mathematically.
 
@@ -89,7 +96,7 @@ It is easy to confuse the term *claim* with the term *premise* or *conclusion* -
 
 In Bayesian terms, a rational agent is said to acquire **evidence**, which causes them to update their belief in the probability of some **hypothesis** (see this [Bayesian Inference Primer](/bayesian-inference-primer)). There is clearly an analogy here: **evidence is to premise as to hypothesis is to conclusion**.
 
-But this analogy is not perfect. Many arguments assert a claim without any supporting "evidence" in the way we usually think of the term. The claim is simply asserted. And yet if the subject believes the the person making the argument, they might actually change their mind. How can a claim without evidence change minds?
+But this analogy is not perfect. Many arguments assert a claim without any supporting "evidence" in the way we usually think of the term. The claim is simply asserted. And yet if the subject believe the person making the argument, they might actually change their beliefs. How can a claim without evidence change beliefs?
 
 So it's important to understand that a claim is not evidence: *the fact that the arguer asserted the claim is evidence*.
 
