@@ -46,7 +46,7 @@ Bayesian reasoners then revise their beliefs when they acquire new information/e
 
 A Bayesian reasoner's beliefs **after** acquiring new evidence are called the **posterior** beliefs.
 
-For example, if you find out that the card is a heart, you must eliminate all non-hearts, and reallocate the remaining probability to the remaining 13 cards. These each now have a probability of 1/13, and the total still adds up to 1.
+For example, if you find out that the card is a heart, you must eliminate all non-hearts, and reallocate the remaining probability to the remaining 13 cards. Each card now has a probability of 1/13, and the total still adds up to 1.
 
 <img src="bayesian-gambler-posterior.svg"
      alt="Example Posterior Beliefs: Bayesian Gambler"
