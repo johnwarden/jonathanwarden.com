@@ -164,7 +164,7 @@ It's not always possible to eliminate all uncertainty such that *only* one possi
 
 > When you have eliminated the impossible, the probability of all that remains, no matter how improbable, must sum to 100%
 > 
-> -- Sherlock Thomas Bayes Holmes (Jonathan Warden)
+> -- Sherlock Thomas Bayes Holmes
 
 
 ## Updating Beliefs based on Evidence
@@ -337,10 +337,7 @@ Which brings us back to Sherlock Holmes: *When you have eliminated the impossibl
 
 > When you have eliminated the impossible, the probability of all that remains, no matter how improbable, must be scaled to sum to 1.
 > 
-> -- Sherlock Thomas Bayes Holmes (Jonathan Warden)
-
-
-
+> -- Sherlock Thomas Bayes Holmes
 
 
 For example, if a Bayesian reasoner draws a random card from a standard 52-card deck without looking at it, her prior beliefs are that the probability of each card is exactly $\frac{1}{52}$. The total of the probabilities is $\frac{1}{52}\times52=1$.
@@ -593,7 +590,7 @@ Which brings us back to Sherlock Holmes: *When you have eliminated the impossibl
 
 > When you have eliminated the impossible, the probability of all that remains, no matter how improbable, must be scaled to sum to 1.
 > 
-> -- Sherlock Thomas Bayes Holmes (Jonathan Warden)
+> -- Sherlock Thomas Bayes Holmes
 
 -->
 
