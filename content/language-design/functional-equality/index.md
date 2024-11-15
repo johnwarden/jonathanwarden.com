@@ -25,11 +25,13 @@ In many programming languages, the `==` operator does not test for functional eq
 
 ### Functional v. Ideal Equality
 
-In many cases, the logic of a program depends on the mathematical, or *ideal*, values, and not the specific types or precisions used to represent them. In these cases, programmers want an equality test such that `2 + 2 == 4.0` evaluates to true. I call this type of equality test **ideal equality**. 
+In many cases, the logic of a program depends on the mathematical, or *ideal*, values, and not the specific types used to represent them. In these cases, programmers want an equality test such that `2 + 2 == 4.0` to evaluate to true. I call this type of equality test **ideal equality**. 
 
 But in other cases, what matters is whether the two values are, for all intents and purposes, **exchangeable** in code: you can replace one value with the other in your program and get the exact same behavior. This requires **functional equality**.
 
-Many bugs and much confusion stems from the fact that two functionally different values can be different **representations** of the same **ideal value**: the same point on the number line, the same moment in time, etc. So when comparing two values for equality, it is important to ask, *what do you mean by "equal"?*
+Many bugs and much confusion stems from confounding these two concepts, and failing to recognize that two functionally different values can **represent** the same **ideal value**: the same point on the number line, the same moment in time, etc. So when comparing two values for equality, it is important to ask, *what do you mean by "equal"?*
+
+I call the need for two different types of equality tests, stemming from the use of different representations of the same ideal value, **the representation problem**.
 
 ## Values are Representations
 
@@ -47,7 +49,7 @@ It helps to think of an ideal value and its representations as different entitie
      alt="Illustration of multiple representations of same ideal value"
      style="display: block; margin-left: auto; margin-right: auto; max-height: 500px" />
 
-Mathematically, when we think of "values", we often think of ideal abstractions such as numbers or sets. Of course, programmers can't work with an ideal value without representing it somehow. You need to choose a format/precision for numbers. You need to store the elements of a set in some order. Etc. So the **actual values of variables programmers work with are always representations**. And different representations -- especially if they have different types -- can behave differently, and thus be functionally different.
+Mathematically, when we think of "values", we often think of ideal abstractions such as numbers or sets. Of course, programmers can't work with an ideal value without representing it somehow. We need to choose a format/precision for numbers. We need to store the elements of a set in some order. Etc. So the **actual values of variables programmers work with are always representations**. And different representations -- especially if they have different types -- can behave differently, and thus be functionally different.
 
 ## When Functional Equality is Important
 
@@ -57,15 +59,15 @@ When implementing a cache, two cache keys should probably not be considered equa
 
 ### Testing and Debugging
 
-Programmers expect "equal" inputs to produce "equal" outputs. A programmer be frustrated to find that in production a certain function seems to be return the wrong value for a certain input, even though when they run unit tests, the function produces a *different* value **for the same input**, not recognizing that two inputs, while passing the `==` test, are actually functionally different values.
+Programmers expect "equal" inputs to produce "equal" outputs. A programmer may be frustrated to find that in production a certain function seems to be return the wrong value for a certain input, even though when they run unit tests, the function produces a *different* value **for the same input**, not recognizing that two inputs, while passing the `==` test, are actually functionally different values.
 
-### Functional Purity
+### Referential Transparency
 
 A functionally pure language must respect the principle of [**referential transparency**](http://en.wikipedia.org/wiki/Referential_transparency_(computer_science)). An expression is referentially transparent if it can be replaced with its **value** without changing the behavior of the program. But shouldn't we be able to replace any value with an **equal value** without changing the behavior of the program? Obviously yes. Certain functional programming techniques, such as memoization, require a respect for functional equality. And so I would argue that a pure functional programming language must support a concept of functional equality.
 
 ## Common Solutions to The Representation Problem
 
-There are a few common ways that programming languages try to solve the representation problem (the need to have separate ways of comparing for ideal equality and functional equality).
+There are a few common ways that programming languages try to solve the representation problem.
 
 ### Separate Equality Operators
 
