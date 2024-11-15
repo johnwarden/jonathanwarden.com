@@ -53,7 +53,7 @@ The beliefs of a Bayesian agent, which I will refer to as a **subject**, can be 
 
 Clearly, if an argument changes the subject's beliefs about something, it is **persuasive**. However, this can't be the only measure of a good argument, because once the subject already knows something, the argument is no longer persuasive! If I argue *you should wear a seat belt* because *seat belts save lives*, that is not going to change my beliefs because I already know seat belts save lives! Only *new* information can change a Bayesian agent's beliefs. 
 
-But clearly, in another sense, this is still a good argument even if it doesn't change my mind. Fortunately the Bayesian model tells us not just what the subject believes, but what they **would** believe if they had different information. This simple insight cracks open other ways of measuring argument strength. In the essays on [Relevance](/relevance) and [Necessity and Sufficiency](/necessity-and-sufficiency) I will define these measures and see how they all relate mathematically.
+But clearly, in another sense, this is still a good argument even if it doesn't change my mind. Fortunately the Bayesian model tells us not just what the subject believes, but what they **would** believe if they had different information. This simple insight cracks open other ways of measuring argument strength. In the essays on [Relevance and Acceptance](/relevance-and-acceptance) and [Necessity and Sufficiency](/necessity-and-sufficiency) I will define these measures and see how they all relate mathematically.
 
 ## Advantages of the Bayesian Perspective
 
@@ -61,7 +61,7 @@ These are all **objective** measures. And yet they measure what many people woul
 
 Like all models, the Bayesian model of subjective belief is an incomplete description of the human mind. But it is clearly defined. Building clear terminology on top of a clear model helps clarify our thinking, facilitate discussion, and sharpen our intuition about what argument actually is. My hope is that this can provide insights about argumentation for people working in artificial intelligence, law, tools for argument mapping and deliberation, or in our case, design of [social protocols](https://social-protocols.org).
 
-There is a lot of recent academic work on Bayesian argumentation[^1][^2]. These essay are intended not as an overview of current theory, but as an opinionated set of definitions and formulas that may be useful for practitioners. Our goal is to provide a useful and clear vocabulary, with common-sense but precise definitions for common concepts related to argument strength.
+There is a lot of recent academic work on Bayesian argumentation[^1][^2]. These essay are intended not as an overview of current theory, but as an opinionated set of definitions and formulas that may be useful for practitioners. My goal is to provide a useful and clear vocabulary, with common-sense but precise definitions for common concepts related to argument strength.
 
 ## Basic Argumentation Theory
 
@@ -90,7 +90,7 @@ An argument may be worded in such a way that the premise is unclear (sarcasm, et
 
 Since any logical combination of premises can be treated as a single premise, I will speak of an argument as **always having one (possibly compound) premise**. For example, the claim *BMWs are unreliable and overpriced* when used in an argument is treated as a single (compound) premise, even though it can be broken down into to distinct premises (e.g. *BMWs are unreliable* and *BMWs are overpriced*). 
 
-It is easy to confuse the term *claim* with the term *premise* or *conclusion* -- especially since different authors use these terms differently. In our model, a claim is any declarative statement that can be agreed with or disagreed with. A claim can also take the **role** of premise or conclusion in some argument. 
+It is easy to confuse the term *claim* with the term *premise* or *conclusion* -- especially since different authors use these terms differently. In this model, a claim is any declarative statement that can be agreed with or disagreed with. A claim can also take the **role** of premise or conclusion in some argument. 
 
 ### Reconciling Argumentation Theory with Bayesianism
 
@@ -105,9 +105,9 @@ This perspective allows us to take into account the subject's belief in the reli
 
 ## This Series
 
-In the [next essay](/relevance) in this series, I will formally define a measure of **relevance** from a Bayesian perspective and discuss some of its mathematical properties. In the remaining articles in this series I will define measures of **necessity**, **sufficiency**, **informativeness**, and **persuasiveness**, all of which relate back to this central concept of relevance. Finally, I will relate these concepts to the idea of **warrant** from the field of argumentation theory.
+In the [next essay](/relevance-and-acceptance) in this series, I will formally define a measure of **relevance** from a Bayesian perspective and discuss some of its mathematical properties. In the remaining articles in this series I will define measures of **necessity**, **sufficiency**, **informativeness**, and **persuasiveness**, all of which relate back to this central concept of relevance. Finally, I will relate these concepts to the idea of **warrant** from the field of argumentation theory.
 
-- [Relevance](/relevance)
+- [Relevance and Acceptance](/relevance-and-acceptance)
 - [Necessity and Sufficiency](/necessity-and-sufficiency)
 - [Informativeness and Persuasiveness](/informativeness-and-persuasiveness)
 - [Warrants and Corelevance](/warrants-and-corelevance)

@@ -18,7 +18,7 @@ canonical_url: https://jonathanwarden.com/necessity-and-sufficiency/
 
 ## Argument and Information
 
-In the [previous essay](/relevance) in this series, we introduced the idea of **relevance**, and said that a premise is relevant to the conclusion iff $P(A \vert B) > P(A \vert \bar{B})$.
+In the [previous essay](/relevance-and-acceptance) in this series, we introduced the idea of **relevance**, and said that a premise is relevant to the conclusion iff $P(A \vert B) > P(A \vert \bar{B})$.
 
 Consider the argument (𝐴) *this is a good candidate for the job* because (𝐵) *he has a pulse*. Having a pulse may not be a very **persuasive** reason to hire somebody, but it is probably quite **relevant**, because if the candidate did **not** have a pulse, the subject would probably be much less likely to want to hire him. That is $P(A \vert B) > P(A \vert \bar{B})$.
 
@@ -28,6 +28,8 @@ Why isn't 𝐵 *he has a pulse* persuasive to the subject? Because presumably, *
 
  <aside class="custom-aside" markdown="1">
 
+### Aside 
+
 To understand why only new information can change the beliefs of a Bayesian reasoner, consider the standard rule for Bayesian belief revision. When a Bayesian reasoner learns that 𝐵 is true, their posterior belief in the probability of 𝐴 is updated to equal what they previously believed the probability of 𝐴 **would be** if they believed 𝐵. Mathematically, the posterior belief, denoted $P'$, is updated according to the well-known formula for Bayesian belief revision:
 
 $$
@@ -35,8 +37,6 @@ $$
 $$
 
 But if 𝐵 is not new information -- that is, if the subject already believed that $P(B) = 1$, then they must necessarily have *already* updated their belief in $A$, so that the prior belief $P(A) = P(A \vert B)$. So the posterior $P'(A)$ and the prior $P(A)$ are both equal to $P(A \vert B)$. 
-
-On the other hand, if the subject had, for some reason, previously assumed that the candidate did *not* have a pulse, and then subsequently learned that he did, this discovery might considerably brighten the candidate's prospects. 
 
 </aside>
 

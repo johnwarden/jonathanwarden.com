@@ -1,13 +1,13 @@
 ---
 
 layout: single
-title:  "Relevance"
+title:  "Relevance and Acceptance"
 toc: true
 toc_sticky: true
 tags: ['Argumentation Theory']
 weight: 71
 series: ['Bayesian Argumentation']
-canonical_url: https://jonathanwarden.com/relevance/
+canonical_url: https://jonathanwarden.com/relevance-and-acceptance/
 aliases:
 - /relevance-and-corelevance/
 
@@ -16,7 +16,7 @@ aliases:
 
 ## Definition of Relevance
 
-In the [previous essay](/bayesian-argumentation) in this series, we introduced the basic ideas and terminology of Bayesian argumentation, including the terms **relevant** and **relevance**. In this essay I introduce a precise formula for measuring relevance.
+In the [previous essay](/bayesian-argumentation) in this series, we introduced the basic ideas and terminology of Bayesian argumentation, including the concept of **relevance**. In this essay I explore a precise mathematical definition of relevance and the related concept of **acceptance**.
 
 <!--more-->
 
@@ -94,7 +94,7 @@ proof
 -->
 
 
-### Acceptance of the Premise
+### Acceptance
 
 Now a Bayesian agent doesn't just accept or reject premises. In a Bayesian model all beliefs are probabilities. 
 
