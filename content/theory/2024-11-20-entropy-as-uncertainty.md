@@ -1,7 +1,7 @@
 ---
 
 layout: single  
-title: "Entropy as Uncertainty"  
+title: "Entropy as a Measure of Uncertainty"  
 toc: true  
 toc_sticky: true  
 weight: 49  
@@ -14,23 +14,27 @@ What is the most intuitive way to quantify uncertainty?
 
 Imagine a murder has been committed. We don't know who did it, so there's uncertainty. If there are only two people who could have done it (Colonel Mustard and Professor Plum), the uncertainty is limited. With ten possible suspects, the uncertainty increases. If there's only one person who could have done it, there's no uncertainty.  
 
-Thus, a straightforward way to quantify uncertainty is **the number of possibilities**.  
+Thus, a straightforward measure of uncertainty would be proportional to **the number of possibilities**.  
 
 This works well unless the possibilities aren't equally probable. For example, if there are two suspects but we're 95% sure it's Colonel Mustard, there's less uncertainty. If we are 99.9% sure, the uncertainty is even lower. If we are 100% sure, it's equivalent to having only one possibility -- no uncertainty. Even with ten possibilities, if one is 99.99% likely, uncertainty is minimal.  
 
-In general, **uncertainty increases with the number of possibilities** but **decreases as probabilities become more extreme**. Below, we'll see how these ideas are formalized in Shannon entropy.  
+So we want a measure of uncertainty that **increases with the number of possibilities** but **decreases as probabilities become more extreme**. 
+
+Below, we'll see how these criteria are met in the formula for Shannon entropy.  
 
 ## Multiplying Possibilities
 
-Consider scenarios with $n$ equally probable possibilities. If there are two suspects, there are two possibilities-worth of uncertainty.  
+Let's start by considering simple scenarios where there are $n$ equally probable possibilities. We'll measure entropy as **the number of possibilities**. If there are two murder suspects, there are two possibilities-worth of uncertainty. 
 
-Now, suppose the murder weapon is unknown, with two possibilities (the candlestick or the lead pipe). This adds another two possibilities-worth of uncertainty.  
+Now, suppose the murder weapon is unknown, but there are also two possibilities (the candlestick or the lead pipe). This adds another two possibilities-worth of uncertainty.  
 
 The total uncertainty isn't additive—it's multiplicative. There are $2 \times 2 = 4$ possible combinations of suspect and weapon, so the overall uncertainty is four possibilities.  
 
 ## Log Scale
 
-To make uncertainty additive, we use a logarithmic scale. The uncertainty about the suspect is $log(2) = 1$, and for the weapon, it's also $log(2) = 1$. The total uncertainty is $log(4)$, which equals $1 + 1$.  
+Now *intuitively*, it feels like uncertainty should be something we can "add up". And further, if there is only 1 possibility, it seems like uncertainty should be zero. Measuring uncertainty as the log of the number of possibilities aligns better with this intuition. 
+
+So the uncertainty about the suspect becomes $log(2) = 1$, and uncertainty about the weapon is also $log(2) = 1$. The total uncertainty is $log(2) + log(2) = log(4) = 2$.
 
 A log scale is especially useful when the number of possibilities is large. Suppose there are 1,000,000 suspects. Multiplying this by possibilities for weapons, motives, times of death, etc., can yield trillions of combinations.  
 
@@ -58,37 +62,43 @@ $$
 
 But what if the possibilities aren't equally probable?
 
-If possibility $i$ has probability $p_i$, the uncertainty for that possibility is $-log(p_i)$. This represents the information required to resolve that uncertainty.  
+If possibility $i$ has probability $p_i$, the uncertainty associated with that possibility is still $-log(p_i)$. 
 
-Why? If I know the correct possibility, I need on average $-log(p_i)$ bits to communicate it to you. Claude Shannon proved this in his seminal 1948 paper, "A Mathematical Theory of Communication," breaking open the field of information theory.
+And it turns out, this is also the number of bit of information I must provide to you to tell you that $i$ is the correct possibility. So I need more bits to communicate improbable values, and less bits to communicate probable values. 
 
-## Encoding
+But how does this work? We must have some sort of *encoding* scheme, that uses a *different number of bits* to encode different values.
 
-To understand why, suppose there are three possibilities: A (50%), B (25%), and C (25%). Before telling you which one it is, we come up with an efficient encoding scheme that minimizes the *expected* number of bits I need to communicate with you. We do this by assigning fewer bits to more probable cases:  
+In his seminal 1948 paper, "A Mathematical Theory of Communication," Claude Shannon proved that there always exists an efficient encoding scheme such that, on average, communicating a value with probability $p_i$ requires $-log(p_i)$ bits.
+
+## Variable-Length Encoding
+
+Suppose there are three possibilities: A (50%), B (25%), and C (25%). Before I find out which one it is, we come up with an efficient encoding scheme that minimizes the *expected* number of bits I need to communicate the correct value with you. We do this by assigning fewer bits to more probable cases:  
 
 - A: 0  
 - B: 10  
 - C: 11  
 
-If I send "0," you know it's A. If I send "1," you need another bit to distinguish B from C.  
+If I send "0," you know it's A. If I send "1," you need another bit to distinguish B from C.
 
-The bits required depend on the outcome: $1 = -log(0.50)$ for A, and $2 = -log(0.25)$ for B or C.  
+And sure enough, the number of bits required for each value is equal to the negative log of its probability: $1 = -log(0.50)$ for A, and $2 = -log(0.25)$ for B or C.
 
-The expected number of bits is:  
+The expected number of bits to communicate the correct value is:  
 
 $$
 0.50 \cdot 1 + 0.25 \cdot 2 + 0.25 \cdot 2 = 1.5
 $$
 
-Generalizing, the formula for expected uncertainty is:  
+Generalizing, this formula is:  
 
 $$
 \sum_{x \in \text{possibilities}} p(x) \cdot -log(p(x))
 $$
 
-Shannon proved this holds for any probability distribution.  
+Shannon called this measure *entropy*. It is a measure both of the number of bits required to specify a value, and the amount of uncertainty we have about that value.
 
-For equally probable possibilities ($p = 1/n$):  
+Shannon also proved this holds for any probability distribution.  
+
+For all possibilities are equally probable ($p = 1/n$), this reduces to:  
 
 $$
 \sum_{x} \frac{1}{n} \cdot -log\left(\frac{1}{n}\right) = log(n)
