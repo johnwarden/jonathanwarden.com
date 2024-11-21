@@ -8,7 +8,7 @@ weight: 49
 
 ---
 
-## Uncertainty as the Number of Possibilities
+## The Number of Possibilities
 
 What is the most intuitive way to quantify uncertainty?  
 
@@ -24,7 +24,7 @@ Below, we'll see how these criteria are met in the formula for Shannon entropy.
 
 ## Multiplying Possibilities
 
-Let's start by considering simple scenarios where there are $n$ equally probable possibilities. We'll measure entropy as **the number of possibilities**. If there are two murder suspects, there are two possibilities-worth of uncertainty. 
+Let's start by considering simple scenarios where there are $n$ equally probable possibilities. We'll measure entropy simply as the number of possibilities. If there are two murder suspects, there are two possibilities-worth of uncertainty. 
 
 Now, suppose the murder weapon is unknown, but there are also only two possibilities (the candlestick or the lead pipe). This adds another two possibilities-worth of uncertainty.  
 
@@ -34,9 +34,9 @@ The possibilities aren't additive -- they're multiplicative. There are $2 \times
 
 Now intuitively, it feels like uncertainty should be something we can "add up". And further, we have already said if there is only 1 possibility, uncertainty should be zero. Uncertainty measured as the log of the number of possibilities meets these criteria.
 
-So the uncertainty about the suspect becomes $log(2) = 1$, and uncertainty about the weapon is also $log(2) = 1$. The total uncertainty becomes $log(2) + log(2) = log(4) = 2$.
+So the uncertainty about the suspect becomes $log(2) = 1$, and uncertainty about the weapon also becomes $log(2) = 1$. The total uncertainty becomes $log(2) + log(2) = log(4) = 2$.
 
-A log scale is especially useful when the number of possibilities is large. Suppose there are 1,000,000 suspects. Multiplying this by possibilities for weapons, motives, times of death, etc., can yield trillions of combinations.  
+A log scale is especially useful when the number of possibilities is very large. Suppose there are 1,000,000 suspects. Multiplying this by the number of possibilities for weapons, motives, times of death, etc., can yield trillions of combinations.  
 
 If there are a trillion possibilities, instead of saying there's "1,000,000,000,000 possibilities-worth" of uncertainty, we say there are $log(1,000,000,000,000) = 39.86$ bits of uncertainty.  
 
@@ -63,7 +63,7 @@ But what if the possibilities aren't equally probable?
 
 If possibility $i$ has probability $p_i$, the uncertainty associated with that possibility is still $-log(p_i)$. 
 
-And it turns out, this is also the number of bits of information I must provide to you to tell you that $i$ is the correct possibility. For example, if $p_i=.25$, I need $-log(.25) = 4$ bits of information to communicate this value, no matter what the probabilities of the other values are. I need more bits to communicate improbable values, and less bits to communicate probable values. 
+And it turns out, this is also the number of bits of information I must provide to you to tell you that $i$ is the correct value. For example, if $p_i=.25$, I need $-log(.25) = 4$ bits of information to communicate this value, no matter what the probabilities of the other values are. I need more bits to communicate improbable values, and less bits to communicate probable values. 
 
 But how does this work? We must have some sort of *encoding* scheme, that uses a *different number of bits* to encode different values.
 
@@ -71,7 +71,7 @@ In his seminal 1948 paper, "A Mathematical Theory of Communication," Claude Shan
 
 ## Variable-Length Encoding
 
-Suppose there are three possibilities: A (50%), B (25%), and C (25%). Before I find out which one it is, we come up with an efficient encoding scheme that minimizes the *expected* number of bits I need to communicate it to you. We do this by assigning fewer bits to more probable possibilities:  
+Suppose there are three possible values: A (50%), B (25%), and C (25%). After I find out which is the correct value, I want to communicate it to you efficiently. So we come up with an efficient encoding scheme that minimizes the *expected* number of bits I need to communicate it to you. We do this by assigning fewer bits to more probable possibilities:  
 
 - A: 0  
 - B: 10  
@@ -105,6 +105,6 @@ $$
 
 ## Conclusion
 
-Shannon entropy generalizes a measure of uncertainty as the log of the number of possibilities. Information corresponds to the bits needed to eliminate uncertainty by specifying which is the correct possibility.  
+Shannon entropy generalizes a measure of uncertainty as the log of the number of possibilities. Information corresponds to the bits needed to eliminate uncertainty by specifying which is the correct value.  
 
-In the special case of equal probabilities, entropy simplifies to $log(n)$. For unequal probabilities, Shannon's entropy calculates the average bits needed to identify the correct possibility using the most efficient encoding scheme.  
+In the special case of equal probabilities, entropy simplifies to $log(n)$. For unequal probabilities, Shannon's entropy calculates the average bits needed to identify the correct value using the most efficient encoding scheme.  
