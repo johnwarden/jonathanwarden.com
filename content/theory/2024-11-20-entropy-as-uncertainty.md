@@ -100,7 +100,7 @@ Shannon also proved this holds for any probability distribution.
 For the special case where all possibilities are equally probable ($p = 1/n$), this reduces to:  
 
 $$
-\sum_{x} \frac{1}{n} \cdot -log\left(\frac{1}{n}\right) = log(n)
+\sum \frac{1}{n} \cdot -log\left(\frac{1}{n}\right) = n ⋅ \frac{1}{n} ⋅ log(n) = log(n)
 $$
 
 ## Conclusion
