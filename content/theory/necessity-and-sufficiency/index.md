@@ -67,25 +67,33 @@ So the effect of learning that the premise is true or false depends on the subje
 
 If the subject already accepts the premise and conclusion, and they wouldn't accept the conclusion if they didn't accept the premise, then the premise is **necessary**. If the subject does not already accept the premise or the conclusion, but they would accept the conclusion if they did accept the premise, then the premise is **sufficient**.
 
-### Examples: Necessary but not Sufficient:
+### Examples: Necessary but not Sufficient
 
-Consider the following examples. You probably agree that these premises all seem like they should be necessary but not sufficient.
+Consider the following examples. 
 
 - *This is a good candidate* **because** *he has a pulse*.
 - *Tweety can fly* **because** *he has wings*.
 - *My car will start* **because** *it has a battery*.
 
-Notice also that these premises all seem, *a priori*, probable, and that is why the conclusions seem *a priori* probable. Knowing nothing about Tweety except his name, you are probably not surprised that he is a bird, and that's why you aren't surprised that Tweety can fly. If you rejected the premise that Tweety was a bird, you would likely reject the conclusion that he can fly. So the premise is necessary.
+You probably agree that these premises all seem like they *should* be necessary to the conclusion. A good candidate really needs to have a pulse.
 
-### Examples: Sufficient but not Necessary:
+You probably also agree that these premises all seem like they should not be *sufficient*. A good candidate needs more than a pulse.
 
-For the following examples, you probably agree that the premises all seem like they should be (fairly) sufficient for the conclusion, but not necessary. 
+Notice also that these premises all seem, *a priori*, plausible. Knowing nothing about the candidate, you are probably not surprised that he has a pulse.
 
-- *This is not a good candidate* **because** *he doesn't have a pulse*.
-- *John can fly* **because** *John is a bird*.
+### Examples: Sufficient but not Necessary
+
+Now consider the following examples:
+
+- *This is a bad candidate* **because** *he doesn't have a pulse*.
+- *Sam can fly* **because** *Sam is an eagle*.
 - *The world will end next year* **because** *it will be hit by a giant asteroid*.
 
-Notice also that these premises all seem, *a priori*, improbable, or surprising, and that is why the conclusions seem *a priori* improbable. Knowing nothing about John except his name, you probably didn't expect him to be a bird, and that's why you didn't expect him to be able to fly. But if you accept the premise that John is a bird, it is easy to accept the conclusion that he can fly. So the premise is sufficient.
+You probably agree that the premises all seem like they should be sufficient for the conclusion. Knowing that Sam is an eagle is sufficient to make you think that Sam can likely fly. 
+
+You probably also agree that the premises aren't really *necessary* to the conclusion. Sam could also be a canary, or a superhero, etc.
+
+Notice also that these premises all seem, *a priori*, improbable, or surprising, and as a consequence conclusions seem *a priori* improbable. Knowing nothing about Sam except his name, you probably didn't expect him to be an eagle.
 
 ## Partial Acceptance of the Premise
 

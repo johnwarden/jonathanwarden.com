@@ -71,7 +71,7 @@ In his seminal 1948 paper, "A Mathematical Theory of Communication," Claude Shan
 
 ## Variable-Length Encoding
 
-Suppose there are three possible values: A (50%), B (25%), and C (25%). After I find out which is the correct value, I want to communicate it to you efficiently. So we come up with an efficient encoding scheme that minimizes the *expected* number of bits I need to communicate it to you. We do this by assigning fewer bits to more probable possibilities:  
+Suppose there are three possible values: A (50%), B (25%), and C (25%). After I find out which is the correct value, I want to communicate it to you efficiently. So we come up with an encoding scheme that minimizes the *expected* number of bits I need to communicate it to you. We do this by assigning fewer bits to more probable possibilities:  
 
 - A: 0  
 - B: 10  

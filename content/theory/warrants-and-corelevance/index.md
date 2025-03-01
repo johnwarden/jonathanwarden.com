@@ -11,7 +11,7 @@ canonical_url: https://jonathanwarden.com/warrants-and-corelevance/
 
 ---
 
-This is the final article in my series on Bayesian Argumentation. To understand this essay, read the [introductory article](/bayesian-argumentation) for definition of key concepts and terminology.
+This is the final article in my series on Bayesian Argumentation. To understand this essay, read the [introductory article](/bayesian-argumentation) and the article on [Relevance and Acceptance] (/relevance-and-acceptance).
 
 ## Relevance is Not Absolute
 

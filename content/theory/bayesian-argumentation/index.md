@@ -39,7 +39,7 @@ To anyone with common sense, this argument is probably:
 - not **informative**, because *he has a pulse* is probably not new information to the subject.
 - clearly **relevant**, because:
     - If the subject learned that the subject did *not* have a pulse, this would be **sufficient** to reject him as a candidate.
-    - Alternatively, the belief that he probably has a pulse is **necessary** for the belief that he might be a good candidate.
+    - Alternatively, the belief that he probably has a pulse is **necessary** for him to be a good candidate.
 
 The Bayesian model of argumentation allows us to define precise measurements of all the above concepts.
 
@@ -51,9 +51,9 @@ The beliefs of a Bayesian agent, which I will refer to as a **subject**, can be 
 
 ## Objective Measures of Argument Strength
 
-Clearly, if an argument changes the subject's beliefs about something, it is **persuasive**. However, this can't be the only measure of a good argument, because once the subject already knows something, the argument is no longer persuasive! If I argue *you should wear a seat belt* because *seat belts save lives*, that is not going to change my beliefs because I already know seat belts save lives! Only *new* information can change a Bayesian agent's beliefs. 
+Clearly, if an argument changes the subject's beliefs about something, it is **persuasive**. However, this can't be the only measure of a good argument, because once the subject already knows something, the argument is no longer persuasive! If you argue *you should wear a seat belt* because *seat belts save lives*, that is not going to change my beliefs because I already know seat belts save lives! Only *new* information can change a Bayesian agent's beliefs. 
 
-But clearly, in another sense, this is still a good argument even if it doesn't change my mind. Fortunately the Bayesian model tells us not just what the subject believes, but what they **would** believe if they had different information. This simple insight cracks open other ways of measuring argument strength. In the essays on [Relevance and Acceptance](/relevance-and-acceptance) and [Necessity and Sufficiency](/necessity-and-sufficiency) I will define these measures and see how they all relate mathematically.
+But clearly, in another sense, saving lives is a good argument for wearing seatbelts, even if hearing it doesn't change my mind. Fortunately the Bayesian model tells us not just what the subject believes, but what they **would** believe if they had different information. This simple insight cracks open other ways of measuring argument strength. In the essays on [Relevance and Acceptance](/relevance-and-acceptance) and [Necessity and Sufficiency](/necessity-and-sufficiency) I will define these measures and see how they all relate mathematically.
 
 ## Advantages of the Bayesian Perspective
 
@@ -61,17 +61,20 @@ These are all **objective** measures. And yet they measure what many people woul
 
 Like all models, the Bayesian model of subjective belief is an incomplete description of the human mind. But it is clearly defined. Building clear terminology on top of a clear model helps clarify our thinking, facilitate discussion, and sharpen our intuition about what argument actually is. My hope is that this can provide insights about argumentation for people working in artificial intelligence, law, tools for argument mapping and deliberation, or in our case, design of [social protocols](https://social-protocols.org).
 
-There is a lot of recent academic work on Bayesian argumentation[^1][^2]. These essay are intended not as an overview of current theory, but as an opinionated set of definitions and formulas that may be useful for practitioners. My goal is to provide a useful and clear vocabulary, with common-sense but precise definitions for common concepts related to argument strength.
+There is a lot of recent academic work on Bayesian argumentation[^1][^2]. These essay are intended not as an overview of current theory, but as an opinionated set of definitions and measures of argument strength that may be useful for practitioners.
+
 
 ## Basic Argumentation Theory
 
-To define these measure of argument strength, I will start by defining some basic terminology from the field of argumentation theory.
+To define these measure of argument strength, I will start by briefly defining some basic terminology and concepts from argumentation theory.
 
 Argumentation theory views argument as a kind of flexible, informal logic. People don't argue with logical syllogisms -- instead they make simple statements, or **claims**, meant to support or oppose other claims. 
 
 ### Claims
 
-A **claim** is a declarative sentence that people can accept or reject (agree with or disagree with). This definition is broad enough to include not only **descriptive** or **empirical** claims about reality, such as *the universe is expanding*  (what *is*), but also **normative** claims about goals, such as *we should go to the beach* (what *should be*).
+A **claim** is a declarative statement that people can accept or reject (agree with or disagree with). 
+
+This definition is broad enough to include not only **descriptive** (or **empirical**) claims about the world, such as *the universe is expanding*, but also **normative** claims about the way things **should be**, such as *we should go to the beach*. 
 
 ### Arguments
 
@@ -82,7 +85,7 @@ In argument involves two claims:
 
 For example, I might assert the premise *people are wearing jackets* to support the conclusion *it's cold outside*. 
 
-There is also a third, unstated claim called the **warrant**. I will discuss this in the last article of this series, but it's not an important concept for us now.
+There is also a third, unstated claim called the **warrant**, which I will discuss this in the last article of this series.
 
 ### Premise and Conclusion
 
