@@ -2,7 +2,8 @@ baseurl: https://jonathanwarden.com/
 languageCode: en-us
 theme: hugo-theme-stack
 # theme: luizdepra/hugo-coder
-paginate: 20
+pagination: 
+    pagerSize: 20
 # title: Jonathan Warden
 title: Jonathan Warden's Blog
 
