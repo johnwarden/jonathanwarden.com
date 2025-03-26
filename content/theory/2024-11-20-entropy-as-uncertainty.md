@@ -66,46 +66,57 @@ If there are a trillion possible outcomes, instead of saying there's "1,000,000,
 
 Suppose I know who the murderer is, and you've narrowed it down to two suspects. How many bits of information do I need to provide to tell you who did it? Just one. I need to provide you with a second bit of information to tell you what the murder weapon is. Resolving your two bits of uncertainty requires a total of two bits of information from me. "Uncertainty" and "information" are two sides of the same coin. 
 
-So every time you receive a byte of information, you can look at it this way. Initially there are $2^8 = 256$ possible values for that byte. So your uncertainty is $log(256) = 8~bits$. When you find out the value of the first bit, you have cut the number of possible outcomes in half to $2^7 = 128$. Which means uncertainty is now $log(128) = 7~bits$. So each bit of information resolves 1 bit of uncertainty. 
+So every time you receive a byte of information, you can look at it this way. Initially there are $2^8 = 256$ possible values for that byte. So your uncertainty is $log(256) = 8$ bits. When you find out the value of the first bit, you have cut the number of possible outcomes in half to $2^7 = 128$. Which means uncertainty is now $log(128) = 7$ bits. So each bit of information resolves 1 bit of uncertainty. 
 
-## Unequal Probabilities
+### Key Concepts: Equally Probable Outcomes
 
-If there are $n$ equally probable outcomes, each has a probability $p = \frac{1}{n}$, and the uncertainty is:  
+When there are $n$ equally probable outcomes:
+
+- The probability of each outcome is $p = \frac{1}{n}$
+- The number of bits required to communicate the actual outcome is:
+	 $$
+		\begin{aligned}
+		 	&  && log(n) \newline
+		 	&= ~&&log(\frac{1}{p_i}) \newline
+		 	&= -&&log(p_i)
+		\end{aligned}
+	 $$
+
+And entropy can be thought of as both a *measure of uncertainty* about an outcome, and the number of bits of information required to resolve all uncertainty. They are the same thing.
+
+## Uncertainty for Unequal Probabilities
+
+Now let's go back to the question of how to measure uncertainty when outcomes are not equally probable.
+
+Previously we said that our measure of uncertainty should approach zero as the probability of one of the possible outcomes approaches 100%. So we could just use $1 - p_i$, where $p_i$ is the most probable outcome.
+
+But suppose there are two possible outcomes, each with a 50% probability. We already said that uncertainty in this case is $log(2) = -log(.5)$. 
+
+So why not use $-log(p_i)$, where $p_i$ is the most probable outcome. This checks two boxes: it is equal to $log(2)=1$ when $p_i$ equals 50%, and approaches zero as $p_i$ approaches 100%. 
+
+But if there are more than two possible outcomes, just looking at the most probable outcome ignores some information. What about using a weighted average over all possible outcomes?
+
+## Entropu as 
+
+But it turns out that the *probability-weighted average* of $-log(p_i)$ *still* approach zero if any of the probabilities approaches 100%. 
+
+This gives us the following measure of uncertainty:
 
 $$
-log(1/p) = -log(p)
+\sum_{x \in \text{possible outcomes}} p(x) \cdot -log(p(x))
 $$
 
-But what if the possible outcomes aren't equally probable?
+This metric is called **entropy**. And it's actually a generalization of the formula for the case of $n$ equally probable outcomes ($p_i = \frac{1}{n}$ for all $i$):
 
-Well it turns out, if possible outcome $i$ has probability $p_i$, we still say that the uncertainty associated with that possible outcome $-log(p_i)$. That's because this is the number of bits of information I must provide to you to tell you that $i$ is the correct value. 
+$$
+\sum \frac{1}{n} \cdot -log\left(\frac{1}{n}\right) = n ⋅ \frac{1}{n} ⋅ log(n) = log(n)
+$$
 
-To understand why this is so, I will need to explain the concept of variable-length encoding. But first, let's review review the important concepts introduced so far.
+## Encoding for Unequal Probabilities
 
-### Key Concepts
+And it turns out, this generalized formula also gives us the number of bits required to communicate the actual outcome even when outcomes are not all equally probable.
 
-- For the specific case when there are $n$ equally probable outcomes:
-	- The probability of each outcome is $p = \frac{1}{n}$
-	- The number of bits required to communicate the actual outcome is:
-		 $$
-			\begin{aligned}
-			 	&  && log(n) \newline
-			 	&= ~&&log(1/p_i) \newline
-			 	&= -&&log(p_i)
-			\end{aligned}
-		 $$
-- For the general case where outcomes are not equally probable:
-	- The number of bits required to communicate that the actual outcome is possibility $i$ is still:
-		$$
-			-log(p_i)
-		$$
-
-
-## Variable-Length Encoding
-
-Is a probability gets smaller, its negative log gets bigger. So it takes more bits to communicate improbable values. What exactly does this mean?
-
-If we come up with some sort of *encoding* scheme for me to communicate values to you, we'll need to assign each possible value to a sequence of bits. If there are 256 equally probable values, then we'll use 8 bits to encode each value. But when the values aren't equally probable, we'll use a *different number of bits* to encode different values, and the most **efficient** encoding scheme (the one that minimizes the expected number of bits) will use more bits for less probable values.
+To communicate the actual outcome to you, we need to come up with some sort of *encoding* scheme beforehand. To do this we assign each possible value to a sequence of bits. Although we can use exactly log(n) bits when there are n equally probable, when the values aren't equally probable, we'll use a *different number of bits* to encode each value values.
 
 Suppose there are three possible values: A (50%), B (25%), and C (25%). I want to communicate the correct value to you efficiently. The most efficient encoding scheme is:  
 
@@ -115,11 +126,11 @@ Suppose there are three possible values: A (50%), B (25%), and C (25%). I want t
 
 If I send "0," you know it's A. If I send "1," you will wait for the next bit, which will tell you whether it is B or C.
 
-And sure enough, the number of bits required for each value is equal to the negative log of its probability: $-log(0.50) = 1$ bit for A, and $-log(0.25) = 2$ bits for either B or C.
+We'll find that the number of bits required for each value is equal to the negative log of its probability: $-log(0.50) = 1$ bit for A, and $-log(0.25) = 2$ bits for either B or C.
 
 And in his seminal 1948 paper, "A Mathematical Theory of Communication," Claude Shannon proved that there always exists an efficient encoding where communicating a value with probability $p_i$ requires $-log(p_i)$ bits.
 
-## Definition Entropy
+## Entropy: Expected Value
 
 In the example encoding scheme above, the expected number of bits to communicate the correct value is:  
 
