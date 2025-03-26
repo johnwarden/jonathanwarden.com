@@ -4,7 +4,7 @@ slug: victims-villains-heroes
 image: assets/images/124636-123393.jpg
 date: "2017-04-29T18:56:00-05:00"
 tags: ["Social Epistemology"]
-weight: 1
+weight: 10
 aliases:
 - /2017/04/29/victims-villains-heroes-righteous-outrage-and-political-power/
 - /victims-villains-heroes-righteous-outrage-and-political-power
