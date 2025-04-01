@@ -30,7 +30,10 @@ The algorithm uses Matrix Factorization to find a latent factor that best explai
         ↗    |
       ✕ ✕   -1
 
-Now the algorithm will do the opposite of what we probably want: it will favor posts that get upvoted regardless of user expertise. If the forum was already populated by a majority of experts, and a minority of uninformed quacks promoting baseless claims, then informed posts would have had the advantage. The algorithm would just take this advantage away.
+
+Unfortunately, the intercept is zero, and so it will get a low "helpfulness" score. 
+
+So the algorithm will favor posts that get upvoted *regardless of user expertise*. This is clearly not what we want. 
 
 In fact, this points to a strategy for attacking the Community Notes algorithm. An attacker trying to break Community Notes using a lot of sockpuppet accounts won't succeed just by upvoting notes that support some political agenda. As explained in the last post, [the intercept is not the average](/understanding-community-notes/#the-intercept-is-not-the-average), downvotes will not shift the intercept for a post if the Matrix Factorization can "explain" these downvotes by the polarity factors of the users.
 
@@ -47,9 +50,7 @@ Instead, the attacker should *downvote helpful posts and upvote unhelpful posts,
       ✕ ✕   -1
 
 
-The algorithm doesn't know that the latent factor it has discovered corresponds to user helpfulness. It assumes that it corresponds to polarity. The result would be disastrous, because the algorithm will nullify the effect of Helpfulness and favor posts would be most upvoted if helpfulness were not a factor. And which posts might these be? Well in Community Notes, the factor that most predicts how users vote, after helpfulness, is...politics! 
-
-So then what would the intercept be? A positive intercept means a post gets a lot of upvotes after adjusting for helpfulness. Since community notes users seem to lean to the right, right-wing posts will have a positive intercept and left-wing posts will have a negative intercept. This is definitely not the desired result.
+The algorithm doesn't know that the latent factor it has discovered corresponds to user helpfulness. It assumes that it corresponds to polarity. The result would be disastrous, because the algorithm will nullify the effect of Helpfulness and favor posts would be most upvoted if helpfulness were not a factor. And which posts might these be? Well in Community Notes, the factor that most predicts how users vote, after helpfulness, is...political bias! This is definitely not the desired result.
 
 
 ## Two-Dimensional Matrix Factorization

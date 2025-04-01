@@ -54,7 +54,7 @@ To get an idea of what notes are "helpful", I include a section with [example no
 
 ### Why it Works
 
-People are politically biased, but they have other tendencies, such as the tendency to upvote interesting, accurate, entertaining, or helpful information. They may mostly upvote things that support their political perspective but they will **especially** upvote things that support their perspective and are actually relevant and factually accurate. And they will tend to downvote notes that support opposing perspectives, but will downvote even more zealously when those notes use false or misleading information.
+People are politically biased, but they have other tendencies, such as the tendency to upvote interesting, accurate, entertaining, or helpful information. They may mostly upvote things that support their political perspective but they will **especially** upvote things that support their perspective **and** are actually relevant and factually accurate. And they will tend to downvote notes that support opposing perspectives, but will downvote even more zealously when those notes use false or misleading information.
 
 When the Community Notes algorithm dissects users voting behavior and factors out the polarity component, it finds that **most users are at least somewhat "biased" towards helpfulness**! You can see this in the plot of a sample of Community Notes users below. 
 
