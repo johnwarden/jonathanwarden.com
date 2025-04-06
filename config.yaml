@@ -189,6 +189,8 @@ module:
     target: content
   - source: content/social-protocols
     target: content/social-protocols
+  - source: syndication-sources/social-protocols/content/articles/what-is-a-social-protocol
+    target: content/social-protocols/what-is-a-social-protocol
   - source: syndication-sources/social-protocols/content/articles/deliberative-consensus-protocols
     target: content/social-protocols/deliberative-consensus-protocols
   - source: syndication-sources/social-protocols/content/articles/give-truth-the-advantage
