@@ -13,21 +13,21 @@ aliases:
 
 ## Measuring Uncertainty
 
-How do you measure *uncertainty*?
+How do you measure **uncertainty**?
 
 That may seem like an odd question, but let's just dive right into it, because it leads us down an interesting path to the definition of **entropy**.
 
 ### I'm 99% Certain
 
-We can start with one common way people express *certainty*. I might say "I'm 99% certain it will rain today". This, of course, implies that I'm 1% *uncertain*.
+We can start with one common way people express *certainty*. You might say "I'm 99% certain it will rain today". This, of course, implies that you're 1% *uncertain*.
 
-On the other hand, if I say "I'm 50% certain it will rain", then I'm 50% uncertain.
+On the other hand, if you say "I'm 50% certain it will rain", then you're 50% uncertain.
 
 So one obvious definition of uncertainty is the opposite of certainty, or $1 - \text{certainty}$.
 
 Of course, how do you define certainty? If you are 99% certain that it will rain, then you are 1% certain it won't rain! So are you certain or uncertain?
 
-You are in fact certain. If you are 99% sure that *anything* will happen, you are pretty certain. If you think there's a 40% chance that it will rain, then you are actually 60% certain it will *not* rain! To handle this, let's measure uncertainty as the probability of the *most probable outcome*. That means certainty can't go lower than 50%, when something is just as likely to happen as not.
+You are in fact certain. If you are 99% sure that *anything* will happen, you are pretty certain. If you think there's a 20% chance that it will rain, then you are actually 80% certain it will *not* rain! So you're still pretty certain. So if there are just two possibilities, it makes sense to measure uncertainty as *most probable* of the two. That means certainty can't go lower than 50%, when something is just as likely to happen as not.
 
 So a first crack at a definition of certainty might simply be:
 
@@ -99,7 +99,7 @@ If we take the log of our metric, we get something known in information theory a
 **Definition 4: Surprisal**
 
 $$
-  \text{surprisal} = log\left(\frac{1}{p}\right) = -log(p)
+  \text{surprisal} = \log\left(\frac{1}{p}\right) = -\log(p)
 $$
 
 We can use any base, but I will use base 2 for this article.
@@ -110,11 +110,11 @@ There are a couple of benefits to measuring uncertainty on a log scale.
 
 First, because when there is only **one** possible outcome, it seems intuitive that uncertainty should be zero. And sure enough, $log(1) = 0$!
 
-Second, uncertainty should be something we can "add up". For example, going back to our murder mystery, suppose there are two equally-probable murder suspects. Uncertainty, measured as surprisal, is $log(2) = 1$.
+Second, working with logs can make the math easier.
 
-And suppose there are four possible murder weapons. That means the uncertainty about the murder weapon is $log(4) = 2$.
+For example, going back to our murder mystery, suppose there are two equally-probable murder suspects. Uncertainty, measured as surprisal, is $log(2) = 1$. And suppose there are four possible murder weapons. That means the uncertainty about the murder weapon is $log(4) = 2$.
 
-To get the total number of **possibilities**, we need to count the number of culprit-weapon **combinations** (Professor **Plum** with the lead pipe, etc). This means we need to multiply:
+To get the total number of **possibilities**, we need to count the number of culprit-weapon **combinations** (Professor Plum with the lead pipe, etc). This means we need to multiply:
 
 $$
   n = 2 \times 4 = 8
@@ -142,17 +142,17 @@ If there are a trillion possible outcomes, instead of saying there's "1,000,000,
 >
 > -- Claude Shannon
 
-Suppose I know who the murderer is. But you don't -- for you there are still two possibilities. How many bits of information do I need to provide to you to tell you who did it? Just one. I might send you a "1" for Professor Plum and "0" for Colonel Mustard. I need to give you 1 bit of information to resolve your 1 bit of uncertainty about the murderer.
+Suppose I know who the murderer is. But you don't -- for you there are still two possibilities. How many bits of information do I need to provide to you to tell you who did it? Just one. I might send you a "1" for Professor Plum and "0" for Colonel Mustard for example. I need to give you 1 bit of information to resolve your 1 bit of uncertainty about the murderer.
 
 How many bits do I need to tell you who the murder weapon is? We said above there are four possibilities, and a 2-bit number can encode four possibilities. So again, I need to provide 2 bits of information to resolve your 2 bits of uncertainty about the weapon.
 
 "Uncertainty" and "information" are two sides of the same coin.
 
-So every time you receive one bit of information, you can look at it as resolving one bit of uncertainty. For example, suppose I am sending you a byte of information, one bit at a time. Initially there are $2^8 = 256$ possible values for that byte. So your uncertainty is $log(256) = 8$ bits. When you find out the value of the first bit, you have cut the number of possible outcomes in half to $2^7 = 128$, which means uncertainty is now $log(128) = 7$ bits. Another 7 more bits eliminates the remaining 7 bits of uncertainty.
+So every time you receive one bit of information, you can look at it as resolving one bit of uncertainty. For example, suppose I am sending you a byte of information, one bit at a time. Initially there are $2^8 = 256$ possible values for that byte. So your uncertainty is $log(256) = 8$ bits. When you find out the value of the first bit, you have cut the number of possible outcomes in half to $2^7 = 128$, which means uncertainty is now $log(128) = 7$ bits. Another 7 bits eliminates the remaining 7 bits of uncertainty.
 
 ## Uncertainty for Unequal Probabilities
 
-If there are more than two possible outcomes, using the surprisal of the most probable outcome is actually a pretty good *approximation* of uncertainty. But it's not quite right. Say the most probable outcome is 60%. If there is only **one** other possible outcome, then there is much less uncertainty than if there were **ten** more possible outcomes.
+If there are more than two possible outcomes, using the surprisal of the most probable outcome doesn't quite work. Say the most probable outcome is 60%. If there is only **one** other possible outcome, then there is much less uncertainty than if there were **ten** more possible outcomes.
 
 So what if we used a **weighted average**? Instead of using only the surprisal of the most probable outcome, we took the surprisal of all possible outcomes, weighted by their probability?
 
@@ -163,29 +163,32 @@ This gives us the following measure of uncertainty:
 **Definition 5: Shannon Entropy**
 
 $$
-H(X) = \sum_{x \in \text{possible outcomes}} p(x) \cdot \text{surprisal}(x) = \sum_{x \in \text{possible outcomes}} p(x) \cdot log\left(\frac{1}{p(x)}\right)
+\begin{aligned}
+H(X) &= \sum_{x} p(x) \cdot \text{surprisal}(x) \cr
+     &= \sum_{x} p(x) \cdot \log\left(\frac{1}{p(x)}\right)
+\end{aligned}
 $$
 
 Tada! This is the definition of **Shannon entropy** (often denoted $H(X)$ for a random variable $X$).
 
-If all $n$ outcomes are equally probable, then $p(x) = \frac{1}{n}$ for all $x$. It's easy to see that this just reduces to $log(n)$:
+If all $n$ outcomes are equally probable, then $p(x) = \frac{1}{n}$ for all $x$, which case this just reduces to $\log(n)$:
 
 $$
 \begin{aligned}
 H(X) 
 &= 
-\sum_{x ∈ \text{possible outcomes}} x \cdot p(x) \cdot log\left(\frac{1}{p(x)}\right) \cr
-&= \sum_{x ∈ \text{possible outcomes}} p(x) \frac{1}{n} \cdot log(n) \cr
-&= n \cdot \left( \frac{1}{n} \cdot log(n) \right) \cr
-&= log(n)
+\sum_{x} p(x) \cdot \log\left(\frac{1}{p(x)}\right) \cr
+&= \sum_{x} \frac{1}{n} \cdot \log(n) \cr
+&= n \cdot \left( \frac{1}{n} \cdot \log(n) \right) \cr
+&= \log(n)
 \end{aligned}
 $$
 
-Now we said that the number of bits of uncertainty should be equal to the number of bits required to resolve that uncertainty. And it turns out, this formula gives us exactly that. And in his seminal 1948 paper, "A Mathematical Theory of Communication," Claude Shannon proved that there always exists an efficient **encoding scheme** where communicating the actual outcome requires, on average, a number of bits equal to the entropy.
+Now we said that the number of bits of uncertainty should be equal to the number of bits required to resolve that uncertainty. And it turns out, the entropy formula tells us exactly that. And in his seminal 1948 paper, "A Mathematical Theory of Communication," Claude Shannon proved that there always exists an efficient **encoding scheme** where communicating the actual outcome requires, on average, a number of bits equal to the entropy.
 
 ## Encoding for Unequal Probabilities
 
-To resolve your uncertainty about the actual outcome, I need to communicate the actual outcome to you. To do this we need to come up with some sort of *encoding* scheme beforehand, by assigning each possible outcome to a sequence of bits. Although we can use exactly $log(n)$ bits when there are $n$ equally probable outcomes, when the outcomes aren't equally probable, we'll use a *different number of bits* to encode different outcomes.
+To resolve your uncertainty about the actual outcome, I need to communicate the actual outcome to you. To do this we need to come up with some sort of encoding scheme beforehand, by assigning each possible outcome to a sequence of bits. Although we can use exactly $\log(n)$ bits when there are $n$ equally probable outcomes, when the outcomes aren't equally probable, we'll use a *different number of bits* to encode different outcomes.
 
 Suppose there are three possible outcomes: A (50%), B (25%), and C (25%). I want to communicate the actual outcome to you efficiently. The most efficient encoding scheme is:
 
@@ -202,8 +205,8 @@ The expected number of bits to communicate the actual outcome is the **Shannon e
 $$
 \begin{aligned}
     &= 0.50 \cdot (\text{bits for A}) + 0.25 \cdot (\text{bits for B}) + 0.25 \cdot (\text{bits for C}) \cr
-    &= H = \sum_{x ∈ \text{possible outcomes}} p(x) \cdot log\left(\frac{1}{p(x)}\right)\cr
-    &= 0.50 \cdot log(\frac{1}{0.50}) + 0.25 \cdot log(\frac{1}{0.25}) + 0.25 \cdot log(\frac{1}{0.25}) \cr
+    &= H = \sum_{x} p(x) \cdot \log\left(\frac{1}{p(x)}\right)\cr
+    &= 0.50 \cdot \log(\frac{1}{0.50}) + 0.25 \cdot \log(\frac{1}{0.25}) + 0.25 \cdot \log(\frac{1}{0.25}) \cr
     &= 0.50 ⋅ (1) + 0.25 \cdot (2) + 0.25 \cdot (2) \cr
     &= 0.5 + 0.5 + 0.5 \cr
     &= 1.5 \text{ bits}
