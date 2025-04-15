@@ -1,14 +1,14 @@
 ---
-title: "Multi-Factor Community Notes"
-slug: multifactor-community-notes
+title: "Multidimensional Community Notes"
+slug: multidimensional-community-notes
 weight: 5
 date: "2024-01-05"
 math: true
 image: 3d-plot-static.jpg
-canonical_url: https://jonathanwarden.com/multifactor-community-notes
+canonical_url: https://jonathanwarden.com/multidimensional-community-notes
 aliases:
 - /improving-bridge-based-ranking/
-- /multidimensional-community-notes/
+- /multifactor-community-notes/
 ---
 
 ## Introduction
