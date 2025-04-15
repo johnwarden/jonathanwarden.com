@@ -27,7 +27,7 @@ So one obvious definition of uncertainty is the opposite of certainty, or $1 - \
 
 Of course, how do you define certainty? If you are 99% certain that it will rain, then you are 1% certain it won't rain! So are you certain or uncertain?
 
-You are in fact certain. If you are 99% sure that *anything* will happen, your pretty certain. If you think there's a 40% chance that it will rain, then you are actually 60% certain it will *not* rain! Certainty should be measured as the probability of the *most probable outcome*. That means certainty can't go lower than 50%.
+You are in fact certain. If you are 99% sure that *anything* will happen, you are pretty certain. If you think there's a 40% chance that it will rain, then you are actually 60% certain it will *not* rain! To handle this, let's measure uncertainty as the probability of the *most probable outcome*. That means certainty can't go lower than 50%, when something is just as likely to happen as not.
 
 So a first crack at a definition of certainty might simply be:
 
@@ -41,7 +41,7 @@ Where $p$ is the probability of the most probable outcome. The maximum possible 
 
 ## The Number of Possibilities
 
-Now what if there is more than **one** possibility? Imagine a murder has been committed. We don't know who did it, so there's uncertainty. If there are only **two** people who could have done it (say, Colonel Mustard and Professor Plum) then uncertainty is not very high. With **ten** possible suspects the uncertainty increases. On the other hand if there's only one person who could have done it then there's no uncertainty at all.
+Now what if there is more than **one** possibility? Imagine a murder has been committed. We don't know who did it, so there's uncertainty. If there are only **two** people who could have done it (say, Colonel Mustard and Professor Plum) then uncertainty is not very high. With **ten** possible suspects the uncertainty increases. On the other hand if there's only **one** person who could have done it then there's no uncertainty at all.
 
 So another straightforward measure of uncertainty might be **the number of possibilities**. Or to use the conventional terminology of probability theory, the number of **possible outcomes**.
 
