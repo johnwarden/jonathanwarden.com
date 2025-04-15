@@ -2,9 +2,12 @@
 
 layout: single
 title: "Entropy as a Measure of Uncertainty"
+slug: entropy-as-uncertainty
 toc: true
 toc_sticky: true
 weight: 49
+aliases:
+- /entropy-as-a-measure-of-uncertainty/
 
 ---
 
