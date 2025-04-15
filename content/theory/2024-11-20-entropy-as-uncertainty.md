@@ -110,11 +110,11 @@ There are a couple of benefits to measuring uncertainty on a log scale.
 
 First, because when there is only **one** possible outcome, it seems intuitive that uncertainty should be zero. And sure enough, $log(1) = 0$!
 
-Second, uncertainty should be something we can "add up". For example, going back to our murder mystery, suppose there are two equally-probable murder suspects. So uncertainty, measured as surprisal, is $log(2) = 1$.
+Second, uncertainty should be something we can "add up". For example, going back to our murder mystery, suppose there are two equally-probable murder suspects. Uncertainty, measured as surprisal, is $log(2) = 1$.
 
 And suppose there are four possible murder weapons. That means the uncertainty about the murder weapon is $log(4) = 2$.
 
-To get the total number of **possibilities**, we need to count the number of culprit-weapon **combinations** (Prof. **Plum** with the lead pipe, etc). This means we need to multiply:
+To get the total number of **possibilities**, we need to count the number of culprit-weapon **combinations** (Professor **Plum** with the lead pipe, etc). This means we need to multiply:
 
 $$
   n = 2 \times 4 = 8
@@ -144,11 +144,11 @@ If there are a trillion possible outcomes, instead of saying there's "1,000,000,
 
 Suppose I know who the murderer is. But you don't -- for you there are still two possibilities. How many bits of information do I need to provide to you to tell you who did it? Just one. I might send you a "1" for Professor Plum and "0" for Colonel Mustard. I need to give you 1 bit of information to resolve your 1 bit of uncertainty about the murderer.
 
-How many bits do I need to tell you who the murder weapon is? We said above there are four possibilities, and a **2-bit** number can encode **four** possibilities. So again, I need to provide 2 bits of information to resolve your 2 bits of uncertainty about the weapon.
+How many bits do I need to tell you who the murder weapon is? We said above there are four possibilities, and a 2-bit number can encode four possibilities. So again, I need to provide 2 bits of information to resolve your 2 bits of uncertainty about the weapon.
 
 "Uncertainty" and "information" are two sides of the same coin.
 
-So every time you receive a bit of information, you can look at it as resolving **one** bit of uncertainty. For example, suppose I am sending you a byte of information, one bit at a time. Initially there are $2^8 = 256$ possible values for that byte. So your uncertainty is $log(256) = 8$ bits. When you find out the value of the first bit, you have cut the number of possible outcomes in half to $2^7 = 128$, which means uncertainty is now $log(128) = 7$ bits. So each bit of information resolves **one** bit of uncertainty.
+So every time you receive one bit of information, you can look at it as resolving one bit of uncertainty. For example, suppose I am sending you a byte of information, one bit at a time. Initially there are $2^8 = 256$ possible values for that byte. So your uncertainty is $log(256) = 8$ bits. When you find out the value of the first bit, you have cut the number of possible outcomes in half to $2^7 = 128$, which means uncertainty is now $log(128) = 7$ bits. Another 7 more bits eliminates the remaining 7 bits of uncertainty.
 
 ## Uncertainty for Unequal Probabilities
 
@@ -171,7 +171,14 @@ Tada! This is the definition of **Shannon entropy** (often denoted $H(X)$ for a 
 If all $n$ outcomes are equally probable, then $p(x) = \frac{1}{n}$ for all $x$. It's easy to see that this just reduces to $log(n)$:
 
 $$
-H(X) = \sum_{x ∈ \text{possible outcomes}} x \cdot p(x) \cdot log\left(\frac{1}{p(x)}\right) = \sum_{x ∈ \text{possible outcomes}} p(x) \frac{1}{n} \cdot log(n) = n \cdot \left( \frac{1}{n} \cdot log(n) \right) = log(n)
+\begin{aligned}
+H(X) 
+&= 
+\sum_{x ∈ \text{possible outcomes}} x \cdot p(x) \cdot log\left(\frac{1}{p(x)}\right) \cr
+&= \sum_{x ∈ \text{possible outcomes}} p(x) \frac{1}{n} \cdot log(n) \cr
+&= n \cdot \left( \frac{1}{n} \cdot log(n) \right) \cr
+&= log(n)
+\end{aligned}
 $$
 
 Now we said that the number of bits of uncertainty should be equal to the number of bits required to resolve that uncertainty. And it turns out, this formula gives us exactly that. And in his seminal 1948 paper, "A Mathematical Theory of Communication," Claude Shannon proved that there always exists an efficient **encoding scheme** where communicating the actual outcome requires, on average, a number of bits equal to the entropy.
@@ -182,11 +189,11 @@ To resolve your uncertainty about the actual outcome, I need to communicate the 
 
 Suppose there are three possible outcomes: A (50%), B (25%), and C (25%). I want to communicate the actual outcome to you efficiently. The most efficient encoding scheme is:
 
--   A: 0
--   B: 10
--   C: 11
+-   A: `0`
+-   B: `10`
+-   C: `11`
 
-If I send "0," you know it's A. If I send "1," you will wait for the next bit, which will tell you whether it is B or C.
+If I send `0`, you know it's A. If I send `1`, you will wait for the next bit, which will tell you whether it is B or C.
 
 ## Entropy: Expected Value of Surprisal
 
@@ -206,8 +213,8 @@ $$
 
 ## Conclusion: Entropy as Uncertainty
 
-In the case of equally probable outcomes, the log (base 2) of the number of possible outcomes is a good measure of uncertainty. This is also equal to the number of bits of information required to communicate the actual outcome.
+In the case of equally probable outcomes, the log of the number of possible outcomes is a good measure of uncertainty. This is also equal to the number of bits of information required to communicate the actual outcome.
 
 **Shannon entropy** generalizes this measure when outcomes are not equally probable. When there is uncertainty about an outcome, **Shannon entropy** gives us the expected number of bits required to communicate the actual outcome using an optimal encoding scheme.
 
-Information can thus be seen as the resolution of uncertainty. Entropy is the (expected) number of bits of information required to resolve all uncertainty.
+Information can thus be seen as the resolution of uncertainty. Entropy is the expected number of bits of information required to resolve all uncertainty.
