@@ -14,12 +14,12 @@ aliases:
 
 ## Introduction
 
-[Bridging-Based Ranking](https://www.belfercenter.org/sites/default/files/files/publication/TAPP-Aviv_BridgingBasedRanking_FINAL_220518_0.pdf) is a way of scoring and ranking online content that bridges divides. 
+[Bridging-Based Ranking](https://www.belfercenter.org/publication/bridging-based-ranking) is a way of scoring and ranking online content that bridges divides. 
 
-The term "Bridging-Based Ranking" was introduced in [this essay](https://www.belfercenter.org/sites/default/files/files/publication/TAPP-Aviv_BridgingBasedRanking_FINAL_220518_0.pdf) by Aviv Ovadya of the Harvard Kennedy School Belfer Center. In his essay Ovadya explains how social media algorithms today tend to promote polarization and division. But it doesn't have to be this way. Instead of promoting divisive comment that triggers people's tribal instincts, couldn't the algorithms help find and promote areas of common ground?
+The term "Bridging-Based Ranking" was introduced in [this essay](https://www.belfercenter.org/sites/default/files/pantheon_files/files/publication/TAPP-Aviv_BridgingBasedRanking_FINAL_220518_0.pdf) by Aviv Ovadya of the Harvard Kennedy School Belfer Center. In his essay Ovadya explains how social media algorithms today tend to promote polarization and division. But it doesn't have to be this way. Instead of promoting divisive comment that triggers people's tribal instincts, couldn't the algorithms help find and promote areas of common ground?
 
 <!--more-->
-There are at least two examples of social platforms that have successfully implemented ranking algorithms that intentionally bridge divides by finding areas of common ground. The first was [pol.is](https://pol.is/home) which was used successfully by the [vTaiwan](https://info.vtaiwan.tw/) open citizenship consultation process. But probably the most successful implementation is X's [Community Notes](https://help.twitter.com/en/using-x/community-notes).
+There are at least two examples of social platforms that have successfully implemented ranking algorithms that intentionally bridge divides by finding areas of common ground. The first was [pol.is](https://pol.is/home) which was used successfully by the [vTaiwan](https://info.vtaiwan.tw/) open citizenship consultation process. More recent is X's [Community Notes](https://help.twitter.com/en/using-x/community-notes).
 
 ### Diversity of Perspectives
 
@@ -48,7 +48,7 @@ The chart below illustrates how this works. This charts shows a subset of notes 
 
 Notice how there is a large spread along not just the the vertical axis, but also the horizontal axis. If want we want to know how helpful a note is, the horizontal axis is just noise. But there is a lot of information along the vertical axis. The vertical component tells us *something* about the post that users are trying to express through their votes. Separating this component from the horizontal component lets us extract this information, in a sense separating signal from noise.
 
-But what is this information? It is a measure of some feature of a post that users think deserves an upvote independently of their political biases. We pinpoint or describe exactly what this feature is, but presumably it reveals how users interpret the idea of "helpfulness".
+But what is this information? It is a measure of some feature of a post that users think deserves an upvote independently of their political biases. We may not be able to pinpoint or describe exactly what this feature is, but presumably it reveals how users interpret the idea of "helpfulness".
 
 To get an idea of what notes are "helpful", I include a section with [example notes](#example-notes) at the end of this article. This section includes examples with a variety of combinations of factors (Helpful+Left, Unhelpful+Right, Helpful+Neutral, etc). 
 
