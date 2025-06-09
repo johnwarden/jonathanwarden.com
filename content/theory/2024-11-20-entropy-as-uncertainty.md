@@ -15,33 +15,31 @@ aliases:
 
 How do you measure **uncertainty**?
 
-That may seem like an odd question, but let's just dive right into it, because it leads us down an interesting path to the definition of **entropy**.
+That may seem like an odd question. But let's just dive right into it, because it leads us down an interesting path to the definition of **entropy**.
 
 ### I'm 99% Certain
 
-We can start with one common way people express *certainty*. You might say "I'm 99% certain it will rain today". This, of course, implies that you're 1% *uncertain*.
+We can start with one common way people express *certainty*. You might say "I'm 99% certain it will rain today". This, of course, implies that you're 1% *uncertain*. Or if you say "I'm 50% certain it will rain", then you're 50% uncertain.
 
-On the other hand, if you say "I'm 50% certain it will rain", then you're 50% uncertain.
+So one obvious definition of uncertainty is the inverse of certainty, or $1 - \text{certainty}$.
 
-So one obvious definition of uncertainty is the opposite of certainty, or $1 - \text{certainty}$.
+Of course, how do you define certainty? If you are 99% certain that it will rain, then you are 1% certain it won't rain! So is there a lot of uncertainty, or a lot of certainty?
 
-Of course, how do you define certainty? If you are 99% certain that it will rain, then you are 1% certain it won't rain! So are you certain or uncertain?
+In this case, it makes more sense to say there is little uncertainty. If you are 99% sure what the outcome will be, you have a lot of certainty. It's only when you think it's just as likely to rain as not that there is a lot of uncertainty.
 
-You are in fact certain. If you are 99% sure that *anything* will happen, you are pretty certain. If you think there's a 20% chance that it will rain, then you are actually 80% certain it will *not* rain! So you're still pretty certain. So if there are just two possibilities, it makes sense to measure uncertainty as *most probable* of the two. That means certainty can't go lower than 50%, when something is just as likely to happen as not.
-
-So a first crack at a definition of certainty might simply be:
+So if there are just two possibilities, it makes sense to measure uncertainty based on the one that is *most probable*. Any definition that decreases as the probability of the most probable outcome increases will do. As we'll see shortly, the inverse probability works nicely.
 
 **Definition 1**
 
 $$
-  \text{uncertainty} = 1 - p
+  \text{uncertainty} = \frac{1}{p}
 $$
 
-Where $p$ is the probability of the most probable outcome. The maximum possible value of uncertainty is $0.5$ when $p = 0.5$.
+Where $p$ is the probability of the most probable outcome.
 
 ## The Number of Possibilities
 
-Now what if there is more than **one** possibility? Imagine a murder has been committed. We don't know who did it, so there's uncertainty. If there are only **two** people who could have done it (say, Colonel Mustard and Professor Plum) then uncertainty is not very high. With **ten** possible suspects the uncertainty increases. On the other hand if there's only **one** person who could have done it then there's no uncertainty at all.
+Now what if there is more than **one** possibility? Imagine a murder has been committed. We don't know who did it, so there's uncertainty. If there are only **two** people who could have done it (say, Colonel Mustard and Professor Plum) then it seems there's little uncertainty. With **ten** possible suspects uncertainty increases. On the other hand if there's only **one** person who could have done it then there's no uncertainty at all.
 
 So another straightforward measure of uncertainty might be **the number of possibilities**. Or to use the conventional terminology of probability theory, the number of **possible outcomes**.
 
@@ -51,32 +49,27 @@ $$
   \text{uncertainty} = n
 $$
 
-Where $n$ is the number of equally probable outcomes.
+Where $n$ is the number of (equally probable) possible outcomes.
 
 ## Probability vs. Possible Outcomes
 
+Okay we have two possible definitions of uncertainty so far. Definition 1 is based on the probability when there are two possible outcomes, and Definition 2 is based on the number of (equally probably) possible outcomes.
+
 There is a relationship between probability and the number of possible outcomes. If there are $n$ equally-probable outcomes, then the probability of each outcome is $p = \frac{1}{n}$. Conversely, $n = \frac{1}{p}$.
 
-And so, by **Definition 2**, uncertainty becomes:
+Substituting this into Definition 2, we get:
 
 $$
   \text{uncertainty} = \frac{1}{p}
 $$
 
-So we can use $\frac{1}{p}$ for measuring uncertainty in the case of multiple equally-probable outcomes. But this could also be a good measure of uncertainty when there are only **two** (not necessarily equally-probable) possible outcomes. We used $1-p$ for **Definition 1** but really $\frac{1}{p}$ works just as well, because it increases as $p$ decreases and vice versa.
+Which is the same as **Definition 1**!
 
-So this means we can come up with a single definition that works both when:
+So we now have a definition of uncertainty that makes sense both when:
 
 - there are multiple equally-probable outcomes
 - there are only two (not necessarily equally-probable) possible outcomes
 
-**Definition 3**
-
-$$
-  \text{uncertainty} = \frac{1}{p}
-$$
-
-Where $p$ is the probability of the *most probable outcome*.
 
 ### Examples:
 
@@ -110,9 +103,7 @@ There are a couple of benefits to measuring uncertainty on a log scale.
 
 First, because when there is only **one** possible outcome, it seems intuitive that uncertainty should be zero. And sure enough, $log(1) = 0$!
 
-Second, working with logs can make the math easier.
-
-For example, going back to our murder mystery, suppose there are two equally-probable murder suspects. Uncertainty, measured as surprisal, is $log(2) = 1$. And suppose there are four possible murder weapons. That means the uncertainty about the murder weapon is $log(4) = 2$.
+Second, working with logs can make the math easier to deal with. For example, going back to our murder mystery, suppose there are two equally-probable murder suspects. Uncertainty, measured as surprisal, is $log(2) = 1$. And suppose there are four possible murder weapons. That means the uncertainty about the murder weapon is $log(4) = 2$.
 
 To get the total number of **possibilities**, we need to count the number of culprit-weapon **combinations** (Professor Plum with the lead pipe, etc). This means we need to multiply:
 
@@ -130,11 +121,9 @@ $$
 
 So, sticking to log space, uncertainty acts more as a quantity that we can add up.
 
-Finally, a log scale is useful when the number of possible outcomes is very large. Suppose there are 1,000,000 suspects. Multiplying this by the number of possible outcomes for weapons, motives, times of death, etc., can yield trillions of combinations.
+A log scale is especially useful when the number of possible outcomes is very large. Suppose there are 1,000,000 suspects. Multiplying this by the number of possible outcomes for weapons, motives, times of death, etc., can yield trillions of combinations.
 
-If there are a trillion possible outcomes, instead of saying there's "1,000,000,000,000 possible-outcomes-worth" of uncertainty, we say there are $log(10^{12}) \approx 39.86$ bits of uncertainty.
-
-*Bits?* Where did that come from? Bits are a unit of **information**, not uncertainty! But in fact information and uncertainty are closely related and can be measured on the same scale.
+If there are a trillion possible outcomes, instead of saying there's "1,000,000,000,000 possible-outcomes-worth" of uncertainty, we say uncertainty is $log(10^{12}) \approx 39.86$.
 
 ## Information as the Resolution of Uncertainty
 
@@ -142,51 +131,54 @@ If there are a trillion possible outcomes, instead of saying there's "1,000,000,
 >
 > -- Claude Shannon
 
+Okay, so now we are using **surprisal** to measure uncertainty. We are closing in on Shannon entropy. But before we take the next step, I want to briefly explain the relationship between *uncertainty* and *information*.
+
 Suppose I know who the murderer is. But you don't -- for you there are still two possibilities. How many bits of information do I need to provide to you to tell you who did it? Just one. I might send you a "1" for Professor Plum and "0" for Colonel Mustard for example. I need to give you 1 bit of information to resolve your 1 bit of uncertainty about the murderer.
 
-How many bits do I need to tell you who the murder weapon is? We said above there are four possibilities, and a 2-bit number can encode four possibilities. So again, I need to provide 2 bits of information to resolve your 2 bits of uncertainty about the weapon.
+How many bits do I need to tell you who the murder weapon is? We said above there are four possibilities, and a 2-bit number can encode four possibilities. So I need to provide 2 bits of information to resolve your 2 bits of uncertainty about the weapon.
 
-"Uncertainty" and "information" are two sides of the same coin.
-
-So every time you receive one bit of information, you can look at it as resolving one bit of uncertainty. For example, suppose I am sending you a byte of information, one bit at a time. Initially there are $2^8 = 256$ possible values for that byte. So your uncertainty is $log(256) = 8$ bits. When you find out the value of the first bit, you have cut the number of possible outcomes in half to $2^7 = 128$, which means uncertainty is now $log(128) = 7$ bits. Another 7 bits eliminates the remaining 7 bits of uncertainty.
+So "uncertainty" and "information" are two sides of the same coin. Every time you receive one bit of information, you can look at it as resolving one bit of uncertainty. For example, suppose I am sending you a byte of information, one bit at a time. Initially there are $2^8 = 256$ possible values for that byte. So your uncertainty is $log(256) = 8$ bits. When you find out the value of the first bit, you have cut the number of possible outcomes in half to $2^7 = 128$, which means uncertainty is now $log(128) = 7$ bits. Each bit of information reduces uncertainty by 1 bit.
 
 ## Uncertainty for Unequal Probabilities
 
-If there are more than two possible outcomes, using the surprisal of the most probable outcome doesn't quite work. Say the most probable outcome is 60%. If there is only **one** other possible outcome, then there is much less uncertainty than if there were **ten** more possible outcomes.
+Okay, our final step is to deal with situations where there are multiple possible outcomes, but they are not equally probable.
+
+We can't just use surprisal ($\log\left(\frac{1}{p(x)}\right)$), because there are multiple values for p.
+
+Using the surprisal of the most probable outcome doesn't quite work either. Say the most probable outcome is 60%. If there is only **one** other possible outcome, then there is much less uncertainty than if there were **ten** more possible outcomes.
 
 So what if we used a **weighted average**? Instead of using only the surprisal of the most probable outcome, we took the surprisal of all possible outcomes, weighted by their probability?
 
 ## Entropy as Weighted Average Uncertainty
 
-This gives us the following measure of uncertainty:
+This gives us the following measure of uncertainty, which -- tada! -- is exactly the definition of Shannon entropy.
 
 **Definition 5: Shannon Entropy**
 
 $$
 \begin{aligned}
 H(X) &= \sum_{x} p(x) \cdot \text{surprisal}(x) \cr
-     &= \sum_{x} p(x) \cdot \log\left(\frac{1}{p(x)}\right)
+     &= \sum_{x} p(x) \cdot \log(\frac{1}{p(x)})
 \end{aligned}
 $$
 
-Tada! This is the definition of **Shannon entropy** (often denoted $H(X)$ for a random variable $X$).
-
-If all $n$ outcomes are equally probable, then $p(x) = \frac{1}{n}$ for all $x$, which case this just reduces to $\log(n)$:
+If all $n$ outcomes are equally probable, then $p(x) = \frac{1}{n}$ for all $x$, which case Shannon entropy is equal to surprisal ($\log(\frac{1}{p(x)})$):
 
 $$
 \begin{aligned}
 H(X) 
-&= 
-\sum_{x} p(x) \cdot \log\left(\frac{1}{p(x)}\right) \cr
+&= \sum_{x} p(x) \cdot \log(\frac{1}{p(x)}) \cr
 &= \sum_{x} \frac{1}{n} \cdot \log(n) \cr
 &= n \cdot \left( \frac{1}{n} \cdot \log(n) \right) \cr
-&= \log(n)
+&= \log(n) \cr
+&= \log(\frac{1}{p(x)})
 \end{aligned}
 $$
 
-Now we said that the number of bits of uncertainty should be equal to the number of bits required to resolve that uncertainty. And it turns out, the entropy formula tells us exactly that. And in his seminal 1948 paper, "A Mathematical Theory of Communication," Claude Shannon proved that there always exists an efficient **encoding scheme** where communicating the actual outcome requires, on average, a number of bits equal to the entropy.
 
 ## Encoding for Unequal Probabilities
+
+Now we said earlier that the number of bits of uncertainty should be equal to the number of bits required to resolve that uncertainty. And it turns out, the entropy formula tells us exactly that. And in his seminal 1948 paper, "A Mathematical Theory of Communication," Claude Shannon proved that there always exists an efficient **encoding scheme** where communicating the actual outcome requires, on average, a number of bits equal to the entropy.
 
 To resolve your uncertainty about the actual outcome, I need to communicate the actual outcome to you. To do this we need to come up with some sort of encoding scheme beforehand, by assigning each possible outcome to a sequence of bits. Although we can use exactly $\log(n)$ bits when there are $n$ equally probable outcomes, when the outcomes aren't equally probable, we'll use a *different number of bits* to encode different outcomes.
 
@@ -200,18 +192,17 @@ If I send `0`, you know it's A. If I send `1`, you will wait for the next bit, w
 
 ## Entropy: Expected Value of Surprisal
 
-The expected number of bits to communicate the actual outcome is the **Shannon entropy** for this probability distribution:
+The expected number of bits to communicate the actual outcome is
 
 $$
 \begin{aligned}
     &= 0.50 \cdot (\text{bits for A}) + 0.25 \cdot (\text{bits for B}) + 0.25 \cdot (\text{bits for C}) \cr
-    &= H = \sum_{x} p(x) \cdot \log\left(\frac{1}{p(x)}\right)\cr
-    &= 0.50 \cdot \log(\frac{1}{0.50}) + 0.25 \cdot \log(\frac{1}{0.25}) + 0.25 \cdot \log(\frac{1}{0.25}) \cr
-    &= 0.50 ⋅ (1) + 0.25 \cdot (2) + 0.25 \cdot (2) \cr
-    &= 0.5 + 0.5 + 0.5 \cr
-    &= 1.5 \text{ bits}
+    &= \sum_{x} p(x) \cdot \log(\frac{1}{p(x)}) \cr
 \end{aligned}
 $$
+
+Which is the definition of Shannon entropy. So Shannon entropy can be understood as the **expected value of surprisal**.
+
 
 
 ## Conclusion: Entropy as Uncertainty
