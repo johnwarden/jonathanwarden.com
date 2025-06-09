@@ -29,7 +29,7 @@ Below is a list of the assumptions that must hold for quadratic funding to have 
 * [Independent agents](#independent-agents)
 
 
-Below is a brief explanation of these assumptions and what happens when they don't hold.
+Below is a brief explanation of these assumptions and what happens when they don't hold. For a introduction to the quadratic funding mechanism itself, I recommend [Quadratic Funding Explained](https://finematics.com/quadratic-funding-explained/) or the [Plural Funding page](https://www.radicalxchange.org/wiki/plural-funding/) from RadicalxChange. 
 
 ## Wealth Equality
 
@@ -39,9 +39,9 @@ Below is a brief explanation of these assumptions and what happens when they don
 
 Obviously, we don’t live in a world with an equitable distribution of basic resources. 
 
-Under wealth equality, larger contributions imply greater marginal utility. But in reality, larger contributions often just imply greater wealth.
+Under the assumption wealth equality, larger contributions imply greater marginal utility. But in the real where there is significant wealth inequality, and larger contributions often just imply greater wealth.
 
-Consider these two example:
+If the wealth equality assumption does not hold, QF is anything but optimal. Consider these two examples:
 
 * Ten wealthy art patrons each contribute €1,000,000 to the local public art museum. 
 
@@ -55,7 +55,7 @@ Consider these two example:
   - QF allocates: $(100 \times \sqrt{100})^2 = €1{,}000{,}000$
   - Subsidy: €990,000.
 
-Intuitively, this seems wrong: the art museum receives a far larger subsidy, yet many more people benefit from replacing the lead pipes, and the utility-per-individual is arguably much higher as well.
+Intuitively, this seems very wrong: the art museum receives a far larger subsidy, yet many more people benefit from replacing the lead pipes, and the utility-per-individual is arguably much higher as well.
 
 ## Free Subsidies
 
@@ -102,9 +102,9 @@ The charities base their funding decisions not on direct personal utility, but o
 
 So there has been a net **decrease** of social welfare.
 
-These two scenarios look similar: same contribution amounts, same total funding amounts. And in both cases, each contributor sees €6,000,000 of "utility" for the €9,000,000 of funding. But in the selfish scenario, total utility is 3 times higher, because the utility is experienced independently by each contributor, whereas utility of saved lives is experienced only once by each of the cancer patients -- the three contributors don't each experience that utility (other than feeling good about those lives being saved, but that's not the kind of utility we're trying to maximize).
+These two scenarios look similar: same contribution amounts, same total funding amounts. And in both cases, each contributor sees €6,000,000 of "utility" for the €9,000,000 of funding. But in the selfish scenario, total utility is 3 times higher, because the utility is experienced independently by each contributor, whereas utility of saved lives is experienced only once by each of the cancer patients -- the three contributors don't experience that utility (other than feeling good about those lives being saved, but that's not the kind of utility we're trying to maximize).
 
-Of course if these organizations were trying to maximize social welfare, then they wouldn't contribute so much -- it would be better to stop contributing once the project reached the socially optimal funding level.
+Of course if these organizations were trying to maximize social welfare, then they wouldn't contribute so much -- it would be better for them to stop contributing once the project reached the socially optimal funding level.
 
 But of course, the purpose of using QF mechanism is to achieve the socially optimal funding level\! So for people just trying to maximize social welfare, participating in QF funding rounds as a contributor may not make sense.
 
@@ -112,7 +112,7 @@ But of course, the purpose of using QF mechanism is to achieve the socially opti
 
 QF assumes an **equilibrium** where each contributor picks the optimal contribution for themselves, given what everyone else is contributing. 
 
-This means that in order to know how much they should contribute to a project through QF, people have to know how much other people are contributing. For example, suppose there's a small open source software project that really benefits me, but it already has €1,000,000 in total funding without my contribution: I might think that €1,000,000 is sufficient to build the software and thus there's little marginal utility in my contributing any more. On the other hand, if nobody else was contributing anything at all, and therefore the software wouldn't get built without my help, I might feel motivated to make a sizeable contribution.
+This means that in order to know how much they should contribute, people have to know how much other people are contributing. For example, suppose there's a small open source software project that would significantly benefit me, but it already has €1,000,000 in total funding without my contribution: I might think that €1,000,000 is sufficient to build the software and thus there's little marginal utility in my contributing any more. On the other hand, if nobody else was contributing anything at all, and therefore the software wouldn't get built without my help, I might feel motivated to make a sizeable contribution.
 
 But how do people know what everyone else is contributing? Well in reality, **they don't**, at least not before the funding round is over.
 
@@ -131,13 +131,13 @@ Without complete information or some equilibrium discovery process, contributors
 
 ## Sufficient Budget
 
-Without enough subsidy to cover every project’s theoretical deficit, QF ceases to have one guaranteed best outcome and instead admits many equilibria—none of which reliably maximizes welfare.
+Without enough subsidy to cover every project’s theoretical deficit, QF ceases to have one theoretical best outcome and instead admits many equilibria—none of which reliably maximizes welfare.
 
-So how do people choose how much to contribute? With a unique, socially optimal equilibrium, we at least theoretically have a situation (e.g. under complete information, wealth equality, etc.) where this equilibrium is discovered. If there are many equilibria, it's hard to even theorize about what will happen. People can only guess and hope. The results will almost certainly not be socially optimal.
+So how do people choose how much to contribute? With a unique, socially optimal equilibrium, we at least theoretically have a situation (e.g. under complete information, etc.) where this equilibrium is discovered. If there are many equilibria, it's hard to even theorize about what will happen. People can only guess and hope. The results will almost certainly not be socially optimal.
 
 To avoid the multiple-equilibria situation caused by funding caps, the entity organizing the QF must know what the equilibrium contributions will be beforehand or have virtually unlimited funds, so they can guarantee they have sufficient budget to subsidize the deficit.
 
-If they do not have sufficient funds, then can use a generalization of QF called Capital Constrained Quadratic Funding, where they choose in advance a fraction of the deficit that they will subsidize. This of course sacrifices optimality, and the organizer still must be able to subsidize this fraction of the deficit, which means **they must still know in advance what the deficit will be**.
+If they do not have sufficient funds, then can use a generalization of QF called Capital Constrained Quadratic Funding, where they choose in advance a fraction of the deficit that they will subsidize. This of course sacrifices optimality, and the organizer still must be able to subsidize this fraction of the deficit, which means **they must still know in advance what the maximum possible deficit will be**.
 
 ## Diminishing Returns
 
