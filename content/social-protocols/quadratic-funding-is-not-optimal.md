@@ -1,6 +1,6 @@
 ---
 
-title: "Eight Reasons Why Quadratic Funding Is Not Optimal"
+title: "Why Quadratic Funding Is Not Optimal"
 slug: quadratic-funding-is-not-optimal
 date: "2025-05-02"
 math: true
@@ -9,15 +9,19 @@ weight: 1
 
 ## Introduction
 
-Quadratic funding has received a lot of attention recently as a mechanism for funding public goods—especially in the cryptocurrency space. QF is appealing because it is theoretically optimal under certain assumptions[^1]. 
+Quadratic funding has received a lot of attention recently as a mechanism for funding public goods—especially in the web3 space. The Gitcoin grants program alone has distributed over $59M through QF funding rounds as of January 2024[^1]. QF is appealing because it is theoretically optimal under certain assumptions[^2]. 
 
 The problem is that these assumptions don’t ever hold in reality.
 
-The theory behind QF is sound and elegant, and the authors of the [original paper](https://scholar.harvard.edu/files/hitzig/files/buterin_hitzig_weyl_draft.pdf) are clear about the assumptions. They don't claim they are likely to hold in reality, and warn about the consequences when they don't hold. Unfortunately, practitioners have sometimes been too enthusiastic, implementing QF in settings where theory actually predicts poor results.
+The theory behind QF is sound and elegant, and the authors of the [original paper](https://scholar.harvard.edu/files/hitzig/files/buterin_hitzig_weyl_draft.pdf) are clear about the assumptions. They don't claim they are likely to hold in reality, and warn about the consequences when they don't hold. 
 
-Below is a list of the assumptions that must hold for quadratic funding to have its desirable theoretical properties. When these assumptions fail, the theory predicts outcomes that are far from optimal.
+Unfortunately, practitioners have sometimes been too enthusiastic, using QF to fund projects in settings where the assumptions aren't even approximated.
 
-**List of Assumptions:**
+Probably the most well-known problem with QF is collusion and fraud (e.g Sybil attacks). QF is optimal only if the contributors are actual people acting independently. When this is not the case, then the authors warn "there is no limit (other than the budget) to how much [a group] can steal".
+
+But the independent agents assumption is just one of many assumptions that must hold for QF to have its desirable theoretical properties. Below is a brief explanation of all the assumptions underlying QF. 
+
+**List of Assumptions Underlying QF:**
 
 * [Wealth equality](#wealth-equality)
 * [Free subsidies](#free-subsidies)
@@ -29,13 +33,15 @@ Below is a list of the assumptions that must hold for quadratic funding to have 
 * [Independent agents](#independent-agents)
 
 
-Below is a brief explanation of these assumptions and what happens when they don't hold. For a introduction to the quadratic funding mechanism itself, I recommend [Quadratic Funding Explained](https://finematics.com/quadratic-funding-explained/) or the [Plural Funding page](https://www.radicalxchange.org/wiki/plural-funding/) from RadicalxChange. 
+In the rest of this essay, I discuss each of these assumptions and what happens when they don't hold. For an introduction to the quadratic funding mechanism itself, I recommend [Quadratic Funding Explained](https://finematics.com/quadratic-funding-explained/) or the [Plural Funding page](https://www.radicalxchange.org/wiki/plural-funding/) from RadicalxChange. 
+
+
 
 ## Wealth Equality
 
 > Our interest here is in maximization of dollar-equivalent value rather than achieving an equitable distribution of value (we assume that an equitable distribution of basic resources has been achieved in some other manner, such as an equal initial distribution of resources)
 > 
-> —Buterin, Hitzig & Weyl[^1]
+> —Buterin, Hitzig & Weyl[^2]
 
 Obviously, we don’t live in a world with an equitable distribution of basic resources. 
 
@@ -49,19 +55,33 @@ If the wealth equality assumption does not hold, QF is anything but optimal. Con
   - QF allocates: $(10 \times \sqrt{1{,}000{,}000})^2 = €100{,}000{,}000$
   - Subsidy: €90,000,000
 
-* One hundred lower‑income individuals each contribute €100 to replace lead pipes in their neighborhood
+* Ten lower‑income individuals each contribute €100 to replace lead water pipes in their neighborhood
 
-  - Total Contributions: $100 \times €100 = €10{,}000$ 
-  - QF allocates: $(100 \times \sqrt{100})^2 = €1{,}000{,}000$
-  - Subsidy: €990,000.
+  - Total Contributions: $10 \times €100 = €1{,}000$ 
+  - QF allocates: $(10 \times \sqrt{100})^2 = €10{,}000$
+  - Subsidy: €9,000.
 
-Intuitively, this seems very wrong: the art museum receives a far larger subsidy, yet many more people benefit from replacing the lead pipes, and the utility-per-individual is arguably much higher as well.
+Intuitively, this seems very wrong. The art receives 10,000x the subsidy, but it seems like dollar-per-dollar the pipes project should produce more social welfare.
+
+<!--
+The artwork receives 10,000x the subsidy, because it received 10,000x the contribution. 
+
+QF matches in proportion to contributions. But 
+
+€100 is more of a sacrifice for a poor person than it is for a rich person.  Diminishing Marginal Utility
+
+
+And if we assume diminishing marginal utility of wealth...
+
+If the government is going to spend €90,000,000, it should go towards basic needs like clean drinking water, not artwork. 
+
+-->
 
 ## Free Subsidies
 
 > ...once we account for the deficit, the QF mechanism does not yield efficiency.
 > 
-> —Buterin, Hitzig & Weyl[^1]
+> —Buterin, Hitzig & Weyl[^2]
 
 
 The optimality of QF assumes the subsidy that pays for the deficit is "free" to the contributors. But in reality the subsidy is usually indirectly paid for by contributors -- through increased taxes or the opportunity cost of that subsidy money not being spent on something else.
@@ -72,9 +92,9 @@ In the wealth equality section we show how wealthy contributors can disproportio
 
 Ironically, if contributors are altruistic, QF can overfund projects, which can significantly *decrease* social welfare. 
 
-When individuals make contributions for purely altruistic reasons, they don't directly experience the utility themselves. And yet the optimality of QF assumes that all utility is direct utility, benefiting the contributor only. Inefficiency of QF under altruistic motives is proven in Appendix A in [Connection-Oriented Cluster Matching Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4311507)[^2].
+When individuals make contributions for purely altruistic reasons, they don't directly experience the utility themselves. And yet the optimality of QF assumes that all utility is direct utility, benefiting the contributor only. Inefficiency of QF under altruistic motives is proven in Appendix A in [Connection-Oriented Cluster Matching Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4311507)[^3].
 
-To understand this problem, consider the following two scenarios:
+To understand this problem, consider two scenarios: one where contributors are completely selfish, and one where they are completely selfless.
 
 **Selfish Scenario**
 
@@ -92,7 +112,7 @@ They each expect to experience €6,000,000 worth of individual utility from enj
 
 A nearly identical scenario, but now it is three separate charities that each contribute €1,000,000 to a cancer research project. Again per the QF formula, total funding is $(3 \\times \\sqrt{1{,}000{,}000})^2 = €9{,}000{,}000$.
 
-The charities base their funding decisions not on direct personal utility, but on *how many lives they expect to save*. Each charity knows that if they allocate funds efficiently, every €100,000 can save one life. And they estimate that €9,000,000 of funding for this particular project would save about 60 lives
+The charities do not directly experience any utility whatsoever from contributing to these projects (e.g. feeling good about saving lives, enhancing their reputation). Instead they base their funding decisions *how many lives they expect to save*. Each charity knows that if they allocate funds efficiently, every €100,000 can save one life. And they estimate that €9,000,000 of funding for this particular project would save about 60 lives.
 
 **Net social welfare**:
 
@@ -102,11 +122,9 @@ The charities base their funding decisions not on direct personal utility, but o
 
 So there has been a net **decrease** of social welfare.
 
-These two scenarios look similar: same contribution amounts, same total funding amounts. And in both cases, each contributor sees €6,000,000 of "utility" for the €9,000,000 of funding. But in the selfish scenario, total utility is 3 times higher, because the utility is experienced independently by each contributor, whereas utility of saved lives is experienced only once by each of the cancer patients -- the three contributors don't experience that utility (other than feeling good about those lives being saved, but that's not the kind of utility we're trying to maximize).
+These two scenarios look similar: same contribution amounts, same total funding amounts. And in both cases, each contributor sees €6,000,000 of "utility" for the €9,000,000 of funding. But in the selfish scenario, total utility is 3 times higher, because the utility is experienced independently by each contributor, whereas utility of saved lives is experienced only once by each of the cancer patients -- the three contributors don't experience that utility.
 
-Of course if these organizations were trying to maximize social welfare, then they wouldn't contribute so much -- it would be better for them to stop contributing once the project reached the socially optimal funding level.
-
-But of course, the purpose of using QF mechanism is to achieve the socially optimal funding level\! So for people just trying to maximize social welfare, participating in QF funding rounds as a contributor may not make sense.
+Of course if these organizations were trying to maximize social welfare, it would be better for them to stop contributing once the project reached the socially optimal funding level. But then the purpose of using QF mechanism is to achieve the socially optimal funding level\! So for people just trying to maximize social welfare, participating in QF funding rounds as a contributor may not make sense.
 
 ## Equilibrium Discovery
 
@@ -126,7 +144,7 @@ But actually discovering the equilibrium requires either:
 
 2.  **An equilibrium discovery process** where people iteratively adjust their contribution depending on what other people are contributing, until an equilibrium is reached. But unlike settings such as markets, where equilibrium is discovered naturally as a result of countless individual decisions and adjustments by buyers and sellers, there is **no natural process for realizing the equilibrium in QF**.
 
-Without complete information or some equilibrium discovery process, contributors can only guess how much others will contribute based on signals such as popularity—leading to inefficiencies. See [“Quadratic Funding with Incomplete Information”](https://globalprioritiesinstitute.org/wp-content/uploads/Luis-V.-M.-Freitas-Wilfredo-L.-Maldonado-Quadratic-Funding-with-Incomplete-Information.pdf)[^3] for formal bounds on inefficiency.
+Without complete information or some equilibrium discovery process, contributors can only guess how much others will contribute based on signals such as popularity—leading to inefficiencies. See [“Quadratic Funding with Incomplete Information”](https://globalprioritiesinstitute.org/wp-content/uploads/Luis-V.-M.-Freitas-Wilfredo-L.-Maldonado-Quadratic-Funding-with-Incomplete-Information.pdf)[^4] for formal bounds on inefficiency.
 
 
 ## Sufficient Budget
@@ -160,7 +178,7 @@ In practice, because of lack of perfect knowledge, projects that are able to gen
 
 > ...if the size of this group is greater than 1/α and the group can perfectly coordinate, there is no limit (other than the budget) to how much it can steal.
 >
-> —Buterin, Hitzig & Weyl[^1]
+> —Buterin, Hitzig & Weyl[^2]
 
 The QF paper assumes each contributor acts as an independent rational agent: there is no coordination of any sort -- no bribery or other form of collusion is possible.  And of course the authors are frank about what happens if this is not the case.
 
@@ -178,13 +196,19 @@ I am not aware of work on variants of QF designed to address the other assumptio
 
 Unless at least some of these assumptions hold, I suspect that there are probably mechanisms for public goods funding that produce better outcomes than pure QF. Here's a great [overview of the public goods funding landscape](https://splittinginfinity.substack.com/p/the-public-goods-funding-landscape) and [List of papers on public goods funding mechanisms](https://harsimony.wordpress.com/2022/02/10/list-of-public-goods-funding-mechanisms/) by Sam Harmsimony.
 
+## Update (June 11, 2025):
+
+This article was revised in response to thoughtful [feedback on Hacker News](https://news.ycombinator.com/item?id=44224915).
 
 
 [^1]:
-    Vitalik Buterin, Zoë Hitzig & E. Glen Weyl. "Cardinal Voting and Quadratic Voting." *SSRN*, 2017.
+    Gitcoin. "Gitcoin 2.0 Whitepaper." *Gitcoin.co*, February 2024. https://www.gitcoin.co/whitepaper/read
 
 [^2]:
-    Miller, Joel and Weyl, Eric Glen and Erichsen, Leon, Beyond Collusion Resistance: Leveraging Social Information for Plural Funding and Voting (December 24, 2022). Available at SSRN: https://ssrn.com/abstract=4311507 or http://dx.doi.org/10.2139/ssrn.4311507
+    Vitalik Buterin, Zoë Hitzig & E. Glen Weyl. "Cardinal Voting and Quadratic Voting." *SSRN*, 2017.
 
 [^3]:
+    Miller, Joel and Weyl, Eric Glen and Erichsen, Leon, Beyond Collusion Resistance: Leveraging Social Information for Plural Funding and Voting (December 24, 2022). Available at SSRN: https://ssrn.com/abstract=4311507 or http://dx.doi.org/10.2139/ssrn.4311507
+
+[^4]:
     Freitas, L.M., Maldonado, W.L. Quadratic funding with incomplete information. Soc Choice Welf 64, 43–67 (2024). https://doi.org/10.1007/s00355-024-01512-7
