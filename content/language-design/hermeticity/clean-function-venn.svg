@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280">
+  <style>
+    .circle { fill-opacity: 0.3; stroke-width: 0; }
+    .pure { fill: #4a90d9; stroke: #2563eb; }
+    .hermetic { fill: #10b981; stroke: #059669; }
+    .label { font-family: system-ui, sans-serif; font-size: 14px; font-weight: 600; }
+    .sublabel { font-family: system-ui, sans-serif; font-size: 10px; fill: #666; }
+    .title { font-family: system-ui, sans-serif; font-size: 14px; font-weight: 600;  }
+    .dirty-label { font-family: system-ui, sans-serif; font-size: 12px;  }
+  </style>
+
+  <!-- Background label for "Dirty" -->
+  <text x="205" y="12" class="title" text-anchor="middle">A Taxonomy of Clean Functions</text>
+
+  <!-- Background label for "Dirty" -->
+<!--  <text x="360" y="40" class="dirty-label" text-anchor="middle">"Dirty"</text>-->
+  <text x="360" y="52" class="sublabel" text-anchor="middle">(free interaction)</text>
+  
+  <!-- Pure circle (left) -->
+  <circle cx="130" cy="160" r="110" class="circle pure"/>
+  
+  <!-- Hermetic circle (right) -->
+  <circle cx="270" cy="160" r="110" class="circle hermetic"/>
+  
+  <!-- Labels -->
+  <!-- Pure only (left side) -->
+  <text x="90" y="155" class="label" text-anchor="middle">Pure</text>
+  <text x="90" y="167" class="sublabel" text-anchor="middle">(no external interaction)</text>
+  
+  <!-- Hermetic only (right side) -->
+  <text x="305" y="155" class="label" text-anchor="middle">Hermetic</text>
+  <text x="305" y="167" class="sublabel" text-anchor="middle">(no free access)</text>
+  
+  <!-- Pristine (intersection) -->
+  <text x="200" y="155" class="label" text-anchor="middle">Pristine</text>
+  
+</svg>
+
