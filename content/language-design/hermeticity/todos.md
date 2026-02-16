@@ -39,12 +39,11 @@ This essay will illustrate these ideas in five sections:
 although go's http library is not hermetic, *it very easily could be* without losing functionality* or becoming noticeably more "noisy"
 
 operational/non-operational soon
-hirdwiring graph that includes both non-functions and functions
+#hirdwiring graph that includes both non-functions and functions
 
 remove pristine? use it for hermetic+non-operational
 
 inert ambient scope -- deref operator
-
 
 
 
@@ -73,6 +72,14 @@ https://www.youtube.com/watch?v=7cC3_jGwl_U
             it's just bytes
             could have come by pigeon, or on a boat 
 
+----
+
+    consistency with I and we
+
+    The implementation of a pure function may 1) allocate new temporary state 2) call impure functions **as long as they are hermetic**.
+
+    test: if you can compose with hermetic function to get impure function
+
 
     # hermeticity in the small and in the large
 
@@ -84,8 +91,7 @@ https://www.youtube.com/watch?v=7cC3_jGwl_U
     another probelm with def of live via mockability: functions that take concrete unmockagle types
 
 
-
-    incorporate mTL / tagless-final, briefly in hermetic haskell
+#    incorporate mTL / tagless-final, briefly in hermetic haskell
 
 
 
@@ -134,7 +140,6 @@ https://www.youtube.com/watch?v=7cC3_jGwl_U
 
     Show how minted state can be returned and then returned again.  Doesn’t infect caller by tying it to state. So when practicing hermetic programming don’t be afraid of retuening live values, whether minted or merely transmitted. Even closures around newly minted state
 
-    consistency with I and we
 
     ocap
 
@@ -153,11 +158,8 @@ https://www.youtube.com/watch?v=7cC3_jGwl_U
         environment variables, signals, global registries, singletons, thread-locals, RNGs, clocks, and hidden mutable heap objects all become the same kind of thing: ambient influence.
 
 
-    test: if you can compose with hermetic function to get impure function
-
     benefits
         don't need to create a hermetic runtime for python or TS - already hermetic
-
 
     TODO: Haskell code with more murky local reasoning.
 
@@ -176,8 +178,5 @@ https://www.youtube.com/watch?v=7cC3_jGwl_U
     todo: all state interaction happens through hermetic functions
     hermetic primitives
 
-    The implementation of a pure function may 1) allocate new temporary state 2) call impure functions **as long as they are hermetic**.
-
-    TODO existing hermetic languages: sans, sans-IO 
 
 ---
