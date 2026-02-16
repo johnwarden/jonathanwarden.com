@@ -25,7 +25,7 @@ But if you are 99% certain that it will rain, then you are 1% certain that it wo
 
 A better definition of uncertainty would make sense no matter how you frame it. We can get this by always taking the *most probable* outcome to represent certainty. So the belief that there's a 1% chance of rain also represents 99% certainty.
 
-Although $1 - p$ is a sensible definition of uncertainty, here's another definition that also decreases as certainty increases:
+Although $1 - p$ (of the most probable outcome) is a sensible definition of uncertainty, here's another definition that also decreases as certainty increases:
 
 **Definition 1**
 
@@ -33,13 +33,13 @@ $$
   \text{uncertainty} = \frac{1}{p}
 $$
 
-Where $p$ is the probability of the most probable outcome. So if you think there's a 99% chance that it (will/won't) rain, uncertainty would be $\frac{1}{.99} ≈ 1.01$.
+So if you think there's a 99% chance that it (will/won't) rain, uncertainty would be $\frac{1}{.99} ≈ 1.01$.
 
 Let's start with this definition and see where it takes us.
 
 ## The Number of Possibilities
 
-Now what if there are more than two possibilitiies? Imagine a murder has been committed. We don't know who did it, so there's uncertainty. If there are only **two** people who could have done it (say, Colonel Mustard and Professor Plum) then it seems there's little uncertainty. With **ten** possible suspects uncertainty increases. On the other hand if there's only **one** person who could have done it then there's no uncertainty at all.
+Now what if there are more than two possibilities? Imagine a murder has been committed. We don't know who did it, so there's uncertainty. If there are only **two** people who could have done it (say, Colonel Mustard and Professor Plum) then it seems there's little uncertainty. With **ten** possible suspects uncertainty increases. On the other hand if there's only **one** person who could have done it then there's no uncertainty at all.
 
 So another straightforward measure of uncertainty might be **the number of possibilities**. Or to use the conventional terminology of probability theory, the number of **possible outcomes**.
 
@@ -53,39 +53,25 @@ Where $n$ is the number of possible outcomes.
 
 ## Probability vs. Possible Outcomes
 
-Okay we have two possible definitions of uncertainty so far. Definition 1 is based on the probability when there are two possible outcomes, and Definition 2 is based on the number of possible outcomes.
+Okay we have two possible definitions of uncertainty so far. Definition 1 is based on probability when there are two possible outcomes, and Definition 2 is based on the number of possible outcomes.
 
 There is a relationship between probability and the number of possible outcomes. If there are $n$ equally-probable outcomes, then the probability of each outcome is $p = \frac{1}{n}$. Conversely, $n = \frac{1}{p}$.
 
 Substituting this into Definition 2, we get:
 
 $$
-  \text{uncertainty} = \frac{1}{p}
+  \text{uncertainty} = n = \frac{1}{p}
 $$
 
-Which is the same as **Definition 1**!
-
-So we now have a definition of uncertainty that makes sense both when:
+Which is the same as Definition 1. So the two definitions are the same in the case of equally probable outcomes. This definition makes sense both when:
 
 - there are multiple equally-probable outcomes
 - there are only two (not necessarily equally-probable) possible outcomes
 
-
-### Examples:
-
-**2 equally-probable outcomes**: Uncertainty is $\frac{1}{(1/2)} = 2$.
-
-The uncertainty of $n = 2$ equally-probable outcomes is the same as the uncertainty of a 50% chance of rain. 
-
-**99\% chance of rain**: uncertainty $\frac{1}{0.99} \approx 1.01$.
-
-The uncertainty of a 99% chance of rain is equal to the uncertainty of only $n \approx 1.01$ possible outcomes.
-
-**75\% chance of rain**: uncertainty $\frac{1}{0.75} \approx 1.33$.
- 
-The uncertainty of a 75% chance of rain is equal to the uncertainty of $n \approx 1.33$ possible outcomes.
-
-**1000 equally-probable outcomes**: uncertainty is $\frac{1}{(1/1000)} = 1000$.
+So for example:
+- - if there is a 50% chance of rain, then uncertainty is $\frac{1}{0.5} = 2$ (the same as the uncertainty of two equally-probable outcomes).
+- If there is a 99% chance of rain, then uncertainty is $\frac{1}{0.99} \approx 1.01$. 
+- If there are 1000 equally-probable outcomes, uncertainty is $\frac{1}{(1/1000)} = 1000$.
 
 
 ## Almost There
@@ -113,23 +99,11 @@ There are a couple of benefits to measuring uncertainty on a log scale.
 
 First, because when there is only **one** possible outcome, it seems intuitive that uncertainty should be zero. And sure enough, $log(1) = 0$!
 
-Second, working with logs makes uncertainty *additive*. For example, going back to our murder mystery, suppose there are two equally-probable murder suspects. Uncertainty, measured as surprisal, is $log(2) = 1$. And suppose there are four possible murder weapons. That means the uncertainty about the murder weapon is $log(4) = 2$.
+Second, working with logs allows you to take *sums* of uncertainties. For example, going back to our murder mystery, suppose there are two equally-probable murder suspects. Uncertainty about the culprit, measured as surprisal, is $log(2) = 1$. And suppose there are four possible murder weapons. That means the uncertainty about the murder weapon is $log(4) = 2$. Adding these up, we get uncertainty $1 + 2 = 3$.
 
-To get the total number of **possibilities**, we need to count the number of culprit-weapon **combinations** (Professor Plum with the lead pipe, etc). This means we need to multiply:
+We could have gotten to the same result by counting the total number of **possibilities** -- the number of culprit-weapon **combinations** (Professor Plum with the lead pipe, etc), by multiplying 2 (suspects) by 4 (weapons) = 8 (possibilities). Then surprisal is $log(8) = 3$.
 
-$$
-  n = 2 \times 4 = 8
-$$
-
-So total surprisal is $log(8) = 3$.
-
-But we could have gotten that by adding the individual uncertainties:
-
-$$
-  log(2) + log(4) = 1 + 2 = 3 = log(8)
-$$
-
-Adding uncertainties can be a bit more convenient than multiplying.
+But simply adding uncertainties was easier.
 
 A log scale is especially useful when the number of possible outcomes is very large. Suppose there are 1,000,000 suspects. Multiplying this by the number of possible outcomes for weapons, motives, times of death, etc., can yield trillions of combinations.
 
@@ -139,7 +113,7 @@ If there are a trillion possible outcomes, instead of saying there's "1,000,000,
 
 Okay, our final step is to deal with situations where there are multiple possible outcomes, but they are not all equally probable.
 
-We can't just use surprisal ($\log\left(\frac{1}{p(x)}\right)$), because there are multiple values for $p(x)$.
+We can't just use surprisal ($\log\left(\frac{1}{p}\right)$), because there are multiple values for $p$.
 
 Using the surprisal of the most probable outcome doesn't quite work either. Say the most probable outcome is 90%. Surprisal would be ($\log\left(\frac{1}{.9}\right)$), *no matter how many other possible outcomes there are*. But uncertainty should increase with the number of possible outcomes. 
 
@@ -171,12 +145,11 @@ $$
 
 ### Properties of Shannon Entropy
 
-This definition of uncertainty has some desirable properties that we've previously discussed.
-
 Here's a chart showing Shannon entropy in the case of 2 possible outcomes. It shows entropy as a function of the probability of one of the outcomes.
 
 ![chart of Shannon entropy as a function of p(X)](https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Binary_entropy_plot.svg/1920px-Binary_entropy_plot.svg.png)
 
+This definition of uncertainty has some desirable properties that we've previously discussed.
 
 **1: It approaches zero as the probability of the most probable outcome approaches 1**
 
@@ -192,7 +165,7 @@ $$
 
 Which is pretty close to zero because there is not a lot of uncertainty.
 
-What's more, it's easy to see that in the case of 1% chance of rain, entropy is exactly the same!
+What's more, it's easy to see that the entropy of 1% chance of rain will be the same as the entropy of 99% chance of rain! We don't have to treat the most probable outcome as something special.
 
 **2: it is maximized when each outcome is equally probable**
 
@@ -204,7 +177,9 @@ In the case of multiple possible outcomes, it has another desirable property:
 
 **3: it increases as the number of possible outcomes increases**
 
-If all $n$ outcomes are equally probable, then $p(x) = \frac{1}{n} = \log(\frac{1}{p(x)})$ for all $x$. In this case Shannon entropy is just equal to the surprisal of each possibility ($\log(\frac{1}{p(x)})$):
+If all $n$ outcomes are equally probable, then $p(x) = \frac{1}{n}$ for all $x$. In this case Shannon entropy is just equal to the surprisal: $\log(\frac{1}{p(x)}) = log(n)$, which increases with the number of possibilities.
+
+<!--
 
 $$
 \begin{aligned}
@@ -216,8 +191,7 @@ H(X)
 &= \log(\frac{1}{p(x)})
 \end{aligned}
 $$
-
-Which increases with the number of possibilities.
+-->
 
 <!--
 
@@ -266,9 +240,11 @@ So "uncertainty" and "information" are two sides of the same coin. Every time yo
 
 Now let's suppose the 256 possible values are *not* equally-probable: 99% of the time, the value was zero. The remaining values are all equally probable. I could devise an encoding schema that, on average, took much less than 8 bits. For example, if the value was zero, I could send a zero, and if not, I could send you a 1 followed by the value. Sometimes it would take 1 bit to communicate the value, sometimes it would take 9, but the average would be closer to 1.
 
-In his seminal 1948 paper, "A Mathematical Theory of Communication," Claude Shannon probed that, no matter what the probabilities are, it is possible to devise an encoding scheme such that, on average, the number of bit required to communicate a value is equal to the entropy of the associated probability distribution.
+In his seminal 1948 paper, "A Mathematical Theory of Communication," Claude Shannon probed that, no matter what the probabilities are, it is possible to devise an encoding scheme such that, on average, the number of bits required to communicate a value is equal to the entropy of the associated probability distribution.
 
 
 ## Conclusion: Entropy as Uncertainty
 
-So entropy can be understood as a measure of uncertainty. We can calculate it given the distribution of probabilities of a set of possible outcomes. It is measured in bits. Information is also measured in bits. And the number of bits of *information* required to resolve all uncertainty is equal to the number of bits of entropy.
+So entropy can be understood as a measure of uncertainty. It is simply a weighted average of the negative log of the probabilities of each possible outcome. If they are all equally probable, it will just be equal to the log of the number of possible outcomes. And as the probability of any one outcome approaches 100%, entropy approaches zero. 
+
+Entropy is measured in bits. Information is also measured in bits. And the number of bits of *information* required to resolve all uncertainty is equal to the number of bits of entropy.
