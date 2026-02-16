@@ -34,7 +34,7 @@ Eventually, the group becomes so convinced of the righteousness of their beliefs
 
 Next, people begin to fear this outrage, and the shame of being its target.
 
-So people that disagree learn to be silent, or to express outrage to better blend in. This results in a feedback loop (the [Spiral of Silence](https://en.wikipedia.org/wiki/Spiral_of_silence) or [Preference Falsification](https://en.wikipedia.org/wiki/Preference_falsification#:~:text=Preference%20falsification%20is%20the%20act,odds%20with%20one's%20private%20preference)), with dissenting voices becoming increasingly silent as those most interested in status and power expressing their righteous outrage the loudest.
+So people that disagree learn to be silent, or to express outrage to better blend in. This results in a feedback loop (the [Spiral of Silence](https://en.wikipedia.org/wiki/Spiral_of_silence) or [Preference Falsification](https://en.wikipedia.org/wiki/Preference_falsification#:~:text=Preference%20falsification%20is%20the%20act,odds%20with%20one's%20private%20preference)), with dissenting voices becoming increasingly silent as those most interested in status and power express their righteous outrage the loudest.
 
 
 ## Victims, Villains, Heroes
@@ -65,4 +65,4 @@ But the villains are often the heroes of the next generation. Progress requires 
 
 The left and right are in a perpetual war, where one of the main weapons is outrage. When deployed in concentration, political opinion-makers can create a veritable firestorm of outrage. Social media acts as a kind of accelerant, and the people are the fuel: by allowing themselves to be consumed, they keep the outrage raging.
 
-By expressing your outrage, by canceling and shaming good people with wrong opinions, you are contributing to your side in this culture war. If you are on the right side, this may be a good thing. But you are also contributing a dynamic where your side can't learn and evolve because it brooks no dissent, to a society where outrage and shame have more power than empathy and reason. I would ask you to reconsider your weapons.
+By expressing your outrage, by canceling and shaming good people with wrong opinions, you are contributing to your side in this culture war. If you are on the right side, this may be a good thing. But you are also contributing a dynamic where your side can't learn and evolve because it brooks no dissent, where outrage and shame have more power than empathy and reason. I would ask you to reconsider your weapons.
