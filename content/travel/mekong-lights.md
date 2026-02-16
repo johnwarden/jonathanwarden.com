@@ -11,7 +11,7 @@ date: "2013-06-20T22:05:00-05:00"
 
 Abdul wanted to see the <a href="https://en.wikipedia.org/wiki/Naga_fireball">Mekong Lights</a>. He had seen a Thai movie eight years ago called <em><a href="http://www.imdb.com/title/tt0352575/">Mekong Full Moon Party</a></em>. It was a fictional story featuring one of the world's most fascinating unexplained phenomena: mysterious balls of light that up shoot from the Mekong every year, as the full moon rises on the eleventh month of the lunar calendar. Ever since, Abdul had been saving money and dreaming of the day he would make the pilgrimage to see these lights.
 
-Each year thousands of people gather in a village at the far north of Thailand, just across the river from Laos, during the <a href="http://chiangmaibest.com/naga-fireball-festival/">Naga Fireballs Festival</a>. <a href="https://www.youtube.com/watch?v=qm64JhA_EZc">Videos of the Naga Fireballs on YouTube</a> are always notably unimpressive: just grainy points of that shoot into the air against a black background, and disappear, accompanied by cheers from crowds. But the lights have been documented countless times: people that live in the area doubt their existence no more than they doubt the existence of butterflies.
+Each year thousands of people gather in a village at the far north of Thailand, just across the river from Laos, during the <a href="http://chiangmaibest.com/naga-fireball-festival/">Naga Fireballs Festival</a>. <a href="https://www.youtube.com/watch?v=qm64JhA_EZc">Videos of the Naga Fireballs on YouTube</a> are always notably unimpressive: just grainy points of light that shoot into the air against a black background, and disappear, accompanied by cheers from crowds. But the lights have been documented countless times: people that live in the area doubt their existence no more than they doubt the existence of butterflies.
 
 But nobody seems to knows what causes them. Phosphine gas?  Solar rays interacting with ions in the atmosphere?  Ball lightning?  Free-floating plasma orbs?  Phosphorescent bacteria? Optical illusions?  Many on the Laos side of the river think it is a hoax orchestrated by the Thai to attract tourists. The Thai think the same thing about the Lao. Skeptics, clinging to their belief in the non-existence of phenomena that science doesn't yet know how to explain, insist with religious fervor that somebody is a hoaxter. Yet no explanation is convincing.
 
@@ -100,9 +100,11 @@ The boat unloaded its tourists at a pier at Phom Phisai, where the banks were al
 
 As the sky darkened, people began to launch lanterns, mini boxy hot-air balloons of crepe paper and wood and a little candle inside. More and more sailed into the air, carried by the wind up the river to our left, higher and higher, until they were a new constellation in the sky. Some locals started setting off small fireworks, and the air sparked and crackled.
 
+<!--
 <a href="http://jonathanwarden.com/wp-content/uploads/2016/08/1111The-Naga-Fire-Ball-festival.jpg"><img src="http://jonathanwarden.com/wp-content/uploads/2016/08/1111The-Naga-Fire-Ball-festival-300x189.jpg" alt="Box Lanterns" width="300" height="189" class="alignnone size-medium wp-image-838"></a>
+-->
 
-Suddenly there was Abdul, boying face flashing a big goofy grin. I introduced him to Nicolette. They seemed to instantly inderstand each other. We walked a little, not needing to talk much, waiting. We leaned on a rail looking out over the dark smoothly flowing waters.
+Suddenly there was Abdul, boyish face flashing a big goofy grin. I introduced him to Nicolette. They seemed to instantly inderstand each other. We walked a little, not needing to talk much, waiting. We leaned on a rail looking out over the dark smoothly flowing waters.
 
 I asked Abdul if he had a chance to set off a lantern. "Not yet" he said, his eyes brightening. The spark in Abdul's eyes seemed to ignite Nicolette's. "You want to light a lantern?" she asked with sudden animation. "Wait here, I'll go get them."
 
@@ -188,11 +190,11 @@ They moved in a perfectly straight line, with no hint of an arc, or of the parab
 
 In these ancient villages around the Mekong, astonishing facts blend and tangle with myth. Locals say that when the water level drops in dry years, and they thrust long bamboo poles into the soft silt and mud of the riverbed, they cannot reach a bottom. What is buried under those layers of tropical sediment?  What strange thermo-chemical conditions are brewing?  What bizarre life-forms thrive?
 
-Not all the Mekong fish stories are fish stories. In 2005, researchers pulled a monster from the depths of the Mekong unlike anything anyone living had ever seen: <a href="http://news.nationalgeographic.com/news/2005/06/photogalleries/giantcatfish/">a 9-foot-long catfish</a>. It was weighed six hundred and forty six pounds -- shattering the world record for the largest freshwater fish ever documented. In photographs, smiling researchers look like they are maneuvering a paleolithic prop from "The Land Before Time."
+Not all the Mekong fish stories are fish stories. In 2005, researchers pulled a monster from the depths of the Mekong unlike anything anyone living had ever seen: <a href="http://news.nationalgeographic.com/news/2005/06/photogalleries/giantcatfish/">a 9-foot-long catfish</a>. It weighed six hundred and forty six pounds -- shattering the world record for the largest freshwater fish ever documented. In photographs, smiling researchers look like they are maneuvering a paleolithic prop from "The Land Before Time."
 
 The explanation for this myth of the Mekong, for the elusive monser lurking in these waters, was that there really was a monster.
 
-Someday, science may explain exactly what causes the Mekong Lights. Then, like the electricity and the sky blazing with stars, they will no longer be a mystery that stirs the soul, but a fact, cold and bland as oatmeal.
+Someday, science may explain exactly what causes the Mekong Lights. Then, like the electricity and the sky blazing with stars, they will no longer be mysteries that stir the soul, but facts, cold and bland as oatmeal.
 
 But that night, to thousands of Buddhists, they were the breath of the Queen of the Naga rising in spectacular tribute to Buddha. To Abdul, they were a mystery as pure as the stars to ancient man. 
 
