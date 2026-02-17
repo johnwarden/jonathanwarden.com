@@ -17,7 +17,7 @@ The theory behind QF is sound and elegant, and the authors of the [original pape
 
 Unfortunately, practitioners have sometimes been too enthusiastic, using QF to fund projects in settings where the assumptions aren't even approximated.
 
-Probably the most well-known problem with QF is collusion and fraud (e.g. Sybil attacks). QF is optimal only if we assume that each contributor is a real person acting independently. But when group uses fake accounts or coordinates their contributions, the authors warn, "there is no limit (other than the budget) to how much [a group] can steal".
+Probably the most well-known problem with QF is collusion and fraud (e.g. Sybil attacks). QF is optimal only if we assume that each contributor is a real person acting independently. But when a group uses fake accounts or coordinates their contributions, the authors warn, "there is no limit (other than the budget) to how much [a group] can steal".
 
 But absence of coordination is just one of many assumptions that must hold for QF to have its desirable theoretical properties.
 
@@ -47,7 +47,7 @@ This article was revised in response to thoughtful feedback from a [Hacker News 
 
 Obviously, we don’t live in a world with an equitable distribution of basic resources. 
 
-Under the assumption of wealth equality, larger contributions imply greater marginal utility. But in the real world where there is significant wealth inequality, and larger contributions often just imply greater wealth.
+Under the assumption of wealth equality, larger contributions imply greater marginal utility. But in the real world, larger contributions often just imply greater wealth.
 
 If the wealth equality assumption does not hold, QF is anything but optimal. Consider these two examples:
 
@@ -65,7 +65,7 @@ If the wealth equality assumption does not hold, QF is anything but optimal. Con
 
 Intuitively, this seems very wrong. The art receives 10,000x the subsidy, because it received 10,000x the contribution. But does this maximize social welfare?
 
-Only if the *marginal social utility* of the 90,000,000th euro invested in art is equal to the marginal social utility of the 9,000th euro invested in new pipes. This is probably not the case, because of the [*diminishing marginal utility of wealth*](https://www.sciencedirect.com/topics/psychology/diminishing-marginal-utility). Whatever they may choose to spend it on, a dollar spent by a very poor person generally creates much more subjective utility than a dollar spent by a very wealthy person. So it is likely that social welfare would be maximized by investing more in the pipes than in the artwork, and not less.
+Theoretically it does if the *marginal social utility* of the 90,000,000th euro invested in art is equal to the marginal social utility of the 9,000th euro invested in new pipes. But this is probably not the case, because of the [*diminishing marginal utility of wealth*](https://www.sciencedirect.com/topics/psychology/diminishing-marginal-utility). A dollar spent by a very poor person generally creates much more subjective utility than a dollar spent by a very wealthy person. So it is likely that social welfare would be maximized by investing more in the pipes than in the artwork, and not less.
 
 
 
