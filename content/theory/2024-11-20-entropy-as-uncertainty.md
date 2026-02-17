@@ -23,9 +23,20 @@ We can start with one common way people express *certainty*. You might say "I'm 
 
 But if you are 99% certain that it will rain, then you are 1% certain that it won't rain! You are certain about one thing, and uncertain about it's opposite. So are you certain, or uncertain? 
 
-A better definition of uncertainty would make sense no matter how you frame it. We can get this by always taking the *most probable* outcome to represent certainty. So the belief that there's a 1% chance of rain also represents 99% certainty.
+A better definition of uncertainty would make sense no matter how you frame it. We can get this by always taking the *most probable* outcome to represent certainty. So the belief that there's a 1% chance of rain implies a belief that there's a 99% chance of no rain. Taking the larger probability, we'll say this implies 99% certainty.
 
-Although $1 - p$ (of the most probable outcome) is a sensible definition of uncertainty, here's another definition that also decreases as certainty increases:
+So one sensible definition of uncertainty is:
+
+**Definition 1**
+
+$$
+  \text{uncertainty} = 1 - p
+$$
+
+Where $p$ is the probability of the most probable outcome.
+
+<!--
+Although $1 - p$ (of the most probable outcome) is a sensible definition of uncertainty, here's another interesting definition:
 
 **Definition 1**
 
@@ -35,11 +46,17 @@ $$
 
 So if you think there's a 99% chance that it (will/won't) rain, uncertainty would be $\frac{1}{.99} ≈ 1.01$.
 
-Let's start with this definition and see where it takes us.
+So this measure approaches 1.0 from above as uncertainty decreases, and increases as uncertainty increases.
+
+
+So there's one possible measure of uncertainty. But there are others.
+-->
 
 ## The Number of Possibilities
 
-Now what if there are more than two possibilities? Imagine a murder has been committed. We don't know who did it, so there's uncertainty. If there are only **two** people who could have done it (say, Colonel Mustard and Professor Plum) then it seems there's little uncertainty. With **ten** possible suspects uncertainty increases. On the other hand if there's only **one** person who could have done it then there's no uncertainty at all.
+Definition 1 works pretty well when there are only two possibilities (e.g. something will happen or not). But what if there are more than two possibilities? 
+
+Imagine a murder has been committed, and there are **two** equally likely suspects (say, Colonel Mustard and Professor Plum). So we are uncertain. But if there are **ten** equally likely suspects, we are even more uncertain. On the other hand if there's only **one** person who could have done it then there's no uncertainty at all.
 
 So another straightforward measure of uncertainty might be **the number of possibilities**. Or to use the conventional terminology of probability theory, the number of **possible outcomes**.
 
@@ -53,26 +70,27 @@ Where $n$ is the number of possible outcomes.
 
 ## Probability vs. Possible Outcomes
 
-Okay we have two possible definitions of uncertainty so far. Definition 1 is based on probability when there are two possible outcomes, and Definition 2 is based on the number of possible outcomes.
-
 There is a relationship between probability and the number of possible outcomes. If there are $n$ equally-probable outcomes, then the probability of each outcome is $p = \frac{1}{n}$. Conversely, $n = \frac{1}{p}$.
 
-Substituting this into Definition 2, we get:
+So Definition 2 can be rewritten:
 
 $$
   \text{uncertainty} = n = \frac{1}{p}
 $$
 
-Which is the same as Definition 1. So the two definitions are the same in the case of equally probable outcomes. This definition makes sense both when:
+So Definition 1 and Definition 2 are both defined in terms of $p$. And in both cases, $p$ is the probability of the *most probable outcome* (if all outcomes are equally probable, then they are all the most probable)!
+
+So this definition makes sense both when:
 
 - there are multiple equally-probable outcomes
 - there are only two (not necessarily equally-probable) possible outcomes
 
 So for example:
-- - if there is a 50% chance of rain, then uncertainty is $\frac{1}{0.5} = 2$ (the same as the uncertainty of two equally-probable outcomes).
+- If there is a 50% chance of rain, then uncertainty is $\frac{1}{0.5} = 2$ (the same as the uncertainty of two equally-probable outcomes).
 - If there is a 99% chance of rain, then uncertainty is $\frac{1}{0.99} \approx 1.01$. 
 - If there are 1000 equally-probable outcomes, uncertainty is $\frac{1}{(1/1000)} = 1000$.
 
+This measure approaches 1.0 as uncertainty disappears (e.g. the number of outcomes reduces to 1, or the probability of one outcome approaches 100%), but can be arbitrarily large.
 
 ## Almost There
 
@@ -91,7 +109,7 @@ $$
   \text{surprisal} = \log\left(\frac{1}{p}\right) = -\log(p)
 $$
 
-We can use any base, but as a software engineer I prefer base 2.
+We can use any base, but software engineers generally prefer base 2.
 
 ### Advantages of Logs
 
@@ -115,9 +133,9 @@ Okay, our final step is to deal with situations where there are multiple possibl
 
 We can't just use surprisal ($\log\left(\frac{1}{p}\right)$), because there are multiple values for $p$.
 
-Using the surprisal of the most probable outcome doesn't quite work either. Say the most probable outcome is 90%. Surprisal would be ($\log\left(\frac{1}{.9}\right)$), *no matter how many other possible outcomes there are*. But uncertainty should increase with the number of possible outcomes. 
+Using the surprisal of the most probable outcome doesn't quite work either. Say the most probable outcome is 50%. Surprisal would be ($\log\left(\frac{1}{.5}\right) = 2$), *no matter how many other possible outcomes there are*. But uncertainty should increase with the number of possible outcomes. 
 
-So what if we used a **weighted average**? We could weigh the surprisal of each possible outcome by its probability. So our uncertainty measure would be determined *mostly* be the surprisal of the most probable outcome -- which is good -- but the surprisal of the remaining outcomes would still contribute.
+So what if we used a **weighted average**? We could weigh the surprisal of each possible outcome by its probability. So our uncertainty measure would be influenced largely be the surprisal of the most probable outcome -- which is good -- but the surprisal of the remaining outcomes would still contribute.
 
 ## Entropy as Weighted Average Surprisal
 
@@ -149,7 +167,7 @@ Here's a chart showing Shannon entropy in the case of 2 possible outcomes. It sh
 
 ![chart of Shannon entropy as a function of p(X)](https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Binary_entropy_plot.svg/1920px-Binary_entropy_plot.svg.png)
 
-This definition of uncertainty has some desirable properties that we've previously discussed.
+Shannon entropy has some desirable properties that we've previously discussed.
 
 **1: It approaches zero as the probability of the most probable outcome approaches 1**
 
@@ -172,8 +190,6 @@ What's more, it's easy to see that the entropy of 1% chance of rain will be the 
 In the case of 2 possible outcomes, it is maximized when the probability of each outcome is 50%. 
 
 In the case of more than 2 outcomes, Shannon entropy is also maximized when they are all equally probable.
-
-In the case of multiple possible outcomes, it has another desirable property:
 
 **3: it increases as the number of possible outcomes increases**
 
@@ -228,11 +244,11 @@ $$
 >
 > -- Claude Shannon
 
-So now we have a nice way to actually quantify uncertainty. But Shannon entropy is also a measure of **information**. What is the relationship between uncertainty and information?
+So now we have a nice way to actually quantify uncertainty that ticks a lot of intuitive boxes. But Shannon entropy is also a measure of **information**. What is the relationship between uncertainty and information?
 
 Suppose I know who the murderer is. But you don't -- for you there are still two possibilities. How many bits of information do I need to provide to you to tell you who did it? Just one. I might send you a "1" for Professor Plum and "0" for Colonel Mustard for example. I need to give you 1 bit of information to resolve your 1 bit of uncertainty about the murderer.
 
-How many bits do I need to tell you who the murder weapon is? We said above there are 4 possibilities, and a 2-bit number can encode four possibilities. So I need to provide 2 bits of information to resolve your 2 bits of uncertainty about the weapon.
+How many bits do I need to tell you who the murder weapon is? We said above there are 4 possible weapons, and a 2-bit number can encode four possibilities. So I need to provide 2 bits of information to resolve your 2 bits of uncertainty about the weapon.
 
 So "uncertainty" and "information" are two sides of the same coin. Every time you receive one bit of information, you can look at it as resolving one bit of uncertainty. For example, suppose I am sending you a byte of information, one bit at a time. Initially there are $2^8 = 256$ possible values for that byte. So your uncertainty is $log(256) = 8$ bits. When you find out the value of the first bit, you have cut the number of possible outcomes in half to $2^7 = 128$, which means uncertainty is now $log(128) = 7$ bits. Each bit of information reduces uncertainty by 1 bit.
 
