@@ -5,6 +5,10 @@ slug: "hermetic-programming"
 date: "2025-12-26"
 weight: 10
 math: true
+noindex: true
+_build:
+  list: never
+  render: always
 
 ---
 
