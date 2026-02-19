@@ -1,16 +1,8 @@
 
 
-don't use haskell for the world god object example
-
-enables interaction instead of provides accesss
-
 # TOdos
 
-Make sure to emphasize that Object-Capability is a security discipline, while Hermeticity is the language property that enforces it. You mention this, but bringing it to the forefront will make the essay highly attractive to capability researchers. Hermeticity is the compiler-enforced "no ambient authority" rule.
-
-
-Your argument that a hermetic language requires an inert ambient scope is fantastic. However, the Go example used to illustrate a "live package" uses global mutable state (var count int = 0).
-
+Example of delegating by grafting.
 
 
 operational/non-operational soon

@@ -2,7 +2,7 @@
 title: "Hermetic Programming"
 slug: "hermetic-programming"
 # image: image.png
-date: "2025-12-26"
+date: "2026-02-19"
 weight: 10
 math: true
 noindex: true
@@ -14,7 +14,7 @@ _build:
 
 <style>
     .image-with-caption {
-        display: block; margin-left: auto; margin-right: auto; max-width: 650px
+        display: block; margin-left: auto; margin-right: auto; max-width: 450px
 
     }
 </style>
@@ -25,13 +25,16 @@ _build:
 
 ## Introduction
 
-In most programming languages, any function can reach out and touch the world: read the clock, write a file, open a socket. But **ambient access to state**—through imports, singletons, globals, built-in functions—makes testing brittle and reasoning murky. You run a test once and it passes; run it again and it fails because the clock advanced or a temporary file wasn’t deleted.
+In most programming languages, any function can reach out and touch the world: read the clock, write a file, open a socket. But this **ambient access** to state—through singletons, globals, built-in functions—makes testing brittle and reasoning murky. You run a test once and it passes; run it again and it fails because the clock advanced or a temporary file wasn’t deleted.
 
 The practice of **dependency injection**[^di] can help tame access to state: don’t let code "reach out" for resources; pass them as parameters instead. What if we take dependency injection to its logical conclusion, and make it a **semantic property** of code, not just a design pattern?
 
+
+This essay proposes **access to state** as a first-class semantic property, distinct from purity:
+
 > **Hermetic programming** is parameterization of all access to state.
 
-This essay proposes **access to state** as a first-class semantic property, distinct from purity: a **hermetic programming language** isolates code from its environment by eliminating ambient access to state, forcing inversion of control: all system resources become capabilities that must be injected—for example by passing parameters to `main`.
+By eliminating ambient access to state, a hermetic programming language isolates code from its environment, forcing inversion of control: all system resources become capabilities that must be injected—for example as parameters passed to `main`.
 
 **Example (Typescript)**
 
@@ -47,9 +50,14 @@ export function main(console: Console): number {
 
 In the above example, `main` is a **hermetic function**:
 
-> A function is **hermetic** if it **only accesses existing state through its parameters.**
+> A function is **hermetic** iff it **only accesses existing state through its parameters.**
 
-Programming with hermetic functions means authority over state always flows through parameters: whether a function sorts an array or writes to a file, the caller controls the world the function can see: all interaction with state flows through "hermetically sealed" channels. Deterministic time? Pass a fake clock. Sandboxed output? Pass a mock filesystem. Every potential access to state is visible at the call boundary. You can read a function's dependencies off its signature. All authority is explicit. 
+<!--
+Programming with hermetic functions means authority over state always flows through parameters: whether a function sorts an array or writes to a file, the caller controls the world the function can see. All interaction with state flows through "hermetically sealed" channels. Deterministic time? Pass a fake clock. Sandboxed output? Pass a mock filesystem. Every potential access to state is visible at the call boundary. You can read a function's dependencies off its signature. All authority is explicit. 
+-->
+
+Programming with hermetic functions means authority over state always flows through "hermetically sealed" channels. Whether a function sorts an array or writes to a file, the caller controls the world the function can see.  Deterministic time? Pass a fake clock. Sandboxed output? Pass a mock filesystem. Every potential access to state is visible at the call boundary. You can read a function's dependencies off its signature. Effects, without ambient side-effects.
+
 
 ## The Purity Gap
 
@@ -61,11 +69,11 @@ Suppose I have a global immutable constant `systemClock: Clock` holding an opaqu
 
 Suppose I also have a function `getTime(clock: Clock): Time`, which takes a `Clock` (either the real clock or a mock) and returns that clock's time. I can now get the current time from the system clock by calling `getTime(getClock())`. 
 
-`getTime` is hermetic because it doesn't read or write any state other than the clock passed as a parameter. `getClock` is pure. But the resulting composed function `now = getTime ∘ getClock` is *neither hermetic nor pure*. 
+`getTime` is hermetic because it doesn't read or write any state other than the clock passed as a parameter. `getClock` is pure. But the resulting composed function `now = getTime ∘ getClock` is *neither hermetic nor pure*! 
 
 How can this be? A hermetic function by definition can't "reach out" and access the clock. And a *pure* function is even...purer...then a hermetic function, isn't it?
 
-The problem is that `getClock`, while being technically pure, is tainted by **access** to existing state. By returning a reference to the real clock, it **exposes** the clock.
+The problem is that `getClock`, while being technically pure, is tainted by **access** to existing state. By returning a reference to the real clock, it **exposes** ambient state.
 
 
 ## Interaction vs Access
@@ -87,13 +95,12 @@ The problem is that `getClock`, while being technically pure, is tainted by **ac
 
 </div>
 
-Although `getClock` and `now` are both hard-wired to the clock, `getClock` is pure because it does not actually **interact** with the clock like `now` does.
-
+Although `getClock` is hard-wired to the clock, it is pure because it does not actually **interact** with the clock like `now` does.
 
 It is interaction with state that makes a function impure. The most widely accepted definition of purity is **referential transparency**: an expression can be replaced by its value in any program context without changing observable[^observable] behavior. A function fails referential transparency when evaluation has observable interaction with external state: either it *affects* state, or it returns different outputs for the same inputs because it is *affected* by state.
 
 
-Hermetic functions are restricted in terms of access to state, not interaction. So hermeticity is actually *more strict* than purity in some ways (it forbids exposing existing state), and less strict than others (it permits interaction with parameterized state).
+Hermetic functions are restricted in terms of access to state, not interaction. So hermeticity is actually *more strict* than purity in some ways (it forbids access to ambient state), and less strict than others (it permits interaction).
 
 **Interaction vs Access Grid: Examples**
 
@@ -172,7 +179,7 @@ Values that don't provide access to state are **inert**: isolated from state.
 
 Providing access to state is different from merely **designating** state. A file name for example does not by itself provide the ability to interact with the file system. A function that receives a filename would need to "reach out" to some library or builtin function such as `open` -- in which  case, it's `open` that's live.
 
-Intuitively, a value is live if it can cause interaction with existing state in some context (directly or by enabling a call), whereas it is inert if it cannot, no matter how used, lead to interaction with pre-existing state unless paired with a live value.
+Intuitively, a value is live if it can cause interaction with existing state in some context (directly or by enabling a call), whereas it is inert if it cannot, no matter how used, lead to interaction with existing state unless paired with a live value.
 
 Equivalently: a value is live if you can swap it for a mock that redirects the interactions it enables into in-memory state controlled by the caller, without otherwise changing program behavior. In [Appendix D](#appendix-d-the-mockability-test) we formalize this as the **Mockability Test**.
 
@@ -224,7 +231,7 @@ Consider the Python example below:
 
 At this point we've closed the loop: hermeticity is a restriction on **access** to state; access is mediated by **live values**; and a function stops being hermetic exactly when it becomes live as a value. 
 
-A function can only be live if it captures **live free identifiers**. There are two ways live free identifiers can sneak into a function definition:
+A function can only be live if it captures **live free identifiers**. There are two ways this can happen:
 
 - Ambient identifiers (globals/imports/primitives)
 - Captured environments (closures)
@@ -263,7 +270,7 @@ func Log(msg string) {
 ```
 
 
-The same principle applies to package-level state. Package-level globals must be immutable, inert constants — otherwise they pollute every function that captures them, making those functions live and un-exportable.
+The same principle applies to package-level state. Package-level globals must be immutable, inert constants — otherwise they pollute every function that captures them, making those functions live.
 
 **Example (go): live package with package-global state**
 
@@ -279,13 +286,14 @@ func Inc() int {
 }
 ```
 
-On the other hand, constructors that allocate and return **fresh** state are hermetic!
+However, inert packages can export inert functions that allocate and expose fresh state.
 
 **Example (go): inert package with exported hermetic constructor**
 
 ```go
 package counter
 
+// NewCounter is inert because it does not capture any live free variables
 func NewCounter() func() int {
     var count int = 0
     return func() int {
@@ -295,11 +303,12 @@ func NewCounter() func() int {
 }
 ```
 
-This may seem surprising: `NewCounter` allocates mutable state and returns a closure over it. But a hermetic function is one that doesn't access *existing* state through free identifiers. Freshly allocated state that didn't exist before the call is not existing state — the constructor [**mints**](#minting-sate) new state rather than accessing pre-existing state. The function itself, as a value, is inert: it has no live free identifiers and is not hard-wired to any state.
 
-Inert packages can export types, interfaces, constants, methods, constructors, wrappers, and other hermetic functions. They can provide complex imperative algorithms that *interact* with external resources (e.g., a database client), as long as those resources are passed as parameters.
+Although `NewCounter` returns a closure over mutable state, it is freshly [**minted**](#minting-sate) state that didn't exist before the call, not existing state. `NewCounter` does not embed any live free identifiers and so it is inert as a value.
 
-Finally, for a package to be inert, it must not have any import-time effects (no module initialization with observable interactions).
+> Hermetic constructors can mint state.
+
+Inert packages can export types, interfaces, constants, wrappers, methods, constructors, and other hermetic functions. They can provide complex imperative algorithms that *interact* with external resources (e.g., a database client), as long as those resources are passed as parameters.
 
 In a hermetic programming language, the standard library defines *interfaces* to system resources (filesystem, network, clock, etc.), but the actual access happens through parameters injected into main.
 
@@ -309,7 +318,7 @@ It may seem like forcing packages and libraries to be inert would severely limit
 
 But hermetic HTTP just requires parameterizing access to the network. For example, go's `net/http` exports an `http.Serve` function that accesses the network exclusively through its `net.Listener` parameter. This parameter can be substituted for an in-memory `net.Listener` implementation (notably gRPC’s `bufconn`[^bufconn]) that doesn't interact with the actual network at all.
 
-Although go's `net/http` package is live because it exports functions that are hard-wired to the network and other resources (e.g. default logger, global transports/resolvers, implicit clocks/timeouts), it could easily be made hermetic by parameterizing access to all these resources, reducing the HTTP package to the protocol logic only.
+Although go's `net/http` package is live because it exports functions that are hard-wired to the network and other resources (default logger, global transports/resolvers), it could easily be made hermetic by parameterizing access to all these resources, reducing the HTTP package to the protocol logic only.
 
 <!--TODO: Of course, where does the actual `net.Listener` come from? -->
 
@@ -353,7 +362,7 @@ let x = [1, 2, 3]
 f(x)
 ```
 
-If `f` is indeed hermetic, the only state it can access is the list referenced by `x`: it cannot consult a global, log to a singleton, or touch the clock. To understand `f(x)` I only state I need to think about is `x`. I can forget about any other possible side-effects.
+If `f` is indeed hermetic, the only state it can access is the list referenced by `x`: it cannot consult a global, log to a singleton, or touch the clock. To understand `f(x)` the only state I need to think about is `x`. I can forget about any other possible side-effects.
 
 
 ### Composability
@@ -370,7 +379,7 @@ Because hermetic functions are isolated from ambient state, all hermetic functio
 
 One of the tenets of secure code is the **principle of least authority**[^pola] (POLA): each function should have only the minimum authority it needs to do its job. If you assume the functions you call may be malicious, a random math library should not be able to write to your filesystem.
 
-[Capability-based security](http://www.skyhunter.com/marcs/ewalnut.html) discipline promotes POLA by eliminating **ambient authority**.[^capmyths] Code can’t *reach out* for resources; it can only act through explicitly provided **capabilities** that designate a resource and authorize specific operations on it (read-only vs read/write, specific methods, etc.).
+[Capability-based security](https://en.wikipedia.org/wiki/Object-capability_model) discipline promotes POLA by eliminating **ambient authority**.[^capmyths] Code can’t *reach out* for resources; it can only act through explicitly provided **capabilities** that designate a resource and authorize specific operations on it (e.g. read access to a specific file).
 
 > Hermetic programming enforces the "no ambient authority" rule as a semantic language property. 
 
@@ -380,7 +389,7 @@ If we define "resources" and "dependencies" to include *any* state (filesystem, 
 
 Further, hermetic programming enforces second-order capability-based security practices such as confinement and revocation.[^confinement] Authority can only flow through channels or existing state that are themselves explicitly authorized. Confinement becomes a graph property: if untrusted code never receives a capability *nor the authority to [graft](#grafting-state) a capability into some existing state*, there is no path for that authority to spread. Revocation fits the same model: delegate via a proxy capability controlled by a revoker you keep.
 
-So simply making a programming language hermetic -- without explicitly designing it as an object capability (ocap) language -- provides the core single-process capability security baseline: **no ambient authority**, **explicit authority flow**, and therefore **confinement-by-construction** (relative to what you pass), with **revocation** as an ordinary library pattern (proxies).
+So simply making a programming language hermetic -- without explicitly designing it as an object capability (ocap)[^ocap] language -- provides the core single-process capability security baseline: **no ambient authority**, **explicit authority flow**, and therefore **confinement-by-construction** (relative to what you pass), with **revocation** as an ordinary library pattern (proxies).
 
 
 ## Hermetic Programming Practices
@@ -401,13 +410,29 @@ function main(world: World) {
 }
 ```
 
-Further, the caller should **restrict the operations** available to the callee as much as possible. Pass a single file handle instead of the entire filesystem; make it read-only if possible. Avoid passing capability-bearing sinks that allow a function to delegate authority by grafting live values into existing state.
+Further, the caller should **restrict the operations** available to the callee as much as possible. Pass a single file handle instead of the entire filesystem; make it read-only if possible. 
 
 This sort of proactive restriction helps prevent **confused deputies**[^confused], where a function uses the capabilities it was given—accidentally or maliciously—to do something it wasn't meant to do.
 
+POLA also requires restricting authority to **delegate** authority by passing mutable state whose type is broad enough to hold live values. A callee that receives both a capability and such a container can **graft** the capability into the container.
+
+**Example (Go) of a function that delegates authority by grafting**
+
+```go
+func handle(ctx map[string]any, db *Database) {
+    ctx["db"] = db // grafted: db is now reachable via ctx
+}
+```
+
+Any code that reads `ctx` now has database access.
+
+A more secure function signature would restrict authority by requiring a file handle instead of the whole db, making `ctx` read-only, or restricting the types it can store.
+
+In a hermetic programming language, capability-based security is practiced at the level of types in function signatures. 
+
 ### Contexts
 
-Hermetic Programming requires more "wires". Parameters must be threaded through the call stack to reach all functions that need them ("prop-drilling", "parameter pollution"). This can make code noisy and refactoring complicated, especially for cross-cutting aspects of a program such as logging.
+Hermetic Programming requires more "wires". Parameters must be threaded through the call stack to reach all functions that need them ("prop-drilling"[^propdrilling], "parameter pollution"). This can make code noisy and refactoring complicated, especially for cross-cutting aspects of a program such as logging.
 
 One way of reducing the number of explicitly-passed parameters is to support **contexts**[^scala-context] (also known as implicits). In this pattern, the "wires" are hidden from the function *body*, but they usually remain visible in the function *signature*. Here's an example in Scala:
 
@@ -471,15 +496,25 @@ hermeticMain = putLine "Hello, World!"
 
 `hermeticMain` does not assume a particular console and does not commit to `IO`. The caller can choose which `m` to supply—including an in-memory mock. All access to the console is routed through an injected capability.
 
+A concrete caller wires `hermeticMain` to the real console (the `Console IO` typeclass instance is an implicit parameter):
+
+```haskell
+instance Console IO where
+    putLine = putStrLn
+
+main :: IO ()
+main = hermeticMain
+```
+
 So `hermeticMain` is both pure and inert. Whereas `main :: IO ()` is pure but live. Both sit in the "pure" row of our interaction vs. access grid—but in different columns.
 
 ### Toward Hermetic Haskell
 
 Haskell's `Prelude` and standard library has many live values. `putStrLn`, `readFile`, `getCurrentTime`—these are all hard-wired to real system resources. Any function that calls one of these becomes live. The liveness propagates through composition, exactly as it does in imperative languages.
 
-A "Hermetic Haskell" would move all live identifiers out of the Prelude and standard libraries, exporting only **interfaces** (e.g. type classes using the tagless final pattern) to system resources, with concrete implementations injected into `main` by the runtime. The `ReaderT`[^readert] pattern — Haskell's analog of the [contexts/implicits](#contexts) discussed earlier — could manage the extra wiring, threading capabilities through the call stack without explicit parameter passing.
+A "Hermetic Haskell" would move all live identifiers out of the Prelude and standard libraries, exporting only **interfaces** (e.g. type classes using the tagless final pattern) to system resources, with concrete implementations injected into `main` by the runtime. The `ReaderT`[^readert] pattern — Haskell's analog of the [contexts/implicits](#contexts) discussed earlier — can help manage the extra wiring.
 
-Purity guarantees that code doesn't interact with external state when evaluated. Hermeticity guarantees that code doesn't have *access* to external state, unless explicitly authorized. A pure function can still be hard-wired to the real filesystem, clock, and network, making tests flaky, mocks impossible, and reasoning non-local. That's why tagless final and ReaderT patterns are common in Haskell. Not because it isn't pure enough—but because it isn't hermetic.
+Purity guarantees that code doesn't interact with external state when evaluated. Hermeticity guarantees that code doesn't have *access* to external state unless explicitly authorized. A pure function can still be hard-wired to the real filesystem, clock, and network. This can make tests flaky, mocks impossible, and reasoning non-local. That's why tagless final and ReaderT patterns are common in Haskell. Not because it isn't pure enough—but because it isn't hermetic.
 
 ## Conclusion
 
@@ -535,10 +570,9 @@ Hermeticity and call-boundedness are properties of the function definition itsel
 
 ### Appendix B: Restrictions on Access to State
 
-Our definitions of pure and hermetic functions lead to some somewhat surprising conclusions. For example, constructors and functions that return live values can still be hermetic.
+Our definitions of pure and hermetic functions lead to some somewhat surprising conclusions. For example, constructors that return live values can still be hermetic.
 
-In this section, we'll summarize our definitions of pure and hermetic functions in terms of restrictions on access to state, and explore the implications for what these kinds of functions can and cannot do.
-
+In this appendix, we'll summarize our definitions of the different types of state and the restrictions on how pure and hermetic functions can access state.
 
 #### Types of State
 
@@ -558,11 +592,9 @@ A function can expose state by writing a live value into existing state — for 
 
 #### Minting State
 
-A hermetic function can expose **fresh** state that it allocates during the call. We call this **minting** state. Minting is why constructors can be hermetic: the minted state didn't exist before the call, so the function isn't accessing pre-existing state. The function as a value remains inert.
+A hermetic function can expose **fresh** state that it allocates during the call. We call this **minting** state. Minting is why constructors can be hermetic: the minted state didn't exist before the call, so the function isn't accessing existing state. The function as a value remains inert.
 
 #### Summary of Restrictions
-
-The restrictions on state access for pure and hermetic functions are summarized in the table below.
 
 Capability | Pure | Hermetic
 -|-|-
@@ -602,11 +634,11 @@ Mint State                        | No  | Yes
 
 ### Appendix D: The Mockability Test
 
-We want a definition of **live value** that works in *any* language, without assuming object-capability discipline or appealing to informal explanations about where authority comes from. The only thing we assume is an operational view of evaluation: running code can produce an **interaction trace**—a log of observable interactions with **pre-existing state** (filesystem, network, clock, etc.), ignoring timing and resource usage.
+We want a definition of **live value** that works in *any* language, without assuming object-capability discipline or appealing to informal explanations about where authority comes from. The only thing we assume is an operational view of evaluation: running code can produce an **interaction trace**—a log of observable interactions with **existing state** (filesystem, network, clock, etc.), ignoring timing and resource usage.
 
 #### The Trace-Projection Idea
 
-A program’s interaction trace can be partitioned by *which state it touches*. If `S` is a particular pre-existing state resource (or set of resources)—a specific file, socket, clock, region of memory, etc.—we write:
+A program’s interaction trace can be partitioned by *which state it touches*. If `S` is a particular existing state resource (or set of resources)—a specific file, socket, clock, region of memory, etc.—we write:
 
 * `π_S(trace)` for the **projection** (restriction) of a trace onto only the events that interact with `S`.
 
@@ -616,7 +648,7 @@ Now we can express "this program interacts with `S`" without talking about refer
 
 We will allow program contexts `C[–]` to range over **expression contexts**: the hole may appear wherever an expression may appear—including in "operator position" (e.g. `C[–] = (–)(x)`), which covers both `read(x)` and method-style calls once desugared (e.g. `x.read()` selects some callable expression and then applies it).
 
-A value `v` provides access to some pre-existing state `S` iff:
+A value `v` provides access to some existing state `S` iff:
 
 > There exists a substitute value `v′` (admissible in place of `v`) such that, for every program context `C[–]` whose behavior does not depend on the representation identity (e.g. pointer address) of the value plugged into the hole, the projected traces  
 >
@@ -626,7 +658,7 @@ A value `v` provides access to some pre-existing state `S` iff:
 
 And:
 
-> `v` is live iff it provides access to some pre-existing state `S`.
+> `v` is live iff it provides access to some existing state `S`.
 
 Intuitively: `v` provides access to `S` if whatever interactions a program can have with `S` can always be retargeted by swapping `v` for `v′`, to an isomorphic interaction with state that the caller allocates and controls. 
 
@@ -682,6 +714,8 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^hermetic-runtimes]: By "hermetic runtime" we mean a runtime that enforces isolation for code that is not itself hermetic — e.g. [senc](https://github.com/fensak-io/senc) for Typescript. If the *language* is hermetic, the runtime doesn't need to provide this isolation.
 
+[^ocap]: An object-capability (ocap) language enforces capability discipline at the language level: references are unforgeable, there is no ambient authority, and the only way to obtain a capability is to be given one. Examples include E, Monte, and Agoric's Hardened JavaScript. See Mark S. Miller, *Robust Composition: Towards a Unified Approach to Access Control and Concurrency Control* (PhD thesis, Johns Hopkins, 2006). [PDF](https://www.erights.org/talks/thesis/markm-thesis.pdf)
+
 [^capmyths]: The terms *ambient authority* and *capability* are formalized in the object-capability literature. See Ka-Ping Yee, Mark S. Miller, and Jonathan Shapiro, *Capability Myths Demolished* (2003). [PDF](https://srl.cs.jhu.edu/pubs/SRL2003-02.pdf)
 
 [^confinement]: Confinement was formalized by Butler Lampson, *A Note on the Confinement Problem* (CACM, 1973). Revocation and its relationship to capability discipline is discussed in Miller (2006), cited above.
@@ -694,6 +728,8 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^awkward]: Simon Peyton Jones, *Tackling the Awkward Squad: monadic input/output, concurrency, exceptions, and foreign-language calls in Haskell* (2001). Canonical reference for "pure values that denote effectful computations." [PDF](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/mark.pdf)
 
+[^propdrilling]: "Prop drilling" refers to passing data through multiple layers of components or functions solely to deliver it to a deeply nested consumer. The term originates from the React community, where "props" are the parameters passed to components.
+
 [^scala-context]: Scala 3 calls these *context parameters* (`using` / `given`). See [Scala 3 Reference: Context Parameters](https://docs.scala-lang.org/scala3/reference/contextual/context-parameters.html). Similar mechanisms exist in other languages: Haskell's `implicit` parameters, Kotlin's context receivers, and Rust's planned `impl Trait` in argument position. ReaderT
 
 [^confused]: The confused deputy problem was first identified by Norm Hardy in 1988. See Hardy, *The Confused Deputy* (ACM SIGOPS Operating Systems Review, 1988).
@@ -702,4 +738,4 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^di]: Martin Fowler, *Inversion of Control Containers and the Dependency Injection pattern*. [link](https://martinfowler.com/articles/injection.html)
 
-[^observable]: As usual, we ignore changes that are not observable by normal program operations, such as internal allocation, garbage collection, caching, or timing effects. Allocating fresh state does not by itself grant access to other pre-existing heap objects; it is internal to the call unless it escapes (assuming ordinary memory safety / no pointer-forging).
+[^observable]: As usual, we ignore changes that are not observable by normal program operations, such as internal allocation, garbage collection, caching, or timing effects. Allocating fresh state does not by itself grant access to other existing heap objects; it is internal to the call unless it escapes (assuming ordinary memory safety / no pointer-forging).
