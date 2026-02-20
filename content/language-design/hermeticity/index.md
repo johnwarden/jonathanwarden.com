@@ -17,11 +17,19 @@ _build:
         display: block; margin-left: auto; margin-right: auto; max-width: 450px
 
     }
+
+.note {
+    font-size: 1.2em;
+    background-color: #FFDDDD;
+    padding: 8px;
+    font-weight: bold;
+}
 </style>
 
 
-
-
+<aside class="note">
+    Draft: please don’t share publicly; I’m circulating for feedback.
+</aside>
 
 ## Introduction
 
@@ -32,7 +40,7 @@ The practice of **dependency injection**[^di] can help tame access to state: don
 
 This essay proposes **access to state** as a first-class semantic property, distinct from purity:
 
-> **Hermetic programming** is parameterization of all access to state.
+> **Hermetic programming** is the parameterization of all access to existing state.
 
 By eliminating ambient access to state, a hermetic programming language isolates code from its environment, forcing inversion of control: all system resources become capabilities that must be injected—for example as parameters passed to `main`.
 
@@ -50,7 +58,8 @@ export function main(console: Console): number {
 
 In the above example, `main` is a **hermetic function**:
 
-> A function is **hermetic** iff it **only accesses existing state through its parameters.**
+> A function is hermetic iff it does not access existing state except through its parameters.
+
 
 <!--
 Programming with hermetic functions means authority over state always flows through parameters: whether a function sorts an array or writes to a file, the caller controls the world the function can see. All interaction with state flows through "hermetically sealed" channels. Deterministic time? Pass a fake clock. Sandboxed output? Pass a mock filesystem. Every potential access to state is visible at the call boundary. You can read a function's dependencies off its signature. All authority is explicit. 
@@ -179,7 +188,7 @@ Values that don't provide access to state are **inert**: isolated from state.
 
 Providing access to state is different from merely **designating** state. A file name for example does not by itself provide the ability to interact with the file system. A function that receives a filename would need to "reach out" to some library or builtin function such as `open` -- in which  case, it's `open` that's live.
 
-Intuitively, a value is live if it can cause interaction with existing state in some context (directly or by enabling a call), whereas it is inert if it cannot, no matter how used, lead to interaction with existing state unless paired with a live value.
+Intuitively: a value is live if it can cause interaction with existing state in some context (directly or by enabling a call), whereas it is inert if it cannot, no matter how used, lead to interaction with existing state unless paired with a live value.
 
 Equivalently: a value is live if you can swap it for a mock that redirects the interactions it enables into in-memory state controlled by the caller, without otherwise changing program behavior. In [Appendix D](#appendix-d-the-mockability-test) we formalize this as the **Mockability Test**.
 
@@ -191,11 +200,11 @@ We can talk about functions in two roles: as code (a callable) and as values (pa
 
 Hermetic functions can only access state through live values passed as parameters. No live value is hard-coded in their definition, so they are not hard-wired to state. Passing a hermetic function to another function cannot provide the latter with access to state. So they are inert as values.
 
-A function can only be live if it embeds a live value in its definition.
-
 ### Live Free Identifiers
 
-A **free identifier** is any name appearing in a function that is not a parameter or a local variable. A function embeds a live value in its definition when it refers to a free identifier that resolves to a live value. So:
+A function can only be live if it embeds a live value in its definition.
+
+A **free identifier** is any name appearing in a function definition that is not a parameter or a local variable.
 
 > A function is inert if its definition has no live free identifiers.
 
@@ -211,9 +220,9 @@ Consider the Python example below:
 
 </div>
 
-`hello` is inert because it has no live free identifiers: the only lexical name it references is the parameter `out` (`write` is a member selection on `out`). In contrast, `main` is live because it refers to the live free identifier `stdout`. Although `main` is a function and `stdout` is a handle, they are both live values—hard-wired to state.
+The only lexical name that `hello` references is the parameter `out` (`write` is a member selection on `out`), so `hello` is inert. In contrast, `main` is live because it refers to the live free identifier `stdout`. 
 
-
+Although `main` is a function and `stdout` is a handle, they are both live as values.
 
 <div class="image-with-caption">
 
@@ -252,7 +261,7 @@ Collectively, these form the **ambient scope**.
 
 An import statement must not introduce live values into the ambient scope, nor have any observable side effects (no module initialization with observable interactions).
 
-This means every identifier exported by a package or module must be inert. Consequently, package-scoped functions must not capture live values. This effectively bans global singletons.
+This means every identifier exported by a package or module must be inert. Consequently, package-scoped functions must not capture live values from other packages.
 
 **Example (go): live package with a global singleton**
 
@@ -261,16 +270,13 @@ package logger
 
 import "os"
 
-var defaultOutput = os.Stdout
-
-// Log is live because it captures a live free identifier.
+// Log is live because it captures a live free identifier os.Stdout.
 func Log(msg string) {
-    defaultOutput.WriteString(msg + "\n")
+    os.Stdout.WriteString(msg + "\n")
 }
 ```
 
-
-The same principle applies to package-level state. Package-level globals must be immutable, inert constants — otherwise they pollute every function that captures them, making those functions live.
+Further, inert packages must cannot host global singletons. Package package-level globals must be immutable, inert constants — otherwise they pollute every function that captures them, making those functions live.
 
 **Example (go): live package with package-global state**
 
@@ -285,6 +291,7 @@ func Inc() int {
     return count
 }
 ```
+
 
 However, inert packages can export inert functions that allocate and expose fresh state.
 
@@ -314,7 +321,7 @@ In a hermetic programming language, the standard library defines *interfaces* to
 
 #### Example: Hermetic HTTP
 
-It may seem like forcing packages and libraries to be inert would severely limit then. For example, how could an HTTP library be inert? HTTP is all about I/O and state.
+It may seem like forcing packages and libraries to be inert would severely limit them. For example, how could an HTTP library be inert? HTTP is all about I/O and state.
 
 But hermetic HTTP just requires parameterizing access to the network. For example, go's `net/http` exports an `http.Serve` function that accesses the network exclusively through its `net.Listener` parameter. This parameter can be substituted for an in-memory `net.Listener` implementation (notably gRPC’s `bufconn`[^bufconn]) that doesn't interact with the actual network at all.
 
@@ -324,8 +331,9 @@ Although go's `net/http` package is live because it exports functions that are h
 
 In the Python world, Cory Benfield popularized the "sans-I/O"[^sansio] idea: protocol libraries should be pure state machines over bytes, like the [hyper-h2](https://github.com/python-hyper/h2) HTTP/2 library, with all I/O delegated to a thin, parameterized shell.
 
+<!--
 In Rust, capability-oriented standard-library efforts, such as cap-std[^capstd], route filesystem and networking access through passed-in handles.
-
+-->
 
 ### Closures
 
@@ -462,22 +470,24 @@ Because pure values can still be **live capabilities**.
 
 ### Effect Values Can Be Live
 
-In Haskell, an `IO ()` describes an effectful computation.[^awkward] It is like a compiled program: constructing it has no side effects, but when it is executed it interacts with state. This means **the value itself carries authority**.
+In Haskell, an `IO ()` describes an effectful computation.[^awkward] It is like a compiled program: constructing it has no side effects, but when it is interpreted by the runtime it interacts with state. This means **the value itself carries authority**.
 
 ```haskell
 main :: IO ()
 main = putStrLn "Hello, World!"
 ```
 
-Although `main` is pure, it is live in our sense: it hard-codes a reference to the live identifier `putStrLn`, which effectively hard-wires `main` to the real console. You cannot inspect the resulting IO value and swap out the console for a buffer. So when the program is executed it invokes a console operation through ambient authority rather than a capability passed as a parameter. **Pure does not imply inert.**
+Although `main` is pure, it is live in our sense: it hard-codes a reference to the live identifier `putStrLn`, which effectively hard-wires `main` to the real console. There’s no principled way to inspect the resulting `IO ()` and swap the console for a buffer. So when the program is executed it invokes a console operation through ambient authority rather than a capability passed as a parameter. 
+
+**Pure does not imply inert.**
 
 <div class="image-with-caption">
 
 <img id="figure5" src="putstrln-example.png"
-     alt="Figure 5. Dependency graph for Hello World! program where main is live."/>
+     alt="Figure 5. Illustration of Hello World! program where main is live because it is ultimately hard-wired to the system console."/>
 
 <div>
-    <strong>Figure 5</strong>. Dependency graph for Hello World! program where main is live because it is ultimately hard-wired to the system console.
+    <strong>Figure 5</strong>. Illustration of Hello World! program where main is live because it is ultimately hard-wired to the system console.
 </div>
 
 </div>
@@ -514,17 +524,17 @@ Haskell's `Prelude` and standard library has many live values. `putStrLn`, `read
 
 A "Hermetic Haskell" would move all live identifiers out of the Prelude and standard libraries, exporting only **interfaces** (e.g. type classes using the tagless final pattern) to system resources, with concrete implementations injected into `main` by the runtime. The `ReaderT`[^readert] pattern — Haskell's analog of the [contexts/implicits](#contexts) discussed earlier — can help manage the extra wiring.
 
-Purity guarantees that code doesn't interact with external state when evaluated. Hermeticity guarantees that code doesn't have *access* to external state unless explicitly authorized. A pure function can still be hard-wired to the real filesystem, clock, and network. This can make tests flaky, mocks impossible, and reasoning non-local. That's why tagless final and ReaderT patterns are common in Haskell. Not because it isn't pure enough—but because it isn't hermetic.
+Purity guarantees that code doesn't interact with external state when evaluated. Hermeticity guarantees that code doesn't have *access* to external state unless explicitly authorized. A pure function can still be hard-wired to the real filesystem, clock, and network. This can make tests flaky, mocks impossible, and reasoning non-local. That's why tagless final and ReaderT patterns are common in Haskell. Not because Haskell isn't pure enough—but because it isn't hermetic.
 
 ## Conclusion
 
 When we think of "pure" data, we may imagine something cleanly serializable—no pointers, closures, handles. But the quality we are really reaching for is not purity but **inertness**. References, channels, closures, effect values—these are the living machinery of computation, rooted to their execution environment. Integers, strings, lists—inert matter being computed.
 
-**Hermeticity is inertness applied to functions.** An inert function cannot access state directly; to do anything in the world, it must be plugged into live parameters that the caller provides. The live/inert distinction applies even in pure functional languages. Pure/impure and inert/live are independent axes of "clean".
+**Hermeticity is inertness applied to functions.** A hermetic function may not be pure, but it is pure functionality. Since it cannot access state directly, it must be plugged into live parameters to do anything. The live/inert distinction applies even in pure functional languages. Pure/impure and inert/live are independent axes of "clean", and functional and hermetic programming are complementary.
 
 Making a programming language hermetic is straightforward in principle: keep the ambient scope inert, export interfaces from standard libraries, not live values, and inject concrete resources into `main`. Contexts or implicits can manage the extra wiring. 
 
-A hermetic function may not be pure, but it is pure functionality: decoupled from ambient state, testable against mocks, reusable, and composable. All authority is explicit. Function signatures are dependency manifests. Effects, without free side-effects. 
+Hermetic programming carves programs at the joints. All hermetic functions are decoupled from ambient state, testable against mocks, reusable, and composable. Function signatures are dependency manifests. All authority is explicit.
 
 Hermetic programming unites dependency injection and capability-based security under a single semantic rule: **a function may only access existing state through its parameters**. No hard-coded dependencies. No ambient authority. No hidden inputs. No leaks. 
 
@@ -672,15 +682,16 @@ If, on the other hand, `read` accepts an interface/trait/function that the calle
 
 The mockability test has a useful contrapositive: if a value *cannot* be substituted for a behavioral equivalent backed by caller-controlled internal state, then the value is not live. The state access it enables must be flowing through some other channel—ambient authority.
 
-This connects back to the designator/capability distinction. A filename string can be swapped for a different string, but that just redirects reads to a different file on the real filesystem—it cannot redirect them to an in-memory buffer. The string is not live; it is a designator. The live part is the ambient `open` or `read` function that interprets the designator. Non-substitutability of the value is a signal pointing at where the ambient authority actually lives.
-
 #### Pointers Are Live
 
-A pointer to mutable state is live under this test because it is retargetable: in any context that treats pointers extensionally (not inspecting their numeric address), you can substitute a pointer to one region with a pointer to a fresh region and obtain an isomorphic interaction trace over that region. This remains true even in a memory-unsafe language where pointers are **forgeable** from integers.
+A pointer to mutable state is live under this test because it is retargetable: in any context that treats pointers extensionally (not inspecting their numeric address), you can substitute a pointer to one region with a pointer to a fresh region and obtain an isomorphic interaction trace over that region. 
 
-That is not a contradiction: **liveness** is about whether a value can serve as a retargetable conduit to state. **Hermeticity** is a stronger language property: it requires eliminating *ambient* ways to obtain conduits. In a language like C, the dereference operator (`*`) and integer-to-pointer casts act as ambient authority over memory. A hermetic programming language must therefore make references **unforgeable**—some form of memory safety / capability safety—so that a program cannot conjure access to arbitrary memory out of thin air.
+This remains true even in a memory-unsafe language where pointers are **forgeable** from integers. That is not a contradiction: **liveness** is about whether a value can serve as a retargetable conduit to state. **Hermeticity** is a stronger language property: it requires eliminating *ambient* ways to obtain conduits. In a language like C, the dereference operator (`*`) and integer-to-pointer casts act as ambient authority over memory.
 
-So pointers can be live even in unsafe languages. But a hermetic language must prevent forging of live references (which typically implies some form of memory safety / capability safety).
+A hermetic programming language must therefore make references **unforgeable**—some form of memory safety / capability safety—so that a program cannot conjure access to arbitrary memory out of thin air.
+
+<!--
+So pointers can be live even in unsafe languages. But a hermetic language must prevent forging of live references (which typically implies some form of memory safety / capability safety).-->
 
 #### References
 
@@ -700,7 +711,7 @@ Methods can be thought of as functions parameterized by their receivers. A metho
 
 Consider an object that embeds a reference to a logger. If one of the object's methods writes to that logger (and only that logger), the method is hermetic. On the other hand, if the method hard-coded access to a global logger instead of the one embedded in the object, then the method itself would be live.
 
-It follows that in a hermetic programming language, exported types must be hermetic: they cannot have live methods that smuggle in ambient access to state.
+It follows that in a hermetic programming language, exported types must be hermetic in the sense that they cannot have live methods.
 
 ## Footnotes
 
@@ -719,8 +730,6 @@ It follows that in a hermetic programming language, exported types must be herme
 [^capmyths]: The terms *ambient authority* and *capability* are formalized in the object-capability literature. See Ka-Ping Yee, Mark S. Miller, and Jonathan Shapiro, *Capability Myths Demolished* (2003). [PDF](https://srl.cs.jhu.edu/pubs/SRL2003-02.pdf)
 
 [^confinement]: Confinement was formalized by Butler Lampson, *A Note on the Confinement Problem* (CACM, 1973). Revocation and its relationship to capability discipline is discussed in Miller (2006), cited above.
-
-[^capstd]: The `cap-std` crate provides capability-oriented replacements for Rust's standard filesystem and networking APIs. [https://github.com/bytecodealliance/cap-std](https://github.com/bytecodealliance/cap-std)
 
 [^sansio]: Cory Benfield, *Sans-IO: Network Protocol Libraries in Python*. The manifesto for writing protocol libraries as pure state machines, with I/O delegated to a separate layer. [https://sans-io.readthedocs.io/](https://sans-io.readthedocs.io/)
 

@@ -2,6 +2,9 @@
 
 # TOdos
 
+Cap Security: don't assume that you are passed "the world". Passed explicit capabilities.
+
+
 Example of delegating by grafting.
 
 
