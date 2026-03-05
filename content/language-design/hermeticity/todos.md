@@ -1,11 +1,36 @@
+Writing to a channel is grafting state.
+
+SES / HardenedJS docs: they literally disable Date.now() and Math.random()
+
+SES is a modern “ocap discipline” implementation in JavaScript-land, and its guide makes the connection painfully concrete:
+
+“Does not include any I/O objects that provide ambient authority.”
+
+Date.now() throws instead of returning time, and Math.random() throws, specifically because these are ambient sources of non-determinism/authority.
+
+This is perfect for your essay because it’s not just definitional—it’s an existence proof that clock access counts as ambient authority in ocap practice.
+
+----
+
+Property F: Access-Controlled Delegation Channels
+
+attenuation
+
+all functions hermetic = inert ambient scope + no live closures
+
+[TODO: *-properties]
+
+better intro text:
+    [Capability-based security](https://en.wikipedia.org/wiki/Object-capability_model) 
 
 
 # TOdos
 
-Cap Security: don't assume that you are passed "the world". Passed explicit capabilities.
+TODO: 
+The WASI standard 
+WASM is a hermetic environment?
+not just webasm
 
-
-Example of delegating by grafting.
 
 
 operational/non-operational soon
