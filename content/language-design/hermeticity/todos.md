@@ -1,3 +1,41 @@
+(e.g., how it differs from Wuffs' hermeticity or Agoric's ocap) could be deeper—Appendix A starts this but doesn't contrast enough.
+--
+
+<!--
+
+This sort of proactive restriction helps prevent **confused deputies**[^confused], where a function uses the capabilities it was given—accidentally or maliciously—to do something it wasn't meant to do.
+-->
+
+
+<!--
+So pointers can be live even in unsafe languages. But a hermetic language must prevent forging of live references (which typically implies some form of memory safety / capability safety).-->
+
+<!--TODO: Of course, where does the actual `net.Listener` come from? -->
+
+
+<!--
+In Rust, capability-oriented standard-library efforts, such as cap-std[^capstd], route filesystem and networking access through passed-in handles.
+
+-->
+
+
+<!--
+
+In many Object capability (ocap)[^ocap] languages, "no ambient authority" implies an inert ambient scope -- 
+
+Our definition of "state" includes channels (ways to communicate) and internal program memory. Object capability (ocap)[^ocap] languages where "no ambient authority" includes communication channels
+
+
+> A language has **no ambient authority** iff it has an **inert ambient scope**. 
+
+
+memoryless
+
+
+ such as hardened Javascript, which eliminate all ambient authority, are therefore hermetic programming languages. The reverse is not necessarily true.
+-->
+
+
 Writing to a channel is grafting state.
 
 SES / HardenedJS docs: they literally disable Date.now() and Math.random()
