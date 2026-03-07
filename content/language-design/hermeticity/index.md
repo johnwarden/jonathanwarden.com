@@ -54,14 +54,18 @@ In the above example, `main` is a **hermetic function**:
 
 > A function is hermetic iff it does not access existing state except through its parameters.
 
-If `main` is hermetic, any functions it calls must be hermetic as well (otherwise `main` is indirectly accessing existing state). Making your program entry-point hermetic therefore eliminates **ambient authority**, the defining requirement of **object-capability (ocap)[^ocap] languages** such as E, Monte, and Agoric's SES (Secure EcmaScript).
+If `main` is hermetic, any functions it calls must be hermetic as well (otherwise `main` is indirectly accessing existing state). Making your program's entry function hermetic therefore eliminates **ambient authority**, the defining requirement of **object-capability (ocap)[^ocap] languages** such as E, Monte, and Agoric's SES (Secure EcmaScript).
 
-If both "dependencies" and "authority" are defined to include *any* existing state, "inject all dependencies" is literally equivalent to "no ambient authority". The parameters to hermetic functions act as hermetically sealed conduits through which all authority flows. Whether a function writes to a file, reads a channel, or mutates a buffer, the caller controls the world the function can see. Deterministic time? Pass a fake clock. Sandboxed output? Pass a mock filesystem. Every potential access to state is visible at the call boundary. You can read a function's dependencies off its signature. Effects, without ambient side-effects.
+If both “dependencies” and “authority” are taken to include any existing state, then “inject all dependencies” becomes literally equivalent to “no ambient authority.” A language that enforces this property with a hermetic program entry function is a **hermetic programming language**. 
+
+In a hermetic programming language, function parameters act as hermetically sealed conduits through which all authority flows. Whether a function writes to a file, reads a channel, or mutates a buffer, the caller controls the world the function can see. Deterministic time? Pass a fake clock. Sandboxed output? Pass a mock filesystem. Every potential access to state is visible at the call boundary. You can read a function's dependencies off its signature. Effects, without ambient side-effects.
 
 
 ## The Purity Gap
 
-This essay proposes hermeticity as a first-class semantic property of functions, distinct from purity. But hermetic programming is not just functional programming-lite. **Hermeticity is orthogonal to purity**.
+This essay proposes hermeticity as a first-class semantic property of functions, distinct from purity. But hermetic programming is not just functional programming-lite. Purity restricts **interaction** with state. Hermeticity restricts **access** to state. These are orthogonal.
+
+**Hermeticity is orthogonal to purity**.
 
 Suppose I have a global immutable constant `systemClock: Clock` holding an opaque handle to the system clock. And suppose `getClock(): Clock` is a function that simply returns that constant.
 
@@ -398,15 +402,7 @@ Since functions can only access state through live values passed as parameters: 
 
 "Ambient authority" may sometimes be understood to apply only to security-sensitive,  system resources--not necessarily to inter-function communication channels or persistent program memory. But if a function can communicate or store a live value between calls, that value can be used by another function call to access state that wasn't explicitly passed as a parameter. This increases the attack surface. 
 
-<!--
-
-    Capability-based security requires a way for the caller to **confine** authority to a single function and **revoke** that authority when the function returns.-->
-
 But a hermetic programming language eliminates ambient authority to *any existing state*. A hermetic function can only overtly communicate via channels provided by the caller, and it is memoryless across calls (unless memory is explicitly passed in). If a function never receives *the authority to [graft](#grafting-state) a capability into some existing state*, then any authority it receives is confined to the function call, and automatically revoked when the function returns. These security properties are consequences of the core semantics of hermetic functions—not extra security mechanisms. 
-
-<!--
-TODO: where to make this point: If we define both "resources" and "dependencies" to include *any* existing state, then "inject all dependencies" is literally equivalent to "no ambient authority". 
--->
 
 
 ## Hermetic Programming Practices
@@ -537,7 +533,7 @@ Hermetic programming carves programs at the joints. All hermetic functions are d
 
 Eliminating ambient access to all existing state eliminates entire classes of security vulnerabilities. We should look back at global singletons or `import fs` granting immediate, permissions-based disk access with the same horror we now reserve for `goto`. The next generation of programming languages should be hermetic.
 
-Hermetic programming links dependency injection, capability-based security, and behavioral referential transparency using a single semantic rule: **a function may only access existing state through its parameters**. No hard-coded dependencies. No ambient authority. No hidden inputs. No leaks. 
+Hermetic programming links inversion of control, capability-based security, and behavioral referential transparency using a single semantic rule: **a function may only access existing state through its parameters**. No hard-coded dependencies. No ambient authority. No hidden inputs. No leaks. 
 
 
 
