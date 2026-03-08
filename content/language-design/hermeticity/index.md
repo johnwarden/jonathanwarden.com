@@ -56,9 +56,9 @@ In the above example, `main` is a **hermetic function**:
 
 If the program entry function is hermetic, any functions the program depends on must also be hermetic (otherwise `main` is indirectly accessing existing state). So a hermetic `main` eliminates **ambient authority**, the defining requirement of **object-capability (ocap)[^ocap] languages** such as E and SES. 
 
-If both “authority” and "dependencies" are taken to include *any existing state* -- including the clock, randomness, global singletons, and communication channels -- then “no ambient authority" becomes literally equivalent to “inject all dependencies”.
+If both “authority” and "dependencies" are taken to include *any existing state* -- including the clock, randomness, global singletons, and communication channels -- then “no ambient authority" and “inject all dependencies” become the same principle, enforced simply by making the program entry function hermetic.
 
-In a hermetic programming language, programs are modeled as hermetic functions calling other hermetic functions, and function parameters become hermetically sealed conduits through which all authority flows. Whether a function writes to a file, reads a channel, or mutates a buffer, the caller controls the world the function can see. Deterministic time? Pass a fake clock. Sandboxed output? Pass a mock filesystem. Every potential access to state is visible at the call boundary. You can read a function's dependencies off its signature. Effects, without ambient side-effects.
+Hermetic programming makes function parameters into hermetically sealed conduits through which all authority flows. Whether a function writes to a file, reads a channel, or mutates a buffer, the caller controls the world the function can see. Deterministic time? Pass a fake clock. Sandboxed output? Pass a mock filesystem. Every potential access to state is visible at the call boundary. You can read a function's dependencies off its signature. Effects, without ambient side-effects.
 
 ## The Purity Gap
 
@@ -290,7 +290,7 @@ In a hermetic programming language, the standard library defines *interfaces* to
 
 It may seem like forcing packages and libraries to be inert would severely limit them. How could an HTTP library be inert? HTTP is all about I/O and state.
 
-Hermetic HTTP just means parameterizing access to the network. For example, Go's `net/http` exports an `http.Serve` function that accesses the network exclusively through its `net.Listener` parameter. This parameter can be substituted with an in-memory `net.Listener` implementation (notably gRPC’s `bufconn`[^bufconn]) that doesn't interact with the real network.
+But consider Go's `net/http` package, which exports an `http.Serve` function that accesses the network exclusively through its `net.Listener` parameter. This parameter can be substituted with an in-memory `net.Listener` implementation (notably gRPC’s `bufconn`[^bufconn]) that doesn't interact with the real network.
 
 Although Go's `net/http` package is live because it also exports functions that are hard-wired to the network and other resources (default logger, global transports/resolvers), it could be made hermetic by parameterizing access to all of them, reducing the package to protocol logic. In Python, "sans-I/O"[^sansio] libraries like `hyper-h2` already take this shape: pure state machines over bytes, with I/O delegated to a thin, parameterized shell.
 
@@ -349,39 +349,39 @@ Because hermetic functions are isolated from ambient state, all hermetic functio
 
 ### Security
 
-Today, we routinely download thousands of transitive dependencies via package managers like npm or cargo, trusting that none have been been compromised. Because most languages grant ambient authority to the network and filesystem by default, an attacker who successfully hijacks a package can silently exfiltrate environment variables, SSH keys, or database credentials.
+Today, we routinely download thousands of transitive dependencies via package managers like npm or cargo, trusting that none have been compromised. Because most languages grant ambient authority to the network and filesystem by default, an attacker who hijacks a package can silently exfiltrate environment variables, SSH keys, or database credentials.
 
 But why should a random math library have access to your filesystem?
 
-One of the tenets of **capability-based security** discipline[^capsec] is the elimination of ambient authority: those pernicious "pools of authority on which viruses grow"[^paradigm]. In a language without ambient authority, an untrusted library simply *cannot* access the network or disk if the caller never passed it the live capabilities required to do so. The risk of injection and other attacks where an attacker can run arbitrary code is also limited if that code cannot access sensitive  resources.
+One of the core ideas of **capability-based security**[^capsec] is the elimination of ambient authority: those pernicious “pools of authority on which viruses grow.”[^paradigm] In a language without ambient authority, untrusted code simply *cannot* access the network or disk unless it was explicitly given the live capabilities required to do so. The risk of arbitrary-code-execution attacks is likewise limited when the injected code cannot reach sensitive resources.
 
-> Hermetic programming languages enforce the "no ambient authority" rule as a semantic language property. 
+> Hermetic programming languages enforce the “no ambient authority” rule as a semantic language property.
 
-Since functions can only access state through live values passed as parameters: passing a live value is equivalent to granting authority.
+Since a hermetic function may access existing state only through its parameters, passing a live value is equivalent to granting authority.
 
 > In a hermetic programming language **live values are capabilities**.
 
-"Ambient authority" may sometimes be understood to apply only to security-sensitive,  system resources--not necessarily to inter-function communication channels or persistent program memory. But if a function can communicate or store a live value between calls, that value can be used by another function call to access state that wasn't explicitly passed as a parameter. This increases the attack surface. 
+“Ambient authority” is sometimes taken to mean only ambient access to system resources. But if a function can communicate through a pre-existing channel, or stash a live value in pre-existing mutable state for later retrieval, then authority can flow between calls without appearing in the signature.
 
-But a hermetic programming language eliminates ambient authority to *any existing state*. A hermetic function can only overtly communicate via channels provided by the caller, and it is memoryless across calls (unless memory is explicitly passed in). If a function never receives *the authority to [graft](#grafting-state) a capability into some existing state*, then any authority it receives is confined to the function call, and automatically revoked when the function returns. These security properties are consequences of the core semantics of hermetic functions—not extra security mechanisms. 
+A hermetic programming language rules that out. It eliminates ambient authority to *any existing state*. A hermetic function can communicate only through channels provided by the caller, and it is memoryless across calls unless memory is explicitly passed in. If a function is never given the authority to [graft](#grafting-state) a capability into existing state, then any authority it receives is confined to the call and automatically revoked once the function finishes its work.
 
+These are not extra security mechanisms bolted on by a runtime. They follow from the core semantics of hermetic functions.
 
 ## Hermetic Programming Practices
 
 ### Principle of Least Authority
 
+Eliminating *ambient authority* does not prevent programmers from granting *too much authority*. If `main(world)` is injected with a “world” object containing `world.clock`, `world.fs`, `world.net`, and so on, it can still pass that god object down through the call stack. This is still hermetic — the caller remains in control — but it weakens the security benefits.
 
-Eliminating *ambient authority* does not prevent programmers from granting *too much authority*. If `main(world)` is injected with a "world" object with sub-fields for all system resources (`world.clock`, `world.fs`, `world.net`...), it can just pass this "god object" down through the call stack. This is still hermetic -- the caller still has control -- but the security benefits of eliminating ambient authority are lost if an attacker has access to a god object.
+One of the core rules of capability-based security is the **principle of least authority** (POLA)[^protection]: each function should have only the minimum authority it needs.
 
-One of the tenets of capability-based security discipline is the **principle of least authority** (POLA)[^protection]: each function should have only the minimum authority it needs to do its job. 
+So `main` should ask for — and the host should grant — only the capabilities it actually needs. Using a capability-oriented interface standard such as WASI,[^wasi] the signature of `main` can act as a dependency manifest.
 
-This means `main` should only ask for -- and the OS should only grant -- the capabilities it needs. Using a standard for capability-based interfaces to system resources such as WASI (WebAssembly System Interface)[^wasi], the signature of `main` can act as a dependency manifest, and a capability-aware runtime, OS, or host can determine whether to actually grant those capabilities, either through handles to real system resources, or through sandboxes or mocks. 
+POLA also requires **attenuating** capabilities before passing them onward[^attenuate]: pass a single file handle instead of the whole filesystem, and make it read-only if possible.
 
-POLA also requires **attenuating** the capabilities a function passes to sub-functions as much as possible[^attenuate]. Functions should be granted capabilities on a "need to do" basis: pass a single file handle instead of the entire filesystem, and make the handle read-only if possible.
+Finally, even in a hermetic language, authority can still be delegated by [grafting](#grafting-state) a live value into mutable state broad enough to hold live values.
 
-Finally, even in a hermetic programming language, a hermetic function can still delegate authority by [grafting](#grafting-state) a live value into mutable state whose type is broad enough to hold live values. 
-
-**Example (Go) of a function that delegates authority by grafting**
+**Example (Go) of authority delegation by grafting**
 
 ```go
 func handle(ctx map[string]any, db *Database) {
@@ -389,10 +389,10 @@ func handle(ctx map[string]any, db *Database) {
 }
 ```
 
-
 Any code that reads `ctx` now has database access.
 
-A more secure design would attenuate the authority passed to `handle` using a narrower capability than the whole database, making `ctx` read-only, or restricting the types it can store.
+A more secure design would attenuate the authority passed to `handle`, make `ctx` read-only, or restrict the types it can store.
+
 
 ### Contexts
 
