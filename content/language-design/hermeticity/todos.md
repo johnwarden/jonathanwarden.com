@@ -1,3 +1,6 @@
+A function cannot amplify authority because it has no authority except what was passed in.
+
+
 (e.g., how it differs from Wuffs' hermeticity or Agoric's ocap) could be deeper—Appendix A starts this but doesn't contrast enough.
 
 

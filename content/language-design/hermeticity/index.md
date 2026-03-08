@@ -35,7 +35,7 @@ _build:
 
 In most programming languages, any function can reach out and touch the world: read the clock, write a file, open a socket. But this **ambient access** to state—through singletons, globals, built-in functions—makes testing brittle and reasoning murky. You run a test once and it passes; run it again and it fails because the clock advanced or a temporary file wasn’t deleted. You call out to a small utility library and it exfiltrates your SSH keys because it had access to your home directory.
 
-The practice of **dependency injection**[^di] can help tame access to state: don’t let code "reach out" for resources; pass them as parameters instead. What if a language take dependency injection to its logical conclusion, and makes it a **semantic property** of code, not just a design pattern? Then all system resources become capabilities that must be injected—for example as parameters passed to `main`.
+The practice of **dependency injection**[^di] can help tame access to state: don’t let code "reach out" for resources; pass them as parameters instead. What if a language takes dependency injection to its logical conclusion, and makes it a **semantic property** of code, not just a design pattern? Then all system resources become capabilities that must be injected—for example as parameters passed to `main`.
 
 **Example (Typescript)**
 
@@ -54,18 +54,18 @@ In the above example, `main` is a **hermetic function**:
 
 > A function is hermetic iff it does not access existing state except through its parameters.
 
-If `main` is hermetic, any functions it calls must be hermetic as well (otherwise `main` is indirectly accessing existing state). Making your program's entry function hermetic therefore eliminates **ambient authority**, the defining requirement of **object-capability (ocap)[^ocap] languages** such as E, Monte, and Agoric's SES (Secure EcmaScript).
+If the program entry function is hermetic, any functions the program depends on must also be hermetic (otherwise `main` is indirectly accessing existing state). So a hermetic `main` eliminates **ambient authority**, the defining requirement of **object-capability (ocap)[^ocap] languages** such as E and SES. 
 
-If both “dependencies” and “authority” are taken to include any existing state, then “inject all dependencies” becomes literally equivalent to “no ambient authority.” A language that enforces this property with a hermetic program entry function is a **hermetic programming language**. 
+If both “authority” and "dependencies" are taken to include *any existing state* -- including the clock, randomness, global singletons, and communication channels -- then “no ambient authority" becomes literally equivalent to “inject all dependencies”.
 
-In a hermetic programming language, function parameters act as hermetically sealed conduits through which all authority flows. Whether a function writes to a file, reads a channel, or mutates a buffer, the caller controls the world the function can see. Deterministic time? Pass a fake clock. Sandboxed output? Pass a mock filesystem. Every potential access to state is visible at the call boundary. You can read a function's dependencies off its signature. Effects, without ambient side-effects.
+In a hermetic programming language, programs are modeled as hermetic functions calling other hermetic functions, and function parameters become hermetically sealed conduits through which all authority flows. Whether a function writes to a file, reads a channel, or mutates a buffer, the caller controls the world the function can see. Deterministic time? Pass a fake clock. Sandboxed output? Pass a mock filesystem. Every potential access to state is visible at the call boundary. You can read a function's dependencies off its signature. Effects, without ambient side-effects.
 
 
 ## The Purity Gap
 
-This essay proposes hermeticity as a first-class semantic property of functions, distinct from purity. But hermetic programming is not just functional programming-lite. Purity restricts **interaction** with state. Hermeticity restricts **access** to state. These are orthogonal.
+This essay proposes hermeticity as a first-class semantic property of functions, distinct from purity. Hermeticity is not just a weakened alternative to purity: purity restricts **interaction** with state, while hermeticity restricts **access** to state. 
 
-**Hermeticity is orthogonal to purity**.
+> Hermeticity is orthogonal to purity.
 
 Suppose I have a global immutable constant `systemClock: Clock` holding an opaque handle to the system clock. And suppose `getClock(): Clock` is a function that simply returns that constant.
 
