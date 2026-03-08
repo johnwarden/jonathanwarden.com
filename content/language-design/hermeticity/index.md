@@ -346,6 +346,7 @@ This means you can assemble large programs out of small pieces while preserving 
 ### Isolation
 
 Because hermetic functions are isolated from ambient state, all hermetic functions can be **tested with mocks** with no additional refactoring. They can be run **deterministically**: all sources of non-determinism (clock, RNG, network) must be explicitly passed as parameters, and can be replaced with deterministic alternatives. A hermetic function can be run in different execution contexts -- as a stored procedure, plugin, browser, or sandbox -- without the need for separate hermetic runtimes.[^hermetic-runtimes]
+Use this version:
 
 ### Security
 
@@ -357,13 +358,13 @@ One of the core ideas of **capability-based security**[^capsec] is the eliminati
 
 > Hermetic programming languages enforce the “no ambient authority” rule as a semantic language property.
 
-Since a hermetic function may access existing state only through its parameters, passing a live value is equivalent to granting authority.
+Since a hermetic function may access existing state only through its parameters, it follows that access to existing state cannot be obtained by forging references or designators. Receiving a live parameter must be the only way a function can obtain authority.
 
 > In a hermetic programming language **live values are capabilities**.
 
-“Ambient authority” is sometimes taken to mean only ambient access to system resources. But if a function can communicate through a pre-existing channel, or stash a live value in pre-existing mutable state for later retrieval, then authority can flow between calls without appearing in the signature.
+“Ambient authority” is sometimes taken to mean only ambient access to system resources. But if a function can communicate through a pre-existing channel, or write a live value into existing mutable state for later retrieval, then authority can flow between calls without appearing in the signature.
 
-A hermetic programming language rules that out. It eliminates ambient authority to *any existing state*. A hermetic function can communicate only through channels provided by the caller, and it is memoryless across calls unless memory is explicitly passed in. If a function is never given the authority to [graft](#grafting-state) a capability into existing state, then any authority it receives is confined to the call and automatically revoked once the function finishes its work.
+A hermetic programming language rules that out by eliminating ambient authority to *any existing state*. A hermetic function can communicate only through channels provided by the caller, and it is memoryless across calls unless memory is explicitly passed in. If a function is never given the authority to [graft](#grafting-state) a capability into existing state, then any authority it receives remains confined to that unit of work and is automatically revoked once the function finishes its work.
 
 These are not extra security mechanisms bolted on by a runtime. They follow from the core semantics of hermetic functions.
 
@@ -379,7 +380,7 @@ So `main` should ask for — and the host should grant — only the capabilities
 
 POLA also requires **attenuating** capabilities before passing them onward[^attenuate]: pass a single file handle instead of the whole filesystem, and make it read-only if possible.
 
-Finally, even in a hermetic language, authority can still be delegated by [grafting](#grafting-state) a live value into mutable state broad enough to hold live values.
+Finally, even in a hermetic language, authority can still be delegated or made to persist by [grafting](#grafting-state) a live value into mutable state broad enough to hold live values.
 
 **Example (Go) of authority delegation by grafting**
 
