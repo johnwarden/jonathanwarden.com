@@ -358,7 +358,7 @@ One of the core ideas of **capability-based security**[^capsec] is the eliminati
 
 > Hermetic programming languages enforce the “no ambient authority” rule as a semantic language property.
 
-Since a hermetic function may access existing state only through its parameters, it follows that access to existing state cannot be obtained by forging references or designators. Receiving a live parameter must be the only way a function can obtain authority.
+Since a hermetic function may access existing state only through its parameters, it follows that access to existing state cannot be obtained by forging references. Receiving a live parameter must be the only way a function can obtain authority.
 
 > In a hermetic programming language **live values are capabilities**.
 
