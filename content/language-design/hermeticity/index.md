@@ -60,33 +60,27 @@ If both “authority” and "dependencies" are taken to include *any existing st
 
 In a hermetic programming language, programs are modeled as hermetic functions calling other hermetic functions, and function parameters become hermetically sealed conduits through which all authority flows. Whether a function writes to a file, reads a channel, or mutates a buffer, the caller controls the world the function can see. Deterministic time? Pass a fake clock. Sandboxed output? Pass a mock filesystem. Every potential access to state is visible at the call boundary. You can read a function's dependencies off its signature. Effects, without ambient side-effects.
 
-
 ## The Purity Gap
 
-This essay proposes hermeticity as a first-class semantic property of functions, distinct from purity. Hermeticity is not just a weakened alternative to purity: purity restricts **interaction** with state, while hermeticity restricts **access** to state. 
+This essay proposes hermeticity as a first-class semantic property of functions, distinct from purity. Hermetic programming is not just functional programming-lite. **Hermeticity is orthogonal to purity**.
 
-> Hermeticity is orthogonal to purity.
+Suppose I have a global immutable constant `systemClock: Clock` holding an opaque handle to the system clock. And suppose `getClock(): Clock` simply returns that constant.
 
-Suppose I have a global immutable constant `systemClock: Clock` holding an opaque handle to the system clock. And suppose `getClock(): Clock` is a function that simply returns that constant.
+`getClock` is pure: it has no effect on the clock, and because it always returns the same constant, it is referentially transparent.
 
-`getClock` is pure: it has no effect on the clock, and since it returns a constant, it is referentially transparent.
+Suppose I also have a function `getTime(clock: Clock): Time`, which takes a `Clock` (either the real clock or a mock) and returns that clock's time. I can now get the current time from the system clock by calling `getTime(getClock())`.
 
-Suppose I also have a function `getTime(clock: Clock): Time`, which takes a `Clock` (either the real clock or a mock) and returns that clock's time. I can now get the current time from the system clock by calling `getTime(getClock())`. 
+`getTime` is hermetic because it accesses no state other than the clock passed as a parameter. `getClock` is pure. But the composed function `now = getTime ∘ getClock` is *neither hermetic nor pure*.
 
-`getTime` is hermetic because it doesn't access any state other than the clock passed as a parameter. `getClock` is pure. But the resulting composed function `now = getTime ∘ getClock` is *neither hermetic nor pure*! 
+How is that possible?
 
-How can this be? A hermetic function by definition can't "reach out" and access the clock. And a *pure* function is even...purer...then a hermetic function, isn't it?
-
-The problem is that `getClock`, while being technically pure, is tainted by **access** to ambient state. By returning a reference to the real clock, it **exposes** that state.
-
+Because `getClock`, while pure, is still tainted by **access** to ambient state. By returning a reference to the real clock, it **exposes** that state.
 
 ## Interaction vs Access
 
-`now` and `getClock` can be thought of as being **hard-wired** to state. They both access the system clock and you can't pass a parameter that redirects that access to some other clock.
+`now` and `getClock` are both **hard-wired** to state: they access the system clock, and you cannot redirect that access by passing a different parameter.
 
-`getTime` on the other hand parameterizes its access to state and is not hard-wired to any clock.
-
-
+`getTime`, by contrast, parameterizes its access to state and is not hard-wired to any particular clock.
 
 <div class="image-with-caption">
 
