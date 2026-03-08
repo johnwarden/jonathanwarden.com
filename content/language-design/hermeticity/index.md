@@ -93,23 +93,11 @@ Because `getClock`, while pure, is still tainted by **access** to ambient state.
 
 </div>
 
-Although `getClock` is hard-wired to the clock, it is pure because it does not actually **interact** with the clock like `now` does.
+It is interaction with state that makes a function impure. The most widely accepted definition of purity is **referential transparency**: an expression can be replaced by its value in any program context without changing observable[^observable] behavior. A function fails referential transparency when evaluation observably interacts with external state: either it *affects* state, or it returns different outputs for the same inputs because it is *affected* by state.
 
-It is interaction with state that makes a function impure. The most widely accepted definition of purity is **referential transparency**: an expression can be replaced by its value in any program context without changing observable[^observable] behavior. A function fails referential transparency when evaluation has observable interaction with external state: either it *affects* state, or it returns different outputs for the same inputs because it is *affected* by state.
-
-Hermetic functions are restricted in terms of access to state, not interaction. So hermeticity is actually *more strict* than purity in some ways (it forbids access to ambient state), and less strict than others (it permits interaction).
+Hermetic functions are restricted in terms of access to state, not interaction. So hermeticity is stricter than purity in some ways (it forbids access to ambient state), and less strict in others (it permits interaction).
 
 **Interaction vs Access Grid: Examples**
-
-<!--
-
-|           |hermetic        | non-hermetic    
-|-          |-               |-
-|**pure**   | `sqrt(n)` ⬅ pristine        | `getClock()`
-|**impure** | `getTime(clock)` | `now()`
-
-
--->
 
 <div class="image-with-caption">
 
@@ -122,9 +110,7 @@ Hermetic functions are restricted in terms of access to state, not interaction. 
 
 </div>
 
-This distinction between access and interaction has consequences beyond individual functions—it extends to packages, standard libraries, and whole programming languages. But to get there, we need to understand what exactly it means to **expose** state.
-
-
+This distinction between access and interaction extends beyond individual functions—to packages, standard libraries, and whole programming languages. But first we need to understand what it means to **expose** state.
 
 <style>
 .glossary {
@@ -155,7 +141,6 @@ This distinction between access and interaction has consequences beyond individu
 * **hermetic**: no **access** to **free state**
 
 </aside>
-
 
 ## Live and Inert Values
 
