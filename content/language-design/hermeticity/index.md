@@ -148,42 +148,35 @@ This distinction between access and interaction extends beyond individual functi
 
 In either case, what is exposed is a value that provides access to state.
 
-> A value that provides access to state is **live**. 
+> A value that provides access to state is **live**.
 
 Live values can include object references, handles, primitives, closures, etc.; as well as anything that embeds any of these and thereby provides a path to state.
 
-Live values are like live wires. A value can become live when it is connected to another live value. And if you plug a hermetic function into a live value, you can cause an interaction.
+Live values are like live wires: they become live by being connected to other live values. And if you plug a hermetic function into a live value, you can cause an interaction.
 
-Values that don't provide access to state are **inert**: isolated from state.
+Values that do not provide access to state are **inert**: isolated from state.
 
 ### Providing Access to State
 
-Providing access to state is different from merely **designating** state. A file name for example does not by itself provide the ability to interact with the file system. A function that receives a filename would need to reach out to some library or builtin function such as `open` -- in which  case, it's `open` that's live.
+Providing access to state is different from merely **designating** state. A filename, for example, does not by itself provide the ability to interact with the file system. A function that receives a filename would still need to reach out to some library or builtin such as `open`. In that case, it is `open` that's live.
 
-<!--
+Intuitively, a value is live if it can cause interaction with existing state in some context, directly or by enabling a call. It is inert if, no matter how it is used, it cannot lead to interaction with existing state unless some other live value is involved.
 
-Passing a live value to a hermetic function results in a live function
+For example, if `f` is hermetic and `h = () -> f(x)` is impure, then `x` is live: passing it to `f` caused interaction with state.
 
-Intuitively: a value is live if you can create an *impure* function by composing it with a hermetic function. 
--->
-
-Intuitively: a value is live if it can cause interaction with existing state in some context (directly or by enabling a call), whereas it is inert if it cannot, no matter how used, lead to interaction with existing state unless paired with a live value.
-
-For example, if `f` is hermetic and `h = () -> f(x)` is impure, that means `x` is live because passing it to `f` caused interaction with state.
-
-Equivalently: a value is live if you can swap it for a mock that redirects the interactions it enables into in-memory state controlled by the caller, without otherwise changing program behavior. In [Appendix D](#appendix-d-the-mockability-test) we formalize this as the **Mockability Test**.
+Equivalently, a value is live if you can swap it for a mock that redirects the interactions it enables into in-memory state controlled by the caller, without otherwise changing program behavior. In [Appendix D](#appendix-d-the-mockability-test) we formalize this as the **Mockability Test**.
 
 ### Hermetic Functions are Inert
 
-We can talk about functions in two roles: as code (a callable) and as values (passable/storable). 
+We can talk about functions in two roles: as code (a callable) and as values (passable/storable).
 
 > A function is hermetic as code exactly when it is inert as a value.
 
-Passing a hermetic function to another function cannot provide the latter with access to state. So hermetic functions are inert as values.
+Passing a hermetic function to another function cannot provide the latter with access to state. 
 
 ### Live Free Identifiers
 
-A function can only be live if it directly access state by embedding a live value in its definition.
+A function can only be live if it embeds a live value in its definition.
 
 A **free identifier** is any name appearing in a function definition that is not a parameter or a local variable.
 
@@ -196,28 +189,23 @@ Consider the Python example below:
 <img id="figure3" src="inert-live-code-example.png" alt="Figure 3. Example of hermetic vs a live function definition."/>
 
 <div>
-    <strong>Figure 3</strong>. Example of inert vs a live function definition. 
+    <strong>Figure 3</strong>. Example of inert vs a live function definition.
 </div>
 
 </div>
 
-The only lexical name that `hello` references is the parameter `out` (`write` is a member selection on `out`), so `hello` is inert. In contrast, `main` is live because it refers to the live free identifier `stdout`. 
+The only lexical name that `hello` references is the parameter `out` (`write` is a member selection on `out`), so `hello` is inert. In contrast, `main` is live because it refers to the live free identifier `stdout`.
 
-<!--
-
-Although `main` is a function and `stdout` is a handle, they are both live as values.
--->
 <div class="image-with-caption">
 
 <img id="figure4" src="clock-and-wires-2.png"
      alt="Figure 4. Illustration of difference between inert and live values."/>
 
 <div>
-    <strong>Figure 4</strong>. Live and inert values in Hello, World! program. Although main is a function and stdout is a handle, they are both live values hard-wired to state.
+    <strong>Figure 4</strong>. Live and inert values in Hello, World! program. Although `main` is a function and `stdout` is a handle, they are both live values hard-wired to state.
 </div>
 
 </div>
-
 
 ## Hermetic Programming Languages
 
