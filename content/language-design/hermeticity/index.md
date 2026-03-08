@@ -209,8 +209,6 @@ The only lexical name that `hello` references is the parameter `out` (`write` is
 
 ## Hermetic Programming Languages
 
-At this point we've closed the loop: hermeticity is a restriction on **access** to state; access is mediated by **live values**; and a function stops being hermetic exactly when it becomes live as a value. 
-
 A function can only be live if it captures live free identifiers. There are two ways this can happen:
 
 - Ambient identifiers (globals/imports/primitives)
@@ -218,19 +216,19 @@ A function can only be live if it captures live free identifiers. There are two 
 
 ### Inert Ambient Scope
 
-**Ambient identifiers** are names that are available to all functions and modules by default. These are the identifiers that are *just there*: default imports, preludes, built-in functions, system calls, global constants, primitives, etc.
+**Ambient identifiers** are names available to all functions and modules by default: default imports, preludes, built-in functions, system calls, global constants, primitives, etc.
 
-Collectively, these form the **ambient scope**. 
+Collectively, these form the **ambient scope**.
 
 > A hermetic programming language requires an **inert ambient scope**.
 
-If the ambient scope contains even one live identifier (like a global `console` object), it allows any function to "reach out" and access ambient state.
+If the ambient scope contains even one live identifier (like a global `console` object), then any function can "reach out" and access ambient state.
 
 #### Inert Packages
 
-> An inert ambient scope implies **inert packages**. 
+> An inert ambient scope implies **inert packages**.
 
-An import statement must not introduce live values into the ambient scope, nor have any observable side effects (no module initialization with observable interactions).
+An import statement must not introduce live values into the ambient scope, nor have observable side effects (no module initialization with observable interactions).
 
 This means every identifier exported by a package or module must be inert. Consequently, package-scoped functions must not capture live values from other packages.
 
@@ -247,7 +245,7 @@ func Log(msg string) {
 }
 ```
 
-Further, inert packages must cannot host global singletons. Package package-level globals must be immutable, inert constants — otherwise they pollute every function that captures them, making those functions live.
+Inert packages also cannot host global singletons. Package-level globals must be immutable, inert constants; otherwise they pollute every function that captures them, making those functions live.
 
 **Example (go): live package with global singleton**
 
@@ -280,46 +278,42 @@ func NewCounter() func() int {
 }
 ```
 
-
-Although `NewCounter` returns a closure over mutable state, it is freshly [**minted**](#minting-sate) state that didn't exist before the call, not existing state. `NewCounter` does not embed any live free identifiers and so it is inert as a value.
+Although `NewCounter` returns a closure over mutable state, it is freshly [**minted**](#minting-sate) state that did not exist before the call, not existing state. `NewCounter` does not embed any live free identifiers and so it is inert as a value.
 
 > Hermetic constructors can mint state.
 
-Inert packages can export types, interfaces, constants, wrappers, methods, constructors, and other hermetic functions. They can provide complex imperative algorithms that *interact* with external resources (e.g., a database client), as long as those resources are passed as parameters.
+Inert packages can export types, interfaces, constants, wrappers, methods, constructors, and other hermetic functions. They can provide complex imperative algorithms that *interact* with external resources, as long as those resources are passed as parameters.
 
-In a hermetic programming language, the standard library defines *interfaces* to system resources (filesystem, network, clock, etc.), but the actual access happens through parameters injected into main.
+In a hermetic programming language, the standard library defines *interfaces* to system resources (filesystem, network, clock, etc.), but actual access happens through parameters injected into `main`.
 
 #### Example: Hermetic HTTP
 
-It may seem like forcing packages and libraries to be inert would severely limit them. For example, how could an HTTP library be inert? HTTP is all about I/O and state.
+It may seem like forcing packages and libraries to be inert would severely limit them. How could an HTTP library be inert? HTTP is all about I/O and state.
 
-But hermetic HTTP just requires parameterizing access to the network. For example, go's `net/http` exports an `http.Serve` function that accesses the network exclusively through its `net.Listener` parameter. This parameter can be substituted for an in-memory `net.Listener` implementation (notably gRPC’s `bufconn`[^bufconn]) that doesn't interact with the actual network at all.
+Hermetic HTTP just means parameterizing access to the network. For example, Go's `net/http` exports an `http.Serve` function that accesses the network exclusively through its `net.Listener` parameter. This parameter can be substituted with an in-memory `net.Listener` implementation (notably gRPC’s `bufconn`[^bufconn]) that doesn't interact with the real network.
 
-Although go's `net/http` package is live because it exports functions that are hard-wired to the network and other resources (default logger, global transports/resolvers), it could easily be made hermetic by parameterizing access to all these resources, reducing the HTTP package to the protocol logic only. In the Python world "sans-I/O"[^sansio] libraries like the [hyper-h2](https://github.com/python-hyper/h2) HTTP/2 library are pure state machines over bytes,  with all I/O delegated to a thin, parameterized shell.
-
-
+Although Go's `net/http` package is live because it also exports functions that are hard-wired to the network and other resources (default logger, global transports/resolvers), it could be made hermetic by parameterizing access to all of them, reducing the package to protocol logic. In Python, "sans-I/O"[^sansio] libraries like `hyper-h2` already take this shape: pure state machines over bytes, with I/O delegated to a thin, parameterized shell.
 
 ### Closures
 
-A language with an inert ambient scope has no live ambient identifiers, which guarantees that top-level definitions are inert. But that does not prevent creating closures that capture live local variables. Making all functions hermetic additionally requires eliminating **live closures**.
+An inert ambient scope guarantees that top-level definitions are inert. But it does not prevent closures from capturing live local variables. Making all functions hermetic therefore additionally requires eliminating **live closures**.
 
 So there are two design choices:
 
 1. **Allow live closures.**
-   Ambient access to state is still forbidden, but function values can be made intentionally live via capture. This is often desirable—especially in languages where partial application and higher-order functions are idiomatic.
+   Ambient access to state is still forbidden, but function values can be made intentionally live via capture. This is often desirable in languages where partial application and higher-order functions are idiomatic.
 
 2. **Make all function values hermetic.**
-   Prevent or expose captures (e.g. capture checks), or adopt the standard *closures-as-objects*[^defun] view: treat a closure as a live object with an `apply` method. Under this view, the `apply`/method can still be **hermetic**—it only reaches state through `self` and its explicit parameters, not through ambient channels. Functions with hidden environments become objects with explicit environments.
+   Prevent or expose captures (e.g. capture checks), or adopt the standard *closures-as-objects*[^defun] view: treat a closure as a live object with an `apply` method. Under this view, the `apply` method can still be **hermetic**—it only reaches state through `self` and its explicit parameters, not through ambient channels. Functions with hidden environments become objects with explicit environments.
 
-
-
-### Hermetic Programming Language Requirements 
+### Hermetic Programming Language Requirements
 
 > A programming language is hermetic iff it has an inert ambient scope.
 
-Making *all* function hermetic by eliminating live closures is an optional strengthening: it extends hermeticity's isolation and local-reasoning guarantees to all function values, but may be too restrictive for languages where closure capture is central.
+Eliminating live closures is an optional strengthening: it extends hermeticity's isolation and local-reasoning guarantees to all function values, but may be too restrictive for languages where closure capture is central.
 
 > All Functions Hermetic = Inert Ambient Scope + No Live Closures
+
 
 ## Benefits of Hermetic Programming
 
