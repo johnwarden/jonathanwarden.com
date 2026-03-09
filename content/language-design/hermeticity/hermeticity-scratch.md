@@ -1,3 +1,9 @@
+
+
+
+
+
+
 Much confusion around functional purity comes from an implicit assumption that pure is not **operational**—that it directly defines program output without describing a sequence of steps. But modern pure languages routinely allow operational code—step-by-step descriptions of effectful computations—represented as values (e.g. an `IO ()` in Haskell).
 
 But modeling operational code as values doesn’t shield it from the hazards of interacting with the world, such as flaky tests and non-deterministic output. Pure functional codecan still needs dependency injection (capability passing)be **live capabilities**: they can provide access to avoid hard-coding dependencies.state.
