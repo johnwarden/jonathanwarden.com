@@ -57,7 +57,7 @@ Here, `main` is a **hermetic function**:
 
 > A function is hermetic iff it does not access existing state except through its parameters.
 
-If `main` is hermetic, then any function it depends on must also be hermetic—otherwise `main` is indirectly accessing existing state. So a hermetic `main` eliminates **ambient authority**, the defining requirement of **object-capability (ocap)**[^ocap] languages such as E and SES. If both “authority” and “dependencies” are taken to include *any existing state*, then “no ambient authority” and “inject all dependencies” become the same property. Making your program's main function hermetic turns function parameters into hermetically sealed conduits through which all authority over state flows.
+If `main` is hermetic, then any function it depends on must also be hermetic—otherwise `main` is indirectly accessing existing state. So a hermetic `main` eliminates **ambient authority**, the defining requirement of **object-capability (ocap)**[^ocap] languages such as E and SES. Function parameters become hermetically sealed conduits through which any authority injected into `main` flows throughout the program.
 
 Programming with hermetic functions applies this discipline at every scale to *all* state, not just system resources. Whether writing to a file, reading a channel, or mutating a buffer, the caller of a hermetic function controls the world the function can see. Deterministic time? Pass a fake clock. Sandboxed output? Pass a mock filesystem. Every potential access to state is visible at the call boundary. Function signatures become dependency manifests. Effects, without implicit side-effects.
 
@@ -161,9 +161,9 @@ Values that do not provide access to state are **inert**: isolated from state.
 
 Providing access to state is different from merely **designating** state. A filename, for example, does not by itself provide the ability to interact with the file system. A function that receives a filename would still need to reach out to some library or builtin such as `open`. In that case, it is `open` that's live.
 
-Intuitively, a value is live if it can cause interaction with existing state in some context, directly or by enabling a call. It is inert if, no matter how it is used, it cannot lead to interaction with existing state unless some other live value is involved.
+Intuitively, a value is live if it can cause interaction with existing state in some context, directly or by enabling a call. It is inert if, no matter how it is used, it cannot lead to interaction with existing state unless some other live value is involved. 
 
-For example, if `f` is hermetic and `h = () -> f(x)` is impure, then `x` is live: passing it to `f` caused interaction with state.
+In other words, `x` is live if there exists some hermetic function `f` such that the expression `f(x)` is impure -- for example the value returned by `getClock()` is live because `getTime(getClock())` is impure.
 
 Equivalently, a value is live if you can swap it for a mock that redirects the interactions it enables into in-memory state controlled by the caller, without otherwise changing program behavior. In [Appendix D](#appendix-d-the-mockability-test) we formalize this as the **Mockability Test**.
 
@@ -313,7 +313,7 @@ So there are two design choices:
 
 The defining requirement of a hermetic programming language is a hermetic main function (whether or not it is called `main`).
 
-This is enforced by an inert ambient scope. And the converse is *effectively* true: if the main function is hermetic, any live identifiers in the ambient scope cannot be used.
+This is enforced by an inert ambient scope. And the converse is *effectively* true: if the main function is hermetic, any live identifiers in the ambient scope are unusable.
 
 > Hermetic Programming Language \
 > = Hermetic Main Function \
@@ -323,7 +323,7 @@ Eliminating live closures is an optional strengthening: it extends hermeticity�
 
 > All Functions Hermetic = \
 > Hermetic Programming Language \
-> + No Live Closures
+> \+ No Live Closures
 
 #### No Ambient Authority / Inject All Dependencies
 
@@ -361,13 +361,13 @@ Hermeticity composes too. Hermetic functions cannot give each other access to st
 
 This means you can assemble large programs out of small pieces that remain hermetic all the way up to the main function.
 
-### Testing, Determinism, and Portability
+### Testability, Determinism, and Portability
 
-Hermetic functions can be tested with mocks with no additional refactoring.
+**Testability**: Hermetic functions can be tested with mocks with no additional refactoring.
 
-All sources of non-determinism—clock, RNG, network, filesystem, environment—must be passed explicitly, and can be replaced with deterministic alternatives. This enables reproducible builds, deterministic replay, and simulation.
+**Determinism**: All sources of non-determinism—clock, RNG, network, filesystem, environment—must be passed explicitly, and can be replaced with deterministic alternatives. This enables reproducible builds, deterministic replay, and simulation.
 
-Because hermetic code has no hard-coded dependencies, it can be reused across execution contexts—a plugin system, browser, or smart contract—without requiring a sandbox or hermetic runtime[^hermetic-runtimes] such as Wasm/WASI.
+**Portability**: Because hermetic code has no hard-coded dependencies, it can be reused across execution contexts—plugin systems, browsers, smart contracts—without requiring a sandbox or hermetic runtime[^hermetic-runtimes] such as Wasm/WASI.
 
 ### Security
 
@@ -397,9 +397,9 @@ These are not extra security mechanisms: they follow from the core semantics of 
 
 ### Principle of Least Authority
 
-Eliminating *ambient authority* does not prevent programmers from granting *too much authority*. If `main(world)` is injected with an object containing `world.clock`, `world.fs`, `world.net`, and so on, it can still pass that "god object" down through the call stack. This is still hermetic—the caller remains in control—but it weakens the security benefits.
+Eliminating *ambient authority* does not prevent programmers from granting *too much authority*. If `main(world)` is injected with an object containing `world.clock`, `world.fs`, `world.net`, and so on, it can still pass that "god object" down through the call stack. This is still hermetic—the caller remains in control—but it is poor security hygiene.
 
-The **principle of least authority** (POLA)[^protection] dictates that `main` should ask for—and the host should grant—only the capabilities the program actually needs. The signature of the program's main function acts as a dependency manifest. A capability-oriented interface standard such as WASI[^wasi] provides a portable vocabulary for expressing those dependencies.
+The **principle of least authority** (POLA)[^protection] dictates that `main` should ask for—and the host should grant—only the capabilities the program actually needs. In a hermetic language, the signature of the program's main function acts as a dependency manifest, and capability-oriented interface standard such as WASI[^wasi] can be used as a portable vocabulary for expressing those dependencies.
 
 POLA also requires **attenuating** capabilities before passing them onward[^attenuate]: pass a single file handle instead of the whole filesystem, and make it read-only if possible.
 
