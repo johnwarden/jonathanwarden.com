@@ -1,12 +1,22 @@
-SES compartments in hermetic programming principles
+Where I say we could also expose state by grafting, the problem with that is we're not assuming a Hermetic programming language, so a function could expose state by writing to ambient channels. What we should really say is that it can expose state by writing to ambient channels or whatever. I'll give you some examples, but then this... we lose our opportunity to introduce grafting, so we need to re-evaluate. 
+
+
+bring back sans-io.
+
+
+
+use cap-std instead of rust as example.
+
 
 A function cannot amplify authority because it has no authority except what was passed in.
 
 (e.g., how it differs from Wuffs' hermeticity or Agoric's ocap) could be deeper—Appendix A starts this but doesn't contrast enough.
 
+"effects wihtout implicit side effects"
 
-take down effects without side effects
 
+
+Robust composition paper in footnotes three times.  
 --
 
 <!--
@@ -22,7 +32,6 @@ So pointers can be live even in unsafe languages. But a hermetic language must p
 
 
 <!--
-In Rust, capability-oriented standard-library efforts, such as cap-std[^capstd], route filesystem and networking access through passed-in handles.
 
 -->
 
@@ -31,30 +40,7 @@ In Rust, capability-oriented standard-library efforts, such as cap-std[^capstd],
 
 In many Object capability (ocap)[^ocap] languages, "no ambient authority" implies an inert ambient scope -- 
 
-Our definition of "state" includes channels (ways to communicate) and internal program memory. Object capability (ocap)[^ocap] languages where "no ambient authority" includes communication channels
-
-
-> A language has **no ambient authority** iff it has an **inert ambient scope**. 
-
-
-memoryless
-
-
- such as hardened Javascript, which eliminate all ambient authority, are therefore hermetic programming languages. The reverse is not necessarily true.
 -->
-
-
-Writing to a channel is grafting state.
-
-SES / HardenedJS docs: they literally disable Date.now() and Math.random()
-
-SES is a modern “ocap discipline” implementation in JavaScript-land, and its guide makes the connection painfully concrete:
-
-“Does not include any I/O objects that provide ambient authority.”
-
-Date.now() throws instead of returning time, and Math.random() throws, specifically because these are ambient sources of non-determinism/authority.
-
-This is perfect for your essay because it’s not just definitional—it’s an existence proof that clock access counts as ambient authority in ocap practice.
 
 ----
 
