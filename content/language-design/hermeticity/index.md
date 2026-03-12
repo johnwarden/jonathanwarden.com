@@ -556,7 +556,7 @@ The inert/live distinction applies even in pure functional languages. Inert/live
 
 Making a programming language hermetic is straightforward in principle: keep the ambient scope inert, export interfaces instead of live values from standard libraries, and inject concrete resources into the main function. Contexts or implicits can manage the extra wiring.
 
-Hermeticity carves programs at the joints. All hermetic functions are decoupled from state, testable against mocks, portable, and composable. Function signatures are dependency manifests. All authority is explicit.
+Parameterizing access to state carves programs at the joints. All hermetic functions are decoupled from state, testable against mocks, portable, and composable. Function signatures are dependency manifests. All authority is explicit.
 
 We should look back at global singletons or `import fs` granting immediate, permissions-based disk access with the same horror we feel for `goto`. The next generation of programming languages should be hermetic.
 
