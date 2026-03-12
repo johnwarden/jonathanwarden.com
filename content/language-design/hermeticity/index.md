@@ -119,7 +119,7 @@ So hermeticity is stricter than purity in some ways (it forbids access to non-pa
 In a pure programming language, the main function cannot interact with state. In a hermetic programming language, it cannot access un-parameterized state. This has implications for the design of packages, standard libraries, and the language itself.
 -->
 
-Forbidding the main function from accessing state has implications for the design of packages, standard libraries, and the language itself. To understand these we need to first nail down what and how a function can **access** state.
+Forbidding the main function from accessing state has implications for the design of packages, standard libraries, and the language itself. To really understand these we need to define some new terms for describing how functions access or expose state.
 
 <style>
 .glossary {
