@@ -1,3 +1,18 @@
+Another contact is David Wagner at UC Berkeley. He's the one that used the term "Universal Scope". 
+    https://people.eecs.berkeley.edu/~daw/talks/TRUST07.pdf
+
+
+"One of the requirements of a capability system is that we must make sure that the universal scope -- the lexically outermost,
+the environment available to all code -- provides no authority"
+    builder of Joe-E
+
+
+"The ability to reason about authority is very useful"
+
+" in an object capability
+system, if I create the chunk-o’-data object, I can easily identify the set of modules that might be  able to gain access
+to that object by just following along in the code to see who that object reference is passed to."
+
 Where I say we could also expose state by grafting, the problem with that is we're not assuming a Hermetic programming language, so a function could expose state by writing to ambient channels. What we should really say is that it can expose state by writing to ambient channels or whatever. I'll give you some examples, but then this... we lose our opportunity to introduce grafting, so we need to re-evaluate. 
 
 

@@ -63,7 +63,7 @@ If `main` is hermetic, then any function it depends on must also be hermetic—o
     If both “authority” and “dependencies” are taken to include *any stateful resource*, then “no ambient authority” and “inject all dependencies” become the same property. 
 -->
 
-Programming with hermetic functions applies this property at every scale to *all* state, not just injected system resources. Whether writing to a file, reading a channel, or mutating a buffer, the caller of a hermetic function controls the world the function can see. Deterministic time? Pass a fake clock. Sandboxed output? Pass a mock filesystem. Every potential access to state is visible at the call boundary. Function signatures become dependency manifests. No hidden inputs. No undeclared effects.
+Programming with hermetic functions applies this property at every scale to *all* state, not just injected system resources. Whether writing to a file, reading a channel, or mutating a buffer, the caller of a hermetic function controls the world the function can see. Deterministic time? Pass a fake clock. Capture standard output? Pass a mock console. Every potential access to state is visible at the call boundary. Function signatures become dependency manifests. No hidden inputs. No undeclared effects.
 
 ## The Purity Gap
 
