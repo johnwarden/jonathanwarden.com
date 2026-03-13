@@ -466,21 +466,17 @@ A more secure design would attenuate the capabilities provided not just by `db` 
 
 ### Hermeticity and Ambient Authority
 
-If both “authority” and “dependencies” are taken to include *any stateful resource*, then “no ambient authority” and “inject all dependencies” are literally the same property. This property results from a hermetic program entry function.
+If both “authority” and “dependencies” are taken to include *any stateful resource*, then “no ambient authority” and “inject all dependencies” collapse to the same property.
 
-Although hermeticity eliminates ambient authority, the converse is not true: *a language can have no ambient authority without being hermetic*. There are ways of injecting capabilities other than passing them as parameters to the main function.
+But hermeticity is not simply a restatement of “no ambient authority.” Although a hermetic programming language eliminates ambient authority, the converse is not true: *a language can have no ambient authority without being hermetic*. There are ways of injecting capabilities other than passing them as parameters to the main function.
 
-For example, in the object-capability language **E**[^ocap], the top-level script is evaluated in a "privileged scope" where the host injects live capabilities (like file access or timers) directly into the script's lexical environment. Similarly, SES (Secure ECMAScript) compartments have no ambient authority by default, but the host can endow them with live globals or modules[^agoric]. These capabilities are then directly available through ambient identifiers inside the script or compartment. The WebAssembly System Interface (WASI) also provisions capabilities via module imports[^wasi].
+Capabilities can be injected either through **parameters** or through **ambient identifiers**. For example, SES (Secure ECMAScript) compartments have no ambient authority by default, but the host can endow them with live globals or modules[^ses]. WASI likewise provisions capabilities through imports[^wasi]. In both cases, code accesses state through ambient identifiers rather than through function parameters.
 
-So, E, SES, and WASI all enforce capability security by injecting authority *through the ambient scope* instead of strictly through function parameters.
+On the other hand, in the ocap language Joe-E[^joee], *the universal scope provides no authority*[^trust07]. As long as we take authority to include authority over any *existing state* as defined here, this maps closely to **inert ambient scope**. In that sense, Joe-E can be classified as a hermetic programming language.
 
-> Hermeticity is not simply a restatement of "no ambient authority".
+> Hermeticity is not simply a restatement of “no ambient authority”.
 
-Rather, hermeticity is a semantic property of functions that eliminates ambient authority when applied to `main`.
-
-<!--
-Further, because hermeticity is defined in terms of access to state, where state includes *anything that would make a function impure*, hermeticity eliminates ambient channels through which authority could be delegated or remembered, providing additional security benefits.
--->
+Rather, hermeticity is a semantic property of functions. Applied to `main`, it eliminates ambient authority by requiring all access to existing state to enter through the function’s interface.
 
 ## Hermetic Programming in Pure Functional Languages
 
@@ -770,11 +766,15 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^hermeticity]: Scott Herbert (slaptijack), *Benefits of Hermeticity* (2010). Defines hermeticity as the ability of a software unit to be isolated from its environment. [link](https://slaptijack.com/programming/benefits-of-hermeticity.html)
 
-[^wasi]: WebAssembly System Interface (WASI) defines capability-based APIs for system resources, enabling precise authority requests in hermetic programs. See WASI documentation. [link](https://wasi.dev); GitHub: [github.com/WebAssembly/WASI](https://github.com/WebAssembly/WASI)
+[^wasi]: The WebAssembly System Interface (WASI) defines capability-based APIs for system resources. Its capability model distinguishes link-time capabilities, provided through imports, from runtime capabilities such as file descriptors and sockets. [wasi.dev](https://wasi.dev); [Capabilities.md](https://github.com/WebAssembly/WASI/blob/main/docs/Capabilities.md)
 
-[^agoric]: Agoric implements object-capability security in JavaScript for secure smart contracts, demonstrating ocap's scalability in blockchain applications. See Agoric whitepaper and SES documentation. [link](https://agoric.com); Whitepaper: [agoric.com/papers](https://agoric.com/papers)
+[^ses]: SES (Secure ECMAScript) compartments have separate global objects and lexical scopes. By default, compartments receive **no ambient authority**—for example, no host-provided APIs such as `fetch`—but they may be selectively endowed with powerful arguments, globals, or modules. [SES README](https://github.com/endojs/endo/blob/master/packages/ses/README.md)
 
-[^capstd]: Capability-based standard libraries for Rust, routing filesystem and networking access through passed-in handles. [GitHub](https://github.com/bytecodealliance/cap-std)
+[^joee]: Joe-E is an object-capability subset of Java designed to eliminate ambient authority. Its specification states that references are the only things that convey authority, that there is **no ambient authority**, and that no “global variables” should be available to every object. [Joe-E Specification](https://people.eecs.berkeley.edu/~daw/joe-e/spec-20090918.pdf)
+
+[^trust07]: David Wagner describes one requirement of a capability system this way: the **universal scope**—“the lexically outermost, the environment available to all code”—must “provide no authority.” [TRUST07 slides](https://people.eecs.berkeley.edu/~daw/talks/TRUST07.pdf)
+
+[^capstd]: `cap-std` is a capability-based standard library for Rust, routing filesystem and networking access through passed-in handles such as `Dir` and `Pool`. [GitHub](https://github.com/bytecodealliance/cap-std); [docs.rs](https://docs.rs/cap-std)
 
 [^starlark]: Starlark is a hermetic dialect of Python used in build systems like Bazel, enforcing isolation from the environment. [GitHub](https://github.com/bazelbuild/starlark); Spec: [docs](https://bazel.build/docs/starlark)
 

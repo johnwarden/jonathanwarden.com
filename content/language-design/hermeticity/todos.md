@@ -1,3 +1,7 @@
+Joe-E is actually hermetic?
+
+
+
 Another contact is David Wagner at UC Berkeley. He's the one that used the term "Universal Scope". 
     https://people.eecs.berkeley.edu/~daw/talks/TRUST07.pdf
 
