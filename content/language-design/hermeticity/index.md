@@ -98,7 +98,7 @@ Because `getClock`, while pure, is still tainted by **access** to ambient state.
 
 </div>
 
-It is *interaction* with state that makes a function impure, not access. The most widely accepted definition of purity is **referential transparency**: an expression can be replaced by its value in any program context without changing observable[^observable] behavior. A function fails referential transparency when evaluation observably interacts with external state: either it *affects* state, or it returns different outputs for the same inputs because it is *affected* by state.
+It is *interaction* with state that makes a function impure, not access. The most widely accepted definition of purity is **referential transparency**: an expression can be replaced by its value in any program context without changing observable[^observable] behavior. A function fails referential transparency when evaluation interacts with **observable state**: either it *affects* state, or it returns different outputs for the same inputs because it is *affected* by state.
 
 So hermeticity is stricter than purity in some ways (it forbids access to non-parameterized state), and less strict in others (it permits interaction).
 
@@ -139,14 +139,16 @@ Forbidding the main function from accessing state has implications for the desig
 
 ***Summary of Definitions***
 
+Terms used so far in this essay:
+
 * **state**: anything that, if interacted with, would violate referential transparency
 * **existing state**: state that existed before the function call
-* **external state**: state observable outside the call (including fresh state that escapes)
+* **observable state**: state observable outside the call (including fresh state that escapes)
 * **parameterized state**: existing state accessed through a function’s parameters
 * **interact**: to **affect or be affected by** state
-* **expose**: to return a value or write it into **external state**
+* **expose**: to return a value or write it into **observable state**
 * **access**: to **interact with or expose** state
-* **pure**: no **interaction** with **external state**
+* **pure**: no **interaction** with **observable state**
 * **hermetic**: no **access** to **free state**
 
 </aside>
@@ -544,7 +546,7 @@ Haskell's `Prelude` and standard library contain many live identifiers: `putStrL
 
 A "Hermetic Haskell" would move such live identifiers out of the Prelude and standard libraries, exporting only **interfaces** to system resources, with concrete implementations injected into `main` by the runtime. The `ReaderT`[^readert] pattern can help manage the extra wiring.
 
-Purity guarantees that code doesn't interact with external state when evaluated. Hermeticity guarantees that code doesn't have *access* to external state unless authorized. A function can be pure but still hard-wired to the real filesystem, clock, or network. That's why patterns like tagless final and `ReaderT` are common in Haskell: not because Haskell isn't pure enough, but because purity and hermeticity solve different problems.
+Purity guarantees that code doesn't interact with observable state when evaluated. Hermeticity guarantees that code doesn't have *access* to observable state unless authorized. A function can be pure but still hard-wired to the real filesystem, clock, or network. That's why patterns like tagless final and `ReaderT` are common in Haskell: not because Haskell isn't pure enough, but because purity and hermeticity solve different problems.
 
 ## Conclusion
 
@@ -608,17 +610,13 @@ In this appendix, we'll summarize our definitions of the different types of stat
 
 #### Types of State
 
-We define state as anything that can affect or be affected by a computation in a way that can be observed by normal program operations (ignoring timing, memory, and CPU usage). This is the same definition typically used in definitions of purity/referential transparency. Leaning on this definition, we can alternatively define state as anything that, if read or written, could violate referential transparency.
+We define **state** as anything that can affect or be affected by a computation in a way that is observable by normal program operations (ignoring timing, memory, and CPU usage). This is the same notion of observability typically used in definitions of purity and referential transparency. Equivalently, state as anything that, if interacted with, make an expression non-referentially transparent.
 
-State can exist before a function call (**existing state**), or be allocated during the function call (**fresh state**).
+State can exist before a function call (**existing state**), or be allocated during the call (**fresh state**).
 
-Fresh state that is destroyed during the function call (e.g. is deallocated or becomes immutable when the function returns) is **internal state**.
+Fresh state that does not escape the dynamic extent of the call is **internal state**.
 
-Existing state, or fresh state that escapes (is not deallocated) and is therefore observable after the function call, is **external state**.
-
-**Free state** is existing state that is accessed through live free identifiers.
-
-**Ambient state** is state accessed through live ambient identifiers.
+Existing state, and fresh state that does escape the call, are **externally observable state**: their contents or identity may still matter after the function returns.
 
 #### Grafting State
 
@@ -633,36 +631,36 @@ A hermetic function can expose **fresh** state that it allocates during the call
 | Capability                   | Pure | Hermetic |
 | ---------------------------- | ---- | -------- |
 | Access Free State            | Yes  | No       |
-| Interact with External State | No   | Yes      |
+| Interact with Observable State | No   | Yes      |
 | Interact with Internal State | Yes  | Yes      |
 | Graft State                  | No   | Yes      |
 | Mint State                   | No   | Yes      |
 
 ### Appendix C: Glossary of Terms
 
-* **state**: Anything that, if interacted with, would violate referential transparency
+* **state**: anything that can affect or be affected by a computation in a way that is observable by normal program operations
 * To **allocate** state: to allocate memory that can be read and written
 * **existing state**: state that existed before the function call
 * **fresh state**: state that is allocated during the function call
-* **internal state**: fresh state that does not survive the function call
-* **external state**: state (fresh or existing) that is observable[^observable] outside the call (e.g. that survives the call)
-* **parameterized state**: state that is accessed through a function's parameters
+* **internal state**: fresh state that does not escape the function call
+* **observable state**: state (fresh or existing) that is observable outside the call (e.g. that survives the call)
+* **parameterized state**: state accessed through a live value received as a parameter
 * **free state**: existing state that is not parameterized
-* **ambient state**: free state accessible to all functions
+* **ambient state**: free state accessible from ambient scope
 * **live**: provides access to state (per the mockability test)
 * **inert**: not live
 * **interact**: to **affect or be affected by** state
 * **access**: to **interact with or expose** state
 * **expose**: to provide access to state (by returning or grafting a live value)
-* **graft**: to write a live value into external state
-* **mint**: to expose fresh state, causing it to escape
-* **pure**: no **interaction** with **external state**
+* **graft**: to write a live value into observable state
+* **mint**: to expose fresh state by causing it to escape
+* **pure**: no **interaction** with **observable state**
 * **hermetic**: no **access** to **free state**
 * **identifier**: any binding or name-to-value association that can be referred to in a function definition
 * **live identifier**: any identifier whose value is live
 * **free identifier** (relative to a function definition): any identifier that is not a parameter or local variable
 * **ambient identifier**: a free identifier available to all functions
-* **ambient scope**: all ambient identifiers
+* **ambient scope**: the collection of all ambient identifiers available to a function
 
 ### Appendix D: The Mockability Test
 
