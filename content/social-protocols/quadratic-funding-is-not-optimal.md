@@ -4,7 +4,7 @@ title: "Why Quadratic Funding Is Not Optimal"
 slug: quadratic-funding-is-not-optimal
 date: "2025-05-02"
 math: true
-weight: 1
+weight: 3
 ---
 
 ## Introduction
