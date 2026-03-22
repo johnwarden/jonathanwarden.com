@@ -22,7 +22,7 @@ menu:
 </style>
 
 
-<img src="/assets/images/jonathan-profile-photo-2.png" title="Jonathan Warden" class="photo site-avatar"/>
+<img src="/assets/images/jonathan-profile-photo-3.png" title="Jonathan Warden" class="photo site-avatar"/>
 
 <p>
     <br/>Jonathan Warden a philosophical software engineer working on building technologies to make conversations on the Internet more intelligent and less polarizing.
@@ -38,27 +38,22 @@ menu:
 
 <li>
     <a href="https://github.com/johnwarden" target="_blank" title="github.com/johnwarden" rel="me">
-        {{< readfile file="/assets/icons/brand-github.svg">}}
+        {{< readfile file="/assets/icons/brand-github.svg">}} https://github.com/johnwarden
     </a>
 </li>
 
 <li>
     <a href="https://twitter.com/johnwarden" target="_blank" title="@johnwarden" rel="me">
-        {{< readfile file="/assets/icons/brand-twitter.svg">}}
+        {{< readfile file="/assets/icons/brand-twitter.svg">}} https://twitter.com/johnwarden
     </a>
 </li>
 
 <li>
-    <a href="https://www.linkedin.com/in/jonathan-r-warden-4aa2357/" target="_blank" title="Jonathan Warden's LinkedIn" rel="me">
-        {{< readfile file="/assets/icons/brand-linkedin.svg">}}
+    <a href="https://bsky.app//profile/jonathanwarden.com" target="_blank" title="@jonathanwarden.com" rel="me">
+        {{< readfile file="/assets/icons/brand-bluesky.svg">}} @jonathanwarden.com
     </a>
 </li>
 
-<li style="font-size: .9em; line-height: 1.5em; vertical-align: center; color: var(--body-text-color)"> 
-
-
-
-</li>
 
 </ol>
 
