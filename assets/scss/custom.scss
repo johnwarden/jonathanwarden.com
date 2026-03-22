@@ -26,4 +26,24 @@
  .article-content .table-wrapper {
    max-width:100%;
  }
+
+/* About page Contact: inline SVGs default to baseline alignment and sit high */
+.article-content ol.social-menu {
+    li > a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35em;
+    }
+
+    svg {
+        flex-shrink: 0;
+        width: 1.15em;
+        height: 1.15em;
+    }
+
+    /* Tabler’s butterfly glyph sits optically high in the 24×24 box */
+    svg.icon-tabler-brand-bluesky {
+        transform: translateY(0.1em);
+    }
+}
  
