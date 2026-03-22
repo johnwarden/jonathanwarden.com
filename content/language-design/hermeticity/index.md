@@ -141,7 +141,7 @@ Forbidding the main function from accessing state has implications for the desig
 
 Terms used so far in this essay:
 
-* **state**: anything that, if interacted with, would violate referential transparency
+* **state**: anything that can observably[^observable] affect or be affected by a computation
 * **existing state**: state that existed before the function call
 * **observable state**: state observable outside the call (including fresh state that escapes)
 * **parameterized state**: existing state accessed through a function’s parameters
