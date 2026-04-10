@@ -25,7 +25,7 @@ But why would the subject accept the premise? A Bayesian rational agent only cha
 For example, suppose Bob asserts that (𝐵) *the sky is cloudy*, in an attempt to convince Alice that (𝐴) *it is going to rain today*. Alice's posterior belief in 𝐵, after hearing Bob's argument, will be
 
 $$
-    P(B|Bob~claimed~that~B)
+    P(B|\text{Bob claimed that B})
 $$
 
 If Alice can see the sky through her window and already knows the sky is cloudy, then Bob's claim provides no new information. But if she can't see the sky, why does the event that *bob claimed that the sky was cloudy* change her beliefs?
