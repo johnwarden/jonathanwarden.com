@@ -42,14 +42,14 @@ There are various reasons that someone else merely asserting a premise would ind
 
 ## Imperfect Bayesians
 
-A rational agent that actively seeks and forgets information is not exactly a perfect Bayesian. **But regardless of the actual reason** that the assertion causes the subject to change their beliefs, we can treat the assertion **as if it were simply new information** that caused them to update their beliefs according to the rules of Bayesian belief revision. We can then **model** our subject as a perfect Bayesian with beliefs represented by the prior probability distribution that would result in the same posterior distribution given this new information.
+A rational agent that forgets information is not exactly a perfect Bayesian. **But regardless of the actual reason** that the assertion causes the subject to change their beliefs, we can treat the assertion **as if it were simply new information** that caused them to update their beliefs according to the rules of Bayesian belief revision. We can then **model** our subject as a perfect Bayesian with beliefs represented by the prior probability distribution that would result in the same posterior distribution given this new information.
 
 So we can **model** an imperfect Bayesian as an equivalent perfect Bayesian.
 
 
 ## Definition of Post-Argument Belief
 
-We'll use $I$ to indicate the **testimony event**. This is the event, which is directly observed by the subject, that the argued premise 𝐵 in support of conclusion 𝐴. We always assume that the subject trusts the medium of communication, and their own senses, and so accepts 𝐼 as 100% true, even if they don't accept 𝐵.
+We'll use $I$ to indicate the **testimony event**. This is the event, which is directly observed by the subject, that the arguer asserted premise 𝐵 in support of conclusion 𝐴. We always assume that the subject trusts the medium of communication, and their own senses, and so accepts 𝐼 as 100% true, even if they don't accept 𝐵.
 
 We use $P_i$ to denote the **Post-Argument beliefs** of the subject, defined as:
 
