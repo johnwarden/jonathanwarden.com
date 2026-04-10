@@ -98,7 +98,7 @@ proof
 
 Now a Bayesian agent doesn't just accept or reject premises. In a Bayesian model all beliefs are probabilities. 
 
-I'll use the terms **acceptance** to mean simply the subject's degree of belief in the claim (the probability that the claim is true). $ P(A \vert B) $ is the subject's degree of belief in, or acceptance of, the conclusion given they **completely accept the premise** -- that is, if they think there is a 100% probability that the premise is true. And $P(A \vert \bar{B})$ is the acceptance of the conclusion given they completely reject of the premise. But what will acceptance of the conclusion be if the subject is not certain if the premise is true or not?
+I'll use the terms **acceptance** to mean simply the subject's degree of belief in the claim (the probability that the claim is true). $ P(A \vert B) $ is the subject's degree of belief in, or acceptance of, the conclusion given they **completely accept the premise** -- that is, if they think there is a 100% probability that the premise is true. And $P(A \vert \bar{B})$ is the acceptance of the conclusion given they completely reject the premise. But what will acceptance of the conclusion be if the subject is not certain if the premise is true or not?
 
 ### Relevance as Slope
 
