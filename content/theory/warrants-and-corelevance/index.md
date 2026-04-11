@@ -65,31 +65,31 @@ The warrant doesn't have to be a logical formula such as "if people are wearing 
 
 ## Bayesian Warrants
 
-What is the warrant in a Bayesian model? 
+In a Bayesian model, a warrant could be any belief that the subject accepts that is corelevant with the premise: that is, anything that makes the premise relevant to the conclusion. 
 
-The warrant clearly has to do with the subject's **prior beliefs**, because a Bayesian agent's priors are precisely what justify, in their mind, any inferential leap from premise to conclusion.
+<!--So (𝐶) *the car has gas* warrants that argument that ($\bar{A}$) *the car won't start* because ($\bar{B}$) *the battery is dead*,-->
 
-For example, if our subject is more likely to believe that (𝐴) *it is going to rain today* if they believe that (𝐵) *the sky is cloudy* than if they do not, then there clearly exists a warrant justifying, in the subject's mind, the inferential leap from 𝐵 to 𝐴.
 
-But **why** does this warrant exist in the subject's mind? What is the inferential rule that actually justifies the inference? Is it a deductive inference? Inductive? Gut feeling?
+<!--
+For example, if our subject is more likely to believe that (𝐴) *it is going to rain today* if they believe that (𝐵) *the sky is cloudy* than if they do not, then they clearly also believe something along the lines of 𝐶 *a cloudy sky is a sign of rain*.
+-->
 
-In the Toulmin Model, the warrant would be a rule along the lines of *a cloudy sky is a sign of rain*. In a Bayesian model, there are only **corelevant claims** that the subject must believe for the premise to be relevant. Every corelevant phrase helps, to paraphrase Toulmin's words, to "justify the inferential leap from premise to conclusion". So it's best to think of all the warrant being *the entire set of relevant prior beliefs*.
+So (𝐶) *a cloudy sky is a sign of rain* is a warrant for the argument that (𝐴) *it is going to rain today* because (𝐵) *the sky is cloudy*, because accepting 𝐶 makes 𝐵 more relevant to 𝐴.
 
-If the prior beliefs of our subject are represented by the probability measure $P$, then we can say that, in the mind of the subject, **a warrant exists justifying the inference from premise 𝐵 to conclusion 𝐴 iff**:
+Every corelevant belief helps, to paraphrase Toulmin, to "justify the inferential leap from premise to conclusion". So if we are looking for a single warrant for each argument, we can think of it as *the conjunction of corelevant priors*.
 
-$$
-    P(A|B) ≠ P(A|\bar{B})
-$$
+<!--
 
-If the warrant exists, we say 𝐵 is relevant to 𝐴.
+If 𝐵 is relevant to 𝐴, then intuitively there must exist *some* warrant -- some corelevant belief 𝐶 that, if the subject rejected 𝐶, 𝐵 would no longer be relevant. So for any argument, there always exists a Bayesian warrant.
+-->
 
 ### Counterfactual Relevance
 
 Unfortunately, this definition of conditional relevance above still doesn't fully capture the the common notion of "relevance", because we can almost always find some second premise that makes the premise conditionally relevant. For example, the premise (𝐻) *The car has a hood ornament* may not seem relevant to (𝐴) *the car will start*, but it is conditionally relevant given the premise (𝑀) *The car is powered by a magical hood ornament*.
 
-Of course, 𝑀 is pretty implausible -- $P(M)$ may be infinitesimally small. But other more plausible corelevant premises may have small probabilities. For example, if the subject just filled the car with gas, they will be quite certain that (𝐺) *the car has gas* and thus $P(\bar{G})$ might be infinitesimally small. So in both cases we have corelevant premises with small prior probabilities, but a car running out of gas is something that is likely to actually happen in many similar scenarios, even if not this particular one. 
+Of course, 𝑀 is pretty implausible -- $P(M)$ may be infinitesimally small. But other more plausible corelevant premises may have small probabilities. For example, if the subject just filled the car with gas, they will be quite certain that (𝐺) *the car has gas* and thus $P(\bar{G})$ might be infinitesimally small. So in both cases we have corelevant premises with small prior probabilities, but a car running out of gas is something that is likely to actually happen in many similar scenarios, even if not this particular one, and so it is definitely "relevant" in one sense.
 
-Accounting for the difference in relevance in these two cases takes us into the metaphysical realm of modal logic, possible worlds, counterfactuals, and other difficult epistemological questions, that we won't try to answer here.
+Accounting for the difference in "relevance" in these two cases takes us into the metaphysical realm of modal logic, possible worlds, counterfactuals, and other difficult epistemological questions, that we won't try to answer here.
 
 ## Summary
 
