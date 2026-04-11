@@ -19,7 +19,7 @@ Relevance exists in the context of the subject's other prior beliefs. For exampl
 
 Yet neither is relevant on its own by our definition of relevance! Given that the car is out of gas, it makes no difference whether the battery is dead or not: the car won't start anyway. In other words, ($\bar{B}$) *the battery is dead* is irrelevant to ($\bar{A}$) *the car won't start* given ($\bar{𝐶}$) *the car is out of gas*.
 
-But if the subject believes (𝐶) *the car has gas*, then ($\bar{B}$) the battery is dead will probably be relevant. When accepting one premise causes another premise to become relevant, we say that the premises are **corelevant**. If a premise is corelevant with some unexpressed premise, we can say that the premise is **conditionally relevant**.
+But if the subject believes (𝐶) *the car has gas*, then ($\bar{B}$) the battery is dead will probably be relevant. When accepting one premise causes another premise to become relevant, we say that the premises are **corelevant**.
 
 ### Definition of Conditional Relevance
 
@@ -55,7 +55,7 @@ $$
 
 ## Warrants 
 
-This idea of unexpressed beliefs that justify an argument evokes the idea of the [**warrant**](https://owl.purdue.edu/owl/general_writing/academic_writing/historical_perspectives_on_argumentation/toulmin_argument.html#:~:text=Toulmin%2C%20the%20Toulmin%20method%20is,the%20grounds%2C%20and%20the%20warrant.) from the field of [argumentation theory](https://en.wikipedia.org/wiki/Argumentation_theory).
+This idea of a third belief that justifies the relevance of a premise to a concluaion evokes the idea of the [**warrant**](https://owl.purdue.edu/owl/general_writing/academic_writing/historical_perspectives_on_argumentation/toulmin_argument.html#:~:text=Toulmin%2C%20the%20Toulmin%20method%20is,the%20grounds%2C%20and%20the%20warrant.) from the field of [argumentation theory](https://en.wikipedia.org/wiki/Argumentation_theory).
 
 In every argument there is an unstated claim that *this premise supports this conclusion*. This doesn't need to be stated because it's implied by the fact that the argument was made. After asserting *people are wearing jackets* in support of the conclusion *it's probably cold outside*, I don't need to add, pedantically, "and you see, if people are wearing jackets it must be cold outside".
 
