@@ -17,9 +17,9 @@ This is the final article in my series on Bayesian Argumentation. To understand 
 
 Relevance exists in the context of the subject's other prior beliefs. For example, if the subject believes that ($\bar{𝐶}$) *the car is out of gas*, and also ($\bar{B}$) *the battery is dead*, then both of these are good reasons to believe ($\bar{A}$) *the car won't start*. 
 
-Yet neither is relevant on its own by our definition of relevance! Given that the car is out of gas, it makes no difference whether the battery is dead or not: the car won't start anyway. In other words, ($\bar{B}$) *the battery is dead* is irrelevant to ($\bar{A}$) *the car won't start* given ($\bar{𝐶}$) *the car is out of gas*.
+Yet neither is relevant on its own by our definition of relevance! A premise is only relevant if changing acceptance of the premise changes acceptance of the conclusion. But given the car is out of gas, it makes no difference whether the battery is dead or not: the car won't start anyway. In other words, ($\bar{B}$) *the battery is dead* is irrelevant to ($\bar{A}$) *the car won't start* given ($\bar{𝐶}$) *the car is out of gas*.
 
-But if the subject believes (𝐶) *the car has gas*, then ($\bar{B}$) the battery is dead will probably be relevant. When accepting one premise causes another premise to become relevant, we say that the premises are **corelevant**.
+But if the subject believes (𝐶) *the car has gas*, then ($\bar{B}$) *the battery is dead* will probably become relevant. When accepting one premise causes another premise to become relevant, we say that the premises are **corelevant**.
 
 ### Definition of Conditional Relevance
 
@@ -55,17 +55,15 @@ $$
 
 ## Warrants 
 
-This idea of a third belief that justifies the relevance of a premise to a concluaion evokes the idea of the [**warrant**](https://owl.purdue.edu/owl/general_writing/academic_writing/historical_perspectives_on_argumentation/toulmin_argument.html#:~:text=Toulmin%2C%20the%20Toulmin%20method%20is,the%20grounds%2C%20and%20the%20warrant.) from the field of [argumentation theory](https://en.wikipedia.org/wiki/Argumentation_theory).
+This idea of a third belief that justifies the relevance of a premise to a conclusion evokes the idea of the [**warrant**](https://owl.purdue.edu/owl/general_writing/academic_writing/historical_perspectives_on_argumentation/toulmin_argument.html#:~:text=Toulmin%2C%20the%20Toulmin%20method%20is,the%20grounds%2C%20and%20the%20warrant.) from the field of [argumentation theory](https://en.wikipedia.org/wiki/Argumentation_theory).
 
-In every argument there is an unstated claim that *this premise supports this conclusion*. This doesn't need to be stated because it's implied by the fact that the argument was made. After asserting *people are wearing jackets* in support of the conclusion *it's probably cold outside*, I don't need to add, pedantically, "and you see, if people are wearing jackets it must be cold outside".
-
-This unexpressed premise that justifies the inferential leap from premise to conclusion is called the warrant. 
+In every argument there is an unstated claim that *the premise supports the conclusion*. This doesn't need to be stated because it's implied by the fact that the argument was made at all. After asserting *people are wearing jackets* in support of the conclusion *it's probably cold outside*, I don't need to add, pedantically, "and you see, if people are wearing jackets it must be cold outside". This unexpressed third premise is called the warrant. 
 
 The warrant doesn't have to be a logical formula such as "if people are wearing jackets it must be cold outside". It can be based on any kind of inferential rule (deductive, inductive, intuitive) or [argumentation scheme](https://en.wikipedia.org/wiki/Argumentation_scheme) (authority, analogy, example) -- whatever justifies the inference in the mind of the arguer. Some academics use different terms for these concepts: our terminology is influenced by the influential [Toulmin model](https://owl.purdue.edu/owl/general_writing/academic_writing/historical_perspectives_on_argumentation/toulmin_argument.html#:~:text=Toulmin%2C%20the%20Toulmin%20method%20is,the%20grounds%2C%20and%20the%20warrant.), except we prefer the traditional terms **premise** and **conclusion** over **grounds** and **claim**. More precise definitions of our terms are given in the [Deliberati Argument Model](/argument-model).
 
 ## Bayesian Warrants
 
-In a Bayesian model, a warrant could be any belief that the subject accepts that is corelevant with the premise: that is, anything that makes the premise relevant to the conclusion. 
+In a Bayesian model, a warrant could be any belief that is *necessary to the conclusion and corelevant with the premise*: that is, anything that the subject accepts that makes the premise support the conclusion. 
 
 <!--So (𝐶) *the car has gas* warrants that argument that ($\bar{A}$) *the car won't start* because ($\bar{B}$) *the battery is dead*,-->
 
@@ -76,7 +74,7 @@ For example, if our subject is more likely to believe that (𝐴) *it is going t
 
 So (𝐶) *a cloudy sky is a sign of rain* is a warrant for the argument that (𝐴) *it is going to rain today* because (𝐵) *the sky is cloudy*, because accepting 𝐶 makes 𝐵 more relevant to 𝐴.
 
-Every corelevant belief helps, to paraphrase Toulmin, to "justify the inferential leap from premise to conclusion". So if we are looking for a single warrant for each argument, we can think of it as *the conjunction of corelevant priors*.
+Every necessary corelevant belief helps, to paraphrase Toulmin, to "justify the inferential leap from premise to conclusion". So if we are looking for a single warrant for each argument, we can think of it as *the conjunction of necessary corelevant priors*.
 
 <!--
 
