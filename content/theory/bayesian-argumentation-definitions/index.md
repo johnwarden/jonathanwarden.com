@@ -36,12 +36,6 @@ Below is a summary of all the terms and equations defined in the essays in this 
 
 - **Relevance**: The relevance of the premise to the conclusion is $R(A,B) = P(A \vert B) - P(A \vert \bar{B})$
 
-- **Conditional Relevance**: *Given some third premise 𝐶*: $R(A,B \vert C) = P(A \vert B,C) - P(A \vert \bar{B},C)$
-
-- **Corelevant**: The premises 𝐵 and 𝐶 are corelevant to the conclusion 𝐴 iff: $R(A,B \vert C) ≠ R(A,B \vert \bar{C})$
-
-- **Corelevance**: $CR(A;B,C) = R(A,B \vert C) - R(A,B \vert \bar{C}) = R(A,C \vert B) - R(A,C \vert \bar{B})$
-
 - **Necessity**: The necessity of the premise to the conclusion is $N(A,B) = P(A) - P(A \vert \bar{B}) = P(B)R(A,B)$
 
 - **Sufficiency**: The sufficiency of the premise for the conclusion is $S(A,B) = P(A \vert B) - P(A) = P(\bar{B})R(A,B)$
@@ -59,6 +53,18 @@ Below is a summary of all the terms and equations defined in the essays in this 
     - Alternatively, the argument is **persuasive** if the argument is relevant and informative
 
 - **Persuasiveness**: The persuasiveness of the argument is $P_i(A) - P(A)$
+
+*Given some third premise 𝐶...*
+
+- **Conditional Relevance**: $R(A,B \vert C) = P(A \vert B,C) - P(A \vert \bar{B},C)$
+
+- **Corelevant**: The premises 𝐵 and 𝐶 are corelevant to the conclusion 𝐴 iff: $R(A,B \vert C) ≠ R(A,B \vert \bar{C})$
+
+- **Corelevance**: $CR(A;B,C) = R(A,B \vert C) - R(A,B \vert \bar{C}) = R(A,C \vert B) - R(A,C \vert \bar{B})$
+
+- **Bayesian Warrant**: A claim 𝐶 is a **warrant** for the argument **iff** $CR(A;B,C) > 0$
+
+- **Conecessity**: The conecessity of the warrant to the argument is $CN(A;B,C) = CR(A;B,C) P(C)$
 
 
 <!--

@@ -13,7 +13,7 @@ canonical_url: https://jonathanwarden.com/warrants-and-corelevance/
 
 This is the final article in my series on Bayesian Argumentation. To understand this essay, read the [introductory article](/bayesian-argumentation) and the article on [Relevance and Acceptance](/relevance-and-acceptance).
 
-## Relevance is Not Absolute
+## Corelevance and Conditional Relevance
 
 Relevance exists in the context of the subject's other prior beliefs. For example, if the subject believes that ($\bar{𝐶}$) *the car is out of gas*, and also ($\bar{B}$) *the battery is dead*, then both of these are good reasons to believe ($\bar{A}$) *the car won't start*. 
 
@@ -63,7 +63,49 @@ The warrant doesn't have to be a logical formula such as "if people are wearing 
 
 ## Bayesian Warrants
 
-In a Bayesian model, a warrant could be any belief that is *necessary to the conclusion and corelevant with the premise*: that is, anything that the subject accepts that makes the premise support the conclusion. 
+In a Bayesian model, a warrant can be any belief that increases the relevance of the premise to the conclusion. 
+
+So (𝐶) *A Swede can generally be taken not to be a Roman Catholic* is a warrant for the argument that (𝐴) *almost certainly, Petersen is not a Roman Catholic* because (𝐵) *Petersen is a Swede* if 
+
+Mathematical, a warrant is any claim with positive corelevance with the premise.
+
+<!--
+In a Bayesian model, a warrant can be any belief that is *necessary to the conclusion and corelevant with the premise*: that is, anything that the subject accepts that makes the premise support the conclusion. So (𝐶) *a cloudy sky is a sign of rain* is a warrant for the argument that (𝐴) *it is going to rain today* because (𝐵) *the sky is cloudy*, because accepting 𝐶 makes 𝐵 more relevant to 𝐴.
+-->
+
+
+### Definition of (Bayesian) Warrant
+
+𝐶 is a **warrant** for the argument with premise 𝐵 and conclusion 𝐴 if:
+
+$$
+    CR(A;B,C) > 0
+$$
+
+### Conecessity = Corelevance × Acceptance
+
+Now presumably the arguer assumes not only that the warrant increases the relevance of premise to conclusion in the mind of the subject. They also assume that the subject *accepts the warrant* to some degree.
+
+This evokes a parallel with the definition of *necessity*. We can define **conecessity** as:
+
+$$
+\begin{aligned}
+    CN(A;B,C) &= CR(A;B,C)P(C)
+\end{aligned}
+$$
+
+Conecessity of the warrant is a measure of how much the argument depends on the warrant.
+
+<!-- $$
+    N(A,B) = P(A) - P(A|\bar{B})
+           = R(A,B)P(B)
+
+   CN(A;B) = R(A,B) - R(A,B|not{C})  ??
+
+$$
+ -->
+
+
 
 <!--So (𝐶) *the car has gas* warrants that argument that ($\bar{A}$) *the car won't start* because ($\bar{B}$) *the battery is dead*,-->
 
@@ -72,29 +114,34 @@ In a Bayesian model, a warrant could be any belief that is *necessary to the con
 For example, if our subject is more likely to believe that (𝐴) *it is going to rain today* if they believe that (𝐵) *the sky is cloudy* than if they do not, then they clearly also believe something along the lines of 𝐶 *a cloudy sky is a sign of rain*.
 -->
 
-So (𝐶) *a cloudy sky is a sign of rain* is a warrant for the argument that (𝐴) *it is going to rain today* because (𝐵) *the sky is cloudy*, because accepting 𝐶 makes 𝐵 more relevant to 𝐴.
+There could be multiple warrants for an argument. Every belief that is partially accepted by the subject and positively corelevant with the premise is a warrant that helps, to paraphrase Toulmin, to "justify the inferential leap from premise to conclusion". 
 
-Every necessary corelevant belief helps, to paraphrase Toulmin, to "justify the inferential leap from premise to conclusion". So if we are looking for a single warrant for each argument, we can think of it as *the conjunction of necessary corelevant priors*.
+<!-- So if we are looking for a single warrant for each argument, we can think of it as *the conjunction of necessary corelevant priors*. -->
 
 <!--
 
 If 𝐵 is relevant to 𝐴, then intuitively there must exist *some* warrant -- some corelevant belief 𝐶 that, if the subject rejected 𝐶, 𝐵 would no longer be relevant. So for any argument, there always exists a Bayesian warrant.
 -->
 
+<!--
 ### Counterfactual Relevance
 
-Unfortunately, this definition of conditional relevance above still doesn't fully capture the the common notion of "relevance", because we can almost always find some second premise that makes the premise conditionally relevant. For example, the premise (𝐻) *The car has a hood ornament* may not seem relevant to (𝐴) *the car will start*, but it is conditionally relevant given the premise (𝑀) *The car is powered by a magical hood ornament*.
+Unfortunately, this definition of conditional relevance above still doesn't fully capture a common notion of "relevance", because we can almost always find some second premise that makes the premise conditionally relevant. For example, the premise (𝐻) *The car has a hood ornament* may not seem relevant to (𝐴) *the car will start*, but it is conditionally relevant given the premise (𝑀) *The car is powered by a magical hood ornament*.
 
 Of course, 𝑀 is pretty implausible -- $P(M)$ may be infinitesimally small. But other more plausible corelevant premises may have small probabilities. For example, if the subject just filled the car with gas, they will be quite certain that (𝐺) *the car has gas* and thus $P(\bar{G})$ might be infinitesimally small. So in both cases we have corelevant premises with small prior probabilities, but a car running out of gas is something that is likely to actually happen in many similar scenarios, even if not this particular one, and so it is definitely "relevant" in one sense.
 
 Accounting for the difference in "relevance" in these two cases takes us into the metaphysical realm of modal logic, possible worlds, counterfactuals, and other difficult epistemological questions, that we won't try to answer here.
+-->
 
 ## Summary
 
-So we've rounded out our reconciliation of Bayesianism and argumentation theory by defining the **warrant** as those prior beliefs that make the premise **relevant**. If you've read this far, I am impressed! I hope this has been useful.
+So we've rounded out our reconciliation of Bayesianism and argumentation theory by defining Toulmin's concept of **warrant** from a Bayesian perspective, mathematically defining not only what a warrant is, but also defining **conecessity** a measure of how strongly the argument leans on the warrant.
+
+In this series, we've only linked some of the basic entities in argumentation theory. Concepts such as *claim*, *grounds*, *testimony*, *premise*, *conclusion*, and *warrant* map to Bayesian concepts of *belief*, *evidence*, *hypothesis*, and now *Bayesian warrant*. And we can now quantify the strength of beliefs (*acceptance*), the strength of arguments (*relevance*, *sufficiency*, *necessity*, *informativeness*, *persuasiveness*, and even the strength of warrants (*corelevance and conecessity*).
+
+If you've read this far, I am impressed! I hope this has been useful.
 
 In the next article I summarize all the definitions and mathematical formulas introduced in this series.
-
 
 <style>
 .sample-distribution {

@@ -1,5 +1,9 @@
 Joe-E is actually hermetic?
 
+Write to the Joe-E Guy
+
+Mention static member functions somewhere!
+
 
 
 Another contact is David Wagner at UC Berkeley. He's the one that used the term "Universal Scope". 
