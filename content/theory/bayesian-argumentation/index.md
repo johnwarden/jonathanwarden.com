@@ -36,7 +36,7 @@ Consider the argument *this is a good candidate for the job* because *he has a p
 To anyone with common sense, this argument is probably:
 
 - not very **persuasive**.
-- not **informative**, because *he has a pulse* is probably not new informatin.
+- not **informative**, because *he has a pulse* is probably not new information.
 - clearly **relevant**, because:
     - If we learned that the candidate did *not* have a pulse, this would be **sufficient** to reject him.
     - Alternatively, the belief that he probably has a pulse is **necessary** to accept him as a good candidate.
