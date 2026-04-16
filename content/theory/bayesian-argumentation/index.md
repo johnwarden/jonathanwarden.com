@@ -75,7 +75,7 @@ Argumentation theory views argument as a kind of flexible, informal logic. Peopl
 
 A **claim** is a declarative statement that people can accept or reject (agree with or disagree with). 
 
-This definition is broad enough to include not only **descriptive** (or **empirical**) claims about the world, such as *the universe is expanding*, but also **normative** claims about the way things **should be**, such as *we should go to the beach*. 
+This definition is broad enough to include not only **descriptive** (or **empirical**) claims about the world, such as *the universe is expanding*, but also **normative** claims about the way things **should be**, such as *abortion is wrong* or *we should go to the beach*. 
 
 ### Arguments
 
@@ -100,7 +100,7 @@ It is easy to confuse the term *claim* with the term *premise* or *conclusion* -
 
 In Bayesian terms, a rational agent is said to acquire **evidence**, which causes them to update their belief in the probability of some **hypothesis** (see this [Bayesian Inference Primer](/bayesian-inference-primer)). There is clearly an analogy here: **evidence is to premise as to hypothesis is to conclusion**.
 
-But this analogy is not perfect. Many arguments assert a claim without any supporting "evidence" in the way we usually think of the term. The claim is simply asserted. And yet if the subject believe the person making the argument, they might actually change their beliefs. How can a claim without evidence change beliefs?
+But this analogy is not perfect. Many arguments assert a claim without any supporting "evidence" in the way we usually think of the term. The claim is simply asserted. And yet if the subject believes the person making the argument, they might actually change their beliefs. How can a claim without evidence change beliefs?
 
 So it's important to understand that a claim is not evidence: *the fact that the arguer asserted the claim is evidence*.
 
