@@ -49,13 +49,13 @@ Under the Bayesian point of view, arguments are simply information that may caus
 
 The beliefs of a Bayesian agent, which I will refer to as a **subject**, can be modeled as a probability distribution. If we know this distribution, we can measure how the information in an argument affects or may affect the subject's other beliefs. 
 
-## Objective Measures of Subjective Argument Strength
+## Quantifying Subjective Argument Strength
 
 Clearly, if an argument changes the subject's beliefs about something, it is **persuasive**. However, this can't be the only measure of a good argument, because once the subject already knows something, the argument is no longer persuasive! If you argue *you should wear a seat belt* because *seat belts save lives*, that is not going to change my beliefs because I already know seat belts save lives! Only *new* information can change a Bayesian agent's beliefs. 
 
 But clearly, in another sense, saving lives is a good argument for wearing seatbelts, even if hearing it doesn't change my mind. Fortunately the Bayesian model tells us not just what the subject believes, but what they **would** believe if they had different information. This simple insight cracks open other ways of measuring argument strength. In the essays on [Relevance and Acceptance](/relevance-and-acceptance) and [Necessity and Sufficiency](/necessity-and-sufficiency) I will define these measures and see how they all relate mathematically.
 
-These are all **objective** measures given that we know the subject's probability distribution, and so they allow us measure what many people would consider **subjective** aspects of an argument's quality or strength.
+These are all **objective** measures given that we know the subject's probability distribution, but they allow us to quantify what many people would consider **subjective** aspects of an argument's quality or strength.
 
 ## Advantages of the Bayesian Perspective
 
