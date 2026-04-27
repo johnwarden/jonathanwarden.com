@@ -41,7 +41,7 @@ In most programming languages, any function can reach out and touch the world: r
 
 **Dependency injection**[^di] can help tame access to state: don’t let code "reach out" for resources; pass them as parameters instead. What if a language takes dependency injection to its logical conclusion, and makes it a **semantic property** of code, not just a design pattern? Then all system resources must be injected—for example, as parameters passed to `main`.
 
-**Example (TypeScript)**
+#### Example (TypeScript)
 
 ```typescript
 import type { Console } from "io";
@@ -102,7 +102,7 @@ It is *interaction* with state that makes a function impure, not access. The mos
 
 So hermeticity is stricter than purity in some ways (it forbids access to non-parameterized state), and less strict in others (it permits interaction).
 
-**Interaction vs Access Grid: Examples**
+#### Interaction vs Access Grid: Examples
 
 <div class="image-with-caption">
 
@@ -243,7 +243,7 @@ An import statement must not introduce live values into the ambient scope, nor h
 
 This means every identifier exported by a package or module must be inert. Consequently, package-scoped functions must not capture live values from other packages.
 
-**Example (Go): live package capturing a live value from another package**
+#### Example (Go): live package capturing a live value from another package
 
 ```go
 package logger
@@ -258,7 +258,7 @@ func Log(msg string) {
 
 Inert packages also cannot host global singletons. Package-level globals must be immutable, inert constants; otherwise they pollute every function that touches them, making those functions live.
 
-**Example (Go): live package with global singleton**
+#### Example (Go): live package with global singleton
 
 ```go
 package counter
@@ -274,7 +274,7 @@ func Inc() int {
 
 However, inert packages can export inert functions that allocate and expose fresh state.
 
-**Example (Go): inert package with exported hermetic constructor**
+#### Example (Go): inert package with exported hermetic constructor
 
 ```go
 package counter
@@ -452,7 +452,7 @@ POLA also requires **attenuating** capabilities before passing them onward[^atte
 
 POLA also applies to meta-authority: authority to delegate or persist authority. Even in a hermetic language, a function can communicate or remember a capability by [grafting](#grafting-state) a live value into mutable state broad enough to hold live values.
 
-**Example (Go) of authority delegation by grafting**
+#### Example (Go) of authority delegation by grafting
 
 ```go
 func handle(ctx map[string]any, db *Database) {

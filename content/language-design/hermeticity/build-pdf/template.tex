@@ -1,0 +1,179 @@
+\documentclass[sigplan,review,nonacm]{acmart}
+
+% --- Packages we add on top of acmart's defaults ---------------------------
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz]{mdframed}
+
+% Blockquote restyling: thin left rule + faint tint + italic, to mirror the
+% web look (left bar + colored background) in print-friendly muted shades.
+\renewenvironment{quote}{%
+  \begin{mdframed}[%
+    leftline=true, rightline=false, topline=false, bottomline=false,
+    linewidth=1.5pt, linecolor=black!45,
+    backgroundcolor=black!4,
+    innerleftmargin=10pt, innerrightmargin=10pt,
+    innertopmargin=4pt, innerbottommargin=4pt,
+    skipabove=6pt, skipbelow=6pt
+  ]%
+  \itshape\sloppy\ignorespaces%
+}{%
+  \end{mdframed}%
+}
+\usepackage{longtable,booktabs,array}
+\usepackage{newunicodechar}
+\usepackage{needspace}
+
+% Allow long URLs to break across lines
+\PassOptionsToPackage{hyphens}{url}
+
+% Hyphenation hints for long words that overflow the narrow sigplan column.
+\hyphenation{un-der-min-ing her-met-ic her-met-ic-i-ty pa-ram-e-ter-iz-ing pa-ram-e-ter-ized
+  ref-er-en-tial trans-par-en-cy ca-pa-bil-i-ty ca-pa-bil-i-ties cap-tur-ing
+  ar-gu-men-ta-tion ar-gu-ment in-ter-ac-tion in-ter-ac-tions com-po-si-tion}
+
+% --- Unicode characters used in the essay (pdflatex compatibility) --------
+
+\newunicodechar{∘}{\ensuremath{\circ}}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{≠}{\ensuremath{\neq}}
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{←}{\ensuremath{\leftarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{∉}{\ensuremath{\notin}}
+\newunicodechar{⊆}{\ensuremath{\subseteq}}
+\newunicodechar{∪}{\ensuremath{\cup}}
+\newunicodechar{∩}{\ensuremath{\cap}}
+\newunicodechar{∃}{\ensuremath{\exists}}
+\newunicodechar{∀}{\ensuremath{\forall}}
+\newunicodechar{π}{\ensuremath{\pi}}
+\newunicodechar{σ}{\ensuremath{\sigma}}
+\newunicodechar{ε}{\ensuremath{\varepsilon}}
+\newunicodechar{∅}{\ensuremath{\emptyset}}
+\newunicodechar{·}{\ensuremath{\cdot}}
+\newunicodechar{′}{\ensuremath{'}}
+\newunicodechar{…}{\ldots}
+
+% --- listings configuration -----------------------------------------------
+
+\definecolor{lstbg}{rgb}{0.97,0.97,0.97}
+\definecolor{lstkw}{rgb}{0.05,0.30,0.60}
+\definecolor{lstcomment}{rgb}{0.45,0.45,0.45}
+\definecolor{lststring}{rgb}{0.60,0.10,0.10}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{lstkw}\bfseries,
+  commentstyle=\color{lstcomment}\itshape,
+  stringstyle=\color{lststring},
+  breaklines=true,
+  breakatwhitespace=false,
+  columns=fullflexible,
+  showstringspaces=false,
+  frame=single,
+  backgroundcolor=\color{lstbg},
+  aboveskip=1ex,
+  belowskip=1ex,
+  xleftmargin=0.5em,
+  xrightmargin=0.5em,
+}
+
+% Languages not built into the listings package.
+\lstdefinelanguage{typescript}{
+  keywords={
+    async,await,break,case,catch,class,const,continue,debugger,default,delete,
+    do,else,enum,export,extends,finally,for,function,if,implements,import,in,
+    instanceof,interface,let,namespace,new,null,private,protected,public,
+    readonly,return,static,super,switch,this,throw,try,type,typeof,undefined,
+    var,void,while,with,yield
+  },
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]',
+  morestring=[b]`
+}
+
+\lstdefinelanguage{rust}{
+  keywords={
+    as,async,await,box,break,const,continue,crate,dyn,else,enum,extern,false,
+    fn,for,if,impl,in,let,loop,match,mod,move,mut,pub,ref,return,self,Self,
+    static,struct,super,trait,true,type,unsafe,use,where,while
+  },
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]"
+}
+
+\lstdefinelanguage{go}{
+  keywords={
+    break,case,chan,const,continue,default,defer,else,fallthrough,for,func,
+    go,goto,if,import,interface,map,package,range,return,select,struct,
+    switch,type,var
+  },
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]`
+}
+
+\lstdefinelanguage{scala}{
+  keywords={
+    abstract,case,catch,class,def,do,else,extends,false,final,finally,for,
+    forSome,given,if,implicit,import,lazy,match,new,null,object,override,
+    package,private,protected,return,sealed,super,this,throw,trait,true,try,
+    type,using,val,var,while,with,yield
+  },
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]"
+}
+
+% Some pandoc invocations emit Haskell/Python with these names; built-in.
+\lstalias{haskell}{Haskell}
+\lstalias{python}{Python}
+
+% --- Find images relative to build-pdf/out/ -------------------------------
+
+\graphicspath{{../../}}
+
+% --- Title block ----------------------------------------------------------
+
+\title{$if(title)$$title$$else$Untitled$endif$}
+
+\author{Jonathan R. Warden}
+\affiliation{%
+  \institution{Social Protocols}
+  \city{}
+  \country{}
+}
+\email{john.warden@gmail.com}
+
+\settopmatter{printacmref=false, printccs=false, printfolios=true}
+
+% --- Pandoc helpers (no-ops or fallbacks for commands pandoc may emit) ----
+
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\passthrough}[1]{#1}
+\providecommand{\pandocbounded}[1]{#1}
+
+\begin{document}
+
+$if(abstract)$
+\begin{abstract}
+\sloppy
+$abstract$
+\end{abstract}
+$endif$
+
+\maketitle
+
+$body$
+
+\end{document}
