@@ -28,6 +28,12 @@ DefaultContentLanguage: en
 # This will make .Summary and .WordCount behave correctly for CJK languages.
 hasCJKLanguage: false
 
+# build-pdf/ directories hold the offline LaTeX/PDF build pipeline; their
+# out/ subdir contains pandoc's intermediate processed.md, which is not valid
+# Hugo content (raw LaTeX blocks, etc.). Skip them at content-walk time.
+ignoreFiles:
+  - "/build-pdf/"
+
 taxonomies:
   # category: categories
   tag: tags

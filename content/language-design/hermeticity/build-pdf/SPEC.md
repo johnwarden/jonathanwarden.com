@@ -144,13 +144,13 @@ LaTeX indents the first line of every paragraph by `\parindent`, including parag
 
 We considered doing that (via the Lua filter, narrowly scoped to figures and lstlistings) but reverted to the acmart default for submission. Reasoning: ACM SIGPLAN essay guidelines say submissions should "conform to the formatting instructions unless there is a reason founded in the nature of the essay to do otherwise." Suppressing the indent is a cosmetic preference, not a content-driven need; not worth justifying in a preface, and not worth even a small risk of a reviewer flagging it as a non-conforming variation. Revisit only for a post-publication / web-tuned build.
 
-### 19. `\clearpage` before each `### Appendix X:` heading
+### 19. Single `\clearpage` before the `## Appendices` section
 
-The essay has five substantive appendices (A–E), each with its own sub-structure. Running them continuously buries the boundaries and makes the PDF harder to navigate.
+The appendices are substantive enough that we want a clear visual boundary between body and appendix material. We initially put a `\clearpage` before *each* `### Appendix X:` heading, but that bloated the page count and produced too much whitespace.
 
-`transform.lua`'s `Header` filter detects headings whose text starts with `Appendix <letter>:` and injects `\clearpage` before them. `\clearpage` (rather than `\newpage`) flushes pending floats — important in 2-column mode where deferred figures could otherwise land in the wrong appendix.
+Current rule: `transform.lua`'s `Header` filter matches the parent `## Appendices` heading (and only that) and emits a single `\clearpage` before it. The five appendices then flow continuously after the boundary. `\clearpage` (rather than `\newpage`) flushes pending floats — important in 2-column mode where deferred figures could otherwise land in the wrong section.
 
-ACM SIGPLAN doesn't mandate either flowing or page-broken appendices; this is a navigation choice, not a conformance one. Cost: ~3 extra pages in the current document. Acceptable for a `review` draft.
+ACM SIGPLAN doesn't mandate either flowing or page-broken appendices; this is a navigation choice, not a conformance one.
 
 ### 20. Glossary box: kill `\parindent` and tighten `\leftmargini`
 
@@ -168,6 +168,7 @@ Other named-domain link labels (`[GitHub](...)`, `[Wikipedia](...)`, `[erights.o
 
 ## What hasn't been addressed
 
+- **TODO: extract URLs from footnotes into a `## Links` section.** Long URLs in 2-column footnotes cause overflow / awkward `\url{}` line-breaks. We considered (and reverted) splitting *citation footnotes* wholesale into a `## References` section — the URL heuristic flagged ~25 of 29 footnotes as citations, but most of those are explanatory clarifications that *happen* to cite a source, and moving them lost the inline reading flow. The narrower fix is "option C" from the design discussion: keep every footnote inline, but for each `[label](url)` inside a footnote body, replace with a numbered marker `[N]` and append a `## Links` section keyed by those numbers. Footnote prose stays where the reader expects it; URLs render at full column width where line-breaks are cheap. Not implemented; revisit if footnote-URL overflow is actually visible in the final PDF.
 - **Color figures in print.** The PNGs are color and tuned for web. They render in the PDF unchanged. Color photocopies fine; B&W print may lose contrast in some figures. Worth eyeballing before submission and possibly redrawing the worst offenders.
 - **Eight orphan footnote definitions** in `index.md` (`capmyths`, `confinement`, `confused`, `hermeticity`, `isp`, `ocap`, `starlark`, `wuffs`). pandoc warns about each — they're defined but never cited in the body. Either cite or delete.
 - **Cosmetic warnings.** `Inconsolata italic undefined → upright fallback` is a known acmart issue and harmless. A handful of 1–10 pt overfull-hbox warnings in body text are normal for narrow 2-column LaTeX and aren't visible to the eye.

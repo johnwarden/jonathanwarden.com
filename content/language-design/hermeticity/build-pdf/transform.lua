@@ -114,13 +114,13 @@ function Figure(el)
   return el
 end
 
--- Force each "### Appendix X: …" onto a new page. Appendices are substantive
--- enough (A–E with sub-structure) that running them continuously buries the
--- boundaries. \clearpage in 2-column mode flushes pending floats and starts a
--- fresh page, which is the right behavior here.
+-- Force the "## Appendices" section onto a new page. Single break before the
+-- whole appendix block (not before each individual appendix) — keeps the
+-- appendices flowing continuously after the boundary while still separating
+-- them from the body. \clearpage in 2-column mode flushes pending floats.
 function Header(el)
   local text = pandoc.utils.stringify(el.content)
-  if text:match("^Appendix%s+%w+:") then
+  if text == "Appendices" then
     return {
       raw_latex("\\clearpage"),
       el,
