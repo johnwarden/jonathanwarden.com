@@ -34,8 +34,33 @@ def strip_html_comments(text: str) -> str:
     return re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
 
 
+def strip_footnotes_heading(text: str) -> str:
+    """Drop the ``## Footnotes`` heading. The web build uses the heading to
+    label the section where footnote *definitions* render; in LaTeX, pandoc
+    consumes the definitions and emits ``\\footnote{...}`` calls at each
+    reference, so the heading would otherwise leave an empty section in the
+    PDF."""
+    return re.sub(r"^##\s+Footnotes\s*$\n?", "", text, flags=re.MULTILINE)
+
+
 def strip_note_aside(text: str) -> str:
     return re.sub(r'<aside class="note">.*?</aside>', "", text, flags=re.DOTALL)
+
+
+def expand_link_placeholders(text: str) -> str:
+    """Replace ``[link](url)`` and ``[PDF](url)`` with the bare URL.
+
+    On the web these labels are clickable, so the short word reads fine. In
+    the PDF (especially in print) the word "link" or "PDF" carries no
+    information — the URL itself needs to be visible. We rewrite to a
+    pandoc autolink (``<url>``) which becomes ``\\url{...}`` in LaTeX.
+    """
+    return re.sub(
+        r"\[(?:link|PDF)\]\((https?://[^)]+)\)",
+        r"<\1>",
+        text,
+        flags=re.IGNORECASE,
+    )
 
 
 def convert_glossary_aside(text: str) -> str:
@@ -139,6 +164,8 @@ def main() -> None:
     text = strip_styles(text)
     text = strip_html_comments(text)
     text = strip_note_aside(text)
+    text = strip_footnotes_heading(text)
+    text = expand_link_placeholders(text)
     text = convert_image_with_caption(text)
     text = convert_glossary_aside(text)
     text = strip_html_comments(text)

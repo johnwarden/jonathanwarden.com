@@ -9,18 +9,43 @@ local function raw_latex(s)
   return pandoc.RawBlock("latex", s)
 end
 
+local LATEX_SPECIAL = {
+  ["\\"] = "\\textbackslash{}",
+  ["&"]  = "\\&",
+  ["%"]  = "\\%",
+  ["$"]  = "\\$",
+  ["#"]  = "\\#",
+  ["_"]  = "\\_",
+  ["{"]  = "\\{",
+  ["}"]  = "\\}",
+  ["~"]  = "\\textasciitilde{}",
+  ["^"]  = "\\textasciicircum{}",
+}
+
 function Div(el)
   if el.classes:includes("glossary") then
     local result = pandoc.List()
     -- mdframed (rather than tcolorbox) so footnotes inside the box
     -- still flow to the page bottom instead of being captured.
+    -- No roundcorner=… here: that requires framemethod=tikz, which would
+    -- capture footnotes inside the box. We use the default framemethod so
+    -- footnote text inside the glossary still flows to the page bottom.
     result:insert(raw_latex(
-      "\\begin{mdframed}[backgroundcolor=black!4,linecolor=black!50,linewidth=0.4pt,roundcorner=2pt,innertopmargin=6pt,innerbottommargin=6pt]"))
+      "\\begin{mdframed}[backgroundcolor=black!4,linecolor=black!50,linewidth=0.4pt,innertopmargin=6pt,innerbottommargin=6pt]\\setlength{\\parindent}{0pt}\\setlength{\\leftmargini}{1.2em}"))
     for _, b in ipairs(el.content) do
       result:insert(b)
     end
     result:insert(raw_latex("\\end{mdframed}"))
     return result
+  elseif el.classes:includes("example-label") then
+    -- Render as a no-indent bold "label" glued to the following block
+    -- (figure float, code listing, etc.). Pseudo-heading semantics: looks
+    -- like a header but doesn't go in the TOC and isn't numbered.
+    local text = pandoc.utils.stringify(el.content)
+    local escaped = text:gsub(".", function(c) return LATEX_SPECIAL[c] or c end)
+    return raw_latex(
+      "\\par\\medskip\\noindent\\textbf{" .. escaped .. "}\\par\\nopagebreak\\smallskip"
+    )
   end
 end
 
@@ -67,19 +92,6 @@ end
 -- Inline code: render with \texttt instead of \lstinline. \lstinline is
 -- fragile (multi-byte UTF-8 chars trigger "ended by EOL" errors, fails in
 -- macro arguments) and we don't really need syntax highlighting inline.
-local LATEX_SPECIAL = {
-  ["\\"] = "\\textbackslash{}",
-  ["&"]  = "\\&",
-  ["%"]  = "\\%",
-  ["$"]  = "\\$",
-  ["#"]  = "\\#",
-  ["_"]  = "\\_",
-  ["{"]  = "\\{",
-  ["}"]  = "\\}",
-  ["~"]  = "\\textasciitilde{}",
-  ["^"]  = "\\textasciicircum{}",
-}
-
 function Code(el)
   local s = el.text:gsub(".", function(c) return LATEX_SPECIAL[c] or c end)
   return pandoc.RawInline("latex", "\\texttt{" .. s .. "}")
@@ -100,6 +112,20 @@ function Figure(el)
   desc = desc:gsub(".", function(c) return LATEX_SPECIAL[c] or c end)
   table.insert(el.content, pandoc.RawBlock("latex", "\\Description{" .. desc .. "}"))
   return el
+end
+
+-- Force each "### Appendix X: …" onto a new page. Appendices are substantive
+-- enough (A–E with sub-structure) that running them continuously buries the
+-- boundaries. \clearpage in 2-column mode flushes pending floats and starts a
+-- fresh page, which is the right behavior here.
+function Header(el)
+  local text = pandoc.utils.stringify(el.content)
+  if text:match("^Appendix%s+%w+:") then
+    return {
+      raw_latex("\\clearpage"),
+      el,
+    }
+  end
 end
 
 function Table(el)

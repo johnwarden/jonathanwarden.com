@@ -29,6 +29,11 @@ render: always
         padding: 8px;
         font-weight: bold;
     }
+
+  .example-label {
+    font-weight: bold;
+    margin: 1em 0 0.25em;
+  }
 </style>
 
 <aside class="note">
@@ -41,7 +46,7 @@ In most programming languages, any function can reach out and touch the world: r
 
 **Dependency injection**[^di] can help tame access to state: don’t let code "reach out" for resources; pass them as parameters instead. What if a language takes dependency injection to its logical conclusion, and makes it a **semantic property** of code, not just a design pattern? Then all system resources must be injected—for example, as parameters passed to `main`.
 
-#### Example (TypeScript)
+<div class="example-label">Example (TypeScript)</div>
 
 ```typescript
 import type { Console } from "io";
@@ -102,7 +107,7 @@ It is *interaction* with state that makes a function impure, not access. The mos
 
 So hermeticity is stricter than purity in some ways (it forbids access to non-parameterized state), and less strict in others (it permits interaction).
 
-#### Interaction vs Access Grid: Examples
+<div class="example-label">Interaction vs Access Grid: Examples</div>
 
 <div class="image-with-caption">
 
@@ -141,7 +146,7 @@ Forbidding the main function from accessing state has implications for the desig
 
 Terms used so far in this essay:
 
-* **state**: anything that can observably[^observable] affect or be affected by a computation
+* **state**: anything that can observably affect or be affected by a computation
 * **existing state**: state that existed before the function call
 * **observable state**: state observable outside the call (including fresh state that escapes)
 * **parameterized state**: existing state accessed through a function’s parameters
@@ -243,7 +248,7 @@ An import statement must not introduce live values into the ambient scope, nor h
 
 This means every identifier exported by a package or module must be inert. Consequently, package-scoped functions must not capture live values from other packages.
 
-#### Example (Go): live package capturing a live value from another package
+<div class="example-label">Example (Go): live package capturing a live value from another package</div>
 
 ```go
 package logger
@@ -258,7 +263,7 @@ func Log(msg string) {
 
 Inert packages also cannot host global singletons. Package-level globals must be immutable, inert constants; otherwise they pollute every function that touches them, making those functions live.
 
-#### Example (Go): live package with global singleton
+<div class="example-label">Example (Go): live package with global singleton</div>
 
 ```go
 package counter
@@ -274,7 +279,7 @@ func Inc() int {
 
 However, inert packages can export inert functions that allocate and expose fresh state.
 
-#### Example (Go): inert package with exported hermetic constructor
+<div class="example-label">Example (Go): inert package with exported hermetic constructor</div>
 
 ```go
 package counter
@@ -452,7 +457,7 @@ POLA also requires **attenuating** capabilities before passing them onward[^atte
 
 POLA also applies to meta-authority: authority to delegate or persist authority. Even in a hermetic language, a function can communicate or remember a capability by [grafting](#grafting-state) a live value into mutable state broad enough to hold live values.
 
-#### Example (Go) of authority delegation by grafting
+<div class="example-label">Example (Go) of authority delegation by grafting</div>
 
 ```go
 func handle(ctx map[string]any, db *Database) {
@@ -740,7 +745,7 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^defun]: The closures-as-objects view is the language-design analog of *defunctionalization*, a compiler transformation that replaces closures with data types carrying an `apply` method. See John C. Reynolds, *Definitional Interpreters for Higher-Order Programming Languages* (Higher-Order and Symbolic Computation, 1998; originally presented 1972). [PDF](https://link.springer.com/content/pdf/10.1023/A:1010027404223.pdf)
 
-[^hermetic-runtimes]: By "hermetic runtime" we mean a runtime that enforces isolation for code that is not itself hermetic—for example, [`senc`](https://github.com/fensak-io/senc), a hermetic TypeScript runtime for configuration generation, or Wasm/WASI hosts, which can sandbox code behind capability-scoped host interfaces.[^wasi]
+[^hermetic-runtimes]: By "hermetic runtime" we mean a runtime that enforces isolation for code that is not itself hermetic—for example, [`senc`](https://github.com/fensak-io/senc), a hermetic TypeScript runtime for configuration generation, or Wasm/WASI hosts, which can sandbox code behind capability-scoped host interfaces.
 
 [^paradigm]: Mark S. Miller and Jonathan S. Shapiro, *Paradigm Regained: Abstraction Mechanisms for Access Control* (ASIAN 2003: Prog. Lang. and Distr. Comp., LNCS 2896, Springer, 2003), pp. 224–242. Discusses how ambient authority pools enable virus propagation, advocating object-capability models for least authority. [PDF](http://www.erights.org/talks/asian03/paradigm-revised.pdf)
 

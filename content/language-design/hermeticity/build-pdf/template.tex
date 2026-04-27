@@ -4,14 +4,16 @@
 
 \usepackage{listings}
 \usepackage{xcolor}
-\usepackage[framemethod=tikz]{mdframed}
+% Default framemethod (not tikz/pstricks): tikz renders frame content in a
+% captured TikZ node, which traps footnotes inside the box. Default lets
+% footnotes flow to the page bottom as expected.
+\usepackage{mdframed}
 
-% Blockquote restyling: thin left rule + faint tint + italic, to mirror the
-% web look (left bar + colored background) in print-friendly muted shades.
+% Blockquote restyling: faint tint + italic, no border. Mirrors the web look
+% (colored background) in a print-friendly muted shade.
 \renewenvironment{quote}{%
   \begin{mdframed}[%
-    leftline=true, rightline=false, topline=false, bottomline=false,
-    linewidth=1.5pt, linecolor=black!45,
+    hidealllines=true,
     backgroundcolor=black!4,
     innerleftmargin=10pt, innerrightmargin=10pt,
     innertopmargin=4pt, innerbottommargin=4pt,
