@@ -255,7 +255,8 @@ package logger
 
 import "os"
 
-// Log is live because it captures a live free identifier os.Stdout.
+// Log is live because it captures a live free identifier
+// os.Stdout.
 func Log(msg string) {
     os.Stdout.WriteString(msg + "\n")
 }
@@ -284,7 +285,8 @@ However, inert packages can export inert functions that allocate and expose fres
 ```go
 package counter
 
-// NewCounter is inert because it does not capture any live free variables.
+// NewCounter is inert because it does not capture any 
+// live free variables.
 func NewCounter() func() int {
     var count int = 0
     return func() int {
@@ -362,14 +364,15 @@ One way of reducing the number of explicitly passed parameters is to support **c
 
 ```scala
 // 1. The middleman (main): carrier of the context
-// main does not use Logger, but must declare 'using Logger'
-// to allow it to pass implicitly to foo.
+// main does not use Logger, but must declare 
+// 'using Logger' to allow it to pass implicitly to foo.
 def main()(using Logger): Unit = {
     foo()
 }
 
 // 2. The leaf (foo): consumer of the context
-// foo explicitly states: "I can only run if a Logger is in context."
+// foo explicitly states: "I can only run if a Logger is
+// in context."
 def foo()(using logger: Logger): Unit = {
     logger.info("Called foo")
 }
@@ -396,7 +399,7 @@ let x = [1, 2, 3]
 f(x)
 ```
 
-If `f` is indeed hermetic, the only state it can access is the list referenced by `x`: it cannot consult a global, log to a singleton, or touch the clock. To understand `f(x)`, the only state I need to think about is `x`. I can forget about any other possible side effects.
+If `f` is indeed hermetic, the only state it can access is the list referenced by `x`: it cannot consult a global, log to a singleton, or touch the clock. To understand `f(x)`, the only state I need to think about is the content of this list. I can forget about any other possible side effects.
 
 ### Composability
 
@@ -500,7 +503,7 @@ main = putStrLn "Hello, World!"
 
 Here, `main` is a pure value. But it is live in our sense—not because it interacts with state when run, but because it is already committed to the real console, rather than receiving console access as a parameter. In that sense, it already embodies authority to interact with existing state.
 
-> **Pure does not imply inert.**
+> Pure does not imply inert.
 
 <div class="image-with-caption">
 
@@ -571,7 +574,7 @@ Hermetic programming links inversion of control, capability-based security, and 
 
 #### Etymology of "Hermetic"
 
-> **Hermeticity is a software engineering concept that refers to the ability of a software unit to be isolated from its environment.**
+> Hermeticity is a software engineering concept that refers to the ability of a software unit to be isolated from its environment.
 >
 > — [Scott Herbert (slaptijack)](https://slaptijack.com/programming/benefits-of-hermeticity.html)
 

@@ -17,6 +17,7 @@ pandoc "$OUT_DIR/processed.md" \
   --lua-filter="$SCRIPT_DIR/transform.lua" \
   --listings \
   --standalone \
+  --shift-heading-level-by=-1 \
   --output="$OUT_DIR/hermeticity.tex"
 
 # 3) LaTeX → PDF (run from out/ so \graphicspath{{../../}} resolves to the

@@ -106,7 +106,11 @@ pandoc's `--listings` only emits `language=…` for a built-in whitelist (Go, Sc
 
 ### 12. `\needspace{<N>\baselineskip}` before each `lstlisting`
 
-Short code blocks were splitting across column/page boundaries. The Lua filter counts lines in each `CodeBlock` and prepends `\needspace{(lines+2)\baselineskip}` so latex starts a new column if the block won't fit. Doesn't prevent breaking inside genuinely long listings — those still split naturally.
+Short code blocks were splitting across column/page boundaries. The Lua filter counts lines in each `CodeBlock` and emits `\needspace{N\baselineskip}` so latex starts a new column if the block won't fit. Doesn't prevent breaking inside genuinely long listings — those still split naturally.
+
+The N calculation has to account for a unit mismatch: listings render in `\footnotesize` (~0.85× the body baselineskip), but `\needspace` measures vertical space against the *body* `\baselineskip` at the call site. The first version asked for `lines + 2` body-baselineskips, which over-reserved by 15–20% and caused spurious column breaks. Even after scaling by 0.85 the demand was still too aggressive — for an 8-line listing we'd ask for ~8 baselineskips, but `\needspace` would still trigger if the column had only 6–7 remaining, leaving the column 1/3 empty.
+
+Current formula: `min(ceil(lines × 0.85), 5)`. The cap means only the *first* ~5 baselineskips of a listing are guaranteed contiguous — beyond that, the listing is allowed to split across columns. This matches the original goal (don't strand short listings at column tops/bottoms) without producing whitespace-dump columns when long listings fall near a boundary. The labeled-listing combiner adds 3 extra baselineskips for the label header (so cap is effectively 8 there).
 
 ### 13. `tabular` instead of `longtable`
 
@@ -160,11 +164,47 @@ The Lua glossary handler now opens the `mdframed` and immediately sets `\parinde
 
 Scope is local to the box (the settings are inside the `mdframed` group), so body-text indentation elsewhere is unaffected.
 
-### 21. Footnote `[link](url)` and `[PDF](url)` placeholders → bare URL
+### 23. `--shift-heading-level-by=-1` so `##` becomes `\section`
 
-Some footnote citations end with hyperlinked label words (`[link](url)`, `[PDF](url)`) that read fine on the web but carry no information in print — the URL itself needs to be visible. `preprocess.py`'s `expand_link_placeholders` rewrites both patterns to a pandoc autolink (`<url>`), which becomes `\url{...}` in LaTeX (line-breakable monospace URL).
+The source uses `##` as the highest-level body heading because `#` is reserved for the Hugo page title (set via frontmatter, not a markdown heading). pandoc's default mapping of `##` → `\subsection` left `\section` empty, producing leading-zero numbering ("0.1 Introduction", "0.10.3 Appendix C"). We shift heading levels by -1 in the pandoc invocation so `##` → `\section`, `###` → `\subsection`, `####` → `\subsubsection`.
 
-Other named-domain link labels (`[GitHub](...)`, `[Wikipedia](...)`, `[erights.org](...)`) are left alone — those names *are* informative.
+Side benefit: `####` headings are now `\subsubsection` (displayed by default in acmart) rather than `\paragraph` (run-in). The earlier "displayed-heading-before-table" rule in the Lua filter is no longer needed and was removed; "Summary of Restrictions" now renders as a normal numbered subsubsection.
+
+The `Header` filter's "match by text == 'Appendices'" rule for `\clearpage` is unaffected (text-based).
+
+### 24. `\needspace` before subsections to prevent orphan headings
+
+Without intervention, an `## Appendix C: Glossary of Terms` heading could land on the very last line of a column, with its body starting in the next column. The `Header` filter now prepends `\needspace{4\baselineskip}` for any level-2 (post-shift, i.e. `\subsection`) heading. 4 baselineskips fits the heading itself plus a couple of body lines — enough to ensure the reader sees something under the heading on the same column.
+
+Section-level headings (`\section`) are left to acmart's defaults (which handle orphans well). Subsubsection-level (`\subsubsection`) is also left alone — they're small enough that an orphan is unobtrusive.
+
+### 22. Bind `example-label` Divs to the following code block / figure
+
+The standalone label and the standalone code listing each emitted their own page-break hint:
+
+* the label ended with `\par\nopagebreak\smallskip` (a soft "please don't break here");
+* the listing began with `\needspace{N\baselineskip}` (a hard "break now if N lines won't fit").
+
+When a column ran out, `\needspace` won — break inserted *between* label and listing, label stranded on the old column. Same problem for the one figure that has a preceding label (LaTeX's float placement `[ht]` could float the figure to the next page top, leaving the label behind).
+
+`transform.lua` now ships two filter passes:
+
+1. A `Blocks` pass (`combine_label_with_following`) that walks every block list. When it sees a `Div.example-label` immediately followed by a `CodeBlock` (or by a `RawBlock` containing a `figure` environment), it merges them into one raw-LaTeX block:
+   * one `\needspace{(label_overhead + listing_lines)\baselineskip}` *before* the label;
+   * the bold label;
+   * the lstlisting / figure body verbatim.
+   For figures, the placement specifier is rewritten to `[H]` (forced "exactly here" — no float) so the figure can't drift to a page top.
+2. The original per-element filters (`Div`, `CodeBlock`, `Figure`, `Code`, `Header`, `Table`) run as a second pass for everything the combiner didn't claim.
+
+`\usepackage{float}` is added to `template.tex` to provide `[H]`.
+
+The combiner is the *only* place we compute `\needspace` for a labeled listing now — the per-element `CodeBlock` filter still does its own `\needspace` for unlabelled listings, but a labeled listing is rewritten before that filter ever sees it.
+
+### 21. Generic-label hyperlinks in footnotes → bare URL
+
+Some footnotes end with hyperlinked label words (`[link]`, `[PDF]`, `[Wikipedia]`, `[GitHub]`, `[docs]`) that read fine on the web but carry no information in print — the URL itself needs to be visible. `preprocess.py`'s `expand_link_placeholders` rewrites these patterns to a pandoc autolink (`<url>`), which becomes `\url{...}` in LaTeX (line-breakable monospace URL).
+
+Multi-word descriptive labels (`[Scala 3 Reference: Context Parameters](...)`, `[SES README](...)`) and informative domain-name labels (`[wasi.dev]`, `[docs.rs]`, `[erights.org]`) are left alone — those names *do* carry information.
 
 ## What hasn't been addressed
 

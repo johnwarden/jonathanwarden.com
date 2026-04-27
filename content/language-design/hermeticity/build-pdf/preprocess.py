@@ -48,15 +48,21 @@ def strip_note_aside(text: str) -> str:
 
 
 def expand_link_placeholders(text: str) -> str:
-    """Replace ``[link](url)`` and ``[PDF](url)`` with the bare URL.
+    """Replace generic-label hyperlinks like ``[link](url)`` with the bare URL.
 
     On the web these labels are clickable, so the short word reads fine. In
-    the PDF (especially in print) the word "link" or "PDF" carries no
-    information — the URL itself needs to be visible. We rewrite to a
-    pandoc autolink (``<url>``) which becomes ``\\url{...}`` in LaTeX.
+    the PDF (especially in print) the label carries no information — the URL
+    itself needs to be visible. We rewrite to a pandoc autolink (``<url>``)
+    which becomes ``\\url{...}`` in LaTeX.
+
+    Generic labels we expand: ``link``, ``PDF``, ``Wikipedia``, ``GitHub``,
+    ``docs``. Multi-word / descriptive labels (e.g.
+    ``[Scala 3 Reference: Context Parameters](...)``, ``[SES README](...)``)
+    and informative domain-name labels (``[wasi.dev]``, ``[docs.rs]``) are
+    left alone — those names *do* carry information.
     """
     return re.sub(
-        r"\[(?:link|PDF)\]\((https?://[^)]+)\)",
+        r"\[(?:link|PDF|Wikipedia|GitHub|docs)\]\((https?://[^)]+)\)",
         r"<\1>",
         text,
         flags=re.IGNORECASE,

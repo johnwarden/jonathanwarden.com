@@ -31,7 +31,7 @@ function Div(el)
     -- capture footnotes inside the box. We use the default framemethod so
     -- footnote text inside the glossary still flows to the page bottom.
     result:insert(raw_latex(
-      "\\begin{mdframed}[backgroundcolor=black!4,linecolor=black!50,linewidth=0.4pt,innertopmargin=6pt,innerbottommargin=6pt]\\setlength{\\parindent}{0pt}\\setlength{\\leftmargini}{1.2em}"))
+      "\\begin{mdframed}[backgroundcolor=black!4,linecolor=black!50,linewidth=0.4pt,innertopmargin=6pt,innerbottommargin=6pt,skipabove=\\baselineskip,skipbelow=6pt]\\setlength{\\parindent}{0pt}\\setlength{\\leftmargini}{1.2em}"))
     for _, b in ipairs(el.content) do
       result:insert(b)
     end
@@ -58,11 +58,15 @@ function CodeBlock(el)
   -- Estimate line count of the listing.
   local _, newlines = el.text:gsub("\n", "")
   local line_count = newlines + 1
-  -- listings is set in \footnotesize, so each line is roughly 0.85 of normal
-  -- baselineskip. Ask for line_count + 2 baselineskips of slack — enough to
-  -- cover the frame and a buffer line, but not so generous that we fragment
-  -- columns unnecessarily.
-  local needed_lines = line_count + 2
+  -- listings is set in \footnotesize, so each line is ~0.85 of the body-text
+  -- \baselineskip that \needspace measures against. Two adjustments:
+  --   1) scale by 0.85 so the request matches actual listing height,
+  --   2) cap at 5 baselineskips total — only short listings are at real risk
+  --      of looking bad if split across columns; longer ones can break
+  --      naturally without the column above being half-empty. The original
+  --      `lines + 2` (no scaling, no cap) caused spurious column breaks when
+  --      a column had room for the actual listing but not the inflated demand.
+  local needed_lines = math.min(math.ceil(line_count * 0.85), 5)
   local lang_attr = ""
   if #el.classes > 0 then
     lang_attr = "[language=" .. el.classes[1] .. "]"
@@ -118,11 +122,21 @@ end
 -- whole appendix block (not before each individual appendix) — keeps the
 -- appendices flowing continuously after the boundary while still separating
 -- them from the body. \clearpage in 2-column mode flushes pending floats.
+--
+-- For subsection-level headings, prepend a small \needspace so the heading
+-- can't be placed at the very bottom of a column with its body continuing
+-- in the next column (orphan-heading). 4 baselineskips comfortably fits
+-- the heading itself plus 2–3 lines of body text.
 function Header(el)
   local text = pandoc.utils.stringify(el.content)
   if text == "Appendices" then
     return {
       raw_latex("\\clearpage"),
+      el,
+    }
+  elseif el.level == 2 then
+    return {
+      raw_latex("\\needspace{4\\baselineskip}"),
       el,
     }
   end
@@ -131,7 +145,10 @@ end
 function Table(el)
   local cols = string.rep("l", #el.colspecs)
   local lines = {
-    "\\begin{table}[ht]",
+    -- [H] (no-float, exactly here) so the table can't drift above the
+    -- heading that introduces it. Requires \usepackage{float} (already
+    -- loaded for figure binding).
+    "\\begin{table}[H]",
     "\\centering",
     "\\begin{tabular}{@{}" .. cols .. "@{}}",
     "\\toprule",
@@ -150,3 +167,82 @@ function Table(el)
   table.insert(lines, "\\end{table}")
   return raw_latex(table.concat(lines, "\n"))
 end
+
+-- Combine an "example-label" Div with the immediately-following code listing
+-- or figure into a single raw-LaTeX block. The standalone label/lstlisting
+-- emits two separate \needspace/\nopagebreak attempts: \nopagebreak after the
+-- label tries to keep them together, but \needspace inside the lstlisting
+-- output is a stronger break, so when the column is short the label gets
+-- stranded on the old page while the listing jumps to the new one. By
+-- merging the two and emitting a single \needspace sized for label+listing
+-- before the label, the break (if any) happens in front of the label, so
+-- the pair stays together. For figures we additionally force [H] placement
+-- (from the float package) so the figure doesn't drift to a page top.
+local function combine_label_with_following(blocks)
+  local out = pandoc.List()
+  local i = 1
+  while i <= #blocks do
+    local b = blocks[i]
+    local nxt = blocks[i + 1]
+
+    local is_label = b.t == "Div"
+      and b.classes
+      and b.classes:includes("example-label")
+
+    if is_label and nxt and nxt.t == "CodeBlock" then
+      local text = pandoc.utils.stringify(b.content)
+      local label = text:gsub(".", function(c) return LATEX_SPECIAL[c] or c end)
+      local _, newlines = nxt.text:gsub("\n", "")
+      -- Same logic as the standalone CodeBlock filter (cap at ~5 listing
+      -- baselineskips, scaled to footnotesize) plus 3 baselineskips for the
+      -- label (medskip + line + smallskip). Total cap ~8.
+      local needed = math.min(math.ceil((newlines + 1) * 0.85), 5) + 3
+      local lang_attr = ""
+      if #nxt.classes > 0 then
+        lang_attr = "[language=" .. nxt.classes[1] .. "]"
+      end
+      local combined = string.format(
+        "\\par\\medskip\\needspace{%d\\baselineskip}\\noindent\\textbf{%s}\\par\\nopagebreak\\smallskip\n\\begin{lstlisting}%s\n%s\n\\end{lstlisting}",
+        needed, label, lang_attr, nxt.text
+      )
+      out:insert(raw_latex(combined))
+      i = i + 2
+    elseif is_label
+      and nxt
+      and nxt.t == "RawBlock"
+      and nxt.format == "latex"
+      and nxt.text:match("\\begin{figure}") then
+
+      local text = pandoc.utils.stringify(b.content)
+      local label = text:gsub(".", function(c) return LATEX_SPECIAL[c] or c end)
+      -- Force [H] placement so the figure stays where it's placed (no float).
+      local fig = nxt.text:gsub("\\begin{figure}%[[^%]]*%]", "\\begin{figure}[H]")
+      if not fig:match("\\begin{figure}%[H%]") then
+        fig = fig:gsub("\\begin{figure}", "\\begin{figure}[H]", 1)
+      end
+      -- Conservative reservation; can't read image height from here.
+      local combined = string.format(
+        "\\par\\medskip\\needspace{14\\baselineskip}\\noindent\\textbf{%s}\\par\\nopagebreak\\smallskip\n%s",
+        label, fig
+      )
+      out:insert(raw_latex(combined))
+      i = i + 2
+    else
+      out:insert(b)
+      i = i + 1
+    end
+  end
+  return out
+end
+
+return {
+  { Blocks = combine_label_with_following },
+  {
+    Div = Div,
+    CodeBlock = CodeBlock,
+    Code = Code,
+    Figure = Figure,
+    Header = Header,
+    Table = Table,
+  },
+}
