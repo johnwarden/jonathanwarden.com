@@ -62,9 +62,9 @@ Here, `main` is a **hermetic function**:
 
 > A function is hermetic iff it does not access existing state except through its parameters.
 
-If `main` is hermetic, then any function it depends on must also be hermetic—otherwise `main` is indirectly accessing existing state. So a hermetic `main` eliminates **ambient authority**[^capmyths] by requiring all **capabilities**[^capability] to be explicitly passed as parameters. This aligns with the defining discipline of **object-capability languages**,[^ocap] where authority over state is conveyed by explicit, unforgeable references. If both “dependencies” and “authority” are taken to include *any stateful resource*, then “inject all dependencies” and “explicit capability passing” become the same language property. That property is obtained by making `main` hermetic.
+If `main` is hermetic, then any function it depends on must also be hermetic—otherwise `main` is indirectly accessing existing state. So a hermetic `main` eliminates **ambient authority**[^capmyths] by requiring all capabilities to be explicitly passed as parameters. This aligns with the defining discipline of **object-capability languages**,[^ocap] where authority over state is conveyed by explicit, unforgeable references. If both “dependencies” and “authority” are taken to include *any stateful resource*, then “inject all dependencies” and “explicit capability passing” become the same language property. That property is obtained by making `main` hermetic.
 
-In a **hermetic programming language**,[^hermetic-pl] function parameters act like hermetically sealed channels through which all access to state flows. Whether writing to a file, reading a channel, or mutating a buffer, the caller of a function controls the world it can see. Deterministic time? Pass a fake clock. Capture standard output? Pass a mock console. Every potential access to state is visible at the call boundary. Function signatures become dependency manifests. No hidden inputs. No undeclared effects.
+In a **hermetic programming language**, function parameters act like hermetically sealed channels through which all access to state flows. Whether writing to a file, reading a channel, or mutating a buffer, the caller of a function controls the world it can see. Deterministic time? Pass a fake clock. Capture standard output? Pass a mock console. Every potential access to state is visible at the call boundary. Function signatures become dependency manifests. No hidden inputs. No undeclared effects.
 
 ## The Purity Gap
 
@@ -239,9 +239,10 @@ Here, `Log` is live because it captures the live free identifier `os.Stdout`.
 
 Packages also cannot host global singletons; package-level globals and exported values must be inert.
 
-Inert packages can, however, export hermetic constructors that **mint**[^mint] fresh state without accessing existing state. They may also export inert types, interfaces, methods, and other definitions for complex data structures and algorithms. They may even provide logic for interacting with external resources such as databases or web services, as long as access to those resources is passed as parameters.
+Inert packages can, however, export hermetic constructors that **mint** fresh state without accessing existing state. They may also export inert types, interfaces, methods, and other definitions for complex data structures and algorithms. They may even provide logic for interacting with external resources such as databases or web services, as long as access to those resources is passed as parameters.
 
-In a hermetic programming language, the standard library defines interfaces to system resources such as the filesystem, network, and clock, but actual access happens only through injected parameters. Existing libraries already gesture in this direction: Go’s `http.Serve` accesses the network through its `net.Listener` parameter, Rust’s `cap_std` routes I/O through capability values, and Python sans-I/O libraries go further by factoring I/O out entirely.[^hermetic-http]
+In a hermetic programming language, the standard library defines interfaces to system resources such as the filesystem, network, and clock, but actual access happens only through injected parameters. Existing libraries already gesture in this direction: Go’s `http.Serve` accesses the network through its `net.Listener` parameter, Rust’s `cap_std` routes I/O through capability values, and Python sans-I/O libraries such as `hyper-h2` go further by factoring I/O out entirely.[^capstd][^sansio]
+
 
 ### Closures
 
@@ -298,11 +299,11 @@ This means large programs can be assembled from small pieces that remain hermeti
 
 ### Testability, Determinism, and Portability
 
-Hermeticity improves **testability** because stateful dependencies are already explicit and can be replaced with mocks without additional refactoring. It improves **determinism** because sources of variation—clock, RNG, network, filesystem, environment—must be passed explicitly and can therefore be replaced with deterministic alternatives. And it improves **portability** because hermetic code has no hard-coded environmental dependencies: it can be reused across execution contexts such as plugin systems, browsers, or smart contracts without depending on a special sandbox merely to prevent ambient access.[^hermetic-runtimes]
+Hermeticity improves **testability** because stateful dependencies are already explicit and can be replaced with mocks without additional refactoring. It improves **determinism** because sources of variation—clock, RNG, network, filesystem, environment—must be passed explicitly and can therefore be replaced with deterministic alternatives. And it improves **portability** because hermetic code has no hard-coded environmental dependencies: it can be reused across execution contexts such as plugin systems, browsers, or smart contracts without depending on a special sandbox merely to prevent ambient access.]
 
 ### Security
 
-Finally, hermetic programming changes the application’s trust model. By forcing authority to enter only through explicit interfaces, it naturally aligns with the core discipline of **capability-based security**,[^capsec] which I explore next.
+Finally, hermetic programming changes the application’s trust model. By forcing authority to enter only through explicit interfaces, it naturally aligns with the core discipline of **capability-based security**, which I explore next.
 
 ## Capability-Based Security
 
@@ -324,7 +325,7 @@ Since a hermetic function by definition may access existing state only through i
 
 “Ambient authority” is sometimes taken to mean only ambient access to system resources. But if a function can communicate through a pre-existing channel, or write a live value into existing mutable state for later retrieval, then authority can flow between calls without appearing in the signature.
 
-A hermetic programming language rules that out by eliminating ambient authority to *any existing state*—anything that could make a function impure. A hermetic function does not have its own memory; it can only delegate authority through channels explicitly provided by the caller.[^propf] If a function is never given the authority to write a capability into existing state—a way of exposing state that I call **grafting**[^graft]—then the authority it receives remains **overtly confined**[^confinement] to that unit of work and is automatically **revoked**[^revocation] once the function finishes its work.
+A hermetic programming language rules that out by eliminating ambient authority to *any existing state*—anything that could make a function impure. A hermetic function does not have its own memory; it can only delegate authority through channels explicitly provided by the caller.[^propf] If a function is never given the authority to write a capability into existing state—a way of exposing state that I call **grafting**—then the authority it receives remains **overtly confined**[^confinement] to that unit of work and is automatically **revoked**[^revocation] once the function finishes its work.
 
 These are not extra security mechanisms: they follow from the core semantics of hermetic functions.
 
@@ -354,9 +355,9 @@ A more secure design would attenuate the capabilities provided not just by `db` 
 
 Although a hermetic programming language has no ambient authority, the converse is not true: *a language can have no ambient authority without being hermetic*. Hermeticity corresponds to a stronger capability discipline: authority must flow explicitly through capabilities passed as references or parameters.
 
-A capability-secure language can also introduce authority through **ambient endowment**. For example, SES compartments have no ambient authority by default, but the host can endow them with live globals or modules.[^ses] WASI likewise provisions capabilities through imports.[^wasi] In both cases, authority is supplied by the host through ambient names rather than through function parameters.
+A capability-secure language can also introduce authority through **ambient endowment**. For example, SES compartments have no ambient authority by default, but the host can endow them with live globals or modules.[^ses] WASI likewise provisions capabilities through imports. In both cases, authority is supplied by the host through ambient names rather than through function parameters.
 
-By contrast, in Joe-E, explicitly propagated references are the only things that convey authority; *the universal scope provides no authority*.[^joee][^trust07] This maps closely to what I call an **inert ambient scope**. In that sense, Joe-E can be classified as a hermetic programming language.
+By contrast, in Joe-E, explicitly propagated references are the only things that convey authority; *the universal scope provides no authority*.[^joee-spec][^trust07] This maps closely to what I call an **inert ambient scope**. In that sense, Joe-E can be classified as a hermetic programming language.
 
 > Hermeticity is not simply a restatement of “no ambient authority”.
 
@@ -452,7 +453,7 @@ Hermetic programming links inversion of control, capability-based security, and 
 >
 > — Scott Herbert (slaptijack)[^hermeticity]
 
-The term **hermetic** has been used to describe a number of systems that isolate imperative code from its environment: most notably Google’s **hermetic testing**, **hermetic servers**, hermetic builds such as Bazel, and hermetic languages such as Wuffs and Starlark.[^google-hermetic][^bazel][^wuffs][^starlark] These all **isolate** effects to specifically authorized state: a test mock, a build artifact, the function’s arguments.
+The term **hermetic** has been used to describe a number of systems that isolate imperative code from its environment: most notably Google’s **hermetic testing**, **hermetic servers**, hermetic builds such as Bazel, and hermetic languages such as Wuffs and Starlark.[^hermetic-uses] These all **isolate** effects to specifically authorized state: a test mock, a build artifact, the function’s arguments.
 
 I have appropriated the term *hermetic* in this essay to mean isolation only with respect to *access* to state. But there are levels of isolation beyond hermeticity. For example, Wuffs programs are also isolated in the ACID sense, and they cannot spawn threads, allocate memory, or panic.[^wuffs]
 
@@ -612,7 +613,11 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^di]: Martin Fowler, *Inversion of Control Containers and the Dependency Injection pattern* (2004). [link](https://martinfowler.com/articles/injection.html)
 
-[^ocap]: Object-capability (ocap) languages enforce capability discipline at the language level: references are unforgeable, there is no ambient authority, and the only way to obtain a capability is to be given one. Examples include E, Monte, Pony, Wyvern, and Agoric's SES (Secure EcmaScript) in Hardened JavaScript. See Mark S. Miller, *Robust Composition: Towards a Unified Approach to Access Control and Concurrency Control* (PhD thesis, Johns Hopkins University, 2006). [PDF](https://www.erights.org/talks/thesis/markm-thesis.pdf); E language: [erights.org](https://erights.org); Monte: [monte.readthedocs.io](https://monte.readthedocs.io).
+[^ocap]: Object-capability languages pass authority through unforgeable references: no ambient authority, and no access to a resource unless a capability to it has been explicitly received. See Mark S. Miller, *Robust Composition* (2006). [PDF](https://www.erights.org/talks/thesis/markm-thesis.pdf); Yee, Miller, and Shapiro, *Capability Myths Demolished* (2003). [PDF](https://srl.cs.jhu.edu/pubs/SRL2003-02.pdf)
+
+[^hermetic-pl]: I use *hermetic programming language* rather than *object-capability language* because *hermetic* can apply beyond object-oriented settings, including purely functional ones.
+
+[^capability]: A *capability* is an unforgeable reference that both designates a resource and grants authority to use it. See Mark S. Miller, *Robust Composition: Towards a Unified Approach to Access Control and Concurrency Control* (PhD thesis, Johns Hopkins University, 2006). [PDF](https://www.erights.org/talks/thesis/markm-thesis.pdf); Ka-Ping Yee, Mark S. Miller, and Jonathan Shapiro, *Capability Myths Demolished* (Systems Research Laboratory Technical Report SRL2003-02, Johns Hopkins University, 2003). [PDF](https://srl.cs.jhu.edu/pubs/SRL2003-02.pdf)
 
 [^capmyths]: The term *ambient authority* is formalized in the object-capability literature. See Ka-Ping Yee, Mark S. Miller, and Jonathan Shapiro, *Capability Myths Demolished* (Systems Research Laboratory Technical Report SRL2003-02, Johns Hopkins University, 2003). [PDF](https://srl.cs.jhu.edu/pubs/SRL2003-02.pdf)
 
@@ -628,7 +633,6 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^confused]: The confused deputy problem was first identified by Norm Hardy in 1988. See Norm Hardy, *The Confused Deputy (or why capabilities might have been invented)* (ACM SIGOPS Operating Systems Review, 1988). [PDF](https://www.cap-lore.com/CapTheory/ConfusedDeputy.html)
 
-[^confinement]: Confinement was formalized by Butler Lampson, *A Note on the Confinement Problem* (Communications of the ACM, 1973). Revocation and its relationship to capability discipline is discussed in Miller (2006), cited above. [PDF](https://dl.acm.org/doi/pdf/10.1145/355603.361667)
 
 [^readert]: The `ReaderT` pattern threads a shared environment through a computation via a monad transformer. When that environment carries capabilities (database handles, loggers, etc.), the pattern effectively implements implicit capability passing. See Michael Snoyman, *The ReaderT Design Pattern* (2017). [link](https://www.fpcomplete.com/blog/readert-design-pattern/)
 
@@ -644,10 +648,7 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^observable]: As usual, we ignore changes that are not observable by normal program operations, such as internal allocation, garbage collection, caching, or timing effects. Allocating fresh state does not by itself grant access to other existing heap objects; it is internal to the call unless it escapes (assuming ordinary memory safety / no pointer-forging).
 
-[^capability]: A **capability** is an unforgeable reference that both designates a resource and grants authority to use it. See Mark S. Miller, *Robust Composition: Towards a Unified Approach to Access Control and Concurrency Control* (PhD thesis, Johns Hopkins University, 2006). [PDF](https://www.erights.org/talks/thesis/markm-thesis.pdf); Ka-Ping Yee, Mark S. Miller, and Jonathan Shapiro, *Capability Myths Demolished* (Systems Research Laboratory Technical Report SRL2003-02, Johns Hopkins University, 2003). [PDF](https://srl.cs.jhu.edu/pubs/SRL2003-02.pdf)
-
 [^capsec]: **Capability-based security** is a discipline in which authority is conveyed by unforgeable capabilities and propagated only by explicit transfer. Eliminating ambient authority is one central principle; others include attenuation, confinement, delegation, and revocation. See Mark S. Miller, *Robust Composition: Towards a Unified Approach to Access Control and Concurrency Control* (PhD thesis, Johns Hopkins University, 2006). [PDF](https://www.erights.org/talks/thesis/markm-thesis.pdf); Ka-Ping Yee, Mark S. Miller, and Jonathan Shapiro, *Capability Myths Demolished* (Systems Research Laboratory Technical Report SRL2003-02, Johns Hopkins University, 2003). [PDF](https://srl.cs.jhu.edu/pubs/SRL2003-02.pdf)
-
 
 [^hermeticity]: Scott Herbert (slaptijack), *Benefits of Hermeticity* (2010). Defines hermeticity as the ability of a software unit to be isolated from its environment. [link](https://slaptijack.com/programming/benefits-of-hermeticity.html)
 
@@ -667,7 +668,11 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^structured]: Structured concurrency ensures all spawned threads complete before a function returns. See Nathaniel J. Smith, *Notes on structured concurrency, or: Go statement considered harmful* (2018). [link](https://vorpus.org/blog/notes-on-structured-concurrency-or-go-statement-considered-harmful/)
 
-[^protection]: Jerome H. Saltzer and Michael D. Schroeder, *The Protection of Information in Computer Systems* (Proceedings of the IEEE, 1975). Foundational principles including least authority. [PDF](https://www.cs.virginia.edu/~evans/cs551/saltzer/)
+<!-- [^protection]: Jerome H. Saltzer and Michael D. Schroeder, *The Protection of Information in Computer Systems* (Proceedings of the IEEE, 1975). Foundational principles including least authority. [PDF](https://www.cs.virginia.edu/~evans/cs551/saltzer/) -->
+
+[^hermetic-uses]: See Google Testing Blog, *Hermetic Servers* (2012), [link](https://testing.googleblog.com/2012/10/hermetic-servers.html); Bazel documentation, *Hermeticity*, [link](https://bazel.build/basics/hermeticity); Wuffs, [GitHub](https://github.com/google/wuffs); and Starlark, [GitHub](https://github.com/bazelbuild/starlark).
+
+[^protection]: Mark S. Miller, *Robust Composition: Towards a Unified Approach to Access Control and Concurrency Control* (PhD thesis, Johns Hopkins University, 2006), especially Chapter 8, “Patterns of Cooperation Without Vulnerability,” which develops the **principle of least authority** in object-capability terms. [PDF](https://www.erights.org/talks/thesis/markm-thesis.pdf)
 
 [^attenuate]: In capability systems, to *attenuate* means to derive a new capability with reduced authority, such as creating a read-only handle from a read-write one. See Mark S. Miller, *Robust Composition: Towards a Unified Approach to Access Control and Concurrency Control* (2006), Chapter 4. [PDF](https://www.erights.org/talks/thesis/markm-thesis.pdf)
 
@@ -675,12 +680,17 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^joee-spec]: Adrian Mettler, Tyler Close, and David Wagner, *Joe-E Specification* (September 18, 2009). [PDF](https://people.eecs.berkeley.edu/~daw/joe-e/spec-20090918.pdf)
 
-[^hermetic-pl]: I use *hermetic programming language* rather than *deterministic object-capability language* because the latter is framed in terms of authority conveyed by explicit object references. But *hermetic* is a more language-agnostic term that applies beyond object-oriented settings, including purely functional ones.
 
 
-[^immutable-v-inert]: In their work on verifiable functional purity, Finifter et al. further specify that objects representing a capability to observe or affect external state are not considered immutable. See Matthew Finifter, Adrian Mettler, Naveen Sastry, and David Wagner, *Verifiable Functional Purity in Java* (CCS 2008). [PDF](https://people.eecs.berkeley.edu/~daw/papers/pure-ccs08.pdf). Immutable values in Joe-E are thus inert in the sense used here, but the converse need not hold, since inert is an operational notion intended to apply across languages where Joe-E’s object-graph formulation does not apply, including pure functional languages, as discussed in §8. I use the term *inert* rather than *immutable* because “immutable” is overloaded in mainstream programming-language usage. E’s **DeepFrozen** is a closely related value-level notion from the object-capability literature, used for transitively immutable values that are safe to treat as authority-free for sharing and copying. See *Auditors* on ERights.org. [link](https://erights.org/elang/kernel/auditors/index.html)
+[^joee-immutable]: In Joe-E "The contents of an immutable objects’ fields and any objects reachable from an immutable object must not change once the object is constructed". Adrian Mettler, Tyler Close, and David Wagner, *Joe-E Specification* (September 18, 2009). [PDF](https://people.eecs.berkeley.edu/~daw/joe-e/spec-20090918.pdf)
 
-[^hermetic-http]: For example, Go’s `net/http` package provides `http.Serve`, which accesses the network through a passed-in `net.Listener`; this can be substituted with an in-memory implementation such as gRPC’s `bufconn`.[^bufconn] Rust’s `cap_std` similarly routes filesystem and networking access through capability values such as `Dir` and `Pool`.[^capstd] In Python, sans-I/O libraries such as `hyper-h2` go further by factoring all external I/O out of the library entirely.[^sansio]
+<!-- [^joee-immutable]: In their work on verifiable functional purity, Finifter et al. specify that objects representing a capability to observe or affect external state are not considered immutable. See Matthew Finifter, Adrian Mettler, Naveen Sastry, and David Wagner, *Verifiable Functional Purity in Java* (Proceedings of the 15th ACM Conference on Computer and Communications Security, CCS 2008), pp. 161–174. [PDF](https://people.eecs.berkeley.edu/~daw/papers/pure-ccs08.pdf). -->
+
+
+ <!-- E’s **DeepFrozen** is a closely related value-level notion from the object-capability literature, used for transitively immutable values that are safe to treat as authority-free for sharing and copying. See *Auditors* on ERights.org. [link](https://erights.org/elang/kernel/auditors/index.html) -->
+
+[^immutable-v-inert]: Immutable values in Joe-E are inert by construction, but the converse need not hold: *inert* is an operational notion intended to apply across languages where Joe-E’s object-graph formulation does not apply, including pure functional languages. I use the term *inert* rather than *immutable* because “immutable” is overloaded in mainstream programming-language usage.
+
 
 [^mint]: A hermetic function can expose fresh state that it allocates during the call. We call this minting state. See [Appendix C](#minting-state).
 
@@ -688,6 +698,7 @@ It follows that in a hermetic programming language, exported types must be herme
 [^graft]: A hermetic function can expose state by writing a live value into existing state that was passed as a parameter. See [Appendix C](#grafting-state).
 
 [^confinement]: The classic **confinement problem** is to ensure that a program cannot transmit information except through authorized channels. See Butler W. Lampson, *A Note on the Confinement Problem* (Communications of the ACM, 1973). [PDF](https://www.cs.cornell.edu/andru/cs711/2003fa/reading/lampson73note.pdf)
+
 
 [^revocation]: Revocation is a standard topic in capability security and is not incompatible with capability discipline. See Ka-Ping Yee, Mark S. Miller, and Jonathan Shapiro, *Capability Myths Demolished* (Systems Research Laboratory Technical Report SRL2003-02, Johns Hopkins University, 2003), especially the discussion of the **Irrevocability Myth**. [PDF](https://srl.cs.jhu.edu/pubs/SRL2003-02.pdf)
 
