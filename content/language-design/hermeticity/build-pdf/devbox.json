@@ -3,7 +3,8 @@
   "packages": [
     "pandoc@latest",
     "texlive.combined.scheme-full@latest",
-    "python3@latest"
+    "python3@latest",
+    "ghostscript@latest"
   ],
   "shell": {
     "scripts": {
