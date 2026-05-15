@@ -308,41 +308,38 @@ This still leaves one possible source of non-hermetic function values: captured 
 
 ### Behavioral Referential Transparency
 
-For pure functions, referential transparency ensures that `f(x)` depends only on the **value** of `x` (and the definition of `f`). **Behavioral referential transparency** generalizes this to stateful inputs: `f(x)` depends only on the **behavior** of `x` (as observable by `f`). There are no "hidden inputs".
+For pure functions, referential transparency means that `f(x)` depends only on the **value** of `x` (and the definition of `f`). **Behavioral referential transparency** extends this idea to stateful inputs: `f(x)` depends only on the observable **behavior** of `x`. There are no hidden inputs.
 
-The behavioral referential transparency property facilitates **local reasoning**: minimizing the number of things a programmer needs to keep in mind to understand a fragment of code.
+This facilitates **local reasoning**: minimizing the things a programmer must keep in mind to understand a fragment of code.
 
-Pure functional programming achieves a strong form of local reasoning by eliminating interaction with state completely. But hermeticity also aids local reasoning by reducing the "splash radius" of possible interaction with state to the **explicit parameters** of a function.
+Pure functional programming achieves a particularly strong form of local reasoning by eliminating interaction with state entirely. But hermeticity also improves local reasoning by reducing the splash radius of possible interaction to the **explicit parameters** of a function.
 
 For example, suppose I pass a mutable list to a hermetic function:
 
 ```typescript
-// x is a mutable list
-let x = [1, 2, 3]
+// x is a mutable list of integers
+let x: number[] = [1, 2, 3]
 f(x)
 ```
 
-If `f` is indeed hermetic, the only state it can access is the list referenced by `x`: it cannot consult a global, log to a singleton, or touch the clock. To understand `f(x)`, the only state I need to think about is the content of this list. I can forget about any other possible side effects.
+If `f` is hermetic, the only state it can access is the list referenced by `x`. It cannot consult a global, log to a singleton, or touch the clock. To understand `f(x)`, the only state I need to think about is that list.
 
 ### Composability
 
 Purity composes: if `f` and `g` are pure, then `f ∘ g` is pure.
 
-Hermeticity composes too. Hermetic functions cannot give each other access to state. So if `f` and `g` are hermetic, then `f ∘ g` is hermetic.
+Hermeticity composes too. Hermetic functions cannot grant one another access to existing state. So if `f` and `g` are hermetic, then `f ∘ g` is hermetic.
 
-This means you can assemble large programs out of small pieces that remain hermetic all the way up to the main function.
+This means large programs can be assembled from small pieces that remain hermetic all the way up to `main`.
 
 ### Testability, Determinism, and Portability
 
-**Testability**: Hermetic functions can be tested with mocks with no additional refactoring.
-
-**Determinism**: All sources of non-determinism—clock, RNG, network, filesystem, environment—must be passed explicitly, and can be replaced with deterministic alternatives. This enables reproducible builds, deterministic replay, and simulation.
-
-**Portability**: Because hermetic code has no hard-coded dependencies, it can be reused across execution contexts—plugin systems, browsers, smart contracts—without requiring a sandbox or hermetic runtime[^hermetic-runtimes] such as Wasm/WASI.
+Hermeticity improves **testability** because stateful dependencies are already explicit and can be replaced with mocks without additional refactoring. It improves **determinism** because sources of variation—clock, RNG, network, filesystem, environment—must be passed explicitly and can therefore be replaced with deterministic alternatives. And it improves **portability** because hermetic code has no hard-coded environmental dependencies: it can be reused across execution contexts such as plugin systems, browsers, or smart contracts without depending on a special sandbox merely to prevent ambient access.[^hermetic-runtimes]
 
 ### Security
 
-Finally, hermetic programming fundamentally changes the trust model of the application. By forcing all dependencies to be injected, hermetic programming naturally enforces the core tenets of **Capability-Based Security**[^capsec], which we will explore next.
+Finally, hermetic programming changes the application’s trust model. By forcing authority to enter only through explicit interfaces, it naturally aligns with the core discipline of **capability-based security**[^capsec], which we will explore next.
+
 
 ## Capability Security
 
