@@ -1,5 +1,7 @@
 Weak: To see what hermeticity implies for packages, libraries, and language design, we need a more precise vocabulary for how functions expose access to state.
 
+lot of repetitivity in footnotes, especially capsec stuff
+
 
 update def of purity
 
