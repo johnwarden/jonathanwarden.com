@@ -236,31 +236,28 @@ The only lexical name that `hello` references is the parameter `out` (`write` is
 </div>
 
  -->
-
 ## Hermetic Programming Languages
 
 There are two sources of live free identifiers in a language:
 
-* Ambient identifiers (globals/imports/primitives)
-* Captured environments (closures)
+* **ambient identifiers** (globals, imports, builtins, primitives)
+* **captured environments** (closures)
 
 ### Inert Ambient Scope
 
-**Ambient identifiers** are names available to all functions and modules by default: default imports, preludes, built-in functions, system calls, global constants, primitives, etc.
-
-Collectively, these form the **ambient scope**.
+**Ambient identifiers** are names available to all functions and modules by default: preludes, built-in functions, default imports, global constants, system calls, and so on. Collectively, these form the **ambient scope**.
 
 > A hermetic programming language implies an **inert ambient scope**.
 
-If the ambient scope contains even one live identifier (like a global `console` object), then any function can "reach out" and access ambient state.
+If the ambient scope contains even one live identifier, then any function can reach out and access ambient state.
+
+This has immediate consequences for packages and modules.
 
 #### Inert Packages
 
-> An inert ambient scope implies **inert packages**.
+Imports must not introduce live values into ambient scope, nor have observable side effects during initialization. In that sense, all packages must be **inert**.
 
-An import statement must not introduce live values into the ambient scope, nor have observable side effects (no module initialization with observable interactions).
-
-This means every identifier exported by a package or module must be inert. Consequently, package-scoped functions must not capture live values from other packages.
+Package-scoped functions therefore cannot capture live values from other packages.
 
 <div class="example-label">Example (Go): live package capturing a live value from another package</div>
 
@@ -269,130 +266,42 @@ package logger
 
 import "os"
 
-// Log is live because it captures a live free identifier
-// os.Stdout.
 func Log(msg string) {
     os.Stdout.WriteString(msg + "\n")
 }
 ```
 
-Inert packages also cannot host global singletons. Package-level globals must be immutable, inert constants; otherwise they pollute every function that touches them, making those functions live.
+Here `Log` is live because it captures the live free identifier `os.Stdout`.
 
-<div class="example-label">Example (Go): live package with global singleton</div>
+Packages also cannot host global singletons; package-level globals and exported values must be inert.
 
-```go
-package counter
+Inert packages can, however, export hermetic constructors that **mint**[^mint] fresh state without accessing existing state. They may also export inert types, interfaces, methods, and other definitions for complex data structures and algorithms. They may even provide logic for interacting with external resources such as databases or web services, as long as access to those resources is passed as parameters.
 
-var count int = 0
-
-// Inc is live because it captures a live free variable.
-func Inc() int {
-    count++
-    return count
-}
-```
-
-However, inert packages can export inert functions that allocate and expose fresh state.
-
-<div class="example-label">Example (Go): inert package with exported hermetic constructor</div>
-
-```go
-package counter
-
-// NewCounter is inert because it does not capture any 
-// live free variables.
-func NewCounter() func() int {
-    var count int = 0
-    return func() int {
-        count++
-        return count
-    }
-}
-```
-
-Although `NewCounter` returns a closure over mutable state, it is not *existing* state: it is freshly [**minted**](#minting-state) state that did not exist before the call.
-
-> Hermetic constructors can mint state.
-
-Inert packages can export types, interfaces, constants, wrappers, methods, constructors, and other hermetic functions. They can provide complex imperative algorithms that *interact* with stateful resources, as long as those resources are passed as parameters.
-
-In a hermetic programming language, the standard library defines *interfaces* to system resources (filesystem, network, clock, etc.), but actual access happens through injected parameters.
-
-#### Example: Hermetic HTTP
-
-Inert packages may seem unrealistic. How could an HTTP library be inert, when HTTP is all about I/O and state?
-
-But the industry is already moving towards hermetic packages. For example, Rust's `cap_std::net` library provides capability-based networking[^capstd].
-
-```rust
-use cap_std::net::Pool;
-use std::io::Result;
-
-fn serve_http(pool: &Pool) -> Result<()> {
-    let listener = pool.bind_tcp_listener("0.0.0.0:80")?;
-    // Handle incoming connections...
-    Ok(())
-}
-```
-
-Here, `serve_http` is hermetic, because the only identifiers it imports are inert *interfaces* `Pool` and `Result`. The caller controls what ports can be bound to and can even pass a mock.
-
-Similarly, although not strictly hermetic, Go's `net/http` package exports an `http.Serve` function that accesses the network exclusively through its `net.Listener` parameter. This can be substituted with an in-memory implementation (notably gRPC’s `bufconn`[^bufconn]) that doesn't interact with the real network.
-
-In Python, "sans-I/O"[^sansio] libraries like `hyper-h2` go even further: they are pure state machines over bytes. Authority to access the network isn't even required as a parameter, because the caller handles all I/O.
+In a hermetic programming language, the standard library defines interfaces to system resources such as the filesystem, network, and clock, but actual access happens only through injected parameters. Existing libraries already gesture in this direction: Go’s `http.Serve` accesses the network through its `net.Listener` parameter, Rust’s `cap_std` routes I/O through capability values, and Python sans-I/O libraries go further by factoring I/O out entirely.[^hermetic-http]
 
 ### Closures
 
-An inert ambient scope guarantees that top-level definitions are inert. But it does not prevent closures from capturing live local variables. Making all functions hermetic therefore additionally requires eliminating **live closures**.
+An inert ambient scope prevents functions from capturing live *ambient identifiers*. But it does not prevent closures from capturing live *free identifiers*. Making all functions hermetic therefore additionally requires eliminating **live closures**.
 
-So there are two design choices:
+Languages therefore face a design choice:
 
-1. **Allow live closures.**
-   Ambient access to state is still forbidden, but function values can be made intentionally live via capture. This is often desirable in languages where partial application and higher-order functions are idiomatic.
+1. **Allow live closures**: higher-order function values may carry captured authority. This may be desirable in languages where partial application and higher-order functions are idiomatic.
 
-2. **Make all function values hermetic.**
-   Prevent or expose captures, or adopt the standard *closures-as-objects*[^defun] view: treat a closure as a live object with an `apply` method. Under this view, the `apply` method can still be **hermetic**—it only reaches state through `self` and its explicit parameters, not through ambient channels. Functions with hidden environments become objects with explicit environments.
+2. **Take the closures-as-objects view**: a closure with a hidden environment is treated not as a function value, but as an object with a hermetic `apply` method.[^defun]
 
-### Hermetic Programming Language Properties
+### Hermetic Language Properties
 
-The defining requirement of a hermetic programming language is a hermetic main function (whether or not it is called `main`).
+The defining requirement of a hermetic programming language is a hermetic `main` function, whether or not it is literally called `main`.
 
-This is enforced by an inert ambient scope. And the converse is *effectively* true: if the main function is hermetic, any live identifiers in the ambient scope are unusable.
+An inert ambient scope forces `main` to be hermetic. Conversely, if `main` is hermetic, then any live identifiers in ambient scope are necessarily unused.
 
-> Hermetic Programming Language \
-> = Hermetic Main Function \
+> Hermetic Programming Language
+> = Hermetic Main Function 
 > ≈ Inert Ambient Scope
 
-Eliminating live closures is an optional strengthening: it extends hermeticity’s isolation and local-reasoning guarantees to all function values, but may be too restrictive for languages where closure capture is central.
+This still leaves one possible source of non-hermetic function values: captured local environments.
 
-> All Functions Hermetic = \
-> Hermetic Programming Language \
-> \+ No Live Closures
-
-
-### Contexts
-
-Hermetic programming requires more "wires". Parameters must be threaded through the call stack to reach all functions that need them ("prop-drilling"[^propdrilling], "parameter pollution"). This can make code noisy and refactoring complicated, especially for cross-cutting aspects of a program such as logging.
-
-One way of reducing the number of explicitly passed parameters is to support **contexts**[^scala-context] (also known as implicits). In this pattern, the "wires" are hidden from the function *body*, but they usually remain visible in the function *signature*. Here's an example in Scala:
-
-```scala
-// 1. The middleman (main): carrier of the context
-// main does not use Logger, but must declare 
-// 'using Logger' to allow it to pass implicitly to foo.
-def main()(using Logger): Unit = {
-    foo()
-}
-
-// 2. The leaf (foo): consumer of the context
-// foo explicitly states: "I can only run if a Logger is
-// in context."
-def foo()(using logger: Logger): Unit = {
-    logger.info("Called foo")
-}
-```
-
-This keeps the call sites clean while ensuring that dependencies are clearly documented in the types, satisfying hermeticity while mitigating verbosity and easing refactoring. React contexts achieve something similar without additional language features.
+> All Functions Hermetic = Hermetic Programming Language \+ No Live Closures
 
 
 ## Hermetic Programming Benefits
@@ -789,9 +698,9 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^hermeticity]: Scott Herbert (slaptijack), *Benefits of Hermeticity* (2010). Defines hermeticity as the ability of a software unit to be isolated from its environment. [link](https://slaptijack.com/programming/benefits-of-hermeticity.html)
 
-[^wasi]: The WebAssembly System Interface (WASI) defines capability-based APIs for system resources. Its capability model distinguishes link-time capabilities, provided through imports, from runtime capabilities such as file descriptors and sockets. [wasi.dev](https://wasi.dev); [Capabilities.md](https://github.com/WebAssembly/WASI/blob/main/docs/Capabilities.md)
+[^wasi]: The WebAssembly System Interface (WASI) defines capability-based APIs for system resources. Its capability model distinguishes link-time capabilities, provided through imports, from runtime capabilities such as file descriptors and sockets. [wasi.dev](https://wasi.dev); [Github](https://github.com/WebAssembly/WASI/blob/main/docs/Capabilities.md)
 
-[^ses]: SES (Secure ECMAScript) compartments have separate global objects and lexical scopes. By default, compartments receive **no ambient authority**—for example, no host-provided APIs such as `fetch`—but they may be selectively endowed with powerful arguments, globals, or modules. [SES README](https://github.com/endojs/endo/blob/master/packages/ses/README.md)
+[^ses]: SES (Secure ECMAScript) compartments have separate global objects and lexical scopes. By default, compartments receive **no ambient authority**—for example, no host-provided APIs such as `fetch`—but they may be selectively endowed with powerful arguments, globals, or modules. [Github](https://github.com/endojs/endo/blob/master/packages/ses/README.md)
 
 [^joee]: Joe-E is an object-capability subset of Java. Its specification states that references are unforgeable and that references are the only things that convey authority. [PDF](https://people.eecs.berkeley.edu/~daw/joe-e/spec-20090918.pdf)
 
@@ -815,4 +724,9 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^hermetic-pl]: I use *hermetic programming language* rather than *deterministic object-capability language* because the latter is framed in terms of authority conveyed by explicit object references. But *hermetic* is a more language-agnostic term that applies beyond object-oriented settings, including purely functional ones.
 
-[^immutable-v-inert]: In their work on verifiable functional purity, Finifter et al. further specify that objects representing a capability to observe or affect external state are not considered immutable. See Matthew Finifter, Adrian Mettler, Naveen Sastry, and David Wagner, *Verifiable Functional Purity in Java* (CCS 2008). [PDF](https://people.eecs.berkeley.edu/~daw/papers/pure-ccs08.pdf) Immutable values in Joe-E are thus inert in the sense used here, but the converse need not hold, since inert is an operational notion intended to apply across languages where Joe-E’s object-graph formulation does not apply, including pure functional languages, as discussed in §8. I use the term *inert* rather than *immutable* because “immutable” is overloaded in mainstream programming-language usage.
+
+[^immutable-v-inert]: In their work on verifiable functional purity, Finifter et al. further specify that objects representing a capability to observe or affect external state are not considered immutable. See Matthew Finifter, Adrian Mettler, Naveen Sastry, and David Wagner, *Verifiable Functional Purity in Java* (CCS 2008). [PDF](https://people.eecs.berkeley.edu/~daw/papers/pure-ccs08.pdf). Immutable values in Joe-E are thus inert in the sense used here, but the converse need not hold, since inert is an operational notion intended to apply across languages where Joe-E’s object-graph formulation does not apply, including pure functional languages, as discussed in §8. I use the term *inert* rather than *immutable* because “immutable” is overloaded in mainstream programming-language usage. E’s **DeepFrozen** is a closely related value-level notion from the object-capability literature, used for transitively immutable values that are safe to treat as authority-free for sharing and copying. See *Auditors* on ERights.org. [link](https://erights.org/elang/kernel/auditors/index.html)
+
+[^hermetic-http]: For example, Go’s `net/http` package provides `http.Serve`, which accesses the network through a passed-in `net.Listener`; this can be substituted with an in-memory implementation such as gRPC’s `bufconn`.[^bufconn] Rust’s `cap_std` similarly routes filesystem and networking access through capability values such as `Dir` and `Pool`.[^capstd] In Python, sans-I/O libraries such as `hyper-h2` go further by factoring all external I/O out of the library entirely.[^sansio]
+
+[^mint]: A hermetic function can expose fresh state that it allocates during the call. We call this minting state. See Appendix C.
