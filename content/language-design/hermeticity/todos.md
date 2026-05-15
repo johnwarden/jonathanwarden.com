@@ -1,10 +1,63 @@
-Joe-E is actually hermetic?
+Weak: To see what hermeticity implies for packages, libraries, and language design, we need a more precise vocabulary for how functions expose access to state.
+
+
+update def of purity
+
+    consistency with I and we
+
+
+hermetic functions property
+    if f and g are hermetic, f comp g is hermetic
+
+    f(x) is impure if x is live
+    x is live if exists hermetic f such that f(x) that is impure
+    g is not hermetic if f is hermetic and f \dot g is impure
+
+    The implementation of a pure function may 1) allocate new temporary state 2) call impure functions **as long as they are hermetic**.
+
+
+
+Property F: Access-Controlled Delegation Channels
+
+
+
+deepfrozen in addition to REadonly
+
+go example constructor
+
+
+Immutable -- Mutable is therefore Live is therefore a Capabiliy
+
+constructors
+
+
+
+---
+
+E's deep frozen
+
+
+Joe-E paper:
+    A hermetic function with no live parameters is pure
+    add this to our "hermetic functions compose?"
+
+hermetic main
+    is not necessarily immutable
+
+Functions can be inert and thus Immutable
+    another argument against Immutable as the term.
+
+can tell purity off the function signature
+
+
+----
+
+
+----
 
 Write to the Joe-E Guy
 
 Mention static member functions somewhere!
-
-
 
 Another contact is David Wagner at UC Berkeley. He's the one that used the term "Universal Scope". 
     https://people.eecs.berkeley.edu/~daw/talks/TRUST07.pdf
@@ -25,18 +78,11 @@ Where I say we could also expose state by grafting, the problem with that is we'
 
 
 bring back sans-io.
-
-
-
 use cap-std instead of rust as example.
-
 
 A function cannot amplify authority because it has no authority except what was passed in.
 
 (e.g., how it differs from Wuffs' hermeticity or Agoric's ocap) could be deeper—Appendix A starts this but doesn't contrast enough.
-
-"effects wihtout implicit side effects"
-
 
 
 Robust composition paper in footnotes three times.  
@@ -67,7 +113,6 @@ In many Object capability (ocap)[^ocap] languages, "no ambient authority" implie
 
 ----
 
-Property F: Access-Controlled Delegation Channels
 
 attenuation
 
@@ -103,13 +148,6 @@ inert ambient scope -- deref operator
 
 
 ----
-
-    consistency with I and we
-
-    The implementation of a pure function may 1) allocate new temporary state 2) call impure functions **as long as they are hermetic**.
-
-    test: if you can compose with hermetic function to get impure function
-
 
 
 

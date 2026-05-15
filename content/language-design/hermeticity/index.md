@@ -141,7 +141,7 @@ So hermeticity is more strict than purity in some ways, and less in others. A he
 In a pure programming language, the main function cannot interact with state. In a hermetic programming language, it cannot access un-parameterized state. This has implications for the design of packages, standard libraries, and the language itself.
 -->
 
-To see what this implies for packages, libraries, and language design, we need a more precise vocabulary for how functions expose access to state.
+Now, to understand the benefits of programming with hermetic functions and its implications for the design of libraries and programming languages, we first need a more precise vocabulary for how functions expose access to state.
 
 <style>
 .glossary {
@@ -354,7 +354,7 @@ One of the core ideas of capability-based security is the elimination of **ambie
 
 ### Live Values are Capabilities
 
-Since a hermetic function by definition may access existing state only through its parameters, it follows that access to existing state cannot be obtained by forging references. Receiving a live parameter must be the only way a function can obtain authority.
+Since a hermetic function by definition may access existing state only through its parameters, it follows that access to existing state cannot be obtained by forging references. Receiving a live parameter must be the only way a function can obtain authority over existing state.
 
 <!--
 Authority therefore flows explicitly, and designation without authority is powerless: a path, URL, or identifier grants nothing unless paired with a live value that already carries the relevant authority.
@@ -366,7 +366,7 @@ Authority therefore flows explicitly, and designation without authority is power
 
 “Ambient authority” may sometimes be taken to mean only ambient access to system resources. But if a function can communicate through a pre-existing channel, or write a live value into existing mutable state for later retrieval, then authority can flow between calls without appearing in the signature.
 
-A hermetic programming language rules that out by eliminating ambient authority to *any existing state* (anything that could make a function impure). A hermetic function can communicate only through channels provided by the caller, and it is memoryless across calls unless state is explicitly passed in. If a function is never given the authority to write a capability into existing state (a way of exposing state we call [grafting](#grafting-state)), then authority it receives remains **overtly confined** to that unit of work and is automatically **revoked** once the function finishes its work.
+A hermetic programming language rules that out by eliminating ambient authority to *any existing state* (anything that could make a function impure). A hermetic function does not have it own memory; it can only delegate authority through channels explicitly provided by the caller[^propf]. If a function is never given the authority to write a capability into existing state (a way of exposing state we call [grafting](#grafting-state)), then authority it receives remains **overtly confined**[^confinement] to that unit of work and is automatically **revoked**[^revocation] once the function finishes its work.
 
 These are not extra security mechanisms: they follow from the core semantics of hermetic functions.
 
@@ -374,7 +374,7 @@ These are not extra security mechanisms: they follow from the core semantics of 
 
 Eliminating *ambient authority* does not prevent programmers from granting *too much authority*. If `main(world)` is injected with an object containing `world.clock`, `world.fs`, `world.net`, and so on, it can still pass that "god object" down through the call stack. This may still be hermetic but it is poor security hygiene.
 
-The **principle of least authority** (POLA)[^protection] dictates that `main` should ask for—and the host should grant—only the capabilities the program actually needs. In a hermetic language, the signature of the program's main function acts as a dependency manifest, and capability-oriented interface standard such as WASI[^wasi] can be used as a portable vocabulary for expressing those dependencies.
+The **principle of least authority** (POLA)[^protection] dictates that `main` should ask for—and the host should grant—only the capabilities the program actually needs. In a hermetic language, the signature of the program's main function acts as a dependency manifest, and capability-oriented interface standards such as WASI[^wasi] can be used as a portable vocabulary for expressing those dependencies.
 
 POLA also requires **attenuating** capabilities before passing them onward[^attenuate]: pass a single file handle instead of the whole filesystem, and make it read-only if possible.
 
@@ -398,7 +398,7 @@ Although a hermetic programming language has no ambient authority, the converse 
 
 Another way a capability-secure language can introduce authority is through **ambient endowment**. For example, SES compartments have no ambient authority by default, but the host can endow them with live globals or modules[^ses]. WASI likewise provisions capabilities through imports[^wasi]. In both cases, authority is supplied by the host through ambient names rather than through function parameters.
 
-On the other hand, in Joe-E, explicitly propagated references are the only things that convey authority; *the universal scope provides no authority*.[^trust07] This maps closely to what I call an **inert ambient scope**. In that sense, Joe-E can be classified as a hermetic programming language.
+On the other hand, in Joe-E, explicitly propagated references are the only things that convey authority; *the universal scope provides no authority*.[^joe-e][^trust07] This maps closely to what I call an **inert ambient scope**. In that sense, Joe-E can be classified as a hermetic programming language.
 
 > Hermeticity is not simply a restatement of “no ambient authority”.
 
@@ -419,7 +419,7 @@ main :: IO ()
 main = putStrLn "Hello, World!"
 ```
 
-Here, `main` is a pure value. But it is live in our sense because it is already committed to the real console, rather than receiving console access as a parameter. It already embodies authority to interact with existing state.
+Here, `main` is a pure value. But it is live in our sense because it is already committed to the real console instead of receiving console access as a parameter. It already embodies authority to interact with existing state.
 
 > Pure does not imply inert.
 
@@ -434,7 +434,7 @@ alt="Figure 5. Illustration of a Hello, World! program where main is live becaus
 
 </div>
 
-`putStrLn` is also live by the [mockability test](#appendix-d-the-mockability-test) (as trivially is `main`): it could be replaced by a function with the same type that redirects console writes to an in-memory buffer, without otherwise changing observable program behavior.
+`putStrLn` is also live by the [mockability test](#appendix-d-the-mockability-test): it could be replaced by a function with the same type that redirects console writes to an in-memory buffer, without otherwise changing observable program behavior.
 
 ### The Hermetic Alternative
 
@@ -448,9 +448,7 @@ hermeticMain :: Console m => m ()
 hermeticMain = putLine "Hello, World!"
 ```
 
-`hermeticMain` does not assume a particular console and does not commit to `IO`. The caller chooses which `m` to supply, including an in-memory mock. Access to the console is routed through an injected capability.
-
-A concrete caller can then wire `hermeticMain` to the real console through a live `Console IO` instance:
+`hermeticMain` does not assume a particular console and does not commit to `IO`. The caller can supply either an in-memory mock or the real console through a live `Console IO` instance:
 
 ```haskell
 instance Console IO where
@@ -476,11 +474,11 @@ When we think of "pure" data, we may imagine something cleanly serializable into
 
 **Hermeticity is inertness applied to functions.** A hermetic function may not be pure, but it is pure functionality. Since it cannot access state directly, it must be plugged into live parameters to do anything in the world.
 
-The inert/live distinction applies even in pure functional languages. Inert/live and pure/impure are independent axes of "clean". Hermetic and functional programming are complimentary.
+The inert/live distinction applies even in pure functional languages. Inert/live and pure/impure are independent axes of "clean". Hermetic and functional programming are complementary.
 
 Making a programming language hermetic is straightforward in principle: keep the ambient scope inert, export interfaces instead of live values from standard libraries, and inject concrete resources into the main function. Contexts or implicits can manage the extra wiring.
 
-Parameterizing access to state carves programs at the joints. All hermetic functions are decoupled from state, testable against mocks, portable, and composable. Function signatures are dependency manifests. All authority is explicit.
+Parameterizing access to state carves programs at the joints. All hermetic functions are decoupled from free state, testable against mocks, portable, and composable. Function signatures are dependency manifests. All authority is explicit.
 
 We should look back at global singletons or `import fs` granting immediate, permissions-based disk access with the same horror we feel for `goto`. The next generation of programming languages should be hermetic.
 
@@ -658,7 +656,7 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^ocap]: Object-capability (ocap) languages enforce capability discipline at the language level: references are unforgeable, there is no ambient authority, and the only way to obtain a capability is to be given one. Examples include E, Monte, Pony, Wyvern, and Agoric's SES (Secure EcmaScript) in Hardened JavaScript. See Mark S. Miller, *Robust Composition: Towards a Unified Approach to Access Control and Concurrency Control* (PhD thesis, Johns Hopkins University, 2006). [PDF](https://www.erights.org/talks/thesis/markm-thesis.pdf); E language: [erights.org](https://erights.org); Monte: [monte.readthedocs.io](https://monte.readthedocs.io).
 
-[^capmyths]: The terms *ambient authority* and *capability* are formalized in the object-capability literature. See Ka-Ping Yee, Mark S. Miller, and Jonathan Shapiro, *Capability Myths Demolished* (Systems Research Laboratory Technical Report SRL2003-02, Johns Hopkins University, 2003). [PDF](https://srl.cs.jhu.edu/pubs/SRL2003-02.pdf)
+[^capmyths]: The term *ambient authority* is formalized in the object-capability literature. See Ka-Ping Yee, Mark S. Miller, and Jonathan Shapiro, *Capability Myths Demolished* (Systems Research Laboratory Technical Report SRL2003-02, Johns Hopkins University, 2003). [PDF](https://srl.cs.jhu.edu/pubs/SRL2003-02.pdf)
 
 [^bufconn]: The `bufconn` package provides an in-memory `net.Listener` implementation for testing gRPC services without real network I/O. [link](https://pkg.go.dev/google.golang.org/grpc/test/bufconn)
 
@@ -727,3 +725,9 @@ It follows that in a hermetic programming language, exported types must be herme
 [^hermetic-http]: For example, Go’s `net/http` package provides `http.Serve`, which accesses the network through a passed-in `net.Listener`; this can be substituted with an in-memory implementation such as gRPC’s `bufconn`.[^bufconn] Rust’s `cap_std` similarly routes filesystem and networking access through capability values such as `Dir` and `Pool`.[^capstd] In Python, sans-I/O libraries such as `hyper-h2` go further by factoring all external I/O out of the library entirely.[^sansio]
 
 [^mint]: A hermetic function can expose fresh state that it allocates during the call. We call this minting state. See Appendix C.
+
+[^confinement]: The classic **confinement problem** is to ensure that a program cannot transmit information except through authorized channels. See Butler W. Lampson, *A Note on the Confinement Problem* (Communications of the ACM, 1973). [PDF](https://www.cs.cornell.edu/andru/cs711/2003fa/reading/lampson73note.pdf)
+
+[^revocation]: Revocation is a standard topic in capability security and is not incompatible with capability discipline. See Ka-Ping Yee, Mark S. Miller, and Jonathan Shapiro, *Capability Myths Demolished* (Systems Research Laboratory Technical Report SRL2003-02, Johns Hopkins University, 2003), especially the discussion of the **Irrevocability Myth**. [PDF](https://srl.cs.jhu.edu/pubs/SRL2003-02.pdf)
+
+[^propf]: Miller, Yee, and Shapiro identify **Property F: Access-Controlled Delegation Channels** as one of the distinguishing properties of object-capability systems: delegation requires an existing access relationship between delegator and recipient, so authority flows only along channels that are themselves access-controlled. See Ka-Ping Yee, Mark S. Miller, and Jonathan Shapiro, *Capability Myths Demolished* (Systems Research Laboratory Technical Report SRL2003-02, Johns Hopkins University, 2003). [PDF](https://srl.cs.jhu.edu/pubs/SRL2003-02.pdf)
