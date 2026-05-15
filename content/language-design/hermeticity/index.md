@@ -120,7 +120,7 @@ Because `getClock`, while pure, is still tainted by **access** to ambient state.
 
 It is *interaction* with state that makes a function impure, not access. The most widely accepted definition of purity is **referential transparency**: an expression can be replaced by its value in any program context without changing observable[^observable] behavior. A function fails referential transparency when evaluation interacts with **observable state**: either it *affects* state, or it is *affected by* state and so can return different results for the same inputs.
 
-So hermeticity is more strict than purity in some ways, and less in others. A hermetic function may interact with the world as long as it is not hard-wired to it. A pure function may be hard-wired to the world as long as it does not interact with it.
+So hermeticity is both more and less strict than purity. A hermetic function may interact with the world as long as it is not hard-wired to it. A pure function may be hard-wired to the world as long as it does not interact with it.
 
 <!-- So hermeticity is stricter than purity in some ways (it forbids access to non-parameterized state), and less strict in others (it permits interaction).  -->
 
@@ -341,7 +341,7 @@ Hermeticity improves **testability** because stateful dependencies are already e
 Finally, hermetic programming changes the application’s trust model. By forcing authority to enter only through explicit interfaces, it naturally aligns with the core discipline of **capability-based security**[^capsec], which we will explore next.
 
 
-## Capability Security
+## Capability-Based Security
 
 Today, we routinely download thousands of transitive dependencies via package managers like npm or cargo, trusting that none have been compromised. Because most languages grant ambient authority to the network and filesystem by default, an attacker who hijacks a package can silently exfiltrate environment variables, SSH keys, or database credentials.
 
@@ -366,19 +366,19 @@ Authority therefore flows explicitly, and designation without authority is power
 
 “Ambient authority” may sometimes be taken to mean only ambient access to system resources. But if a function can communicate through a pre-existing channel, or write a live value into existing mutable state for later retrieval, then authority can flow between calls without appearing in the signature.
 
-A hermetic programming language rules that out by eliminating ambient authority to *any existing state* (anything that could make a function impure). A hermetic function does not have it own memory; it can only delegate authority through channels explicitly provided by the caller[^propf]. If a function is never given the authority to write a capability into existing state (a way of exposing state we call [grafting](#grafting-state)), then authority it receives remains **overtly confined**[^confinement] to that unit of work and is automatically **revoked**[^revocation] once the function finishes its work.
+A hermetic programming language rules that out by eliminating ambient authority to *any existing state* (anything that could make a function impure). A hermetic function does not have it own memory; it can only delegate authority through channels explicitly provided by the caller[^propf]. If a function is never given the authority to write a capability into existing state (a way of exposing state we call grafting)[^graft], then authority it receives remains **overtly confined**[^confinement] to that unit of work and is automatically **revoked**[^revocation] once the function finishes its work.
 
 These are not extra security mechanisms: they follow from the core semantics of hermetic functions.
 
 ### Principle of Least Authority
 
-Eliminating *ambient authority* does not prevent programmers from granting *too much authority*. If `main(world)` is injected with an object containing `world.clock`, `world.fs`, `world.net`, and so on, it can still pass that "god object" down through the call stack. This may still be hermetic but it is poor security hygiene.
+Eliminating *ambient authority* does not prevent programmers from granting *too much authority*. If `main(world)` is injected with an object containing `world.clock`, `world.network`, and so on, it can still pass that "god object" down through the call stack. This may still be hermetic but it is poor security hygiene.
 
 The **principle of least authority** (POLA)[^protection] dictates that `main` should ask for—and the host should grant—only the capabilities the program actually needs. In a hermetic language, the signature of the program's main function acts as a dependency manifest, and capability-oriented interface standards such as WASI[^wasi] can be used as a portable vocabulary for expressing those dependencies.
 
 POLA also requires **attenuating** capabilities before passing them onward[^attenuate]: pass a single file handle instead of the whole filesystem, and make it read-only if possible.
 
-POLA also applies to meta-authority: authority to delegate or persist authority. Even in a hermetic language, a function can communicate or remember a capability by [grafting](#grafting-state) a live value into mutable state broad enough to hold live values.
+POLA also applies to meta-authority: authority to delegate or persist authority. Even in a hermetic language, a function can communicate or remember a capability by grafting a live value into mutable state broad enough to hold live values.
 
 <div class="example-label">Example (Go) of authority delegation by grafting</div>
 
@@ -544,7 +544,7 @@ A function can expose state by writing a live value into existing state—for ex
 
 #### Minting State
 
-A hermetic function can expose **fresh** state that it allocates during the call. We call this **minting** state. Minting is why constructors can be hermetic: the minted state didn't exist before the call, so the function isn't accessing existing state. The function as a value remains inert.
+A hermetic function can expose **fresh** state that it allocates during the call. We call this [**minting**](#minting-state) state. Minting is why constructors can be hermetic: the minted state didn't exist before the call, so the function isn't accessing existing state. The function as a value remains inert.
 
 #### Summary of Restrictions
 
@@ -724,7 +724,10 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^hermetic-http]: For example, Go’s `net/http` package provides `http.Serve`, which accesses the network through a passed-in `net.Listener`; this can be substituted with an in-memory implementation such as gRPC’s `bufconn`.[^bufconn] Rust’s `cap_std` similarly routes filesystem and networking access through capability values such as `Dir` and `Pool`.[^capstd] In Python, sans-I/O libraries such as `hyper-h2` go further by factoring all external I/O out of the library entirely.[^sansio]
 
-[^mint]: A hermetic function can expose fresh state that it allocates during the call. We call this minting state. See Appendix C.
+[^mint]: A hermetic function can expose fresh state that it allocates during the call. We call this minting state. See [Appendix C](#minting-state).
+
+
+[^graft]: A hermetic function can expose state by writing a live value into existing state that was passed as a parameter. See [Appendix C](#grafting-state).
 
 [^confinement]: The classic **confinement problem** is to ensure that a program cannot transmit information except through authorized channels. See Butler W. Lampson, *A Note on the Confinement Problem* (Communications of the ACM, 1973). [PDF](https://www.cs.cornell.edu/andru/cs711/2003fa/reading/lampson73note.pdf)
 
