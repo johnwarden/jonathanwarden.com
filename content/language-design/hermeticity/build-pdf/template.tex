@@ -8,6 +8,15 @@
 % must sit exactly in source order (used by transform.lua when binding an
 % example-label to its following figure).
 \usepackage{float}
+
+% acmart-sigplan defaults to \flushbottom, which stretches inter-paragraph
+% glue to make every column the same height. With our [H]-forced figures,
+% a figure that doesn't fit in the current column triggers a column break,
+% and \flushbottom then stretches the previous column's glue to fill it —
+% landing as huge visible whitespace before/after the figure.
+% \raggedbottom lets columns be different heights; figures stay where the
+% source places them and the column above ends naturally.
+\raggedbottom
 % Default framemethod (not tikz/pstricks): tikz renders frame content in a
 % captured TikZ node, which traps footnotes inside the box. Default lets
 % footnotes flow to the page bottom as expected.

@@ -54,7 +54,7 @@ pdflatex's `listings` reads byte-by-byte and choked on multi-byte UTF-8 (`∘`, 
 
 `![cap](src){width=95%}` becomes `\includegraphics[width=0.95\textwidth]{...}`. In a 2-column acmart document `\textwidth` is the *full page width* (across both columns), not the column width — so the image renders at ~6.5″ inside a ~3.3″ column, with `keepaspectratio` then scaling it down weirdly. Result: small + apparently left-aligned figures.
 
-`preprocess.py` instead emits a raw-LaTeX block (`\begin{figure}\centering\includegraphics[width=\linewidth]…\caption{…}\Description{…}\end{figure}`) for each `<div class="image-with-caption">`. `\linewidth` inside a single-column figure float in 2-col mode equals the column width.
+`preprocess.py` instead emits a raw-LaTeX block (`\begin{figure}[H]\centering\includegraphics[width=0.8\linewidth]…\caption{…}\Description{…}\end{figure}`) for each `<div class="image-with-caption">`. `\linewidth` inside a single-column figure in 2-col mode equals the column width; `0.8\linewidth` leaves a bit of margin on either side, since the PNGs were tuned for the wider web layout. `[H]` (from the `float` package) forces placement exactly where the figure is written rather than letting LaTeX float it to the top of a column.
 
 ### 4. Strip `**Figure N**.` from caption text
 
@@ -174,9 +174,25 @@ The `Header` filter's "match by text == 'Appendices'" rule for `\clearpage` is u
 
 ### 24. `\needspace` before subsections to prevent orphan headings
 
-Without intervention, an `## Appendix C: Glossary of Terms` heading could land on the very last line of a column, with its body starting in the next column. The `Header` filter now prepends `\needspace{4\baselineskip}` for any level-2 (post-shift, i.e. `\subsection`) heading. 4 baselineskips fits the heading itself plus a couple of body lines — enough to ensure the reader sees something under the heading on the same column.
+Without intervention, an `### Appendix C: Glossary of Terms` heading could land on the very last line of a column, with its body starting in the next column. The `Header` filter prepends `\needspace{4\baselineskip}` for `\subsection` headings.
 
-Section-level headings (`\section`) are left to acmart's defaults (which handle orphans well). Subsubsection-level (`\subsubsection`) is also left alone — they're small enough that an orphan is unobtrusive.
+Important detail: pandoc Lua filters see **pre-shift** heading levels (the shift from `--shift-heading-level-by=-1` happens at the writer stage, not the AST stage). So the filter checks `el.level == 3` (matches `###` in markdown, which becomes `\subsection` after the shift). An earlier version checked `el.level == 2`, which inadvertently fired on `\section` headings instead. The wrong target had a downstream visual effect: forcing column breaks before `\section` left foreshortened columns, and acmart's `\flushbottom` then stretched the glue, producing visibly extra space above downstream subsections.
+
+`\section` is left to acmart's defaults (its orphan handling is fine). `\subsubsection` is left alone too — those are small enough that an orphan is unobtrusive.
+
+### 26. `\raggedbottom` instead of acmart's default `\flushbottom`
+
+acmart-sigplan ships with `\flushbottom`, which stretches inter-paragraph glue so every column reaches the same baseline. That worked fine when figures could float (`[ht]`) — LaTeX would just place the figure at a column top elsewhere. After we switched all figures to `[H]` (force-here, no float), an over-tall figure now triggers a column break in place; `\flushbottom` then stretches the *previous* column's glue to fill the foreshortened space, landing as 10+ blank-line gaps above and below the figure.
+
+`\raggedbottom` disables the stretch — columns end at their natural height, with ragged column bottoms and clean spacing around figures. The cosmetic cost is occasional uneven column heights at the foot of a page; that's the standard trade-off documented in the float package's manual when using `[H]`.
+
+### 25. Re-add the displayed-heading-before-table rule (post-shift)
+
+After `--shift-heading-level-by=-1`, `####` renders as `\subsubsection` instead of `\paragraph`. We initially removed the displayed-heading-before-table rule on the assumption that `\subsubsection` is displayed-style — but checking acmart.cls confirms it's actually RUN-IN (its `\@startsection` third argument is `-3.5pt`, negative). So the same problem we had with `\paragraph` (heading queued to attach to the next paragraph's first line, no first line when followed by a table) reappears with `\subsubsection`.
+
+The Blocks combiner re-emits `####` headings followed by a `Table` as a displayed bold paragraph (`\par\medskip\noindent\textbf{…}\par\nopagebreak\smallskip`). Pre-shift level 4 in the filter matches `####` (which becomes `\subsubsection` post-shift).
+
+This is targeted: it only fires when a `####` is immediately followed by a table. Other `####` headings (followed by prose, blockquotes, lstlistings) keep acmart's `\subsubsection` styling.
 
 ### 22. Bind `example-label` Divs to the following code block / figure
 

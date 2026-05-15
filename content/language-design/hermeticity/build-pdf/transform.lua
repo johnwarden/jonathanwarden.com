@@ -134,7 +134,14 @@ function Header(el)
       raw_latex("\\clearpage"),
       el,
     }
-  elseif el.level == 2 then
+  elseif el.level == 3 then
+    -- The filter sees pre-shift levels: ### in markdown is level 3 here,
+    -- which becomes \subsection after --shift-heading-level-by=-1. We add
+    -- \needspace to subsection headings only, not \section: \section already
+    -- has good orphan protection in acmart, and forcing column breaks before
+    -- it caused visible whitespace gaps further up the column (acmart uses
+    -- \flushbottom, which stretches glue to fill foreshortened columns —
+    -- the stretched glue lands as extra space above downstream subsections).
     return {
       raw_latex("\\needspace{4\\baselineskip}"),
       el,
@@ -189,7 +196,29 @@ local function combine_label_with_following(blocks)
       and b.classes
       and b.classes:includes("example-label")
 
-    if is_label and nxt and nxt.t == "CodeBlock" then
+    if b.t == "Header"
+      and b.level == 4
+      and nxt
+      and nxt.t == "Table" then
+      -- Markdown #### becomes \subsubsection after --shift-heading-level-by=-1.
+      -- acmart's \subsubsection (like \paragraph) is RUN-IN (negative third
+      -- arg to \@startsection): the bold heading is queued to attach to the
+      -- next paragraph's first line. When the next block is a table — not
+      -- prose — the heading has nothing to attach to and ends up rendered
+      -- after (or visually below) the table. Emit a displayed-style header
+      -- instead.
+      local text = pandoc.utils.stringify(b.content)
+      local escaped = text:gsub(".", function(c) return LATEX_SPECIAL[c] or c end)
+      local label_part = ""
+      if b.identifier and b.identifier ~= "" then
+        label_part = "\\label{" .. b.identifier .. "}"
+      end
+      out:insert(raw_latex(string.format(
+        "\\par\\medskip\\noindent\\textbf{%s}%s\\par\\nopagebreak\\smallskip",
+        escaped, label_part
+      )))
+      i = i + 1  -- consume header only; table flows to the Table filter
+    elseif is_label and nxt and nxt.t == "CodeBlock" then
       local text = pandoc.utils.stringify(b.content)
       local label = text:gsub(".", function(c) return LATEX_SPECIAL[c] or c end)
       local _, newlines = nxt.text:gsub("\n", "")

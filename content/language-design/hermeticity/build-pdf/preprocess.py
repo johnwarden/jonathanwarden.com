@@ -148,11 +148,15 @@ def convert_image_with_caption(text: str) -> str:
 
         label_line = f"\\label{{{fig_id}}}\n" if fig_id else ""
 
+        # [H] (from float package, loaded in template.tex) makes the figure
+        # appear exactly where written instead of floating. The PNGs are
+        # tuned for the web; the column is narrower in print, so 0.8\linewidth
+        # gives the eye a bit of breathing room around them.
         latex = (
             "\n```{=latex}\n"
-            "\\begin{figure}[ht]\n"
+            "\\begin{figure}[H]\n"
             "\\centering\n"
-            f"\\includegraphics[width=\\linewidth]{{{src}}}\n"
+            f"\\includegraphics[width=0.8\\linewidth]{{{src}}}\n"
             f"\\caption{{{caption}}}\n"
             f"{label_line}"
             f"\\Description{{{plain_desc}}}\n"
