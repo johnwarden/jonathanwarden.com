@@ -162,7 +162,7 @@ Providing access to state is different from merely **designating** state. A file
 
 Intuitively, a value is live if the interactions it enables can be redirected by swapping it for a mock backed by caller-controlled in-memory state. In [Appendix D](#appendix-d-the-mockability-test), I formalize this as the **Mockability Test**.
 
-In languages with well-defined notions of objects and references, the live/inert distinction can often be characterized in terms of the object reference graph. For example, Joe-E’s **immutable** values are inert by construction: they are immutable and do not provide a path to mutable or external state.[^immutable-v-inert]
+In languages with well-defined notions of objects and references, the live/inert distinction can often be characterized in terms of the object reference graph. For example, Joe-E’s **immutable** values are inert by construction: they are immutable and do not provide a path to mutable or external state.[^joee-immutable][^immutable-v-inert]
 
 ### Functions as Values
 
