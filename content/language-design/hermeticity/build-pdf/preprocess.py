@@ -47,6 +47,20 @@ def strip_note_aside(text: str) -> str:
     return re.sub(r'<aside class="note">.*?</aside>', "", text, flags=re.DOTALL)
 
 
+def suppress_references_indent(text: str) -> str:
+    """Inject a raw-LaTeX block after the ``## References`` heading that zeroes
+    \\parindent for the rest of the document. LaTeX suppresses the indent on
+    the *first* paragraph after a heading but indents every following one,
+    which leaves the first reference flush-left and the rest indented."""
+    return re.sub(
+        r"^(##\s+References\s*)$",
+        r"\1\n\n```{=latex}\n\\setlength{\\parindent}{0pt}\n```\n",
+        text,
+        count=1,
+        flags=re.MULTILINE,
+    )
+
+
 def expand_link_placeholders(text: str) -> str:
     """Replace generic-label hyperlinks like ``[link](url)`` with the bare URL.
 
@@ -175,6 +189,7 @@ def main() -> None:
     text = strip_html_comments(text)
     text = strip_note_aside(text)
     text = strip_footnotes_heading(text)
+    text = suppress_references_indent(text)
     text = expand_link_placeholders(text)
     text = convert_image_with_caption(text)
     text = convert_glossary_aside(text)
