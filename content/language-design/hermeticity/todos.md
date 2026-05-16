@@ -1,3 +1,14 @@
+<!-- #### Inertness and Purity
+
+A hermetic functions with no live arguments is necessarily pure. Thus in a hermetic programming languages, pure functions can be recognized from their method signature[^vfp].
+
+Conversely, it is live arguments that *make* a hermetic function impure. This gives us yet another way of defining liveness: x is live if there exists some hermetic function f such that the expression f(x) is impure. For example the value returned by getClock() is live because getTime(getClock()) is impure.
+ -->
+
+ ----
+
+ 
+
 Weak: To see what hermeticity implies for packages, libraries, and language design, we need a more precise vocabulary for how functions expose access to state.
 
 lot of repetitivity in footnotes, especially capsec stuff

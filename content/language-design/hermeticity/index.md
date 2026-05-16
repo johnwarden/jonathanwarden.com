@@ -164,6 +164,9 @@ Intuitively, a value is live if the interactions it enables can be redirected by
 
 In languages with well-defined notions of objects and references, the live/inert distinction can often be characterized in terms of the object reference graph. For example, Joe-E’s **immutable** values are inert by construction: they are immutable and do not provide a path to mutable or external state.[^joee-immutable][^immutable-v-inert]
 
+A hermetic function with only inert arguments cannot interact with existing state, and is therefore pure.[^vfp] Conversely, a hermetic function needs at least one live argument to be impure. This gives another characterization of liveness: a value `x` is live iff there exists some hermetic function `f` such that `f(x)` is impure.
+
+
 ### Functions as Values
 
 We can talk about functions in two roles: as code (callable), and as values (passable or storable).
@@ -219,7 +222,7 @@ If the ambient scope contains even one live identifier, then any function can re
 
 This means that imports must not introduce live values into ambient scope, nor have observable side effects during initialization. In that sense, *all packages must be inert*.
 
-Package-scoped functions therefore cannot capture live values from other packages.
+Package-scoped functions and values therefore cannot capture live values from other packages.
 
 <div class="example-label">Example (Go): a live package capturing a live value from another package</div>
 
@@ -275,7 +278,7 @@ For pure functions, referential transparency means that `f(x)` depends only on t
 
 This facilitates **local reasoning**: minimizing the things a programmer must keep in mind to understand a fragment of code.
 
-Pure functional programming achieves a particularly strong form of local reasoning by eliminating interaction with state entirely. But hermeticity also improves local reasoning by reducing the splash radius of possible interaction to the **explicit parameters** of a function.
+Pure functional programming achieves a particularly strong form of local reasoning by eliminating interaction with state entirely. But hermeticity also improves local reasoning by reducing the splash radius of possible interaction to the state reachable through explicit function parameters.
 
 For example, suppose I pass a mutable list to a hermetic function:
 
@@ -675,11 +678,9 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^attenuate]: In capability systems, to *attenuate* means to derive a new capability with reduced authority, such as creating a read-only handle from a read-write one. See Mark S. Miller, *Robust Composition: Towards a Unified Approach to Access Control and Concurrency Control* (2006), Chapter 4. [PDF](https://www.erights.org/talks/thesis/markm-thesis.pdf)
 
-[^vfp]: Matthew Finifter, Adrian Mettler, Naveen Sastry, and David Wagner, *Verifiable Functional Purity in Java* (Proceedings of the 15th ACM Conference on Computer and Communications Security, CCS 2008), pp. 161–174. Defines *functional purity* as determinism plus side-effect freeness, and shows that in Joe-E, functionally pure methods can be recognized from their method signatures. [PDF](https://people.eecs.berkeley.edu/~daw/papers/pure-ccs08.pdf)
+[^vfp]: Matthew Finifter, Adrian Mettler, Naveen Sastry, and David Wagner, *Verifiable Functional Purity in Java* (Proceedings of the 15th ACM Conference on Computer and Communications Security, CCS 2008), pp. 161–174. Finifter et al. show that in Joe-E, a method whose parameters (including `this`) are all `Immutable` is functionally pure. In the terminology of this essay, that result can be understood as saying that a hermetic function with no live inputs cannot interact with existing state. Their notion of *functional purity* is weaker than referential transparency as used here, since it permits fresh mutable state to be allocated, mutated, and returned. [PDF](https://people.eecs.berkeley.edu/~daw/papers/pure-ccs08.pdf)
 
 [^joee-spec]: Adrian Mettler, Tyler Close, and David Wagner, *Joe-E Specification* (September 18, 2009). [PDF](https://people.eecs.berkeley.edu/~daw/joe-e/spec-20090918.pdf)
-
-
 
 [^joee-immutable]: In Joe-E "The contents of an immutable objects’ fields and any objects reachable from an immutable object must not change once the object is constructed". Adrian Mettler, Tyler Close, and David Wagner, *Joe-E Specification* (September 18, 2009). [PDF](https://people.eecs.berkeley.edu/~daw/joe-e/spec-20090918.pdf)
 
