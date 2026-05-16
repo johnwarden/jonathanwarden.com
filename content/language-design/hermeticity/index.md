@@ -326,7 +326,7 @@ Since a hermetic function by definition may access existing state only through i
 
 “Ambient authority” is sometimes taken to mean only ambient access to system resources. But if a function can communicate through a pre-existing channel, or write a live value into existing mutable state for later retrieval, then authority can flow between calls without appearing in the signature.
 
-A hermetic programming language rules that out by eliminating ambient authority to *any existing state*. A hermetic function does not have its own memory; it can only delegate authority through channels explicitly provided by the caller.[^cap-discipline] If a function is never given the authority to write a capability into existing state—a way of exposing state that I call **grafting**—then the authority it receives remains **overtly confined**[^confinement] to that unit of work and is automatically **revoked**[^cap-discipline] once the function finishes its work.
+A hermetic programming language rules that out by eliminating ambient authority to *any existing state*. A hermetic function does not have its own memory; it can only delegate authority through channels explicitly provided by the caller.[^cap-discipline] If a function is never given the authority to write a capability into existing state—a way of exposing state that I call **grafting**—then the authority it receives remains **overtly confined**[^confinement] to that unit of work and is automatically **revoked** [Yee et al. 2003] once the function finishes its work.
 
 These are not extra security mechanisms: they follow from the core semantics of hermetic functions.
 
@@ -334,9 +334,9 @@ These are not extra security mechanisms: they follow from the core semantics of 
 
 Eliminating *ambient authority* does not prevent programmers from granting *too much authority*. If `main(world)` is injected with an object containing `world.clock`, `world.network`, and so on, it can still pass that “god object” down through the call stack. This may be hermetic, but it is poor security hygiene.
 
-The **principle of least authority** (POLA)[^cap-discipline] dictates that `main` should ask for—and the host should grant—only the capabilities the program actually needs. In a hermetic language, the signature of the program’s main function acts as a dependency manifest, and capability-oriented interface standards such as WASI [WASI] can be used as a portable vocabulary for expressing those dependencies.
+The **principle of least authority** (POLA) [Miller 2006] dictates that `main` should ask for—and the host should grant—only the capabilities the program actually needs. In a hermetic language, the signature of the program’s main function acts as a dependency manifest, and capability-oriented interface standards such as WASI [WASI] can be used as a portable vocabulary for expressing those dependencies.
 
-POLA also requires **attenuating** capabilities before passing them onward:[^cap-discipline] pass a single file handle instead of the whole filesystem, and make it read-only if possible.
+POLA also requires **attenuating** capabilities before passing them onward [Miller 2006]: pass a single file handle instead of the whole filesystem, and make it read-only if possible.
 
 The same principle applies to meta-authority: authority to delegate or persist authority. Even in a hermetic language, a function can communicate or remember a capability by grafting a live value into mutable state broad enough to hold live values.
 
@@ -588,7 +588,7 @@ This remains true even in a memory-unsafe language where pointers are **forgeabl
 
 A hermetic programming language must therefore make live values **unforgeable**—that is, it must provide some form of memory safety or capability safety—so that a program cannot conjure access to arbitrary memory out of thin air.
 
-#### References
+#### Reference Graphs
 
 A live value is not necessarily a “reference.” It is not clear how to define exactly what constitutes a reference in some languages. But practically, a live value must be connected to state through some sort of **reference graph**: values as nodes that **embed** references as edges to other values. Even a built-in function such as `now`, which accesses the system clock directly via CPU instructions, can be thought of as embedding a reference to the clock. And a function that calls `now` can be thought of as embedding a reference to `now`, and so on.
 
@@ -616,7 +616,7 @@ It follows that in a hermetic programming language, exported types must be herme
 
 [^defun]: The closures-as-objects view is the language-design analog of *defunctionalization* [Reynolds 1972/1998].
 
-[^cap-discipline]: Miller, Yee, and Shapiro identify **Property F: Access-Controlled Delegation Channels**: authority flows only along channels that are themselves access-controlled [Yee et al. 2003]. The same object-capability literature treats revocation, POLA, and attenuation as central tools of authority management [Yee et al. 2003; Miller 2006].
+[^cap-discipline]: Miller, Yee, and Shapiro identify **Property F: Access-Controlled Delegation Channels**: authority flows only along channels that are themselves access-controlled [Yee et al. 2003].
 
 [^confinement]: The classic **confinement problem** is ensuring that a program cannot transmit information except through authorized channels [Lampson 1973].
 
@@ -624,50 +624,50 @@ It follows that in a hermetic programming language, exported types must be herme
 
 ## References
 
-[Bazel]: Bazel documentation, *Hermeticity*. https://bazel.build/basics/hermeticity
+**[Bazel]** Bazel documentation, *Hermeticity*. <https://bazel.build/basics/hermeticity>
 
-[Benfield 2017]: Cory Benfield, *Sans-IO: Network Protocol Libraries in Python* (2017). https://sans-io.readthedocs.io/
+**[Benfield 2017]** Cory Benfield, *Sans-IO: Network Protocol Libraries in Python* (2017). <https://sans-io.readthedocs.io/>
 
-[cap-std]: Bytecode Alliance, `cap-std`: capability-based standard library for Rust. https://github.com/bytecodealliance/cap-std; https://docs.rs/cap-std
+**[cap-std]** Bytecode Alliance, `cap-std`: capability-based standard library for Rust. <https://github.com/bytecodealliance/cap-std>; <https://docs.rs/cap-std>
 
-[Carette et al. 2009]: Jacques Carette, Oleg Kiselyov, and Chung-chieh Shan, *Finally Tagless, Partially Evaluated: Tagless Staged Interpreters for Simpler Typed Languages* (Journal of Functional Programming, 2009). https://okmij.org/ftp/tagless-final/JFP.pdf
+**[Carette et al. 2009]** Jacques Carette, Oleg Kiselyov, and Chung-chieh Shan, *Finally Tagless, Partially Evaluated: Tagless Staged Interpreters for Simpler Typed Languages* (Journal of Functional Programming, 2009). <https://okmij.org/ftp/tagless-final/JFP.pdf>
 
-[Finifter et al. 2008]: Matthew Finifter, Adrian Mettler, Naveen Sastry, and David Wagner, *Verifiable Functional Purity in Java* (CCS 2008), pp. 161–174. https://people.eecs.berkeley.edu/~daw/papers/pure-ccs08.pdf
+**[Finifter et al. 2008]** Matthew Finifter, Adrian Mettler, Naveen Sastry, and David Wagner, *Verifiable Functional Purity in Java* (CCS 2008), pp. 161–174. <https://people.eecs.berkeley.edu/~daw/papers/pure-ccs08.pdf>
 
-[Fowler 2004]: Martin Fowler, *Inversion of Control Containers and the Dependency Injection pattern* (2004). https://martinfowler.com/articles/injection.html
+**[Fowler 2004]** Martin Fowler, *Inversion of Control Containers and the Dependency Injection pattern* (2004). <https://martinfowler.com/articles/injection.html>
 
-[Go net/http docs]: Go standard library documentation, `net/http.Serve`. https://pkg.go.dev/net/http#Serve
+**[Go net/http docs]** Go standard library documentation, `net/http.Serve`. <https://pkg.go.dev/net/http#Serve>
 
-[Google Testing Blog 2012]: Google Testing Blog, *Hermetic Servers* (2012). https://testing.googleblog.com/2012/10/hermetic-servers.html
+**[Google Testing Blog 2012]** Google Testing Blog, *Hermetic Servers* (2012). <https://testing.googleblog.com/2012/10/hermetic-servers.html>
 
-[Herbert 2010]: Scott Herbert, *Benefits of Hermeticity* (2010). https://slaptijack.com/programming/benefits-of-hermeticity.html
+**[Herbert 2010]** Scott Herbert, *Benefits of Hermeticity* (2010). <https://slaptijack.com/programming/benefits-of-hermeticity.html>
 
-[hyper-h2]: Python Hyper Project, `hyper-h2`. https://github.com/python-hyper/h2
+**[hyper-h2]** Python Hyper Project, `hyper-h2`. <https://github.com/python-hyper/h2>
 
-[Lampson 1973]: Butler W. Lampson, *A Note on the Confinement Problem* (Communications of the ACM, 1973). https://www.cs.cornell.edu/andru/cs711/2003fa/reading/lampson73note.pdf
+**[Lampson 1973]** Butler W. Lampson, *A Note on the Confinement Problem* (Communications of the ACM, 1973). <https://www.cs.cornell.edu/andru/cs711/2003fa/reading/lampson73note.pdf>
 
-[Mettler et al. 2009]: Adrian Mettler, Tyler Close, and David Wagner, *Joe-E Specification* (2009). https://people.eecs.berkeley.edu/~daw/joe-e/spec-20090918.pdf
+**[Mettler et al. 2009]** Adrian Mettler, Tyler Close, and David Wagner, *Joe-E Specification* (2009). <https://people.eecs.berkeley.edu/~daw/joe-e/spec-20090918.pdf>
 
-[Miller 2006]: Mark S. Miller, *Robust Composition: Towards a Unified Approach to Access Control and Concurrency Control* (2006). https://www.erights.org/talks/thesis/markm-thesis.pdf
+**[Miller 2006]** Mark S. Miller, *Robust Composition: Towards a Unified Approach to Access Control and Concurrency Control* (2006). <https://www.erights.org/talks/thesis/markm-thesis.pdf>
 
-[Miller and Shapiro 2003]: Mark S. Miller and Jonathan S. Shapiro, *Paradigm Regained: Abstraction Mechanisms for Access Control* (ASIAN 2003), pp. 224–242. http://www.erights.org/talks/asian03/paradigm-revised.pdf
+**[Miller and Shapiro 2003]** Mark S. Miller and Jonathan S. Shapiro, *Paradigm Regained: Abstraction Mechanisms for Access Control* (ASIAN 2003), pp. 224–242. <http://www.erights.org/talks/asian03/paradigm-revised.pdf>
 
-[Peyton Jones 2001]: Simon Peyton Jones, *Tackling the Awkward Squad: monadic input/output, concurrency, exceptions, and foreign-language calls in Haskell* (2001). https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/mark.pdf
+**[Peyton Jones 2001]** Simon Peyton Jones, *Tackling the Awkward Squad: monadic input/output, concurrency, exceptions, and foreign-language calls in Haskell* (2001). <https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/mark.pdf>
 
-[Reynolds 1972/1998]: John C. Reynolds, *Definitional Interpreters for Higher-Order Programming Languages* (originally presented 1972; reprinted 1998). https://link.springer.com/content/pdf/10.1023/A:1010027404223.pdf
+**[Reynolds 1972/1998]** John C. Reynolds, *Definitional Interpreters for Higher-Order Programming Languages* (originally presented 1972; reprinted 1998). <https://link.springer.com/content/pdf/10.1023/A:1010027404223.pdf>
 
-[SES README]: Endo SES README. https://github.com/endojs/endo/blob/master/packages/ses/README.md
+**[SES README]** Endo SES README. <https://github.com/endojs/endo/blob/master/packages/ses/README.md>
 
-[Smith 2018]: Nathaniel J. Smith, *Notes on structured concurrency, or: Go statement considered harmful* (2018). https://vorpus.org/blog/notes-on-structured-concurrency-or-go-statement-considered-harmful/
+**[Smith 2018]** Nathaniel J. Smith, *Notes on structured concurrency, or: Go statement considered harmful* (2018). <https://vorpus.org/blog/notes-on-structured-concurrency-or-go-statement-considered-harmful/>
 
-[Snoyman 2017]: Michael Snoyman, *The ReaderT Design Pattern* (2017). https://www.fpcomplete.com/blog/readert-design-pattern/
+**[Snoyman 2017]** Michael Snoyman, *The ReaderT Design Pattern* (2017). <https://www.fpcomplete.com/blog/readert-design-pattern/>
 
-[Starlark]: Bazel Build, Starlark. https://github.com/bazelbuild/starlark
+**[Starlark]** Bazel Build, Starlark. <https://github.com/bazelbuild/starlark>
 
-[Wagner 2007]: David Wagner, TRUST07 slides on Joe-E. https://people.eecs.berkeley.edu/~daw/talks/TRUST07.pdf
+**[Wagner 2007]** David Wagner, TRUST07 slides on Joe-E. <https://people.eecs.berkeley.edu/~daw/talks/TRUST07.pdf>
 
-[WASI]: WebAssembly System Interface, *Capabilities*. https://wasi.dev; https://github.com/WebAssembly/WASI/blob/main/docs/Capabilities.md
+**[WASI]** WebAssembly System Interface, *Capabilities*. <https://wasi.dev>; <https://github.com/WebAssembly/WASI/blob/main/docs/Capabilities.md>
 
-[Wuffs]: Google, Wuffs: Wrangling Untrusted File Formats Safely. https://github.com/google/wuffs
+**[Wuffs]** Google, Wuffs: Wrangling Untrusted File Formats Safely. <https://github.com/google/wuffs>
 
-[Yee et al. 2003]: Ka-Ping Yee, Mark S. Miller, and Jonathan Shapiro, *Capability Myths Demolished* (Systems Research Laboratory Technical Report SRL2003-02, Johns Hopkins University, 2003). https://srl.cs.jhu.edu/pubs/SRL2003-02.pdf
+**[Yee et al. 2003]** Ka-Ping Yee, Mark S. Miller, and Jonathan Shapiro, *Capability Myths Demolished* (Systems Research Laboratory Technical Report SRL2003-02, Johns Hopkins University, 2003). <https://srl.cs.jhu.edu/pubs/SRL2003-02.pdf>
