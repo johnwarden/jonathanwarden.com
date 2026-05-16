@@ -588,10 +588,6 @@ This remains true even in a memory-unsafe language where pointers are **forgeabl
 
 A hermetic programming language must therefore make live values **unforgeable**—that is, it must provide some form of memory safety or capability safety—so that a program cannot conjure access to arbitrary memory out of thin air.
 
-#### Reference Graphs
-
-A live value is not necessarily a “reference.” It is not clear how to define exactly what constitutes a reference in some languages. But practically, a live value must be connected to state through some sort of **reference graph**: values as nodes that **embed** references as edges to other values. Even a built-in function such as `now`, which accesses the system clock directly via CPU instructions, can be thought of as embedding a reference to the clock. And a function that calls `now` can be thought of as embedding a reference to `now`, and so on.
-
 ### Appendix E: Closures and Methods
 
 #### Closures
