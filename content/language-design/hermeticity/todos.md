@@ -5,9 +5,15 @@ A hermetic functions with no live arguments is necessarily pure. Thus in a herme
 Conversely, it is live arguments that *make* a hermetic function impure. This gives us yet another way of defining liveness: x is live if there exists some hermetic function f such that the expression f(x) is impure. For example the value returned by getClock() is live because getTime(getClock()) is impure.
  -->
 
+
+This would be great at the end of providing access to state. But requires changing def of purity.
+ 
+<!-- A hermetic function with only inert arguments cannot interact with existing state, and is therefore pure.[^vfp] Conversely, a hermetic function needs at least one live argument to be impure. This gives another characterization of liveness: a value `x` is live iff there exists some hermetic function `f` such that `f(x)` is impure. -->
+
+
  ----
 
- 
+
 
 Weak: To see what hermeticity implies for packages, libraries, and language design, we need a more precise vocabulary for how functions expose access to state.
 
