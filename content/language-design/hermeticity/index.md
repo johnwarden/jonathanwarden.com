@@ -454,7 +454,7 @@ Hermetic programming links inversion of control, capability-based security, and 
  
 The term **hermetic** has been used to describe a number of systems that isolate imperative code from its environment: most notably Google’s **hermetic testing**, **hermetic servers**, hermetic builds such as Bazel, and hermetic languages such as Wuffs and Starlark [Herbert 2010; Google Testing Blog 2012; Bazel; Wuffs; Starlark]. These all **isolate** effects to specifically authorized state: a test mock, a build artifact, the function’s arguments.
 
-I have appropriated the term *hermetic* in this essay to mean isolation only with respect to *access* to state. But there are levels of isolation beyond hermeticity. For example, Wuffs programs are also isolated in the ACID sense, and they cannot spawn threads, allocate memory, or panic.[^wuffs]
+I have appropriated the term *hermetic* in this essay to mean isolation only with respect to *access* to state. But there are levels of isolation beyond hermeticity. For example, Wuffs programs are also isolated in the ACID sense, and they cannot spawn threads, allocate memory, or panic.
 
 #### Call-Boundedness
 
@@ -615,8 +615,6 @@ It follows that in a hermetic programming language, exported types must be herme
 [^cap-discipline]: Miller, Yee, and Shapiro identify **Property F: Access-Controlled Delegation Channels**: authority flows only along channels that are themselves access-controlled [Yee et al. 2003].
 
 [^confinement]: The classic **confinement problem** is ensuring that a program cannot transmit information except through authorized channels [Lampson 1973].
-
-[^wuffs]: Wuffs (Wrangling Untrusted File Formats Safely) is a hermetic language for parsing file formats, isolated in the ACID sense with no allocation or panics [Wuffs].
 
 ## References
 
