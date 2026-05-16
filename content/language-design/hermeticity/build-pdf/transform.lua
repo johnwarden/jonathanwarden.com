@@ -129,7 +129,7 @@ end
 -- the heading itself plus 2–3 lines of body text.
 function Header(el)
   local text = pandoc.utils.stringify(el.content)
-  if text == "Appendices" then
+  if text == "Appendices" or text == "References" then
     return {
       raw_latex("\\clearpage"),
       el,
