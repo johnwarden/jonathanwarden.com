@@ -242,7 +242,7 @@ Packages also cannot host global singletons; package-level globals and exported 
 
 Inert packages can, however, export hermetic constructors that **mint** fresh state without accessing existing state. They may also export inert types, interfaces, methods, and other definitions for complex data structures and algorithms. They may even provide logic for interacting with external resources such as databases or web services, as long as access to those resources is passed as parameters.
 
-In a hermetic programming language, the standard library defines interfaces to system resources such as the filesystem, network, and clock, but actual access happens only through injected parameters. Many existing libraries implement this pattern: Go’s `http.Serve` accesses the network through its `net.Listener` parameter, Rust’s `cap_std` routes I/O through capability values, and Python sans-I/O libraries such as `hyper-h2` go further by factoring I/O out entirely [Go net/http docs; cap-std; Benfield 2017; hyper-h2].
+In a hermetic programming language, the standard library defines interfaces to system resources such as the filesystem, network, and clock, but actual access happens only through injected parameters. Many existing libraries implement this pattern: Go’s `http.Serve` accesses the network through its `net.Listener` parameter, Rust’s `cap_std` routes I/O through capability values, and Python sans-I/O libraries such as `hyper-h2` go further by factoring I/O out entirely [Go net/http docs; cap-std; Benfield 2017].
 
 
 ### Closures
@@ -356,7 +356,7 @@ A more secure design would attenuate the capabilities provided not just by `db` 
 
 Although a hermetic programming language has no ambient authority, the converse is not true: *a language can have no ambient authority without being hermetic*. Hermeticity corresponds to a stronger capability discipline: authority must flow explicitly through capabilities passed as references or parameters.
 
-A capability-secure language can also introduce authority through **ambient endowment**. For example, SES compartments have no ambient authority by default, but the host can endow them with live globals or modules [SES README]. WASI likewise provisions capabilities through imports. In both cases, authority is supplied by the host through ambient names rather than through function parameters.
+A capability-secure language can also introduce authority through **ambient endowment**. For example, SES compartments have no ambient authority by default, but the host can endow them with live globals or modules [Endo SES]. WASI likewise provisions capabilities through imports. In both cases, authority is supplied by the host through ambient names rather than through function parameters.
 
 By contrast, in Joe-E, explicitly propagated references are the only things that convey authority; *the universal scope provides no authority* [Mettler et al. 2009; Wagner 2007]. This maps closely to what I call an **inert ambient scope**. In that sense, Joe-E can be classified as a hermetic programming language.
 
@@ -656,7 +656,7 @@ It follows that in a hermetic programming language, exported types must be herme
 
 **[Reynolds 1972/1998]** John C. Reynolds, *Definitional Interpreters for Higher-Order Programming Languages* (originally presented 1972; reprinted 1998). <https://link.springer.com/content/pdf/10.1023/A:1010027404223.pdf>
 
-**[SES README]** Endo SES README. <https://github.com/endojs/endo/blob/master/packages/ses/README.md>
+**[Endo SES]** Endo, *SES (Hardened JavaScript)*. <https://github.com/endojs/endo/blob/master/packages/ses/README.md>
 
 **[Smith 2018]** Nathaniel J. Smith, *Notes on structured concurrency, or: Go statement considered harmful* (2018). <https://vorpus.org/blog/notes-on-structured-concurrency-or-go-statement-considered-harmful/>
 

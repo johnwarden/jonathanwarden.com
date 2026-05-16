@@ -35,12 +35,12 @@ def strip_html_comments(text: str) -> str:
 
 
 def strip_footnotes_heading(text: str) -> str:
-    """Drop the ``## Footnotes`` heading. The web build uses the heading to
-    label the section where footnote *definitions* render; in LaTeX, pandoc
-    consumes the definitions and emits ``\\footnote{...}`` calls at each
-    reference, so the heading would otherwise leave an empty section in the
-    PDF."""
-    return re.sub(r"^##\s+Footnotes\s*$\n?", "", text, flags=re.MULTILINE)
+    """Drop the ``## Footnotes`` / ``## Notes`` heading. The web build uses
+    the heading to label the section where footnote *definitions* render; in
+    LaTeX, pandoc consumes the definitions and emits ``\\footnote{...}`` calls
+    at each reference, so the heading would otherwise leave an empty section
+    in the PDF."""
+    return re.sub(r"^##\s+(?:Footnotes|Notes)\s*$\n?", "", text, flags=re.MULTILINE)
 
 
 def strip_note_aside(text: str) -> str:
