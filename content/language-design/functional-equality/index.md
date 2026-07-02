@@ -43,7 +43,7 @@ Under this new definition, two values are functionally equal if we can **substit
 The criteria for functional equality is very strict. It generally means that two values can be functionally equal only if they have the exact same type -- otherwise for example `typeOf(x) != typeOf(y)`. In fact, if any function can inspect the binary representation of a value, then two values can be functionally equal only if they are identical down to the bit.
 
 
-So in many programming languages, the `==` operator does not test strict functional equality. For example, the integer `4` and the float `4.0` are often `==`, but not functionally equal, because for example integer division works differently than float division, or they have different string forms.
+So in many programming languages, the `==` operator does not test for strict functional equality. For example, the integer `4` and the float `4.0` are often `==`, but not functionally equal, because for example integer division works differently than float division, or they have different string forms.
 
 For example, in Python:
 
@@ -56,7 +56,7 @@ False
 
 So functional equality is different from **numeric equality**. 
 
-When comparing two numbers, it is usually numeric equality we are interested in. But not always. In certain scenarios such as unit tests, we truly care about substitutability. If a `float32` and `float64` behave differently in any way, then you can't always substitute one for the other without changing the program output. 
+When comparing two numbers, it is usually numeric equality we are interested in. But not always. In certain scenarios, we truly care about substitutability. If a `float32` and `float64` behave differently in any way, then you can't always substitute one for the other without changing the program output. For example if you write a test that compares a 64-bit function output against a 32-bit expected-value variable, your test may falsely certify that non-zero values are equal to zero.
 
 Numeric equality is a type of **semantic equality**. In this essay, I'll define and explain the idea of semantic equality. But first, I'll address some possible points of confusion in the definition of functional equality. Armed with an understanding of these two concepts, I'll compare example scenarios where either functional or semantic equality tests are needed. Finally I'll survey how the different types of equality tests are made in a variety of programming languages.
 
@@ -76,13 +76,13 @@ So two values are functionally equal if they are substitutable even if they have
 
 One may be tempted to say that two values cannot be functionally equal if they have different memory addresses. But this confuses values with variables. Variables have addresses, but values have no address -- they just are. When a programmer writes `a == b`, they mean to test whether the value referred to by `a` is equal to the value referred to by `b`, not whether `a` and `b` are the same variable. 
 
-This means that when comparing two *pointers or references* to mutable objects, functional equality requires that they point to the exact same address or resource. Even if the values stored at two different addresses are equal, mutating one will not have the same effect on program behavior as mutating the other, so they are not substitutable. Even pointers to *immutable* copies of identical values are not functionally equal if the address of the pointer itself can be inspected (e.g. via `toString`).
+But when comparing two *pointers or references* to mutable objects, *the reference or pointer itself is the value*. For them to be functionally equal they must point to the exact same address or resource. Even if the values stored at two different addresses are equal, mutating one will not have the same effect on program behavior as mutating the other, so they are not substitutable. Even pointers to *immutable* copies of identical values are not functionally equal if the address of the pointer itself can be inspected (e.g. via `toString`).
 
 ### Extensional Equality
 
 What makes two *functions* equal? Functions are values too, so the definition of functional equality applies to them directly.
 
-But a more familiar notion is **extensional equality**, which compares functions only by what they return: `f` and `g` are extensionally equal if `f(x) == g(x)` for every input `x`. 
+One familiar notion of equality for functions is **extensional equality**, which compares functions only by what they return: `f` and `g` are extensionally equal if `f(x) == g(x)` for every input `x`. 
 
 Extensional equality is a *consequence* of functional equality. Here's a sketch of a proof:
 
@@ -91,7 +91,7 @@ Extensional equality is a *consequence* of functional equality. Here's a sketch 
 
 But the reverse need not hold. If the language provides any operation that can observe properties of a function beyond its input/output behavior—its identity, representation, or even a fingerprint like `hash(f)`—then two extensionally equal functions can still fail to be functionally equal *values*, because some `U` can distinguish them.
 
-The term *functional equality* is often used to mean *extensional equality* for functions. But under our definition, they’re not synonymous. Worse, for arbitrary functions in a Turing-complete language, extensional equality is undecidable. So even if we wanted `f == g` to mean extensional equality for arbitrary functions, in practice `==` can only compare function identity/representation (*intensional equality*).
+The term *functional equality* is often used to mean *extensional equality* for functions. But under our definition, they’re not synonymous. Unfortunately, for arbitrary functions in a Turing-complete language, extensional equality is undecidable. So even if we wanted `f == g` to mean extensional equality for arbitrary functions, in practice `==` can only compare function identity/representation (*intensional equality*).
 
 ## Semantic Equality
 
@@ -124,9 +124,9 @@ $$
 
 ### The Relevant "Semantics"
 
-The meaning of `SemanticValue` depends on your particular problem domain. For example, an application that processes timestamps in event logs probably should use **timestamp semantics**: two timestamps are equal if they represent the same instant in time, regardless of the location where the event occurred.
+The meaning of `SemanticValue` depends on your particular problem domain. For example, an application that processes timestamps in event logs probably should use **instant-in-time semantics**: two timestamps are equal if they represent the same instant in time, regardless of the location where the event occurred.
 
-On the other hand, a calendar application may use **zoned time semantics**, where the actual time zone of an event is often relevant (a calendar event that starts at 9am New York Time behaves differently from a calendar event that starts at 3pm Madrid Time).
+On the other hand, a calendar application may use **zoned-time semantics**, where the actual time zone of an event is often relevant (a calendar event that starts at 9am New York Time should behave differently from a calendar event that starts at 3pm Madrid Time).
 
 So there are therefore multiple possible ways that two times could be semantically equal. In such cases, it's important for the programmer to understand which semantics are relevant in order to perform the right kind of equality test.
 
@@ -200,9 +200,9 @@ Different semantics require different canonical types. For example, Javascript's
 
 -->
 
+Javascript's temporal library defines different canonical types for different time semantics. [`Temporal.Instant`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal/Instant) represents a canonical time using instant-in-time semantics, internally represented using epoch nanoseconds without a timezone. [`Temporal.ZonedDateTime`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal/ZonedDateTime) represents a canonical time using zoned-time semantics.
 
 With canonical types, there is a 1:1 relationship between the values of that type, and the semantic values they are supposed to represent. As a result, for these types **functional equality is equivalent to semantic equality**.
-
 
 
 ## Functional Equality and Functional Purity
@@ -217,11 +217,11 @@ This almost looks identical to the definition of functional equality. But there 
 |**criteria**|you can substitute an expression with **its value** without changing program behavior|you can substitute an expression with **an equal value** without changing program behavior
 |**example**|if `f(x)` is `2`, **and the value of `x` is `1.0`**, then you can replace `f(x)` with `f(1.0)` and nothing will change|if `f(x)` is `2`, **and `x` is equal to `1.0`**, then you can replace `f(x)` with `f(1.0)` and nothing will change
 
-The difference is that referential transparency *does not require comparing two values for equality*. But in practice, a functional equality operator is critical for some functional programming techniques, such as caching/memoization, as I'll demonstrate in the cache example later in this essay.
+The difference is that referential transparency *does not require the ability to compare two values for equality*. But in practice, its hard to verify referential transparency without comparing for equality. A functional equality operator is critical for some functional programming techniques, such as caching/memoization, as I'll demonstrate in the cache example later in this essay.
 
 ## When Functional Equality Matters
 
-### Example: Caching
+### Example: Caching and Memoization
 
 When implementing a cache, two cache keys should probably not be considered equal unless they are functionally equal. Otherwise the cache can return a value for a functionally different key. This would violate the basic principle of a cache, which should only affect program performance, never behavior.
 
