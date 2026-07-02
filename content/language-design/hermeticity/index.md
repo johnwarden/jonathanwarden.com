@@ -10,8 +10,8 @@ weight: 10
 math: true
 noindex: true
 _build:
-list: never
-render: always
+  list: never
+  render: always
 
 ---
 
