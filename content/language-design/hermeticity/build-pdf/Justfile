@@ -1,0 +1,28 @@
+# Hermeticity PDF builds.
+#
+# just        → build both color and B&W PDFs
+# just pdf    → color PDF only
+# just bw     → B&W PDF (rebuilds color first)
+# just clean  → remove out/
+
+default: build
+
+build: pdf bw
+
+pdf:
+    ./build.sh
+    open out/hermeticity.pdf
+
+bw: pdf
+    gs -sDEVICE=pdfwrite \
+       -sColorConversionStrategy=Gray \
+       -dProcessColorModel=/DeviceGray \
+       -dCompatibilityLevel=1.4 \
+       -dNOPAUSE -dBATCH -dQUIET \
+       -sOutputFile=out/hermeticity-bw.pdf \
+       out/hermeticity.pdf
+    @echo "B&W PDF: out/hermeticity-bw.pdf"
+    open out/hermeticity-bw.pdf
+
+clean:
+    rm -rf out

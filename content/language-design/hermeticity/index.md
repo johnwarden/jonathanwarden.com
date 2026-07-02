@@ -44,7 +44,9 @@ render: always
 
 In most programming languages, any function can reach out and touch the world: read the clock, write a file, open a socket. But ambient access to state—through singletons, globals, built-in functions, and system calls—makes testing brittle and reasoning murky. You run a test once and it passes; run it again and it fails because the clock advanced or a temporary file wasn’t deleted. You call out to a small math library and it exfiltrates your SSH keys because it had access to your home directory.
 
-**Dependency injection** [Fowler 2004] can help tame access to state: don’t let code reach out for resources; pass them as parameters instead. What if a language took dependency injection to its logical conclusion, making it a **semantic property** of code rather than a design pattern? Then all system resources would have to be injected—for example, as parameters passed to `main`.
+Several programming disciplines help tame access to state. Functional programming forbids interaction with state during evaluation, while dependency injection [Fowler 2004] allows interaction but makes dependencies on stateful resources explicit. 
+
+What if a language took dependency injection to its logical conclusion, making it a **semantic property** of code—like purity—rather than just a design pattern? Then all system resources would have to be injected—for example, as parameters passed to `main`.
 
 <div class="example-label">Example (TypeScript)</div>
 
@@ -68,7 +70,7 @@ In a **hermetic programming language**, function parameters act like hermeticall
 
 ## The Purity Gap
 
-Hermeticity is a semantic property of functions, similar to purity. But hermeticity is not just purity-lite. Purity restricts *interaction* with state, while hermeticity restricts *access*. These are orthogonal.
+Hermeticity is a semantic property of functions or languages, similar to purity. But hermeticity is not just purity-lite. Purity restricts *interaction* with state, while hermeticity restricts *access*. These are orthogonal.
 
 Suppose the function `getClock(): Clock` returns a global opaque handle to the system clock. `getClock` is pure: it has no effect on the clock, and because it always returns the same constant, it is referentially transparent.
 
@@ -114,7 +116,7 @@ alt="Figure 2. A comparison of example functions along the axes of interaction (
 
 </div>
 
-Now, to understand the benefits of programming with hermetic functions, and the implications for libraries and language design, we first need a more precise vocabulary for how functions expose access to state.
+This orthogonality also applies at the programming-language level. This means even a pure functional programming language is not necessarily hermetic (and most FP languages are not hermetic). To understand the implications of hermeticity for the design of programming languages and libraries, and the benefits it offers independently of purity, we first need a more precise vocabulary for how functions expose access to state.
 
 <style>
 .glossary {
@@ -175,7 +177,7 @@ We can talk about functions in two roles: as code (callable), and as values (pas
 
 An inert function does not provide access to state, so passing it to another function cannot provide that function with access to state. Conversely, a non-hermetic function is live.
 
-A function is live iff its definition embeds a live value; specifically, it must contain a **live free identifier**, where a **free identifier** is any name appearing in a function definition that is not a parameter or local variable.
+A function is live iff its definition embeds a live value; specifically, it must contain a **live free identifier**—a free identifier referencing a live value—where a **free identifier** is any name appearing in a function definition that is not a parameter or local variable.
 
 Consider the two Python functions below:
 
@@ -424,7 +426,7 @@ So `hermeticMain` is both pure and inert, whereas `main :: IO ()` is pure but li
 
 Haskell’s `Prelude` and standard library contain many live identifiers: `putStrLn`, `readFile`, `getCurrentTime`. Any function that uses one of these becomes live. Liveness then propagates through composition, just as it does in imperative languages.
 
-A “Hermetic Haskell” would move such live identifiers out of the Prelude and standard libraries, exporting only **interfaces** to system resources, with concrete implementations injected into `main` by the runtime. The `ReaderT` pattern can help manage the extra wiring [Snoyman 2017].
+A “Hermetic Haskell” would move such live identifiers out of the Prelude and standard libraries, exporting only interfaces to system resources, with concrete implementations injected into `main` by the runtime. The `ReaderT` pattern can help manage the extra wiring [Snoyman 2017].
 
 Purity guarantees that code does not interact with observable state when evaluated. Hermeticity guarantees that code does not have *access* to observable state unless authorized. A function can be pure but still hard-wired to the real filesystem, clock, or network. That is why patterns like tagless final and `ReaderT` are common in Haskell: not because Haskell is not pure enough, but because purity and hermeticity solve different problems.
 

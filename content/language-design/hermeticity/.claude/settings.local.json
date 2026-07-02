@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 preprocess.py ../index.md)",
+      "Bash(grep *)",
+      "Bash(pandoc out/processed.md --metadata-file=../abstract.md --template=template.tex --lua-filter=transform.lua --listings --standalone --output=out/hermeticity.tex)",
+      "Bash(devbox run *)",
+      "Bash(git *)"
+    ]
+  }
+}
