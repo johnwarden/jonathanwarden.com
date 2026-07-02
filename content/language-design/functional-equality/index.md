@@ -34,7 +34,7 @@ $$
 
 This translates nicely to a definition of equality in a functional programming language: two values are indiscernible if they have all function results in common (i.e., no function produces different results when applied to them). Two such indiscernible values are **functionally equal**.
 
-We can extend this definition to languages that aren't purely functional by defining "function" to include all operators or procedures that can be applied to a value, and say that `f(x) = f(y)` also means that any effects of `f(x)` are equal to those of `f(y)`. 
+We can extend this definition to languages that aren't purely functional by defining "function" to include all operators or procedures that can be applied to a value, and say that `f(x) = f(y)` also means that any effects of executing `f(x)` are identical to those of executing `f(y)`. 
 
 Under this new definition, two values are functionally equal if we can **substitute** one for the other in our program without changing program behavior. 
 
@@ -68,9 +68,9 @@ Functionally equal values don't have to be *identical* in the sense of Leibniz's
 
 For example, a set type might be internally represented using a binary tree. Two binary trees holding the exact same values could have different structure (e.g. if the values were inserted in different order). But if all public functions/methods (such as `toString`) exposed set elements in sorted order, and no public functions exposed the internal tree structure, then two sets internally represented by different trees could be functionally equal.
 
-In fact, in languages with sufficiently powerful **abstract types**, two values of different concrete types can be functionally equal -- but only if there is no way to "peak" at the underling implementation (e.g. `typeOf`).
+In fact, in languages with sufficiently powerful **abstract types**, two values of different concrete types can be functionally equal -- but only if there is no way to "peek" at the underling implementation (e.g. `typeOf`).
 
-So two values are functionally equal if they are substitutable. They don't have to be absolutely identical.
+So two values are functionally equal if they are substitutable even if they have different implementations.
 
 ### Equal Values vs. Equal Variables
 
