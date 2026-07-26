@@ -101,7 +101,7 @@ This is an extremely common pattern in Spanish verbs. These positions are called
 
 ![A classroom present-tense table for regar with the four boot positions outlined in the shape of a boot](boot-stem-pattern.png)
 
-Many other verbs change *e* to *ie* in the boot positions: p**e**nsar → p**ie**nsa, ent**e**nder → ent**ie**nde, and so on. This an a handful of other [**Boot** stem vowel change patterns](https://7stems.net/learn/model-verbs/#boot-stem-vowel-change-models) account for a large portion of the irregularity in Spanish verbs.
+Many other verbs change *e* to *ie* in the boot positions: p**e**nsar → p**ie**nsa, ent**e**nder → ent**ie**nde, and so on. This and a handful of other [**Boot** stem vowel change patterns](https://7stems.net/learn/model-verbs/#boot-stem-vowel-change-models) account for a large portion of the irregularity in Spanish verbs.
 
 ## Patterns to the Patterns
 
@@ -115,9 +115,9 @@ This **Subjunctive stem** pattern is extremely common. You see it, for example, 
 
 Another thing I noticed, which turns out to be significant, is that **Subjunctive stems** always take the same endings: *-o* for present *yo* and endings beginning with *-a-* in the present subjunctive. It does not matter what the verb’s regular type is.
 
-This means that when using a subjunctive stem, you don't need to conjugate the verb as regular and then swap in the subjunctive stem. Rather, you can **conjugate the stem**: start with the stem (*veng-*, *dig-*, etc.) and add the appropriate ending for the tense you want to use. There is some research that indicates that this is exactly what fluent speakers do.
+This means that when using a subjunctive stem, you don't need to conjugate the verb regularly and then swap in the subjunctive stem. Rather, you can **conjugate the stem**: start with the stem (*veng-*, *dig-*, etc.) and add the appropriate ending for the tense you want to use. There is some research that indicates that this is exactly what fluent speakers do.
 
-It turns out that this is true for all the irregular stem patterns I found: the irregular stem’s conjugation is independent of the regular stem type. It is as if these stems are completely different verbs with a different type: but only used for certain tenses. And these verbs are conjugated just like regular verbs: **by adding an ending to the stem**. 
+It turns out that this is true for all the irregular stem patterns I found: the irregular stem’s conjugation is independent of the regular stem type. It is as if these stems are completely different verbs with a different type, but are used only for certain tenses. And these verbs are conjugated just like regular verbs: **by adding an ending to the stem**.
 
 So what makes a verb irregular in Spanish is that **it has more than one stem**. To conjugate a verb in Spanish, you just need to know:
 
@@ -182,7 +182,7 @@ The table for virtually any verb in Spanish can be found at [7stems.net](https:/
 
 With these seven irregular stem types and a handful of spelling rules, I had an elegant way of modeling most Spanish verb irregularities. In software terms, the conjugation table is a set of layered matrices. Start with the regular stem card. Lay the irregular stem cards on top in precedence order. Apply spelling rules. Then apply any true exceptions.
 
-I implemented this in [seven-stems-conjugator](https://github.com/johnwarden/seven-stems-conjugator), a Python verb-conjugation library that builds a complete conjugation table for any verb. 
+I implemented this in [seven-stems-conjugator](https://github.com/johnwarden/seven-stems-conjugator), a Python verb-conjugation library that builds a complete conjugation table for any verb.
 
 Consistent with my goal of **compressing** what I needed to learn, the information necessary to construct a verb's conjugation table is encoded in a small data structure containing its irregular stems and exceptions. Here are examples for a few verbs:
 
@@ -217,12 +217,10 @@ Consistent with my goal of **compressing** what I needed to learn, the informati
 
 ## Validating the System
 
-I figured that if I was going to publish this system, I had better be sure it was correct. So I created an  automated test that compares the output of my library against 462,348 known correct conjugated forms using an independent conjugation library. It turns out, there were many errors in that other library, so in the end I used the Real Academia Española as my source of truth.
+I figured that if I was going to publish this system, I had better be sure it was correct. So I created an automated test that compares the output of my library against 462,348 known correct conjugated forms using an independent conjugation library. It turns out there were many errors in that other library, so in the end I used the Real Academia Española as my source of truth.
 
 ## The Book and Website
 
-Eventually, I decided to self-publish the method and the conjugation tables for all the model verbs as a book. That became more work than I expected, but a couple of months ago I finally published [*Seven Stems Spanish Verb Conjugation*](https://7stems.net/book/).
+Eventually, I decided to self-publish the method and the conjugation tables for all the model verbs as a book. [*Seven Stems Spanish Verb Conjugation*](https://7stems.net/book/) is now available in paperback from Amazon and several online retailers. I've also made the book's core content and searchable conjugation tables available for free on the [Seven Stems website](https://7stems.net/).
 
-I never expected to sell a huge number of copies, but it would be gratifying to get the method into the hands of people who would use it. Distribution for a language-learning book is difficult, so I built the [Seven Stems website](https://7stems.net/) with the book’s core content, searchable conjugations, and a prominent “Buy the Book” link.
-
-Then I wondered how anybody would find the website, and figured I had better write a blog post about the whole thing. And so here we are. If you are trying to improve your Spanish then please explore the website, consider buying the book if you like what you see, and leave me a good review. If you do not like it, skip the review and send me feedback instead. 🙂
+I never expected to sell a huge number of copies of the book, but it would be gratifying to get the method into the hands of people who would use it. After you have used the method, an honest Amazon review would help other learners decide whether it is right for them. Detailed feedback is also welcome directly.
