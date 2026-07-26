@@ -117,7 +117,7 @@ Another thing I noticed, which turns out to be significant, is that **Subjunctiv
 
 This means that when using a subjunctive stem, you don't need to conjugate the verb as regular and then swap in the subjunctive stem. Rather, you can **conjugate the stem**: start with the stem (*veng-*, *dig-*, etc.) and add the appropriate ending for the tense you want to use. There is some research that indicates that this is exactly what fluent speakers do.
 
-It turns out that this is true true for all the irregular stem patterns I found: the irregular stem’s conjugation is independent of the regular stem type. It is as if these stems are completely different verbs with a different type: but only used for certain tenses. And these verbs are conjugated just like regular verbs: **by adding an ending to the stem**. 
+It turns out that this is true for all the irregular stem patterns I found: the irregular stem’s conjugation is independent of the regular stem type. It is as if these stems are completely different verbs with a different type: but only used for certain tenses. And these verbs are conjugated just like regular verbs: **by adding an ending to the stem**. 
 
 So what makes a verb irregular in Spanish is that **it has more than one stem**. To conjugate a verb in Spanish, you just need to know:
 
