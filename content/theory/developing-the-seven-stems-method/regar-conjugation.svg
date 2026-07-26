@@ -8,6 +8,8 @@
 <rect data-ss-role="card-paint" data-card-id="boot" data-card-label="Boot" x="165" y="75" width="37.8" height="84" fill="#98D9F3"/>
 <rect data-ss-role="card-paint" data-card-id="boot" data-card-label="Boot" x="165" y="215" width="37.8" height="28" fill="#98D9F3"/>
 <rect class="svg-header-band" x="80" y="45" width="624" height="30" fill="#E0E0E0" opacity="0.55"/>
+<line data-ss-role="card-paint" data-card-id="boot" data-card-label="Boot" x1="81.5" y1="75" x2="81.5" y2="243" stroke="#98D9F3" stroke-width="3"/>
+<line data-ss-role="card-paint" data-card-id="boot" data-card-label="Boot" x1="166.5" y1="75" x2="166.5" y2="243" stroke="#98D9F3" stroke-width="3"/>
 <line x1="0" y1="103" x2="80" y2="103" stroke="#C0C0C0" stroke-width="0.5"/>
 <line x1="80" y1="103" x2="704" y2="103" stroke="#C0C0C0" stroke-width="0.25" opacity="0.4"/>
 <line x1="0" y1="131" x2="80" y2="131" stroke="#C0C0C0" stroke-width="0.5"/>
