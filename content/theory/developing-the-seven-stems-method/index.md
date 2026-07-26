@@ -164,9 +164,11 @@ After understanding these patterns, I was lying in bed one day—really—and st
 
 So I fired up my favorite AI coding agent and built some tables. And they looked great! Here are some examples:
 
-TODO: saber table
-TOOD: caber table
-TOOD: tener table
+![The Seven Stems conjugation table for saber, showing its Subjunctive, Preterite, and Future stems and the exceptional present form sé](saber-conjugation.svg)
+
+![The Seven Stems conjugation table for caber, showing its Subjunctive, Preterite, and Future stems](caber-conjugation.svg)
+
+![The Seven Stems conjugation table for tener, showing its Boot, Subjunctive, Preterite, and Future stems and its imperative exception](tener-conjugation.svg)
 
 The table for virtually any verb in Spanish can be found at [7stems.net](https://7stems.net/).
 
@@ -180,17 +182,31 @@ Consistent with my goal of **compressing** what I needed to learn, the informati
 
 ***Sample Verb Conjugation Data***
 
-TODO: format this Python code to fit within 80 columns
-
-
 ```python
-
-    'caber':   {'stems': {'Subjunctive': 'quep', 'PreteriteI': 'cup',  'Future': 'cabr'}},
-    'saber':   {'stems': {'Subjunctive': 'sep',  'PreteriteI': 'sup',  'Future': 'sabr'},
-                'exceptions': {(0, PRESENT): 'sé'}},
-
-    'tener':   {'stems': {'BootE': 'tien', 'Subjunctive': 'teng', 'PreteriteI': 'tuv', 'Future': 'tendr'},
-                'exceptions': {(1, IMPERATIVE): 'ten'}},
+'caber': {
+    'stems': {
+        'Subjunctive': 'quep',
+        'PreteriteI': 'cup',
+        'Future': 'cabr',
+    },
+},
+'saber': {
+    'stems': {
+        'Subjunctive': 'sep',
+        'PreteriteI': 'sup',
+        'Future': 'sabr',
+    },
+    'exceptions': {(0, PRESENT): 'sé'},
+},
+'tener': {
+    'stems': {
+        'BootE': 'tien',
+        'Subjunctive': 'teng',
+        'PreteriteI': 'tuv',
+        'Future': 'tendr',
+    },
+    'exceptions': {(1, IMPERATIVE): 'ten'},
+},
 ```
 
 ## Validating the System
