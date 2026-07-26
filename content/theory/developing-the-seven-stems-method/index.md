@@ -82,22 +82,22 @@ summary: "How searching for a compact representation of Spanish irregular verbs 
 
 I have been living part-time in Madrid for the past three years, and my Spanish is still not as fluent as I want it to be. The thing that trips me up most is irregular verb conjugation.
 
-So I decided to start studying deliberately. My goal was to be able to confidently conjugate every irregular verb in every tense I was likely to use.
+So I decided to start studying deliberately. My goal was to conjugate every irregular verb confidently in every tense I was likely to use.
 
-At first, this felt pretty daunting. A Spanish verb table has six pronouns across seven simple-tense columns, which gives you 42 verb forms before you get to imperatives, compound tenses, and less common forms I sometimes hear older people use, like *hubiese*. Most of those forms are regular. Some are irregular but follow common patterns. Some follow rarer patterns. A few seem like true one-off exceptions.
+At first, the task felt daunting. A Spanish verb table has six pronouns across seven simple-tense columns, which gives you 42 verb forms before you get to imperatives, compound tenses, and less common forms I sometimes hear older people use, like *hubiese*. Most of those forms are regular. Many irregular forms follow common patterns; others follow rarer ones. A few seem like true one-off exceptions.
 
-What I wanted was to really understand these patterns and see if I could find "patterns to the patterns" that would minimize the number of things I actually had to memorize. Put another way, I was looking for a way to *compress* irregular verb conjugation tables into the most compact representation possible.
+I wanted to understand these patterns well enough to find "patterns to the patterns" and minimize what I had to memorize. Put another way, I wanted to *compress* each irregular conjugation table into the smallest representation I could.
 
-This is an appealing problem for a software engineer. A lot of software design is compression: finding a smaller, cleaner representation of something apparently complicated. When it works, you not only save space; you understand the problem better.
+This is an appealing problem for a software engineer. Much of software design is compression: finding a smaller, cleaner representation of apparent complexity. When it works, you not only save space; you understand the problem better.
 
-So I sat down with a notebook, a pencil, and the conjugation tables for a few common verbs I kept stumbling over. I started marking the irregular stems and spelling changes and categorizing the patterns.
+I sat down with a notebook, a pencil, and the conjugation tables for a few common verbs that kept tripping me up. Then I marked the irregular stems and spelling changes and began categorizing the patterns.
 
-One of the verbs I started with was *regar*, because I recalled my stepmother saying “riego las plantas” (“I’m watering the plants”), and I was vaguely confused about why she said *r**ie**go* and not “*r**e**go*.” Revisiting *regar*’s conjugation table reminded me that it is really quite simple: the stem ***reg-*** changes to ***rieg-*** in present and present-subjunctive forms except *nosotros* and *vosotros*:
+I started with *regar*. I remembered my stepmother saying “riego las plantas” (“I’m watering the plants”) and wondered why she said *r**ie**go* rather than “*r**e**go*.” Its conjugation table revealed a simple pattern: the stem ***reg-*** changes to ***rieg-*** in present and present-subjunctive forms except *nosotros* and *vosotros*:
 
 ![The Seven Stems conjugation table for regar, with Boot-stem forms highlighted in blue](regar-conjugation.svg)
 
 
-This is an extremely common pattern in Spanish verbs. These positions are called the “boot” positions because, if you mark them on a classroom conjugation table, they form a kind of boot shape:
+This pattern is extremely common in Spanish. These positions are called the “boot” positions because, when marked on a classroom conjugation table, they form a rough boot shape:
 
 ![A classroom present-tense table for regar with the four boot positions outlined in the shape of a boot](boot-stem-pattern.png)
 
@@ -105,27 +105,27 @@ Many other verbs change *e* to *ie* in the boot positions: p**e**nsar → p**ie*
 
 ## Patterns to the Patterns
 
-I noticed a number of other irregular-verb patterns that also involved stem changes in specific tenses. For example, *conocer* uses the stem ***conozc-*** for present indicative *yo* and throughout the present subjunctive:
+Other irregular verbs showed the same basic structure: their stems changed only in specific tenses. For example, *conocer* uses the stem ***conozc-*** for present indicative *yo* and throughout the present subjunctive:
 
 ![The Seven Stems conjugation table for conocer, showing the Subjunctive stem conozc-](conocer-conjugation.svg)
 
-This **Subjunctive stem** pattern is extremely common. You see it, for example, in *venga*, *tenga*, *quepa*, and *construya*.
+This **Subjunctive stem** pattern is extremely common. It appears in forms such as *venga*, *tenga*, *quepa*, and *construya*.
 
 ## Key Insight: The Stem Type Determines the Ending
 
-Another thing I noticed, which turns out to be significant, is that **Subjunctive stems** always take the same endings: *-o* for present *yo* and endings beginning with *-a-* in the present subjunctive. It does not matter what the verb’s regular type is.
+More significantly, **Subjunctive stems** always take the same endings: *-o* for present *yo* and endings beginning with *-a-* in the present subjunctive, regardless of the verb’s regular type.
 
-This means that when using a subjunctive stem, you don't need to conjugate the verb regularly and then swap in the subjunctive stem. Rather, you can **conjugate the stem**: start with the stem (*veng-*, *dig-*, etc.) and add the appropriate ending for the tense you want to use. There is some research that indicates that this is exactly what fluent speakers do.
+This means you don't need to conjugate the verb regularly and then swap in the subjunctive stem. Instead, you can **conjugate the stem**: start with *veng-*, *dig-*, or another subjunctive stem and add the appropriate ending. Some research suggests that fluent speakers do exactly this.
 
-It turns out that this is true for all the irregular stem patterns I found: the irregular stem’s conjugation is independent of the regular stem type. It is as if these stems are completely different verbs with a different type, but are used only for certain tenses. And these verbs are conjugated just like regular verbs: **by adding an ending to the stem**.
+The same held for every irregular stem pattern I found: an irregular stem’s conjugation is independent of the regular stem type. In the forms where it applies, each stem behaves like a verb of its own type and is conjugated the same way: **by adding an ending to the stem**.
 
-So what makes a verb irregular in Spanish is that **it has more than one stem**. To conjugate a verb in Spanish, you just need to know:
+In this model, what makes a Spanish verb irregular is that **it has more than one stem**. To conjugate it, you need to know:
 
-1. which stem goes with the tense you want to use
+1. which stem applies to the tense you want to use
 2. the stem's type
-3. the right ending to use in that tense with stems of that type
+3. which ending that stem type takes for the desired person and tense
 
-With relatively few exceptions, almost all irregularity in Spanish verb conjugation can be explained by **seven irregular stem types**. Each stem type has a conjugation table that gives the tenses where that stem is used and the endings to use with each tense. Because these tables apply to only a subset of forms, I call them **conjugation cards**. Here they are.
+With relatively few exceptions, almost all irregularity in Spanish verb conjugation can be explained by **seven irregular stem types**. Each stem type has a table showing where it applies and which endings it takes. Because each table covers only a subset of forms, I call it a **conjugation card**. Here they are.
 
 ![The seven irregular conjugation cards arranged as a compact reference](stem-cards-reference.svg)
 
@@ -160,9 +160,9 @@ There are also spelling rules that create small pronunciation changes. For examp
 
 ## Visualizing the Conjugation Tables
 
-After understanding these patterns, I was lying in bed one day—really—and started thinking about how I could visualize conjugation tables as overlapping cards. In my mind, each card was a physical piece of laminated card stock with its own color and a partial conjugation table for one of the verb’s irregular stem types. Beneath them was the full conjugation table for the regular stem type.
+Once I understood these patterns, I found myself lying in bed one day—really—imagining conjugation tables as overlapping cards. I pictured each stem type as a different-colored piece of laminated cardstock bearing a partial conjugation table. Beneath them sat the full table for the regular stem type.
 
-So I fired up my favorite AI coding agent and built some tables. And they looked great! Here are some examples:
+I fired up my favorite AI coding agent and built them. They looked great! Here are some examples:
 
 **decir**
 
@@ -176,15 +176,15 @@ So I fired up my favorite AI coding agent and built some tables. And they looked
 
 ![The Seven Stems conjugation table for tener, showing its Boot, Subjunctive, Preterite, and Future stems and its imperative exception](tener-conjugation.svg)
 
-The table for virtually any verb in Spanish can be found at [7stems.net](https://7stems.net/).
+You can find a table for virtually any Spanish verb at [7stems.net](https://7stems.net/).
 
 ## The Algorithm
 
-With these seven irregular stem types and a handful of spelling rules, I had an elegant way of modeling most Spanish verb irregularities. In software terms, the conjugation table is a set of layered matrices. Start with the regular stem card. Lay the irregular stem cards on top in precedence order. Apply spelling rules. Then apply any true exceptions.
+Together, these seven irregular stem types and a handful of spelling rules gave me an elegant model of most Spanish verb irregularities. In software terms, it builds a conjugation table from layered matrices: start with the regular stem card, layer the irregular cards on top in precedence order, apply spelling rules, and finish with any true exceptions.
 
-I implemented this in [seven-stems-conjugator](https://github.com/johnwarden/seven-stems-conjugator), a Python verb-conjugation library that builds a complete conjugation table for any verb.
+I implemented the model as [seven-stems-conjugator](https://github.com/johnwarden/seven-stems-conjugator), a Python library that builds a complete conjugation table for any verb.
 
-Consistent with my goal of **compressing** what I needed to learn, the information necessary to construct a verb's conjugation table is encoded in a small data structure containing its irregular stems and exceptions. Here are examples for a few verbs:
+In keeping with my goal of **compression**, each verb requires only a small data structure containing its irregular stems and exceptions. Here are a few examples:
 
 ***Sample Verb Conjugation Data***
 
@@ -217,10 +217,10 @@ Consistent with my goal of **compressing** what I needed to learn, the informati
 
 ## Validating the System
 
-I figured that if I was going to publish this system, I had better be sure it was correct. So I created an automated test that compares the output of my library against 462,348 known correct conjugated forms using an independent conjugation library. It turns out there were many errors in that other library, so in the end I used the Real Academia Española as my source of truth.
+Before publishing the system, I needed to know it was correct. So I wrote an automated test that compares my library’s output against 462,348 forms from an independent conjugation library. When discrepancies revealed numerous errors in that library, I used the Real Academia Española as my source of truth.
 
 ## The Book and Website
 
-Eventually, I decided to self-publish the method and the conjugation tables for all the model verbs as a book. [*Seven Stems Spanish Verb Conjugation*](https://7stems.net/book/) is now available in paperback from Amazon and several online retailers. I've also made the book's core content and searchable conjugation tables available for free on the [Seven Stems website](https://7stems.net/).
+Eventually, I decided to self-publish the method and the model-verb conjugation tables as a book. [*Seven Stems Spanish Verb Conjugation*](https://7stems.net/book/) is now available in paperback from Amazon and several online retailers. I've also made the book's core content and searchable conjugation tables available for free on the [Seven Stems website](https://7stems.net/).
 
-I never expected to sell a huge number of copies of the book, but it would be gratifying to get the method into the hands of people who would use it. After you have used the method, an honest Amazon review would help other learners decide whether it is right for them. Detailed feedback is also welcome directly.
+I never expected to sell a huge number of copies, but it would be gratifying to get the method into the hands of people who would use it. After trying the method, an honest Amazon review would help other learners decide whether it is right for them. I also welcome detailed feedback.
