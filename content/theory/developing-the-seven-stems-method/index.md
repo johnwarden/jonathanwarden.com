@@ -164,9 +164,15 @@ After understanding these patterns, I was lying in bed one day—really—and st
 
 So I fired up my favorite AI coding agent and built some tables. And they looked great! Here are some examples:
 
-![The Seven Stems conjugation table for saber, showing its Subjunctive, Preterite, and Future stems and the exceptional present form sé](saber-conjugation.svg)
+**decir**
 
-![The Seven Stems conjugation table for caber, showing its Subjunctive, Preterite, and Future stems](caber-conjugation.svg)
+![The Seven Stems conjugation table for decir, showing its Boot, Gerund, Subjunctive, Preterite-J, and Future stems and its participle and imperative exceptions](decir-conjugation.svg)
+
+**pedir**
+
+![The Seven Stems conjugation table for pedir, showing its Boot and Gerund vowel changes](pedir-conjugation.svg)
+
+**tener**
 
 ![The Seven Stems conjugation table for tener, showing its Boot, Subjunctive, Preterite, and Future stems and its imperative exception](tener-conjugation.svg)
 
