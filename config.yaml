@@ -204,3 +204,9 @@ module:
     target: content/social-protocols/truthtelling-games
   - source: syndication-sources/social-protocols/content/articles/what-deserves-our-attention
     target: content/social-protocols/what-deserves-our-attention
+  - source: syndication-sources/social-protocols/content/articles/understanding-bridge-based-ranking
+    target: content/social-protocols/understanding-bridge-based-ranking
+  - source: syndication-sources/social-protocols/content/articles/multidimensional-community-notes
+    target: content/social-protocols/multidimensional-community-notes
+  - source: syndication-sources/social-protocols/content/articles/quadratic-funding-is-not-optimal
+    target: content/social-protocols/quadratic-funding-is-not-optimal
