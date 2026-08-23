@@ -37,7 +37,7 @@ _build:
 </style>
 
 <aside class="note">
-    Draft: please don’t share publicly; I’m circulating for feedback.
+    Working paper: feedback welcome.
 </aside>
 
 ## Introduction
