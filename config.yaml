@@ -209,3 +209,21 @@ module:
     target: content/social-protocols/truthtelling-games
   - source: syndication-sources/social-protocols/content/articles/what-deserves-our-attention
     target: content/social-protocols/what-deserves-our-attention
+  - source: syndication-sources/social-protocols/content/articles/a-decision-engine
+    target: content/social-protocols/a-decision-engine
+  - source: syndication-sources/social-protocols/content/articles/example-decision-engine-process-walkthrough
+    target: content/social-protocols/example-decision-engine-process-walkthrough
+  - source: syndication-sources/social-protocols/content/articles/the-decision-engine-and-prediction-markets
+    target: content/social-protocols/the-decision-engine-and-prediction-markets
+  - source: syndication-sources/social-protocols/content/articles/truth-in-the-time-of-coronavirus
+    target: content/social-protocols/truth-in-the-time-of-coronavirus
+  - source: syndication-sources/social-protocols/content/articles/intelligent-social-networks
+    target: content/social-protocols/intelligent-social-networks
+  - source: syndication-sources/social-protocols/content/articles/moderation-as-consensus
+    target: content/social-protocols/moderation-as-consensus
+  - source: syndication-sources/social-protocols/content/articles/understanding-bridge-based-ranking
+    target: content/social-protocols/understanding-bridge-based-ranking
+  - source: syndication-sources/social-protocols/content/articles/multidimensional-community-notes
+    target: content/social-protocols/multidimensional-community-notes
+  - source: syndication-sources/social-protocols/content/articles/quadratic-funding-is-not-optimal
+    target: content/social-protocols/quadratic-funding-is-not-optimal
