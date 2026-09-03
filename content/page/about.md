@@ -11,7 +11,7 @@ menu:
 ---
 
 <div class="about-intro">
-<img src="/assets/images/jonathan-profile-photo-3.png" alt="Jonathan Warden" class="photo"/>
+<img src="/assets/images/jonathan-profile-photo-2.png" alt="Jonathan Warden" class="photo"/>
 <p>Jonathan Warden is a philosophical software engineer working on building technologies to make conversations on the Internet more intelligent and less polarizing.</p>
 </div>
 
