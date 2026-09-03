@@ -62,7 +62,8 @@ $compact-measure: 960px;
 
 .container.main-container.measure {
     max-width: $compact-measure;
-    --right-sidebar-max-width: 14rem;
+    /* html font-size is 62.5%, so 1rem = 10px */
+    --right-sidebar-max-width: 22rem;
 }
 
 .homepage-search {
