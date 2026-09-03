@@ -1,3 +1,59 @@
+/* Compact header in place of Stack's left sidebar rail.
+   New classes only — no overrides of .left-sidebar / #main-menu. */
+.compact-nav {
+    width: 100%;
+    border-bottom: 1px solid var(--card-separator-color);
+    background: var(--body-background);
+
+    &__inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem 1.5rem;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0.85rem 20px;
+    }
+
+    &__brand {
+        color: var(--accent-color);
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    &__menu ol {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1.25rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__menu a {
+        color: var(--body-text-color);
+        text-decoration: none;
+    }
+
+    &__menu .current a {
+        color: var(--accent-color);
+        font-weight: 700;
+    }
+
+    #dark-mode-toggle {
+        margin-top: 0;
+
+        svg {
+            stroke: currentColor;
+            stroke-width: 1.33;
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
+
 /* Default article style */
 .article-list {
     article {

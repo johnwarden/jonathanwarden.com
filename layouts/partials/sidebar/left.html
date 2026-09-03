@@ -1,5 +1,3 @@
-{{ $pageSection := site.GetPage "section" .Section}}
-
 <aside class="sidebar left-sidebar sticky {{ if .Site.Params.sidebar.compact }}compact{{ end }}">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="{{ T `toggleMenu` }}">
         <span class="hamburger-box">
@@ -103,29 +101,7 @@
         </li>
         {{ end }}
 
-    {{ $p1 := where .Site.Sections "Type" "not in" ("pages")  }}
-    {{ $p2 := where $p1 "Type" "not in" ("posts")  }}
-    {{ $p3 := where $p2 "Title" "not in" ("_Drafts") }}
-
-    {{ range $p3 }}
-          {{$active := eq $pageSection .}}
-
-        <li {{ if $active }} class='current' {{ end }}>
-                <a href="{{ .Permalink }}">
-                {{ if .Params.icon }}
-                {{ partial "helper/icon" .Params.icon }}
-                {{ end }}
-
-                <span>
-                {{- if eq $pageSection . -}}
-                    <b>{{ .Title }}</b>
-                {{- else -}}
-                    {{.Title}}
-                {{- end -}}
-                </span>
-                </a>
-            </li>
-        {{- end -}}
+        {{/* Section pages stay at their URLs; they are not nav peers. */}}
 
         <li class="menu-bottom-section">
             <ol class="menu">

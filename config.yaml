@@ -122,9 +122,11 @@ params:
         content:
             enabled: true
 
-### Custom menu
-### See https://docs.stack.jimmycai.com/configuration/custom-menu.html
-### To remove about, archive and search page menu item, remove `menu` field from their FrontMatter
+### Compact header (Home / About / Writing) from menu.main.
+### Stack has no switch to hide the left sidebar; layouts/_default/baseof.html
+### skips it and layouts/partials/header/compact.html renders this menu.
+### Search stays as the homepage widget. To drop a header item, remove `menu`
+### from that page's FrontMatter.
 menu:
 
 
