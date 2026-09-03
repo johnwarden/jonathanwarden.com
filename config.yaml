@@ -124,9 +124,9 @@ params:
 
 ### Compact header (Home / About / Writing) from menu.main.
 ### Stack has no switch to hide the left sidebar; layouts/_default/baseof.html
-### skips it and layouts/partials/header/compact.html renders this menu.
-### Search stays as the homepage widget. To drop a header item, remove `menu`
-### from that page's FrontMatter.
+### skips it (and does not use `extended`, which assumes a left rail).
+### Search is in the homepage main column. To drop a header item, remove
+### `menu` from that page's FrontMatter.
 menu:
 
 

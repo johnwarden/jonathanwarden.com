@@ -1,7 +1,9 @@
 {{ define "main" }}
 
-    <!-- <h1>{{ .Title }}</h1> -->
-     
+    <div class="homepage-search">
+        {{- partial "widget/search.html" (dict "Context" . "Params" (dict)) -}}
+    </div>
+
      <section class="article-list" style="gap: 10px">
      {{ range $section := where .Site.Sections "Type" "not in" ("pages") }}
 <!--         <h3>
@@ -85,8 +87,4 @@
  -->
 
     {{- partial "footer/footer" . -}}
-{{ end }}
-
-{{ define "right-sidebar" }}
-    {{ partial "sidebar/right.html" (dict "Context" . "Scope" "homepage") }}
 {{ end }}

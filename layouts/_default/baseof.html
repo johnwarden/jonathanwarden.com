@@ -7,20 +7,16 @@
     <body class="{{ block `body-class` . }}{{ end }}">
         {{- partial "head/colorScheme" . -}}
 
-        {{/* Stack has no switch to hide the left sidebar or use a header menu.
-             Skip the left rail so content is not left in an empty gutter. */}}
+        {{/* Stack has no header-menu switch. Skip the left rail entirely.
+             Do not use `extended`: that width is for left + main + right.
+             Page TOC/series only render when this page actually has them. */}}
         {{- partial "header/compact.html" . -}}
 
-        {{/* The container is wider when there's any activated widget */}}
-        {{- $hasWidget := false -}}
-        {{- range .Site.Params.widgets -}}
-            {{- if gt (len .) 0 -}}
-                {{- $hasWidget = true -}}
+        {{- $showPageWidgets := or (.Scratch.Get "TOCEnabled") .Params.series -}}
+        <div class="container main-container flex on-phone--column measure{{ if $showPageWidgets }} has-page-widgets{{ end }}">
+            {{- if $showPageWidgets -}}
+                {{- block "right-sidebar" . -}}{{ end }}
             {{- end -}}
-        {{- end -}}
-        <div class="container main-container flex on-phone--column {{ if $hasWidget }}extended{{ else }}compact{{ end }}">
-            {{- block "left-sidebar" . -}}{{ end }}
-            {{- block "right-sidebar" . -}}{{ end }}
             <main class="main full-width">
                 {{- block "main" . }}{{- end }}
             </main>

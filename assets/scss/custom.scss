@@ -1,5 +1,7 @@
-/* Compact header in place of Stack's left sidebar rail.
-   New classes only — no overrides of .left-sidebar / #main-menu. */
+/* Shared reading measure for header + main. Do not use Stack `extended`
+   (that width assumes a left rail). New classes only. */
+$compact-measure: 960px;
+
 .compact-nav {
     width: 100%;
     border-bottom: 1px solid var(--card-separator-color);
@@ -10,10 +12,14 @@
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-        gap: 0.75rem 1.5rem;
-        max-width: 1280px;
+        gap: 0.5rem 1.25rem;
+        max-width: $compact-measure;
         margin: 0 auto;
-        padding: 0.85rem 20px;
+        padding: 0.85rem 15px;
+
+        @include respond(md) {
+            padding: 0.85rem 20px;
+        }
     }
 
     &__brand {
@@ -52,6 +58,15 @@
             height: 20px;
         }
     }
+}
+
+.container.main-container.measure {
+    max-width: $compact-measure;
+    --right-sidebar-max-width: 14rem;
+}
+
+.homepage-search {
+    width: 100%;
 }
 
 /* Default article style */
