@@ -48,6 +48,18 @@ $compact-measure: 960px;
         font-weight: 700;
     }
 
+    &__social a {
+        display: inline-flex;
+        color: var(--body-text-color);
+    }
+
+    &__social svg {
+        width: 20px;
+        height: 20px;
+        stroke: currentColor;
+        stroke-width: 1.33;
+    }
+
     #dark-mode-toggle {
         margin-top: 0;
 
@@ -57,6 +69,26 @@ $compact-measure: 960px;
             width: 20px;
             height: 20px;
         }
+    }
+}
+
+.article-content .about-intro {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2em;
+    margin: 0 0 1.5em;
+
+    .photo {
+        flex-shrink: 0;
+        width: 120px;
+        height: 120px;
+        border-radius: 100%;
+        object-fit: cover;
+    }
+
+    p {
+        margin: 0;
+        min-width: 0;
     }
 }
 

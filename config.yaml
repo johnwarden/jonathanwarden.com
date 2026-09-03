@@ -145,8 +145,15 @@ menu:
           params:
               icon: brand-twitter
 
-        - identifier: linkedin
+        - identifier: bluesky
+          name: Bluesky
           weight: 3
+          url: https://bsky.app/profile/jonathanwarden.com
+          params:
+              icon: brand-bluesky
+
+        - identifier: linkedin
+          weight: 4
           name: LinkedIn
           url: https://www.linkedin.com/in/jonathan-r-warden-4aa2357/
           params:

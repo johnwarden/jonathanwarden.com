@@ -13,6 +13,21 @@
                         </a>
                     </li>
                 {{ end }}
+                {{- range .Site.Menus.social -}}
+                    <li class="compact-nav__social">
+                        <a
+                            href="{{ .URL }}"
+                            title="{{ .Name }}"
+                            rel="me"
+                            {{ if eq (default true .Params.newTab) true }}target="_blank"{{ end }}
+                        >
+                            {{ $icon := default "link" .Params.Icon }}
+                            {{ with $icon }}
+                                {{ partial "helper/icon" . }}
+                            {{ end }}
+                        </a>
+                    </li>
+                {{- end -}}
                 {{ if (default false .Site.Params.colorScheme.toggle) }}
                     <li id="dark-mode-toggle" title="{{ T `darkMode` }}">
                         {{ partial "helper/icon" "toggle-left" }}
