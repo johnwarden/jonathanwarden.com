@@ -1,0 +1,178 @@
+\documentclass[english,submission]{programming}
+
+% Programming Journal Art-track wrapper around the existing pandoc
+% pipeline (preprocess.py → pandoc → latexmk). Same listings/figure
+% helpers as template.tex; document class is programming.cls so the
+% page count is in the journal's 22-page main-body budget.
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{float}
+\raggedbottom
+\usepackage{mdframed}
+
+\renewenvironment{quote}{%
+  \begin{mdframed}[%
+    hidealllines=true,
+    backgroundcolor=black!4,
+    innerleftmargin=10pt, innerrightmargin=10pt,
+    innertopmargin=4pt, innerbottommargin=4pt,
+    skipabove=6pt, skipbelow=6pt
+  ]%
+  \itshape\sloppy\ignorespaces%
+}{%
+  \end{mdframed}%
+}
+\usepackage{longtable,booktabs,array}
+\usepackage{newunicodechar}
+\usepackage{needspace}
+
+\PassOptionsToPackage{hyphens}{url}
+
+\hyphenation{un-der-min-ing her-met-ic her-met-ic-i-ty pa-ram-e-ter-iz-ing pa-ram-e-ter-ized
+  ref-er-en-tial trans-par-en-cy ca-pa-bil-i-ty ca-pa-bil-i-ties cap-tur-ing
+  ar-gu-men-ta-tion ar-gu-ment in-ter-ac-tion in-ter-ac-tions com-po-si-tion
+  sto-ic-i-ty}
+
+\newunicodechar{∘}{\ensuremath{\circ}}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{≠}{\ensuremath{\neq}}
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{←}{\ensuremath{\leftarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{∉}{\ensuremath{\notin}}
+\newunicodechar{⊆}{\ensuremath{\subseteq}}
+\newunicodechar{∪}{\ensuremath{\cup}}
+\newunicodechar{∩}{\ensuremath{\cap}}
+\newunicodechar{∃}{\ensuremath{\exists}}
+\newunicodechar{∀}{\ensuremath{\forall}}
+\newunicodechar{π}{\ensuremath{\pi}}
+\newunicodechar{σ}{\ensuremath{\sigma}}
+\newunicodechar{ε}{\ensuremath{\varepsilon}}
+\newunicodechar{∅}{\ensuremath{\emptyset}}
+\newunicodechar{·}{\ensuremath{\cdot}}
+\newunicodechar{′}{\ensuremath{'}}
+\newunicodechar{…}{\ldots}
+
+% acmart \Description is a no-op here; preprocess.py still emits it.
+\providecommand{\Description}[1]{}
+
+\definecolor{lstbg}{rgb}{0.97,0.97,0.97}
+\definecolor{lstkw}{rgb}{0.05,0.30,0.60}
+\definecolor{lstcomment}{rgb}{0.45,0.45,0.45}
+\definecolor{lststring}{rgb}{0.60,0.10,0.10}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{lstkw}\bfseries,
+  commentstyle=\color{lstcomment}\itshape,
+  stringstyle=\color{lststring},
+  breaklines=true,
+  breakatwhitespace=false,
+  columns=fullflexible,
+  showstringspaces=false,
+  frame=single,
+  backgroundcolor=\color{lstbg},
+  aboveskip=1ex,
+  belowskip=1ex,
+  xleftmargin=0.5em,
+  xrightmargin=0.5em,
+}
+
+\lstdefinelanguage{typescript}{
+  keywords={
+    async,await,break,case,catch,class,const,continue,debugger,default,delete,
+    do,else,enum,export,extends,finally,for,function,if,implements,import,in,
+    instanceof,interface,let,namespace,new,null,private,protected,public,
+    readonly,return,static,super,switch,this,throw,try,type,typeof,undefined,
+    var,void,while,with,yield
+  },
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]',
+  morestring=[b]`
+}
+
+\lstdefinelanguage{rust}{
+  keywords={
+    as,async,await,box,break,const,continue,crate,dyn,else,enum,extern,false,
+    fn,for,if,impl,in,let,loop,match,mod,move,mut,pub,ref,return,self,Self,
+    static,struct,super,trait,true,type,unsafe,use,where,while
+  },
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]"
+}
+
+\lstdefinelanguage{go}{
+  keywords={
+    break,case,chan,const,continue,default,defer,else,fallthrough,for,func,
+    go,goto,if,import,interface,map,package,range,return,select,struct,
+    switch,type,var
+  },
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]`
+}
+
+\lstdefinelanguage{scala}{
+  keywords={
+    abstract,case,catch,class,def,do,else,extends,false,final,finally,for,
+    forSome,given,if,implicit,import,lazy,match,new,null,object,override,
+    package,private,protected,return,sealed,super,this,throw,trait,true,try,
+    type,using,val,var,while,with,yield
+  },
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]"
+}
+
+\lstalias{haskell}{Haskell}
+\lstalias{python}{Python}
+
+\graphicspath{{../../}}
+
+\title{$if(title)$$title$$else$Untitled$endif$}
+\subtitle{Parameterizing Access to State}
+\titlerunning{Inert Programming}
+
+\author{Jonathan R. Warden}
+\authorinfo{Contact him at \email{john.warden@gmail.com}.}
+\affiliation{Social Protocols}
+
+\keywords{inertness, stoicity, hermeticity, capability security, purity}
+
+\ccsdesc[500]{Software and its engineering~Language features}
+\ccsdesc[300]{Software and its engineering~General programming languages}
+\ccsdesc[300]{Security and privacy~Software security engineering}
+
+\paperdetails{
+  perspective=art,
+  area={Programming languages, Language design},
+}
+
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\passthrough}[1]{#1}
+\providecommand{\pandocbounded}[1]{#1}
+
+\begin{document}
+
+\maketitle
+
+$if(abstract)$
+\begin{abstract}
+\sloppy
+$abstract$
+\end{abstract}
+$endif$
+
+$body$
+
+\end{document}

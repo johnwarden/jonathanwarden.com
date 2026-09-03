@@ -5,20 +5,41 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SRC_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 OUT_DIR="$SCRIPT_DIR/out"
 
+# acm = existing Onward/acmart path (default, so prior recipes keep working)
+# pj  = Programming Journal Art class (22-page main-body budget)
+TARGET="${1:-acm}"
+
+case "$TARGET" in
+  acm)
+    TEMPLATE="$SCRIPT_DIR/template.tex"
+    ABSTRACT="$SRC_DIR/abstract.md"
+    JOB="hermeticity"
+    ;;
+  pj)
+    TEMPLATE="$SCRIPT_DIR/template-pj.tex"
+    ABSTRACT="$SRC_DIR/pj-art-abstract.md"
+    JOB="inert-programming"
+    ;;
+  *)
+    echo "Usage: $0 [acm|pj]" >&2
+    exit 2
+    ;;
+esac
+
 mkdir -p "$OUT_DIR"
 
 # 1) Preprocess markdown: strip Hugo frontmatter & embedded HTML, rewrite figures.
 python3 "$SCRIPT_DIR/preprocess.py" "$SRC_DIR/index.md" > "$OUT_DIR/processed.md"
 
-# 2) Pandoc → LaTeX with the acmart template + Lua filter.
+# 2) Pandoc → LaTeX with the selected template + Lua filter.
 pandoc "$OUT_DIR/processed.md" \
-  --metadata-file="$SRC_DIR/abstract.md" \
-  --template="$SCRIPT_DIR/template.tex" \
+  --metadata-file="$ABSTRACT" \
+  --template="$TEMPLATE" \
   --lua-filter="$SCRIPT_DIR/transform.lua" \
   --listings \
   --standalone \
   --shift-heading-level-by=-1 \
-  --output="$OUT_DIR/hermeticity.tex"
+  --output="$OUT_DIR/${JOB}.tex"
 
 # 3) LaTeX → PDF (run from out/ so \graphicspath{{../../}} resolves to the
 #    hermeticity source dir where the PNGs live).
@@ -27,10 +48,15 @@ if ! command -v latexmk >/dev/null 2>&1; then
   exit 1
 fi
 
+# programming.cls lives next to this script; copy so latexmk finds it from out/.
+if [[ "$TARGET" == "pj" ]]; then
+  cp "$SCRIPT_DIR/programming.cls" "$OUT_DIR/programming.cls"
+fi
+
 cd "$OUT_DIR"
 # lualatex handles UTF-8 natively, including inside listings (\lstinline).
 # pdflatex's listings is byte-level and chokes on chars like ∘, ≈, π.
-latexmk -lualatex -interaction=nonstopmode -halt-on-error hermeticity.tex
+latexmk -lualatex -interaction=nonstopmode -halt-on-error "${JOB}.tex"
 
 echo
-echo "PDF written to: $OUT_DIR/hermeticity.pdf"
+echo "PDF written to: $OUT_DIR/${JOB}.pdf"

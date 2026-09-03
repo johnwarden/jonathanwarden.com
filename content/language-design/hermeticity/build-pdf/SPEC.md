@@ -4,7 +4,12 @@ What this directory does, what every decision was, and why.
 
 ## Goal
 
-Produce a print-ready PDF of `index.md` in **ACM SIGPLAN acmart** format from the same markdown source the Hugo site already publishes. Markdown is the source of truth; everything in this directory is regenerable.
+Produce a print-ready PDF of `index.md` from the same markdown source the Hugo site already uses. Markdown is the source of truth; everything in this directory is regenerable.
+
+Two classes share this pipeline:
+
+- `./build.sh` / `./build.sh acm` — **ACM SIGPLAN acmart** (`out/hermeticity.pdf`), the original Onward path.
+- `./build.sh pj` / `devbox run pj` / `just pj` — **Programming Journal** `programming.cls` (`out/inert-programming.pdf`), Art-track layout, for the 22-page main-body budget. The structured 500-word abstract is the sidecar `../pj-art-abstract.md`; the essay voice in `../abstract.md` is left alone.
 
 ## Pipeline
 
