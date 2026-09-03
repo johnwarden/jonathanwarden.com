@@ -54,6 +54,12 @@ if [[ "$TARGET" == "pj" ]]; then
 fi
 
 cd "$OUT_DIR"
+# lualatex (LuaTeX ≥1.17) exits immediately if LC_ALL/LANG is not an
+# *exact* generated locale name. This image lists `en_US.utf8` but the
+# environment exports `en_US.UTF-8`, which LuaTeX rejects with
+# "Unable to read environment locale: exit now." C.UTF-8 is generated
+# here and is enough for Unicode source.
+export LANG=C.UTF-8 LC_ALL=C.UTF-8
 # lualatex handles UTF-8 natively, including inside listings (\lstinline).
 # pdflatex's listings is byte-level and chokes on chars like ∘, ≈, π.
 latexmk -lualatex -interaction=nonstopmode -halt-on-error "${JOB}.tex"
