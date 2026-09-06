@@ -7,7 +7,9 @@ tags: ['Argumentation Theory']
 series: ['Bayesian Argumentation']
 weight: 74
 summary: ''
-canonical_url: https://jonathanwarden.com/warrants-and-corelevance/
+canonical_url: https://jonathanwarden.com/bayesian-warrants/
+aliases:
+- /warrants-and-corelevance/
 
 ---
 
