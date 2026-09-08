@@ -122,9 +122,11 @@ params:
         content:
             enabled: true
 
-### Custom menu
-### See https://docs.stack.jimmycai.com/configuration/custom-menu.html
-### To remove about, archive and search page menu item, remove `menu` field from their FrontMatter
+### Compact header (Home / About / Writing) from menu.main.
+### Stack has no switch to hide the left sidebar; layouts/_default/baseof.html
+### skips it (and does not use `extended`, which assumes a left rail).
+### Search is in the homepage main column. To drop a header item, remove
+### `menu` from that page's FrontMatter.
 menu:
 
 
@@ -143,8 +145,15 @@ menu:
           params:
               icon: brand-twitter
 
-        - identifier: linkedin
+        - identifier: bluesky
+          name: Bluesky
           weight: 3
+          url: https://bsky.app/profile/jonathanwarden.com
+          params:
+              icon: brand-bluesky
+
+        - identifier: linkedin
+          weight: 4
           name: LinkedIn
           url: https://www.linkedin.com/in/jonathan-r-warden-4aa2357/
           params:

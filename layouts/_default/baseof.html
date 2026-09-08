@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}" dir="{{ default `ltr` .Language.LanguageDirection }}">
+    <head>
+        {{- partial "head/head.html" . -}}
+        {{- block "head" . -}}{{ end }}
+    </head>
+    <body class="{{ block `body-class` . }}{{ end }}">
+        {{- partial "head/colorScheme" . -}}
+
+        {{/* Stack has no header-menu switch. Skip the left rail entirely.
+             Do not use `extended`: that width is for left + main + right.
+             Page TOC/series only render when this page actually has them. */}}
+        {{- partial "header/compact.html" . -}}
+
+        {{- $showPageWidgets := or (.Scratch.Get "TOCEnabled") .Params.series -}}
+        <div class="container main-container flex on-phone--column measure{{ if $showPageWidgets }} has-page-widgets{{ end }}">
+            {{- if $showPageWidgets -}}
+                {{- block "right-sidebar" . -}}{{ end }}
+            {{- end -}}
+            <main class="main full-width">
+                {{- block "main" . }}{{- end }}
+            </main>
+        </div>
+        {{ partial "footer/include.html" . }}
+    </body>
+
+</html>

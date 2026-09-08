@@ -1,3 +1,107 @@
+/* Shared reading measure for header + main. Do not use Stack `extended`
+   (that width assumes a left rail). New classes only. */
+$compact-measure: 960px;
+
+.compact-nav {
+    width: 100%;
+    border-bottom: 1px solid var(--card-separator-color);
+    background: var(--body-background);
+
+    &__inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem 1.25rem;
+        max-width: $compact-measure;
+        margin: 0 auto;
+        padding: 0.85rem 15px;
+
+        @include respond(md) {
+            padding: 0.85rem 20px;
+        }
+    }
+
+    &__brand {
+        color: var(--accent-color);
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    &__menu ol {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1.25rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__menu a {
+        color: var(--body-text-color);
+        text-decoration: none;
+    }
+
+    &__menu .current a {
+        color: var(--accent-color);
+        font-weight: 700;
+    }
+
+    &__social a {
+        display: inline-flex;
+        color: var(--body-text-color);
+    }
+
+    &__social svg {
+        width: 20px;
+        height: 20px;
+        stroke: currentColor;
+        stroke-width: 1.33;
+    }
+
+    #dark-mode-toggle {
+        margin-top: 0;
+
+        svg {
+            stroke: currentColor;
+            stroke-width: 1.33;
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
+
+.article-content .about-intro {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2em;
+    margin: 0 0 1.5em;
+
+    .photo {
+        flex-shrink: 0;
+        width: 120px;
+        height: 120px;
+        border-radius: 100%;
+        object-fit: cover;
+    }
+
+    p {
+        margin: 0;
+        min-width: 0;
+    }
+}
+
+.container.main-container.measure {
+    max-width: $compact-measure;
+    /* html font-size is 62.5%, so 1rem = 10px */
+    --right-sidebar-max-width: 22rem;
+}
+
+.homepage-search {
+    width: 100%;
+}
+
 /* Default article style */
 .article-list {
     article {
