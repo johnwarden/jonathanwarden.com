@@ -41,6 +41,12 @@ menu:
     </a>
 </li>
 
+<li>
+    <a href="https://www.linkedin.com/in/jonathan-r-warden-4aa2357/" target="_blank" title="linkedin.com/in/jonathan-r-warden-4aa2357" rel="me">
+        {{< readfile file="/assets/icons/brand-linkedin.svg">}} https://www.linkedin.com/in/jonathan-r-warden-4aa2357/
+    </a>
+</li>
+
 
 </ol>
 

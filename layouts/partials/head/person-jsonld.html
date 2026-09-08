@@ -1,0 +1,53 @@
+{{/*
+  Site-wide Schema.org Person (+ WebSite) JSON-LD.
+
+  hugo-theme-stack has no author JSON-LD params. Identity URLs are the
+  verified sameAs set only — do not invent profiles here.
+*/}}
+{{- $personID := "https://jonathanwarden.com/#person" -}}
+{{- $siteURL := "https://jonathanwarden.com/" -}}
+{{- $aboutURL := "https://jonathanwarden.com/page/about/" -}}
+{{- $sameAs := slice
+    $siteURL
+    $aboutURL
+    "https://github.com/johnwarden"
+    "https://twitter.com/johnwarden"
+    "https://bsky.app/profile/jonathanwarden.com"
+    "https://www.linkedin.com/in/jonathan-r-warden-4aa2357/"
+    "https://social-protocols.org/"
+-}}
+{{- $person := dict
+    "@type" "Person"
+    "@id" $personID
+    "name" "Jonathan Warden"
+    "alternateName" "Jonathan R. Warden"
+    "url" $siteURL
+    "image" "https://jonathanwarden.com/assets/images/jonathan-profile-photo-2.png"
+    "description" "Jonathan Warden is a philosophical software engineer working on building technologies to make conversations on the Internet more intelligent and less polarizing."
+    "jobTitle" "Software engineer"
+    "sameAs" $sameAs
+    "affiliation" (dict
+        "@type" "Organization"
+        "name" "Social Protocols"
+        "url" "https://social-protocols.org/"
+    )
+-}}
+{{- $website := dict
+    "@type" "WebSite"
+    "@id" "https://jonathanwarden.com/#website"
+    "url" $siteURL
+    "name" .Site.Title
+    "author" (dict "@id" $personID)
+    "publisher" (dict "@id" $personID)
+-}}
+{{- $graph := slice $person $website -}}
+{{- if eq .RelPermalink "/page/about/" -}}
+    {{- $graph = $graph | append (dict
+        "@type" "ProfilePage"
+        "@id" $aboutURL
+        "url" $aboutURL
+        "name" "About"
+        "mainEntity" (dict "@id" $personID)
+    ) -}}
+{{- end -}}
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@graph" $graph | jsonify | safeJS }}</script>
