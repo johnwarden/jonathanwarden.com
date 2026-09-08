@@ -12,7 +12,7 @@ menu:
 
 <div class="about-intro">
 <img src="/assets/images/jonathan-profile-photo-2.png" alt="Jonathan Warden" class="photo"/>
-<p>Jonathan Warden is a philosophical software engineer working on building technologies to make conversations on the Internet more intelligent and less polarizing. He built <a href="https://7stems.net/">Seven Stems</a>, a free website and method for learning Spanish verb conjugation.</p>
+<p>Jonathan Warden is a philosophical software engineer working on building technologies to make conversations on the Internet more intelligent and less polarizing.</p>
 </div>
 
 

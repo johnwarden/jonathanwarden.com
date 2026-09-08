@@ -13,10 +13,6 @@ links:
     description: Research on intelligent social networks
     website: https://social-protocols.org
 
-  - title: Seven Stems
-    description: Spanish verb conjugation method and tables
-    website: https://7stems.net
-
   - title: Twitter
     description: "@johnwarden on Twitter"
     website: https://twitter.com/johnwarden
