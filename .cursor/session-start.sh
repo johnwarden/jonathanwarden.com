@@ -5,7 +5,7 @@
 # Optional .cursor/trunk: one line naming the integration branch (default main).
 set -u
 if [[ -d .githooks ]]; then
-  git config core.hooksPath=.githooks
+  git config core.hooksPath .githooks
 fi
 
 trunk=main
