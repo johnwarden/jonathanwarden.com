@@ -1,7 +1,8 @@
 # Hermeticity PDF builds.
 #
-# just        → build both color and B&W PDFs
-# just pdf    → color PDF only
+# just        → build both color and B&W PDFs (existing acmart path)
+# just pdf    → color PDF only (acmart)
+# just pj     → Programming Journal Art class (22-page main-body budget)
 # just bw     → B&W PDF (rebuilds color first)
 # just clean  → remove out/
 
@@ -10,8 +11,11 @@ default: build
 build: pdf bw
 
 pdf:
-    ./build.sh
+    ./build.sh acm
     open out/hermeticity.pdf
+
+pj:
+    ./build.sh pj
 
 bw: pdf
     gs -sDEVICE=pdfwrite \

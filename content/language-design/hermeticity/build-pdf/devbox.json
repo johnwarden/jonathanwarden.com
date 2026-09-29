@@ -11,6 +11,9 @@
       "build": [
         "./build.sh"
       ],
+      "pj": [
+        "./build.sh pj"
+      ],
       "clean": [
         "rm -rf out"
       ]

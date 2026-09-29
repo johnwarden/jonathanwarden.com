@@ -4,7 +4,28 @@ What this directory does, what every decision was, and why.
 
 ## Goal
 
-Produce a print-ready PDF of `index.md` in **ACM SIGPLAN acmart** format from the same markdown source the Hugo site already publishes. Markdown is the source of truth; everything in this directory is regenerable.
+Produce a print-ready PDF of `index.md` from the same markdown source the Hugo site already uses. Markdown is the source of truth; everything in this directory is regenerable.
+
+Two classes share this pipeline:
+
+- `./build.sh` / `./build.sh acm` — **ACM SIGPLAN acmart** (`out/hermeticity.pdf`), the original Onward path.
+- `./build.sh pj` / `devbox run pj` / `just pj` — **Programming Journal** `programming.cls` (`out/inert-programming.pdf`), Art-track layout, for the 22-page main-body budget. The structured 500-word abstract is the sidecar `../pj-art-abstract.md`; the essay voice in `../abstract.md` is left alone.
+
+### Measured page count (Programming Journal class)
+
+Built 2026-09-03 with `devbox run pj` (`programming.cls` v8.1, A4, 11pt, single column):
+
+| Region | Pages | Notes |
+| --- | --- | --- |
+| Main body | **16** of 22 | Title/abstract p.1; Introduction p.2; Conclusion ends p.16 |
+| Appendices | 17–21 | Unlimited |
+| References | 22–23 | Unlimited |
+| About the author | 24 | Class `\AtEndDocument` |
+| **Total** | **24** | 6 pages of main-body headroom |
+
+ACM acmart path still works: `out/hermeticity.pdf` is 11 pages (2-column). That count is **not** the journal budget.
+
+LuaLaTeX locale note: this class of host often exports `LC_ALL=en_US.UTF-8` while `locale -a` lists `en_US.utf8`. LuaTeX ≥1.17 then exits with `Unable to read environment locale`. `build.sh` now forces `C.UTF-8` for the latexmk step.
 
 ## Pipeline
 
@@ -35,8 +56,11 @@ Run with `devbox run build` (or `./build.sh` from inside `devbox shell` — `.en
 | `preprocess.py`   | Markdown rewriter (see *Decisions* below). |
 | `transform.lua`   | Pandoc Lua filter: glossary div, inline code, tables, code-block placement. |
 | `template.tex`    | Pandoc LaTeX template: acmart preamble, listings setup, restyles. |
+| `template-pj.tex` | Same pipeline, `programming.cls` (Art / submission). |
+| `programming.cls` | Vendored journal class (v8.1, from programming-journal/programming). |
 | `out/`            | Generated `.tex`, `.pdf`, `.aux`, etc. (gitignored) |
-| `../abstract.md`  | YAML front-matter holding the abstract; merged in via `pandoc --metadata-file`. |
+| `../abstract.md`  | Essay-voice abstract for the acmart path. |
+| `../pj-art-abstract.md` | Structured 500-word Art-track sidecar (Context…Importance). |
 
 ## Build-time decisions
 

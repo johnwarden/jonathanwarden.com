@@ -1,6 +1,6 @@
 ---
 
-title: "Hermetic Programming: Parameterizing Access to State"
+title: "Inert Programming"
 slug: "hermetic-programming"
 
 # image: image.png
@@ -64,6 +64,8 @@ Here, `main` is a **hermetic function**:
 
 > A function is hermetic iff it does not access existing state except through its parameters.
 
+This function-level restriction is stoicity [Liu et al. 2020]. This essay does not claim that property as new. What remains is inertness as a property of values, and the consequences of a stoic `main`.
+
 If `main` is hermetic, then any function it depends on must also be hermetic—otherwise `main` is indirectly accessing existing state. So a hermetic `main` eliminates **ambient authority** [Yee et al. 2003] by requiring all capabilities to be explicitly passed as parameters. This aligns with the defining discipline of **object-capability languages** [Miller 2006], where authority over state is conveyed by explicit, unforgeable references. If both “dependencies” and “authority” are taken to include *any stateful resource*, then “inject all dependencies” and “explicit capability passing” become the same language property. That property is obtained by making `main` hermetic.
 
 In a **hermetic programming language**, function parameters act like hermetically sealed channels through which all access to state flows. Whether writing to a file, reading a channel, or mutating a buffer, the caller controls the world the function can see. Deterministic time? Pass a fake clock. Capture standard output? Pass a mock console. Every potential access to state is visible at the call boundary. Function signatures become dependency manifests. No hidden inputs. No undeclared effects.
@@ -102,6 +104,8 @@ alt="Figure 1. Illustration of hermetic vs non-hermetic functions."/>
 It is *interaction* with state that makes a function impure, not access. The most widely accepted definition of purity is **referential transparency**: an expression can be replaced by its value in any program context without changing observable[^observable] behavior. A function fails referential transparency when evaluation interacts with **observable state**: either it *affects* state, or it is *affected by* state and so can return different results for the same inputs.
 
 So hermeticity is both more and less strict than purity. A hermetic function may interact with the world as long as it is not hard-wired to it. A pure function may be hard-wired to the world as long as it does not interact with it.
+
+Gordon’s use/mention distinction is useful here: purity is a use/interaction property, while inertness is a mention/access property [Gordon 2020]. A live value can still be referentially transparent. Mutability is not the axis—an immutable or read-only value may still convey observational authority, and in a pure functional setting mutability is the wrong category. Scala’s capture-checking documentation uses “pure” for types with empty capture sets; that is internally coherent, but it overloads a term that traditionally means something else in functional programming.
 
 <div class="example-label">Interaction vs Access Grid: Examples</div>
 
@@ -144,7 +148,7 @@ Terms used so far in this essay:
 * **expose**: to return a live value or write it into **observable state**
 * **access**: to **interact with or expose** state
 * **pure**: no **interaction** with **observable state**
-* **hermetic**: no **access** to **non-parameterized state**
+* **hermetic**: no **access** to **non-parameterized state** (stoicity; not claimed as new)
 
 </aside>
 
@@ -218,6 +222,8 @@ There are two sources of live free identifiers in a language:
 
 > A hermetic programming language implies an **inert ambient scope**.
 
+Dependency injection, object-capability discipline, Joe-E’s universal scope, and Melicher et al.’s pure modules already describe this idea [Fowler 2004; Miller 2006; Mettler et al. 2009; Melicher et al. 2017]. The design question this essay takes up is what follows if `main` is stoic.
+
 If the ambient scope contains even one live identifier, then any function can reach out and access ambient state.
 
 #### Inert Packages
@@ -256,6 +262,8 @@ So languages face a design choice:
 1. **Allow live closures**: higher-order function values may carry captured authority. This may be desirable in languages where partial application and higher-order functions are idiomatic.
 
 2. **Take the closures-as-objects view**: a closure with a hidden environment is treated not as a function value, but as an object with a hermetic `apply` method.[^defun]
+
+Capture checking is more flexible than this syntactic discipline; this essay does not claim it is moot, and it is not the topic here.
 
 ### Hermetic Language Properties
 
@@ -434,7 +442,7 @@ Purity guarantees that code does not interact with observable state when evaluat
 
 When we think of “pure” data, we may imagine something cleanly serializable into a format like JSON. But the quality we are really reaching for is not purity but **inertness**. References, channels, closures, and effect values are the living machinery of computation, rooted in their execution environment. Integers, strings, and lists are inert matter being computed.
 
-**Hermeticity is inertness applied to functions.** A hermetic function may not be pure, but it is pure functionality. Since it cannot access state directly, it must be plugged into live parameters to do anything in the world.
+**Hermeticity is inertness applied to functions.** The function-level rule is stoicity; this essay does not claim that rule as new. A hermetic function may not be pure, but it is pure functionality. Since it cannot access state directly, it must be plugged into live parameters to do anything in the world.
 
 The inert/live distinction applies even in pure functional languages. Inert/live and pure/impure are independent axes of “clean.” Hermetic and functional programming are complementary.
 
@@ -535,7 +543,7 @@ A hermetic function can expose **fresh** state that it allocates during the call
 * **graft**: to write a live value into observable state
 * **mint**: to expose fresh state by causing it to escape
 * **pure**: no **interaction** with **observable state**
-* **hermetic**: no **access** to **free state**
+* **hermetic**: no **access** to **free state** (stoicity; not claimed as new)
 * **identifier**: any binding or name-to-value association that can be referred to in a function definition
 * **live identifier**: any identifier whose value is live
 * **free identifier**, relative to a function definition: any identifier that is not a parameter or local variable
@@ -632,6 +640,8 @@ It follows that in a hermetic programming language, exported types must be herme
 
 **[Fowler 2004]** Martin Fowler, *Inversion of Control Containers and the Dependency Injection pattern* (2004). <https://martinfowler.com/articles/injection.html>
 
+**[Gordon 2020]** Colin S. Gordon, *Designing with Static Capabilities and Effects: Use, Mention, and Invariants* (ECOOP 2020). <https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ECOOP.2020.10>
+
 **[Go net/http docs]** Go standard library documentation, `net/http.Serve`. <https://pkg.go.dev/net/http#Serve>
 
 **[Google Testing Blog 2012]** Google Testing Blog, *Hermetic Servers* (2012). <https://testing.googleblog.com/2012/10/hermetic-servers.html>
@@ -641,6 +651,10 @@ It follows that in a hermetic programming language, exported types must be herme
 **[hyper-h2]** Python Hyper Project, `hyper-h2`. <https://github.com/python-hyper/h2>
 
 **[Lampson 1973]** Butler W. Lampson, *A Note on the Confinement Problem* (Communications of the ACM, 1973). <https://www.cs.cornell.edu/andru/cs711/2003fa/reading/lampson73note.pdf>
+
+**[Liu et al. 2020]** Fengyun Liu, Sandro Stucki, Nada Amin, Paolo G. Giarrusso, and Martin Odersky, *Stoic: Towards Disciplined Capabilities* (2020). <https://infoscience.epfl.ch/handle/20.500.14299/164482>
+
+**[Melicher et al. 2017]** Darya Melicher, Yangqingwei Shi, Alex Potanin, and Jonathan Aldrich, *A Capability-Based Module System for Authority Control* (ECOOP 2017). <https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ECOOP.2017.20>
 
 **[Mettler et al. 2009]** Adrian Mettler, Tyler Close, and David Wagner, *Joe-E Specification* (2009). <https://people.eecs.berkeley.edu/~daw/joe-e/spec-20090918.pdf>
 
