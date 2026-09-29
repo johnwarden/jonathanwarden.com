@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-# Canonical: /home/box/deliberati/ops/session-start.sh
-# Copy to each shipping repo as .cursor/session-start.sh and set
-# environment.json "start" to that path. Cursor runs start on every
-# Cloud Agent boot (detached). The agent should not have to fetch/pull.
+# Cursor Cloud boot hook. environment.json "start" points here.
+# Runs on every Cloud Agent boot (detached). The agent should not have to fetch/pull.
 set -u
 if [[ -d .githooks ]]; then
   git config core.hooksPath .githooks
