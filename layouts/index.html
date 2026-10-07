@@ -4,14 +4,14 @@
         {{- partial "widget/search.html" (dict "Context" . "Params" (dict)) -}}
     </div>
 
-    {{- /* First <p> from About only. Do not invent bio copy or pull the photo. */ -}}
+    {{- /* First rendered About <p> only. Allow inline markup; do not re-escape or pull the photo. */ -}}
     {{- with .Site.GetPage "/page/about" -}}
         {{- $about := . -}}
-        {{- $paragraphs := findRE `<p>[^<]+</p>` .RawContent 1 -}}
+        {{- $paragraphs := findRE `(?s)<p\b[^>]*>.*?</p>` .Content 1 -}}
         {{- with index $paragraphs 0 -}}
-            {{- $sentence := . | replaceRE `</?p>` "" -}}
+            {{- $inner := . | replaceRE `(?s)^<p\b[^>]*>` "" | replaceRE `(?s)</p>\s*$` "" -}}
             <section class="homepage-bio">
-                <p>{{ $sentence }} <a href="{{ $about.RelPermalink }}">More</a></p>
+                <p>{{ $inner | safeHTML }} <a href="{{ $about.RelPermalink }}">More</a></p>
             </section>
         {{- end -}}
     {{- end -}}
