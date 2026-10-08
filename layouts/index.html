@@ -4,6 +4,18 @@
         {{- partial "widget/search.html" (dict "Context" . "Params" (dict)) -}}
     </div>
 
+    {{- /* First rendered About <p> only. Allow inline markup; do not re-escape or pull the photo. */ -}}
+    {{- with .Site.GetPage "/page/about" -}}
+        {{- $about := . -}}
+        {{- $paragraphs := findRE `(?s)<p\b[^>]*>.*?</p>` .Content 1 -}}
+        {{- with index $paragraphs 0 -}}
+            {{- $inner := . | replaceRE `(?s)^<p\b[^>]*>` "" | replaceRE `(?s)</p>\s*$` "" -}}
+            <section class="homepage-bio">
+                <p>{{ $inner | safeHTML }} <a href="{{ $about.RelPermalink }}">More</a></p>
+            </section>
+        {{- end -}}
+    {{- end -}}
+
      <section class="article-list" style="gap: 10px">
      {{ range $section := where .Site.Sections "Type" "not in" ("pages") }}
 <!--         <h3>

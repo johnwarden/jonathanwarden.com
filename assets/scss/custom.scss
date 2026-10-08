@@ -102,6 +102,19 @@ $compact-measure: 960px;
     width: 100%;
 }
 
+/* Homepage reuses the About sentence; keep this as prose, not the photo intro. */
+.homepage-bio {
+    font-family: var(--article-font-family);
+    font-size: var(--article-font-size);
+    line-height: var(--article-line-height);
+    color: var(--card-text-color-main);
+    margin: 1.25em 0 1.75em;
+
+    p {
+        margin: 0;
+    }
+}
+
 /* Default article style */
 .article-list {
     article {
