@@ -1,0 +1,8 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/main/.schema/devbox.schema.json",
+  "packages": {
+    "hugo": "0.145.0",
+    "just": "latest",
+    "git": "latest"
+  }
+}

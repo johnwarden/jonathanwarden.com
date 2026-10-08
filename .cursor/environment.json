@@ -1,3 +1,8 @@
 {
+  "build": {
+    "dockerfile": ".cursor/Dockerfile",
+    "context": ".."
+  },
+  "install": "git submodule update --init --recursive",
   "start": ".cursor/session-start.sh"
 }
