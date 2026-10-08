@@ -3,3 +3,8 @@
 resources/_gen
 public/
 _drafts/
+/.devbox/
+/.direnv/
+/.env
+/.env.*
+!/.env.example
