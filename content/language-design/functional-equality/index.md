@@ -383,11 +383,12 @@ This table summarizes the rules for several popular programming languages
 | Rust | No | No | == (via PartialEq/Eq) | Yes (impl trait) | Yes (newtypes/structs) | No |
 | C++ | No | No | operator== (User-Defined) | Yes (operator==) | Yes (constructors) | No |
 | C# | No | No | == | Yes (operator ==) | Yes (constructors) | No |
-| Ruby | Numbers | == | self.class == other.class && self == other | Yes (override ==) | Yes (initialize for normalization) | No |
+| Ruby | Numbers | == (Rational == Float approximates) | self.class == other.class && self == other | Yes (override ==) | Yes (initialize for normalization) | No |
 | Perl | Numbers | No | $x == $y (numeric context) | No (== is built-in) | No | Yes (unified scalars) |
 | Scheme | Numbers (via =) | = | eqv? | No | Yes (rationals only) | Partial (numeric tower) |
 | Lua (pre-5.3) | N/A (single number type) | == (doubles only) | == | Yes (__eq metamethod) | No | Yes (uniform doubles) |
 | Elixir | Numbers | == | === | No | No | No |
+| Zig | Numbers (peer types) | == | == / std.meta.eql | No | No | No |
 
 
 
