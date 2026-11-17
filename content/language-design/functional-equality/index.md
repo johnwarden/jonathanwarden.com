@@ -368,25 +368,27 @@ A language that provided a single canonical interface for numbers, but still all
 ### Comparison Across Languages
 
 This table summarizes the rules for several popular programming languages
-| Language | Cross-Type `==` Comparison | Functional Equality Test | Equality Operator Overloading | Normalization on Initialization | Canonical Numbers |
-| - | - | - | - | - | - |
-| Go | No | == | No | No | No |
-| JavaScript | Abstract Equality Comparison algorithm | === | No | No | Yes (Number as doubles) |
-| TypeScript | Abstract Equality Comparison algorithm | === | No | No | Yes (Number as doubles) |
-| Python | Numbers and Truthy Values | type(x) == type(y) and x == y | Yes (__eq__) | Yes (__init__ for normalization) | No |
-| Haskell | No | == (User-Defined via Eq) | Yes (typeclass) | Yes (newtypes for wrapping) | Partial (numeric tower) |
-| Swift | No | == | Yes (Equatable protocol) | Yes (init for normalization) | No |
-| Kotlin | Numbers | === | Yes (override equals()) | Yes (init for normalization) | No |
-| Julia | Numbers | === | Yes (methods) | Yes (constructors) | Partial (numeric tower) |
-| Java | No | == | No | Yes (constructors) | No |
-| Scala | Numbers | x.getClass == y.getClass && x == y | Yes (override equals) | Yes (apply in companion object) | No |
-| Rust | No | == (via PartialEq/Eq) | Yes (impl trait) | Yes (newtypes/structs) | No |
-| C++ | No | operator== (User-Defined) | Yes (operator==) | Yes (constructors) | No |
-| C# | No | == | Yes (operator ==) | Yes (constructors) | No |
-| Ruby | Numbers | self.class == other.class && self == other | Yes (override ==) | Yes (initialize for normalization) | No |
-| Perl | Numbers | $x == $y (numeric context) | No (== is built-in) | No | Yes (unified scalars) |
-| Scheme | Numbers (via =) | eqv? | No | Yes (rationals only) | Partial (numeric tower) |
-| Lua (pre-5.3) | N/A (single number type) | == | Yes (__eq metamethod) | No | Yes (uniform doubles) |
+| Language | Cross-Type `==` Comparison | Exact Numeric Equality | Functional Equality Test | Equality Operator Overloading | Normalization on Initialization | Canonical Numbers |
+| - | - | - | - | - | - | - |
+| Go | No | No | == | No | No | No |
+| JavaScript | Abstract Equality Comparison algorithm | ==/=== (Number); == (BigInt) | === | No | No | Yes (Number as doubles) |
+| TypeScript | Abstract Equality Comparison algorithm | ==/=== (Number); == (BigInt) | === | No | No | Yes (Number as doubles) |
+| Python | Numbers and Truthy Values | == | type(x) == type(y) and x == y | Yes (__eq__) | Yes (__init__ for normalization) | No |
+| Haskell | No | toRational x == toRational y | == (User-Defined via Eq) | Yes (typeclass) | Yes (newtypes for wrapping) | Partial (numeric tower) |
+| Swift | No | No | == | Yes (Equatable protocol) | Yes (init for normalization) | No |
+| Kotlin | Numbers | No | === | Yes (override equals()) | Yes (init for normalization) | No |
+| Julia | Numbers | == | === | Yes (methods) | Yes (constructors) | Partial (numeric tower) |
+| Java | No | No | == | No | Yes (constructors) | No |
+| Scala | Numbers | No | x.getClass == y.getClass && x == y | Yes (override equals) | Yes (apply in companion object) | No |
+| Rust | No | No | == (via PartialEq/Eq) | Yes (impl trait) | Yes (newtypes/structs) | No |
+| C++ | No | No | operator== (User-Defined) | Yes (operator==) | Yes (constructors) | No |
+| C# | No | No | == | Yes (operator ==) | Yes (constructors) | No |
+| Ruby | Numbers | == (Rational == Float approximates) | self.class == other.class && self == other | Yes (override ==) | Yes (initialize for normalization) | No |
+| Perl | Numbers | No | $x == $y (numeric context) | No (== is built-in) | No | Yes (unified scalars) |
+| Scheme | Numbers (via =) | = | eqv? | No | Yes (rationals only) | Partial (numeric tower) |
+| Lua (pre-5.3) | N/A (single number type) | == (doubles only) | == | Yes (__eq metamethod) | No | Yes (uniform doubles) |
+| Elixir | Numbers | == | === | No | No | No |
+| Zig | Numbers (peer types) | == | == / std.meta.eql | No | No | No |
 
 
 
